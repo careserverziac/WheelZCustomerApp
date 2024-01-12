@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WheelZOnline</string>
+    <color name="othertext">#E80325</color>
 </resources>
