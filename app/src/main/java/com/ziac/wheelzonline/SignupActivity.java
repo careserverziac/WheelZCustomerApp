@@ -112,11 +112,11 @@ public class SignupActivity extends AppCompatActivity {
                 if (event.getRawX() >= Password.getRight() - Password.getCompoundDrawables()[Right].getBounds().width()) {
                     int selection = Password.getSelectionEnd();
                     if (passwordVisible) {
-                        Password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_remove_red_eye_on, 0);
+                        Password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0);
                         Password.setTransformationMethod(PasswordTransformationMethod.getInstance());
                         passwordVisible = false;
                     } else {
-                        Password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_off, 0);
+                        Password.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_eyes, 0);
                         Password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                         passwordVisible = true;
                     }
@@ -133,12 +133,12 @@ public class SignupActivity extends AppCompatActivity {
                 if (event.getRawX() >= Cpassword.getRight() - Cpassword.getCompoundDrawables()[Right].getBounds().width()) {
                     int selection = Cpassword.getSelectionEnd();
                     if (passwordvisible) {
-                        Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_remove_red_eye_on, 0);
+                        Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0);
                         Cpassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                         passwordvisible = false;
 
                     } else {
-                        Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_visibility_off, 0);
+                        Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_eyes, 0);
                         Cpassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                         passwordvisible = true;
 
@@ -174,7 +174,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if (name.isEmpty()) {
-            Name.setError("Company name field is missing !!");
+            Name.setError("Name field is missing !!");
             Name.requestFocus();
             return;
         }
@@ -274,7 +274,7 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         progressDialog.show();
-     /*   RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlregistration,
                 new Response.Listener<String>() {
@@ -293,15 +293,11 @@ public class SignupActivity extends AppCompatActivity {
 
                         try {
                             if (response.getBoolean("isSuccess")) {
-                                Global.customtoast(context, getLayoutInflater(), "Registration successfull");
-                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                Global.customtoast(SignupActivity.this, getLayoutInflater(),response.getString("error"));
                                 finish();
                             } else {
-                                //textViewError.setText(response.getString("error"));
-                                Global.customtoast(context, getLayoutInflater(),response.getString("error"));
+                                Global.customtoast(SignupActivity.this, getLayoutInflater(),response.getString("error"));
 
-                                // Toast.makeText(RegisterActivity.this, response.getString("error"), Toast.LENGTH_SHORT).show();
-                                //textViewError.setVisibility(View.VISIBLE);
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -313,18 +309,18 @@ public class SignupActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
                 // Toast.makeText(RegisterActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
+              //  Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
-                    Global.customtoast(context, getLayoutInflater(), "Request Time-Out");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(context, getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "No Connection Found");
                 } else if (error instanceof ServerError) {
-                    Global.customtoast(context, getLayoutInflater(), "Server Error");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {
-                    Global.customtoast(context, getLayoutInflater(), "Network Error");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "Network Error");
                 } else if (error instanceof ParseError) {
-                    Global.customtoast(context, getLayoutInflater(), "Parse Error");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "Parse Error");
                 }
 
 
@@ -348,15 +344,13 @@ public class SignupActivity extends AppCompatActivity {
 //                }
 
 
-    *//*            params.put("name",name.getText().toString());
-                params.put("com_contact",ContactPerson.getText().toString());
-                params.put("com_contact_mobno",Mobile.getText().toString());
-                params.put("com_email",Email.getText().toString());
-                params.put("username",AdminUserName.getText().toString());
-                params.put("password",Password.getText().toString());
-                params.put("confirm_password",Confirmpassword.getText().toString());
-                params.put("ref_code",CouponCode.getText().toString());
-                Log.d("params",params.toString());*//*
+                params.put("key_person",name);
+                params.put("wuser_email",email);
+                params.put("wuser_mobile1",mobile);
+                params.put("username",username);
+                params.put("password",password);
+               // params.put("confirm_password",confirmpasword);
+                Log.d("params",params.toString());
                 return params;
 
 //                params.put("com_email", emailValue);
@@ -372,7 +366,7 @@ public class SignupActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(stringRequest);
-*/
+
     }
     private boolean isValidPassword(String password) {
 
