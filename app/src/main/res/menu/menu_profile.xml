@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_profiles"
+        android:icon="@drawable/person_icon"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/password_icon"
+        android:title="Change Password" />
+    <item
+        android:id="@+id/menu_log"
+        android:icon="@drawable/password_icon"
+        android:title="Logout" />
+
+</menu>

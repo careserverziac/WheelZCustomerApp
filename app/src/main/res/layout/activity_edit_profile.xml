@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    tools:context=".EditProfileActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/EPbackbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:gravity="center"
+                android:backgroundTint="#E84D4D"
+                android:background="@drawable/baseline_arrow_back_ios_24"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/arsenal"
+                android:gravity="center"
+                android:text="EDit PROFILE"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/pro_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/surya"
+                app:civ_border_color="#FF000000"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginBottom="10dp"
+                app:tint="@color/white"
+                android:src="@drawable/camera_icon"
+                android:backgroundTint="#E84D4D">
+
+            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/person_white_icon"
+                        app:tint="@color/white" />
+
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:hint="Your name"
+                        android:fontFamily="@font/arsenal"
+                        android:inputType="textCapSentences|textEmailAddress"
+                        android:longClickable="true"
+                        android:maxLength="25"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="#BDB9B9"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/phone"
+                        app:tint="@color/white" />
+
+
+                    <EditText
+                        android:id="@+id/mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
+                        android:hint="Mobile Number"
+                        android:inputType="number"
+                        android:longClickable="true"
+                        android:maxLength="10"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="#BDB9B9"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/baseline_mail_icon"
+                        app:tint="@color/white" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@android:color/transparent"
+                        android:hint="Email Address"
+                        android:fontFamily="@font/arsenal"
+                        android:inputType="textEmailAddress"
+                        android:longClickable="true"
+                        android:maxLength="35"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="#BDB9B9"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/border_colour"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Update"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

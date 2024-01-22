@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/bottom_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/dashboard" />
+
+    <item
+        android:id="@+id/bottom_masters"
+        android:title="Masters"
+        android:icon="@drawable/masters"/>
+
+    <item
+        android:id="@+id/bottom_crm"
+        android:title="CRM"
+        android:icon="@drawable/crm" />
+    <item
+        android:id="@+id/bottom_vehicles"
+        android:title="Vehicles"
+        android:icon="@drawable/vehicles" />
+    <item
+        android:id="@+id/bottom_worskshop"
+        android:title="Workshop"
+        android:icon="@drawable/workshop" />
+
+</menu>

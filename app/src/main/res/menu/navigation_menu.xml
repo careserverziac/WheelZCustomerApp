@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#FFFBEB">
+
+
+    <item android:id="@+id/dashboard"
+        android:icon="@drawable/password_icon"
+        android:tint="@color/black"
+        android:title="Dashboard" />
+
+    <item android:id="@+id/settings"
+        android:icon="@drawable/password_icon"
+        android:title="Settings" />
+
+
+    <item android:id="@+id/about"
+        android:icon="@drawable/password_icon"
+        android:title="About us" />
+
+
+    <item android:id="@+id/share"
+        android:icon="@drawable/password_icon"
+        android:title="Share" />
+
+
+    <item android:id="@+id/rateus"
+        android:icon="@drawable/password_icon"
+        android:title="Rate us" />
+
+    <item android:id="@+id/logout"
+        android:icon="@drawable/password_icon"
+        android:title="Logout" />
+
+
+
+
+
+
+
+</menu>
