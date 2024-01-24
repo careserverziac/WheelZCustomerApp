@@ -7,14 +7,14 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.CheckBox;
+
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,12 +44,12 @@ import ModelClasses.InternetChecker;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView Login,Signin,Textlogo,ForgotPasswordTXT,versionName;
+    TextView Signin,ForgotPasswordTXT,versionName;
     EditText Username,Password;
     AppCompatButton loginbtn;
     String username,pwd;
     private ProgressDialog progressDialog;
-     CheckBox RememberMe;
+     //CheckBox RememberMe;
     private boolean passwordVisible = false;
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Username = findViewById(R.id.loginusername);
         Password = findViewById(R.id.loginpassword);
-        RememberMe = findViewById(R.id.remember);
+        //RememberMe = findViewById(R.id.remember);
         loginbtn = findViewById(R.id.loginbtn);
         Signin = findViewById(R.id.signin);
         ForgotPasswordTXT=findViewById(R.id.forgotpasswordtxt);
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             if (isNetworkAvailable()) {
-                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                /*Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 Global.editor = Global.sharedPreferences.edit();
 
                 if (RememberMe.isChecked()) {
@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                     Global.editor.putString("username", "");
                     Global.editor.putString("password", "");
                 }
-                Global.editor.commit();
+                Global.editor.commit();*/
 
                 // Call login method only if there is internet connectivity
                 dologinVolley();
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        RememberMe.setChecked(false);
+        /*RememberMe.setChecked(false);
         try {
             Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             username = Global.sharedPreferences.getString("username", "");
@@ -139,19 +139,9 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             RememberMe.setChecked(false);
         }
-
-        Signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,SignupActivity.class));
-            }
-        });
-        ForgotPasswordTXT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
-            }
-        });
+*/
+        Signin.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this,SignupActivity.class)));
+        ForgotPasswordTXT.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class)));
 
         Password.setOnTouchListener((v, event) -> {
             final int Right = 2;
@@ -193,8 +183,10 @@ public class LoginActivity extends AppCompatActivity {
                 JSONObject respObj = new JSONObject(response);
 
                 String access_token = respObj.getString("access_token");
+                String refresh_token = respObj.getString("refresh_token");
                 Global.editor = Global.sharedPreferences.edit();
                 Global.editor.putString("access_token", access_token);
+                Global.editor.putString("refresh_token", refresh_token);
                 Global.editor.commit();
 
 

@@ -19,7 +19,7 @@
         android:icon="@drawable/crm" />
     <item
         android:id="@+id/bottom_vehicles"
-        android:title="Vehicles"
+        android:title="My Vehicles"
         android:icon="@drawable/vehicles" />
     <item
         android:id="@+id/bottom_worskshop"

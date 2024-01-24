@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ import Fragments.DemoFragment;
 import Fragments.FinalFragment;
 import Fragments.DashboardFragment;
 import Fragments.TestFragment;
+import ModelClasses.Global;
 
 public class MainActivty extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -198,6 +200,14 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
         alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                Global.editor = Global.sharedPreferences.edit();
+                Global.editor.remove("access_token");
+                Global.editor.remove("refresh_token");
+                Global.editor.commit();
+
+
                 startActivity(new Intent(MainActivty.this, LoginActivity.class));
                 finish();
             }

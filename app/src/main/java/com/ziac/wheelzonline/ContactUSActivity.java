@@ -69,7 +69,7 @@ public class ContactUSActivity extends AppCompatActivity {
         Uri uri = Uri.parse("smsto:" + phoneNumber);
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
 
-        // Update the package name for WhatsApp Business based on your findings
+
         String whatsappBusinessPackageName = "com.whatsapp.w4b";
 
         if (isPackageInstalled(whatsappBusinessPackageName, getPackageManager())) {
@@ -78,11 +78,11 @@ public class ContactUSActivity extends AppCompatActivity {
                 startActivity(intent);
                 return;  // Successfully started WhatsApp Business intent
             } catch (ActivityNotFoundException ignored) {
-                // WhatsApp Business intent not available, fall through to regular WhatsApp
+
             }
         }
 
-        // Try launching regular WhatsApp intent
+
         if (isPackageInstalled("com.whatsapp", getPackageManager())) {
             intent.setPackage("com.whatsapp");
             try {
@@ -93,7 +93,7 @@ public class ContactUSActivity extends AppCompatActivity {
             }
         }
 
-        // Handle the case where neither WhatsApp nor WhatsApp Business is available
+
         Toast.makeText(this, "WhatsApp is not installed on this device", Toast.LENGTH_SHORT).show();
     }
 
@@ -106,6 +106,7 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     public void onLocateClicked(View view) {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);

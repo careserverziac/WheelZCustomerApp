@@ -3,35 +3,33 @@ package com.ziac.wheelzonline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.net.Uri;
+
 import android.os.Bundle;
+
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    private static final int REQUEST_IMAGE_CAPTURE =2 ;
     FloatingActionButton EPbackbtn,Camera;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,26 +38,48 @@ public class EditProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_profile);
 
         EPbackbtn=findViewById(R.id.EPbackbtn);
-        EPbackbtn=findViewById(R.id.fab);
+        Camera=findViewById(R.id.fab);
         EPbackbtn.setOnClickListener(v -> finish());
 
         Camera = findViewById(R.id.fab);
         Camera.setOnClickListener(v -> {
-           // openCamera();
+            openCamera();
         });
     }
 
- /*   private void openCamera() {
+    private void openCamera() {
+        // Check if the CAMERA permission is granted
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            // Request the CAMERA permission if not granted
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
+        } else {
+            // Permission is already granted, start the camera intent
+            startCameraIntent();
+        }
+    }
 
-        ImagePicker.with(EditProfileActivity.this)
-                .crop()                    //Crop image(Optional), Check Customization for more option
-                .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
-                .start(10);
+    // Override onRequestPermissionsResult to handle the result of the permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // CAMERA permission granted, start the camera intent
+                startCameraIntent();
+            } else {
+                // CAMERA permission denied, handle accordingly (e.g., show a message to the user)
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
-
-
-    }*/
+    // Method to start the camera intent
+    private void startCameraIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 1);
+        }
+    }
 
 
   /*  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -157,6 +177,15 @@ public class EditProfileActivity extends AppCompatActivity {
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
         byte[] imgBytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+            // Now you have the captured image in the 'imageBitmap' variable
+            // Proceed to the next step (image cropping)
+        }
     }
 
 

@@ -46,7 +46,7 @@
                 android:textSize="22sp"
                 android:textColor="@color/white"/>
 
-            <LinearLayout
+       <!--     <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -182,70 +182,7 @@
 
 
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:padding="8dp"
-                android:background="@drawable/border_colour">
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/gmail_icon"
-                    android:layout_alignParentStart="true" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="SEND"
-                        android:gravity="center"
-                        android:fontFamily="@font/arsenal"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"/>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/contact_whatsapp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="openWhatsAppChat"
-                android:layout_marginTop="15dp"
-                android:padding="8dp"
-                android:background="@drawable/border_colour">
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/whatsapp"
-                    android:layout_alignParentStart="true" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center"
-                        android:text="CONTACT US ON WHATSAPP"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </RelativeLayout>
-
-
+-->
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -253,10 +190,9 @@
 
 
             <LinearLayout
-                android:id="@+id/maillink"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:orientation="horizontal">
 
                 <ImageView
@@ -299,7 +235,7 @@
 
 
             <LinearLayout
-                android:id="@+id/call"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -344,10 +280,9 @@
 
 
             <LinearLayout
-                android:id="@+id/location"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onLocateClicked"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
@@ -387,6 +322,152 @@
                 android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
                 android:background="#4E4D4D"/>
+
+
+         <!--   <View
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+-->
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="8dp"
+                android:background="@drawable/border_colour">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/gmail_icon"
+                    android:layout_alignParentStart="true" />
+
+                <LinearLayout
+                    android:id="@+id/maillink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="MAIL US"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:fontFamily="@font/arsenal"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:padding="8dp"
+                android:background="@drawable/border_colour">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/phone_image"
+                    android:layout_alignParentStart="true" />
+
+                <LinearLayout
+                    android:id="@+id/call"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="CALL US"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onLocateClicked"
+                android:layout_marginTop="15dp"
+                android:padding="8dp"
+                android:background="@drawable/border_colour">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/googlemap"
+                    android:layout_alignParentStart="true" />
+
+                <LinearLayout
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="LOCATE US IN MAP"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/contact_whatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="openWhatsAppChat"
+                android:layout_marginTop="15dp"
+                android:padding="8dp"
+                android:background="@drawable/border_colour">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/whatsapp"
+                    android:layout_alignParentStart="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="center"
+                        android:layout_marginTop="3dp"
+                        android:text="CONTACT US ON WHATSAPP"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+
 
 
             <View

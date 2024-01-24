@@ -191,7 +191,7 @@
                             android:focusable="true"
                             android:gravity="center"
                             app:fabSize="mini"
-                            app:srcCompat="@drawable/phone"
+                            app:srcCompat="@drawable/phone_icon"
                             app:tint="@color/white" />
 
 

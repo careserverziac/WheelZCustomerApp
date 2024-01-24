@@ -19,7 +19,7 @@ public class Global {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-  public static String baseurl = "http://192.168.1.20:9394/";
+   public static String baseurl = "http://192.168.1.20:9394/";
 
    // public static String baseurl = "https://.in/";
     public static String apiwebsitedataurl = "https://api.ziaccrm.main/";
@@ -27,7 +27,7 @@ public class Global {
     public static String tokenurl = baseurl + "TOKEN";
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
 
- public static String registrationurl ="https://192.168.1.16:9393/api/Account/Register";
+    public static String registrationurl ="https://192.168.1.16:9393/api/Account/Register";
 
     public static String urlcreatecrm = baseurl + "api/CRM/Create";
     public static String urleditandupdatecrm = baseurl + "api/CRM/Edit";
