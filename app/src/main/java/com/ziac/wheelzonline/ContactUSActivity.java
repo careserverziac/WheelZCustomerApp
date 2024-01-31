@@ -1,8 +1,11 @@
 package com.ziac.wheelzonline;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -17,8 +20,13 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import ModelClasses.AppStatus;
+import ModelClasses.Global;
+
 public class ContactUSActivity extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
+    private static final int YOUR_CALL_PERMISSION_REQUEST_CODE =2 ;
     RelativeLayout Contact_whatsapp;
     LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
     FloatingActionButton Backbtn;
@@ -29,6 +37,11 @@ public class ContactUSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_usactivity);
 
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(ContactUSActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
         Contact_whatsapp=findViewById(R.id.contact_whatsapp);
         Facebook=findViewById(R.id.facebookimg);
         Linkedin=findViewById(R.id.linkedinimg);
@@ -107,7 +120,30 @@ public class ContactUSActivity extends AppCompatActivity {
     }
 
     @SuppressLint("QueryPermissionsNeeded")
+  /*  public void onLocateClicked(View view) {
+        String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
+    }*/
+
     public void onLocateClicked(View view) {
+        // Check if the app has permission to access the location
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        } else {
+            // Permission already granted, proceed to locate
+            locateAddress();
+        }
+    }
+
+    private void locateAddress() {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -116,4 +152,35 @@ public class ContactUSActivity extends AppCompatActivity {
             startActivity(mapIntent);
         }
     }
+
+    // Handle the result of the permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                locateAddress();
+            } else {
+                Global.customtoast(ContactUSActivity.this,getLayoutInflater(),"Permission denied");
+            }
+        } else if (requestCode == YOUR_CALL_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makeCall();
+            } else {
+                Global.customtoast(ContactUSActivity.this,getLayoutInflater(),"Permission denied");
+            }
+        }
+
+    }
+    private void makeCall() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:9008098101"));
+        try {
+            startActivity(callIntent);
+        } catch (SecurityException e) {
+            Log.e("CallError", "Error starting call: " + e.getMessage());
+        }
+    }
+
 }

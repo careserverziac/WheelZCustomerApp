@@ -43,6 +43,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
 public class SignupActivity extends AppCompatActivity {
@@ -66,7 +67,11 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(true);
 
-
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(SignupActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
 
         Signupbackbtn=findViewById(R.id.signupbackbtn);
         Name=findViewById(R.id.name);

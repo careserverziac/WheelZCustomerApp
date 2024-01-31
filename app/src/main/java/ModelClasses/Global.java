@@ -19,12 +19,12 @@ public class Global {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.20:9394/";
+   public static String baseurl = "http://192.168.1.10:9394/";
 
    // public static String baseurl = "https://.in/";
-    public static String apiwebsitedataurl = "https://api.ziaccrm.main/";
+    public static String userimageurl = baseurl+ "/Website_data/web_users/";
 
-    public static String tokenurl = baseurl + "TOKEN";
+    public static String tokenurl = baseurl + "Ziac/WebUsers/TOKEN";
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
 
     public static String registrationurl ="https://192.168.1.16:9393/api/Account/Register";
@@ -32,11 +32,11 @@ public class Global {
     public static String urlcreatecrm = baseurl + "api/CRM/Create";
     public static String urleditandupdatecrm = baseurl + "api/CRM/Edit";
     public static String urlUpdateCRM = baseurl + "api/CRM/Updates";
-    public static String forgotpasswordurl = baseurl + "api/Account/ForgotPassword";
-    public static String validateotpurl = baseurl + "api/Account/ValidateOTP";
+    public static String forgotpasswordurl = baseurl + "api/Account/ForgotPasswordCustomer";
+    public static String validateotpurl = baseurl + "api/Account/ValidateOTPCustomer";
 
     public static String changepasswordurl = baseurl + "api/Account/ChangePassword";
-    public static String getuserdetailsurl = baseurl + "api/account/getuserdetails";
+    public static String getuserprofiledetails = baseurl + "api/Users/GetUserProfile";
 
     public static String getcompanydetails = baseurl + "api/Company/GetCompanyDetails?";
     public static String getdashboarddataurl = baseurl + "api/Dashboard/Index?";
@@ -45,8 +45,8 @@ public class Global {
     public static String gettodaysflpdata = baseurl + "api/CRM/TodaysLeads?";
 
     public static String postcompanydetails = baseurl + "api/Company/UpdateCompanyDetails";
-    public static String userimageurl = baseurl + "websitedata/users/";
-    public static String urlupdateprofile = baseurl + "api/Users/UpdateProfile";
+
+    public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
     public static String urlGetcategory = baseurl + "api/Lists/GetCategory?";
     public static String urlGetType = baseurl + "api/Lists/GetENQType?";
     public static String urlGetsource = baseurl + "api/Lists/GetENQSource?";
@@ -76,6 +76,6 @@ public class Global {
    customToast.setDuration(Toast.LENGTH_SHORT);
    customToast.setView(customToastView);
    customToast.show();
-   new Handler().postDelayed(new Runnable() {@Override public void run() {customToast.cancel();}}, 1000);}
+   new Handler().postDelayed(new Runnable() {@Override public void run() {customToast.cancel();}}, 2000);}
 
 }

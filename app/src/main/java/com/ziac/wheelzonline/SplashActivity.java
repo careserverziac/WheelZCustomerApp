@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -113,7 +114,7 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
             }
-        }, 3000);
+        }, 2000);
 
 
 
@@ -121,45 +122,28 @@ public class SplashActivity extends AppCompatActivity {
 
     }
     private void dorefreshtokenVolley() {
-
-        //progressDialog.show();
-
         String url = Global.tokenurl;
-
-        //url = url + "?refresh_token="+Global.sharedPreferences.getString("refresh_token", "")+"&grant_type=refresh_token";
         RequestQueue queue= Volley.newRequestQueue(SplashActivity.this);
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 JSONObject respObj = new JSONObject(response);
-                //String issuccess = respObj.getString("isSuccess");
-                //String error = respObj.getString("error");
-
 
                 String access_token = respObj.getString("access_token");
                 String refresh_token = respObj.getString("refresh_token");
+
                 Global.editor = Global.sharedPreferences.edit();
                 Global.editor.putString("access_token", access_token);
                 Global.editor.putString("refresh_token", refresh_token);
                 Global.editor.commit();
 
-               /* if(issuccess.equals("true")){
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(), error);
-                    *//*Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), "OTP is send to your registered mobile number");*//*
-                    startActivity(new Intent(SplashActivity.this,CreateNewPasswordActivity.class));
-                } else {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(), error);
-                }*/
+                getuserprofile();
 
                 startActivity(new Intent(SplashActivity.this, MainActivty.class));
-                //progressDialog.dismiss();
                 finish();
-                // getuserdetails();
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
         }, new com.android.volley.Response.ErrorListener() {
             @Override
@@ -209,5 +193,90 @@ public class SplashActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+    private void getuserprofile() {
 
+        String url = Global.getuserprofiledetails;
+        RequestQueue queue= Volley.newRequestQueue(SplashActivity.this);
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+
+            try {
+                JSONObject respObj1 = new JSONObject(response);
+                JSONObject respObj = new JSONObject(respObj1.getString("data"));
+
+                String userName = respObj.getString("userName");
+                String key_person = respObj.getString("key_person");
+                String Code = respObj.getString("Code");
+                String Email = respObj.getString("Email");
+                String Image = respObj.getString("Image");
+                String Mobile1 = respObj.getString("Mobile1");
+                String Mobile2 = respObj.getString("Mobile2");
+                String Approved = respObj.getString("Approved");
+                String Ref_Code = respObj.getString("Ref_Code");
+                String Active = respObj.getString("Active");
+                String Type = respObj.getString("Type");
+
+
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                Global.editor = Global.sharedPreferences.edit();
+                Global.editor.putString("userName", userName);
+                Global.editor.putString("key_person", key_person);
+                Global.editor.putString("Code", Code);
+                Global.editor.putString("Email", Email);
+                Global.editor.putString("Image", Image);
+                Global.editor.putString("Mobile1", Mobile1);
+                Global.editor.putString("Mobile2", Mobile2);
+                Global.editor.putString("Approved", Approved);
+                Global.editor.putString("Ref_Code", Ref_Code);
+                Global.editor.putString("Active", Active);
+                Global.editor.putString("Type", Type);
+                Global.editor.commit();
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                if (error instanceof TimeoutError) {
+                    Toast.makeText(SplashActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NoConnectionError) {
+                    Toast.makeText(SplashActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(SplashActivity.this, "Server Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+                    Toast.makeText(SplashActivity.this, "Network Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(SplashActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+               // params.put("username", username);
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+
+        queue.add(request);
+    }
 }

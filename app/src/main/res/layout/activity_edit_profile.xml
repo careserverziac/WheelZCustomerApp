@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -13,24 +14,25 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:fillViewport="true"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="15dp">
 
 
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/EPbackbtn"
+                android:id="@+id/EPbackbuttontn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/baseline_arrow_back_ios_24"
+                android:backgroundTint="#E84D4D"
+                android:contentDescription="TODO"
                 android:focusable="true"
                 android:gravity="center"
-                android:backgroundTint="#E84D4D"
-                android:background="@drawable/baseline_arrow_back_ios_24"
                 app:fabSize="mini"
                 app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
 
@@ -41,15 +43,13 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/arsenal"
                 android:gravity="center"
-                android:text="EDit PROFILE"
+                android:text="@string/edit_profile"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-
-
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/pro_image"
+                android:id="@+id/profile_images"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_marginTop="30dp"
@@ -58,17 +58,28 @@
                 app:civ_border_overlay="true"
                 app:civ_border_width="2dp" />
 
+
+            <!--   <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/prof_image"
+                   android:layout_width="match_parent"
+                   android:layout_height="250dp"
+                   android:layout_marginTop="30dp"
+                   android:src="@drawable/surya"
+                   app:civ_border_color="#FF000000"
+                   app:civ_border_overlay="true"
+                   app:civ_border_width="2dp" />
+   -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginBottom="10dp"
-                app:tint="@color/white"
+                android:backgroundTint="#E84D4D"
+                android:contentDescription="TODO"
                 android:src="@drawable/camera_icon"
-                android:backgroundTint="#E84D4D">
-
-            </com.google.android.material.floatingactionbutton.FloatingActionButton>
+                app:tint="@color/white"
+                tools:ignore="RtlHardcoded" />
 
 
             <LinearLayout
@@ -79,7 +90,7 @@
                 android:orientation="vertical">
 
 
-                <LinearLayout
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="5dp"
@@ -102,12 +113,12 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:hint="Your name"
-                        android:fontFamily="@font/arsenal"
+                        android:hint="@string/your_name"
                         android:inputType="textCapSentences|textEmailAddress"
                         android:longClickable="true"
                         android:maxLength="25"
                         android:padding="5dp"
+                        android:fontFamily="@font/arsenal"
                         android:textColor="@color/white"
                         android:textColorHint="#BDB9B9"
                         android:textSize="16sp" />
@@ -150,8 +161,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:fontFamily="@font/arsenal"
-                        android:hint="Mobile Number"
+                        android:fontFamily="@font/arsenal"                        android:hint="@string/mobile_number"
                         android:inputType="number"
                         android:longClickable="true"
                         android:maxLength="10"
@@ -193,9 +203,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:hint="Email Address"
-                        android:fontFamily="@font/arsenal"
+                        android:fontFamily="@font/arsenal"                        android:background="@android:color/transparent"
+                        android:hint="@string/email_address"
                         android:inputType="textEmailAddress"
                         android:longClickable="true"
                         android:maxLength="35"
@@ -215,13 +224,12 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/register"
+                    android:id="@+id/updateprofile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:fontFamily="@font/arsenal"                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/border_colour"
-                    android:fontFamily="@font/arsenal"
                     android:text="Update"
                     android:textColor="#ffffff"
                     android:textSize="16sp" />

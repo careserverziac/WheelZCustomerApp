@@ -31,11 +31,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    AppCompatButton SubmitBtn;
+    AppCompatButton SendOTp;
     EditText Username,Mobileno;
     FloatingActionButton Forgotbackbtn;
     String username,mobile;
@@ -46,7 +47,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_forgot_password);
 
-        SubmitBtn=findViewById(R.id.Continue);
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(ForgotPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
+
+        SendOTp=findViewById(R.id.sendotp);
         Forgotbackbtn=findViewById(R.id.forgotbackbtn);
         Username=findViewById(R.id.fusername);
         Mobileno=findViewById(R.id.fmobile);
@@ -59,7 +66,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
             }
         });
-        SubmitBtn.setOnClickListener(new View.OnClickListener() {
+        SendOTp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = Username.getText().toString();

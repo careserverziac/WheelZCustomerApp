@@ -11,23 +11,46 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
+
+import ModelClasses.AppStatus;
+import ModelClasses.Global;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
     LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount;
     FloatingActionButton BackButton;
     Intent intent;
+    TextView Username,Usermobile,Useremail;
+
+    CircleImageView ProfileImage;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
+
+        String image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+        Picasso.Builder builder=new Picasso.Builder(getApplication());
+        ProfileImage=findViewById(R.id.pro_image);
+        Picasso picasso=builder.build();
+        picasso.load(Uri.parse(image)).into(ProfileImage );
+
 
         Editprofile=findViewById(R.id.editprofile);
         BackButton=findViewById(R.id.Pbackbtn);
@@ -37,6 +60,21 @@ public class ProfileActivity extends AppCompatActivity {
         Terms_Conditions=findViewById(R.id.terms_conditions);
         Deleteaccount=findViewById(R.id.deleteaccount);
         Logout=findViewById(R.id.logoutbtn);
+
+        Username=findViewById(R.id.PRusername);
+        Usermobile=findViewById(R.id.PRusermobile);
+        Useremail=findViewById(R.id.PRusermail);
+
+
+        String dealername = Global.sharedPreferences.getString("key_person", "");
+        String user_mail = Global.sharedPreferences.getString("Email", "");
+        String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
+
+        Picasso.get().load(image).into(ProfileImage);
+        Username.setText(dealername);
+        Usermobile.setText(user_mobile);
+        Useremail.setText(user_mail);
+
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(ProfileActivity.this,EditProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(ProfileActivity.this,ContactUSActivity.class))));
@@ -122,4 +160,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return intent;
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+        String dealername = Global.sharedPreferences.getString("key_person", "");
+        String user_mail = Global.sharedPreferences.getString("Email", "");
+        String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
+
+        Picasso.get().load(image).into(ProfileImage);
+        Username.setText(dealername);
+        Usermobile.setText(user_mobile);
+        Useremail.setText(user_mail);
+    }
+
+
 }

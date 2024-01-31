@@ -16,19 +16,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import Fragments.BlankFragment;
 import Fragments.DemoFragment;
 import Fragments.FinalFragment;
 import Fragments.DashboardFragment;
 import Fragments.TestFragment;
+import ModelClasses.AppStatus;
 import ModelClasses.Global;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivty extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,6 +48,12 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(MainActivty.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
 
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         frameLayout = findViewById(R.id.framelayout);
@@ -61,6 +72,47 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.red));
         toggle.syncState();
 
+
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+                CircleImageView header_img;
+                TextView Dealername, referenccode,email;
+
+                header_img = drawerLayout.findViewById(R.id.header_image);
+                Dealername = drawerLayout.findViewById(R.id.header_user_name);
+                referenccode = drawerLayout.findViewById(R.id.header_refercode);
+                email = drawerLayout.findViewById(R.id.header_email);
+
+                String userimage = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+                String dealername = Global.sharedPreferences.getString("key_person", "");
+                String refcode = Global.sharedPreferences.getString("Ref_Code", "");
+                String user_mail = Global.sharedPreferences.getString("Email", "");
+
+                Picasso.get().load(userimage).into(header_img);
+
+                Dealername.setText(dealername);
+                referenccode.setText(refcode);
+                email.setText(" "+user_mail+" ");
+
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+                //Toast.makeText(NewMainActivity.this, "On onDrawerClosed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                //Toast.makeText(NewMainActivity.this, "On onDrawerStateChanged", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

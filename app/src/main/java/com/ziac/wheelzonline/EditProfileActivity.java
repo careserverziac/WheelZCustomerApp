@@ -3,48 +3,228 @@ package com.ziac.wheelzonline;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-;
-
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import ModelClasses.AppStatus;
+import ModelClasses.Global;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class EditProfileActivity extends AppCompatActivity {
 
-    private static final int REQUEST_IMAGE_CAPTURE =2 ;
     FloatingActionButton EPbackbtn,Camera;
+    EditText Name,Mobilenumber,Email;
+    CircleImageView ProfileImage;
+    AppCompatButton UpdateProfilebtn;
+    Bitmap imageBitmap;
+    String image,name,mobile,user_mail;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        EPbackbtn=findViewById(R.id.EPbackbtn);
+
+        if (AppStatus.getInstance(this).isOnline()) {
+            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
+        } else {
+            Global.customtoast(EditProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
+
+        image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+        ProfileImage=findViewById(R.id.profile_images);
+        Picasso.Builder builder=new Picasso.Builder(getApplication());
+        Picasso picasso=builder.build();
+        picasso.load(Uri.parse(image)).into(ProfileImage );
+
+        EPbackbtn=findViewById(R.id.EPbackbuttontn);
+
+        Name=findViewById(R.id.name);
+        Mobilenumber=findViewById(R.id.mobile);
+        Email=findViewById(R.id.email);
+        UpdateProfilebtn=findViewById(R.id.updateprofile);
         Camera=findViewById(R.id.fab);
-        EPbackbtn.setOnClickListener(v -> finish());
+
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+         name = Global.sharedPreferences.getString("key_person", "");
+         mobile = Global.sharedPreferences.getString("Mobile1", "");
+         user_mail = Global.sharedPreferences.getString("Email", "");
+
+
+       // Picasso.get().load(image).into(ProfileImage);
+        Name.setText(name);
+        Mobilenumber.setText(mobile);
+        Email.setText(user_mail);
+
+
+
+        EPbackbtn.setOnClickListener(view -> {
+
+           // startActivity(new Intent(new Intent(EditProfileActivity.this,ProfileActivity.class)));
+            finish();
+        });
+
+
+        UpdateProfilebtn.setOnClickListener(v -> Updateprofiledetails());
 
         Camera = findViewById(R.id.fab);
-        Camera.setOnClickListener(v -> {
-            openCamera();
+        Camera.setOnClickListener(v -> openCamera());
+
+        ProfileImage.setOnClickListener(v -> {
+            image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+            showImage(picasso,image);
+
         });
+
+    }
+
+
+    private void Updateprofiledetails() {
+
+        String personname,mobile,email;
+
+        personname = Name.getText().toString();
+        mobile = Mobilenumber.getText().toString();
+        email = Email.getText().toString();
+
+
+        if (personname.isEmpty()) {
+
+            Toast.makeText(EditProfileActivity.this, "Person name should not be empty!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (mobile.isEmpty()) {
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be empty !!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+        if (mobile.length() < 10) {
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }if (email.length() < 10) {
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
+
+
+        RequestQueue queue = Volley.newRequestQueue(EditProfileActivity.this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlupdateprofile,
+                sresponse -> {
+
+                    // progressBar.setVisibility(View.GONE);
+                    JSONObject response = null;
+                    try {
+                        response = new JSONObject(sresponse);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Global.editor = Global.sharedPreferences.edit();
+                    Global.editor.putString("key_person", Name.getText().toString());
+                    Global.editor.putString("Mobile1", Mobilenumber.getText().toString());
+                    Global.editor.putString("Email", Email.getText().toString());
+                    Global.editor.commit();
+
+
+
+                    try {
+                        if (response.getBoolean("isSuccess")) {
+//                                Toast.makeText(ProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
+                            Global.customtoast(EditProfileActivity.this,getLayoutInflater(),"Updated successfully !!");
+                            finish();
+                            Intent intent = new Intent(EditProfileActivity.this, EditProfileActivity.class);
+                            startActivity(intent);
+
+                        } else {
+                            //textViewError.setText(response.getString("error"));
+                            Toast.makeText(EditProfileActivity.this, response.getString("error"), Toast.LENGTH_SHORT).show();
+                            //textViewError.setVisibility(View.VISIBLE);
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }, error -> {
+
+                    //  progressBar.setVisibility(View.GONE);
+                    //  Toast.makeText(ProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    /*textViewError.setText(error.getLocalizedMessage());
+                    textViewError.setVisibility(View.VISIBLE);*/
+
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("key_person",personname);
+                params.put("username", Global.sharedPreferences.getString("userName",""));
+                params.put("wuser_mobile1",mobile);
+                params.put("wuser_mobile2", Mobilenumber.getText().toString());
+                params.put("wuser_email",email);
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(0),
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        queue.add(stringRequest);
+
+
     }
 
     private void openCamera() {
@@ -58,7 +238,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    // Override onRequestPermissionsResult to handle the result of the permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -73,16 +252,18 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
-    // Method to start the camera intent
     private void startCameraIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, 1);
-        }
+        ImagePicker.with(EditProfileActivity.this)
+                .crop()                    //Crop image(Optional), Check Customization for more option
+                .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
+                .start(10);
+
+
     }
 
 
-  /*  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 10 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
@@ -94,9 +275,9 @@ public class EditProfileActivity extends AppCompatActivity {
             }
             postselelectedimage();
         }
-    }*/
+    }
 
-   /* private void postselelectedimage() {
+    private void postselelectedimage() {
 
         if (imageBitmap == null) {return;}
 
@@ -106,28 +287,33 @@ public class EditProfileActivity extends AppCompatActivity {
             JSONObject resp;
             try {
                 resp = new JSONObject(response);
+
+                System.out.println(resp);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
 
             try {
                 if (resp.getBoolean("success")) {
-                    String Message = resp.getString("success");
-                    getuserdetails();
-                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Image uploaded successfully");
+                    String Message = resp.getString("message");
+                    String uploadimage= resp.getString("data");
 
-                    // Global.customtoast(ProfileActivity.this, getLayoutInflater(),Message);
+                    Global.editor = Global.sharedPreferences.edit();
+                    Global.editor.putString("Image", uploadimage);
+                    Global.editor.commit();
 
+                    String image = Global.userimageurl +uploadimage;
+                    Picasso.get().load(image).into(ProfileImage);
+                    Global.customtoast(EditProfileActivity.this, getLayoutInflater(),Message);
 
                 } else {
                     if (resp.has("error")) {
 
                         String errorMessage = resp.getString("error");
-                        Toast.makeText(ProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(ProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(ProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
 
 
-                    } else {
                     }
                 }
             } catch (JSONException e) {
@@ -136,17 +322,14 @@ public class EditProfileActivity extends AppCompatActivity {
             }
 
 
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //  progressBar.setVisibility(View.GONE);
+        }, error -> {
+            //  progressBar.setVisibility(View.GONE);
 
-            }
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
@@ -159,7 +342,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 String image = imageToString(imageBitmap);
 
                 params.put("fileName",image);
-                // Log.d("YourTag", "File Name: " + params.get("fileName"));
+                 Log.d("YourTag", "File Name: " + params.get("fileName"));
 
                 // params.put("vehmas_code",Global.selectedvstock.getStockItemId());
 
@@ -170,7 +353,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Add the stringRequest to the requestQueue to send the data to the server
         requestQueue.add(stringRequest);
-    }*/
+    }
 
     private String imageToString(Bitmap imageBitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -178,14 +361,78 @@ public class EditProfileActivity extends AppCompatActivity {
         byte[] imgBytes = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(imgBytes, Base64.DEFAULT);
     }
+
+
+
+    public void showImage(Picasso picasso, String userimage) {
+        Dialog builder = new Dialog(this);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        builder.setOnDismissListener(dialogInterface -> {
+            // Nothing
+        });
+
+        // Calculate display dimensions
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
+        int screenHeight = displayMetrics.heightPixels;
+
+        // Load the image using Picasso
+        picasso.load(Uri.parse(userimage)).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                ImageView imageView = new ImageView(getApplicationContext());
+
+                // Calculate dimensions to fit the image within the screen
+                int imageWidth = bitmap.getWidth();
+                int imageHeight = bitmap.getHeight();
+                float aspectRatio = (float) imageWidth / imageHeight;
+
+                int newWidth = screenWidth;
+                int newHeight = (int) (screenWidth / aspectRatio);
+                if (newHeight > screenHeight) {
+                    newHeight = screenHeight;
+                    newWidth = (int) (screenHeight * aspectRatio);
+                }
+
+                // Add padding values
+                int paddingInDp = 16; // You can adjust the padding as per your requirement
+                int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp, EditProfileActivity.this.getResources().getDisplayMetrics());
+
+                // Adjust the newWidth and newHeight with padding
+                newWidth -= 2 * paddingInPx; // Subtract padding from both sides
+                newHeight -= 2 * paddingInPx; // Subtract padding from both top and bottom
+
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(newWidth, newHeight);
+                layoutParams.setMargins(paddingInPx, paddingInPx, paddingInPx, paddingInPx); // Set padding
+                imageView.setLayoutParams(layoutParams);
+
+                imageView.setImageBitmap(bitmap);
+
+                builder.addContentView(imageView, layoutParams);
+                builder.show();
+            }
+
+            @Override
+            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                // Handle bitmap loading failure
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                // Prepare bitmap loading
+            }
+        });
+    }
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-            // Now you have the captured image in the 'imageBitmap' variable
-            // Proceed to the next step (image cropping)
-        }
+    public void onBackPressed() {
+
+        finish();
+
+        super.onBackPressed();
     }
 
 

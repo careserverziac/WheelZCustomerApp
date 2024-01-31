@@ -74,7 +74,7 @@
 
 
             <TextView
-                android:id="@+id/pusername"
+                android:id="@+id/PRusername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Surya kumar yadhav"
@@ -84,7 +84,7 @@
                 android:textColor="@color/white"/>
 
                 <TextView
-                    android:id="@+id/usermobile"
+                    android:id="@+id/PRusermobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="9567542499"
@@ -94,7 +94,7 @@
                     android:textColor="@color/white"/>
 
                 <TextView
-                    android:id="@+id/usermail"
+                    android:id="@+id/PRusermail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="suryakumaryadhav@gmail.com"
