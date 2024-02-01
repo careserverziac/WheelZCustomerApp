@@ -19,7 +19,7 @@ public class Global {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.10:9394/";
+   public static String baseurl = "http://192.168.1.9:9394/";
 
    // public static String baseurl = "https://.in/";
     public static String userimageurl = baseurl+ "/Website_data/web_users/";

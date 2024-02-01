@@ -1,6 +1,7 @@
 package com.ziac.wheelzonline;
 
-import android.app.ProgressDialog;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,9 +17,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -28,23 +27,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import ModelClasses.Global;
 
+@SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
     ImageView splashimage;
-    //private ProgressDialog progressDialog;
-    String username,pwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,30 +87,25 @@ public class SplashActivity extends AppCompatActivity {
 
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
 
-                try {
-                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    if (Global.sharedPreferences.contains("access_token") && Global.sharedPreferences.contains("refresh_token")) {
+            try {
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                if (Global.sharedPreferences.contains("access_token") && Global.sharedPreferences.contains("refresh_token")) {
 
 
-                        dorefreshtokenVolley();
-                    } else {
+                    dorefreshtokenVolley();
+                } else {
 
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }catch (Exception ex){
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
-
+            }catch (Exception ex){
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
             }
+
         }, 2000);
-
-
 
 
 
@@ -145,32 +134,28 @@ public class SplashActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //progressDialog.dismiss();
-                if (error instanceof TimeoutError) {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet is slow / Request Time-Out");
-                }  else if (error instanceof NoConnectionError) {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(),"No Connection / Internet not available");
-                }else if (error instanceof ServerError) {
-                    Log.e("ServerError", "Server error response: " + new String(error.networkResponse.data));
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate to Server");
-
-                }  else if (error instanceof ParseError) {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(),"Data Parse Error ");
-                }  else if (error instanceof AuthFailureError) {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(), "Authorization Failure");
-                }
-
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                finish();
+        }, error -> {
+            //progressDialog.dismiss();
+            if (error instanceof TimeoutError) {
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet is slow / Request Time-Out");
+            }  else if (error instanceof NoConnectionError) {
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"No Connection / Internet not available");
+            }else if (error instanceof ServerError) {
+                Log.e("ServerError", "Server error response: " + new String(error.networkResponse.data));
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate to Server");
+            }  else if (error instanceof ParseError) {
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Data Parse Error ");
+            }  else if (error instanceof AuthFailureError) {
+                Global.customtoast(SplashActivity.this, getLayoutInflater(), "Authorization Failure");
             }
+
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            finish();
         }) {
 
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
+                Map<String, String> headers = new HashMap<>();
                 String accesstoken = Global.sharedPreferences.getString("access_token", "");
                 headers.put("Authorization", "Bearer " + accesstoken);
                 headers.put("Content-Type","application/x-www-form-urlencoded");
@@ -178,15 +163,14 @@ public class SplashActivity extends AppCompatActivity {
             }
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("refresh_token", Global.sharedPreferences.getString("refresh_token", ""));
                 params.put("grant_type", "refresh_token");
                 return params;
             }
         };
 
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+        request.setRetryPolicy(new DefaultRetryPolicy(0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
@@ -236,42 +220,38 @@ public class SplashActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
 
 
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(SplashActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(SplashActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(SplashActivity.this, "Server Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(SplashActivity.this, "Network Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(SplashActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
+            if (error instanceof TimeoutError) {
+                Toast.makeText(SplashActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(SplashActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(SplashActivity.this, "Server Error", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NetworkError) {
+                Toast.makeText(SplashActivity.this, "Network Error", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(SplashActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
 
-            }
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-               // params.put("username", username);
+                Map<String, String> params = new HashMap<>();
                 return params;
             }
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+                0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));

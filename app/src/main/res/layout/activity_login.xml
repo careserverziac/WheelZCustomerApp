@@ -196,21 +196,20 @@
           android:layout_marginTop="5dp"
           android:orientation="vertical">
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:textAllCaps="false"
-            android:fontFamily="@font/arsenal"
             android:layout_marginRight="20dp"
             android:background="@drawable/border_colour"
-
+            android:fontFamily="@font/arsenal"
             android:text="Login"
+            android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="16sp" />
-
 
         <TextView
 

@@ -1,15 +1,136 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_splash"
+    android:background="@color/black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="Fragments.DashboardFragment">
+    android:layout_height="match_parent">
 
-    <TextView
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/lambhorginiwheel"
+        android:scaleType="centerCrop"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#B3050000" />
+
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:text="Dashboard
-        Fragment" />
+        android:fillViewport="true"
+        android:scrollbars="none"
+        tools:ignore="UselessParent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calistoga"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="WheelZ"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_weight="0" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:fontFamily="@font/arsenal"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Embrace the Charge" />
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:fontFamily="@font/arsenal"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:text="Navigate the Future with Electric Thrills! " />
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/arsenal"
+                android:textColor="@color/white"
+                android:text=" Unleash the Power of Electric Bikes with NDS" />
+
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bikes"
+                    android:fontFamily="@font/arsenal"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/viewalllessdriven"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:fontFamily="@font/arsenal"
+                    android:text="View All >"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/latestvehicles_Rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+</RelativeLayout>
