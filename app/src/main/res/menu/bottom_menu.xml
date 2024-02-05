@@ -8,10 +8,15 @@
         android:title="Dashboard"
         android:icon="@drawable/dashboard" />
 
-    <item
+ <!--   <item
         android:id="@+id/bottom_masters"
         android:title="Masters"
         android:icon="@drawable/masters"/>
+-->
+    <item
+        android:id="@+id/bottom_worskshop"
+        android:title="Workshop"
+        android:icon="@drawable/workshop" />
 
     <item
         android:id="@+id/bottom_crm"
@@ -22,8 +27,8 @@
         android:title="My Vehicles"
         android:icon="@drawable/vehicles" />
     <item
-        android:id="@+id/bottom_worskshop"
-        android:title="Workshop"
-        android:icon="@drawable/workshop" />
+        android:id="@+id/bottom_profile"
+        android:title="Profile"
+        android:icon="@drawable/profile_icon" />
 
 </menu>

@@ -35,7 +35,7 @@ import ModelClasses.AppStatus;
 import ModelClasses.Global;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivty extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivty extends AppCompatActivity  {
 
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
@@ -57,23 +57,23 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
 
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         frameLayout = findViewById(R.id.framelayout);
-        Toolbaricon = findViewById(R.id.profileicon);
+       // Toolbaricon = findViewById(R.id.profileicon);
 
 
         openFragment(new DashboardFragment());
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // toolbar = findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
 
-        drawerLayout = findViewById(R.id.drawer_layout);
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.red));
-        toggle.syncState();
+        //drawerLayout = findViewById(R.id.drawer_layout);
+       // toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+       // drawerLayout.addDrawerListener(toggle);
+       // toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.red));
+      //  toggle.syncState();
 
 
-        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+      /*  drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
             }
@@ -112,7 +112,7 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
                 //Toast.makeText(NewMainActivity.this, "On onDrawerStateChanged", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -125,14 +125,14 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
                 } else if (itemid == R.id.bottom_crm) {
                     openFragment(new FinalFragment());
                     return true;
-                } else if (itemid == R.id.bottom_masters) {
+                } else if (itemid == R.id.bottom_worskshop) {
                     openFragment(new BlankFragment());
                     return true;
                 } else if (itemid == R.id.bottom_vehicles) {
                     openFragment(new DemoFragment());
                     return true;
-                } else if (itemid == R.id.bottom_worskshop) {
-                    openFragment(new TestFragment());
+                } else if (itemid == R.id.bottom_profile) {
+                   startActivity(new Intent(MainActivty.this,ProfileActivity.class));
                     return true;
                 }
 
@@ -141,7 +141,7 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
         });
 
 
-        Toolbaricon.setOnClickListener(v -> {
+      /*  Toolbaricon.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(MainActivty.this, v);
             popup.getMenuInflater().inflate(R.menu.menu_profile, popup.getMenu());
             popup.setOnMenuItemClickListener(item -> {
@@ -161,7 +161,7 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
                 return false;
             });
             popup.show();
-        });
+        });*/
 
     }
 
@@ -172,7 +172,7 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
         fragmentTransaction.commit();
     }
 
-    @Override
+  /*  @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int itemIDd = item.getItemId();
 
@@ -191,12 +191,12 @@ public class MainActivty extends AppCompatActivity implements NavigationView.OnN
 
         } else if (itemIDd == R.id.nav_logout) {
 
-           // exitdialog();
+            exitdialog();
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
+*/
     @Override
     public void onBackPressed() {
         //  Get the total number of fragments in the back stack

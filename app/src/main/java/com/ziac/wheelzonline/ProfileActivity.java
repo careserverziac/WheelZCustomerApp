@@ -26,7 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount;
+    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword;
     FloatingActionButton BackButton;
     Intent intent;
     TextView Username,Usermobile,Useremail;
@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         PrivacyPolicy=findViewById(R.id.privacy);
         Terms_Conditions=findViewById(R.id.terms_conditions);
         Deleteaccount=findViewById(R.id.deleteaccount);
+        Changepassword=findViewById(R.id.changepasword);
         Logout=findViewById(R.id.logoutbtn);
 
         Username=findViewById(R.id.PRusername);
@@ -78,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(ProfileActivity.this,EditProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(ProfileActivity.this,ContactUSActivity.class))));
+        Changepassword.setOnClickListener(v -> startActivity(new Intent(new Intent(ProfileActivity.this,ChangePasswordActivity.class))));
         BackButton.setOnClickListener(v -> finish());
         Sharebutton.setOnClickListener(v ->  ShareIntent());
         PrivacyPolicy.setOnClickListener(v ->  privacyMethod());

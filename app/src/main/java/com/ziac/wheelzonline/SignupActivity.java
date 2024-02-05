@@ -244,15 +244,6 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-
-
-        if (password.isEmpty()) {
-            Password.setError("Password field is missing !!");
-            Password.requestFocus();
-            return;
-
-
-        }
         if (!isValidPassword(password)) {
             Global.customtoast(SignupActivity.this, getLayoutInflater(), "Password must contain one upper case, one lower case, one number, and one special character !!");
             return;
@@ -263,11 +254,7 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        if (confirmpasword.isEmpty()) {
-            Cpassword.setError("Confirm password field is missing !!");
-            Cpassword.requestFocus();
-            return;
-        }
+
         if (!password.equals(confirmpasword)) {
             Global.customtoast(SignupActivity.this, getLayoutInflater(), "The given password and confirm password does not match !!");
             return;
