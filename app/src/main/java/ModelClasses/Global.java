@@ -23,7 +23,7 @@ public class Global {
     private static Picasso picassoInstance;
 
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.5:9394/";
+   public static String baseurl = "http://192.168.1.13:9394/";
 
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
@@ -48,6 +48,7 @@ public class Global {
 
 
       public static ArrayList<TaskClass> allleadslist;
+      public static TaskClass  modellist;
 
 
   public static void customtoast(Context context, LayoutInflater inflater, String msg) {

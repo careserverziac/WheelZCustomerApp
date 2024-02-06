@@ -2,7 +2,6 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -25,14 +23,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ziac.wheelzonline.R;
-import com.ziac.wheelzonline.ViewAllBikesActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +39,6 @@ import ModelClasses.TaskClass;
 
 public class DashboardFragment extends Fragment {
 
-    TextView ViewAllBikes;
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
     ModelsAdapter adapter;
@@ -53,28 +48,17 @@ public class DashboardFragment extends Fragment {
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_home, container, false);
+        View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
         Context context = requireContext();
-        ViewAllBikes=view.findViewById(R.id.viewalllbikes);
         VehicleelistRV=view.findViewById(R.id.vehlisthorizontal);
 
         GetAllBrands();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehicleelistRV.setLayoutManager(linearLayoutManager);
-        VehicleelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-
+        VehicleelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adapter = new ModelsAdapter(new ArrayList<>(),context);
-
         VehicleelistRV.setAdapter(adapter);
 
-
-
-        ViewAllBikes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(requireActivity(), ViewAllBikesActivity.class));
-            }
-        });
 
         return view;
     }
@@ -96,9 +80,32 @@ public class DashboardFragment extends Fragment {
                     String vmodelCode = jsonObject.getString("vmodel_code");
                     String vehimage = jsonObject.getString("veh_image1");
 
+
+                    String vcate_name = jsonObject.getString("vcate_name");
+                    String app_model_name = jsonObject.getString("app_model_name");
+                    String mfg_name = jsonObject.getString("mfg_name");
+                    String veh_cc = jsonObject.getString("veh_cc");
+                    String veh_bhp = jsonObject.getString("veh_bhp");
+                    String veh_top_speed = jsonObject.getString("veh_top_speed");
+                    String body_type = jsonObject.getString("body_type");
+                    String fuel_name = jsonObject.getString("fuel_name");
+                    String sale_price = jsonObject.getString("sale_price");
+                    String charging_time = jsonObject.getString("charging_time");
+
                     TaskClass taskClass = new TaskClass();
-                    taskClass.setAssignedto_code(vmodelCode);
+                    taskClass.setCategory(vmodelCode);
                     taskClass.setImage_path(vehimage);
+
+                    taskClass.setCategory(vcate_name);
+                    taskClass.setManufacture(mfg_name);
+                    taskClass.setCc(veh_cc);
+                    taskClass.setBhp(veh_bhp);
+                    taskClass.setTopspeed(veh_top_speed);
+                    taskClass.setBodytype(body_type);
+                    taskClass.setFuelname(fuel_name);
+                    taskClass.setModel_name(app_model_name);
+                    taskClass.setChargingtime(charging_time);
+                    taskClass.setSaleprice(sale_price);
 
                     Global.allleadslist.add(taskClass);
 
