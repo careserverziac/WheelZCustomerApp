@@ -37,18 +37,18 @@ import ModelClasses.Global;
 import ModelClasses.TaskClass;
 
 
-public class DashboardFragment extends Fragment {
+public class ModelsFragment extends Fragment {
 
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
-    ModelsAdapter adapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view=inflater.inflate(R.layout.fragment_models, container, false);
         Context context = requireContext();
         VehicleelistRV=view.findViewById(R.id.vehlisthorizontal);
 
@@ -56,9 +56,9 @@ public class DashboardFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehicleelistRV.setLayoutManager(linearLayoutManager);
         VehicleelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adapter = new ModelsAdapter(new ArrayList<>(),context);
+      /*  adapter = new ModelsAdapter(new ArrayList<>(),context);
         VehicleelistRV.setAdapter(adapter);
-
+*/
 
         return view;
     }
@@ -150,7 +150,7 @@ public class DashboardFragment extends Fragment {
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+                0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));

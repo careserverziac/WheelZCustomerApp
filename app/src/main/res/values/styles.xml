@@ -6,6 +6,13 @@
         <item name="android:textColorHint">@color/white</item>
         <!-- Add any other attributes you want to customize for the TextInputLayout -->
     </style>
+    <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
+        <!-- Set the color for the icons -->
+        <item name="itemIconTint">#9A9797</item>
+
+        <!-- Set the color for the text -->
+        <item name="itemTextColor">@color/white</item>
+    </style>
 
 
  <!--   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">

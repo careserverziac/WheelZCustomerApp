@@ -29,16 +29,17 @@
             android:id="@+id/bottomnavigationview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:menu="@menu/bottom_menu"
-            app:labelVisibilityMode="labeled"
-            app:itemPaddingBottom="10dp"/>
+            android:background="#201F1F"
+            app:labelVisibilityMode="selected"
+            app:itemPaddingBottom="10dp"
+            style="@style/BottomNavigationStyle" />
 
     </LinearLayout>
 
 
 
-    <com.google.android.material.navigation.NavigationView
+   <!-- <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/nav_view"
@@ -46,7 +47,7 @@
         app:headerLayout="@layout/layout_navigation_header"
         app:menu="@menu/navigation_drawer_menu"
         app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"/>
+        app:itemTextColor="@color/black"/>-->
 
 
 

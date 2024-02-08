@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,24 +15,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
-import Fragments.BlankFragment;
-import Fragments.DemoFragment;
-import Fragments.FinalFragment;
-import Fragments.DashboardFragment;
-import Fragments.TestFragment;
+import Fragments.DealersFragment;
+import Fragments.MyVehiclesFragment;
+import Fragments.HomeFragment;
+import Fragments.ModelsFragment;
+import Fragments.ProfileFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivty extends AppCompatActivity  {
 
@@ -60,7 +53,7 @@ public class MainActivty extends AppCompatActivity  {
        // Toolbaricon = findViewById(R.id.profileicon);
 
 
-        openFragment(new DashboardFragment());
+        openFragment(new HomeFragment());
 
        // toolbar = findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
@@ -119,20 +112,20 @@ public class MainActivty extends AppCompatActivity  {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemid = item.getItemId();
 
-                if (itemid == R.id.bottom_dashboard) {
-                    openFragment(new DashboardFragment());
+                if (itemid == R.id.bottom_home) {
+                    openFragment(new HomeFragment());
                     return true;
-                } else if (itemid == R.id.bottom_crm) {
-                    openFragment(new FinalFragment());
+                } else if (itemid == R.id.bottom_models) {
+                    openFragment(new ModelsFragment());
                     return true;
-                } else if (itemid == R.id.bottom_worskshop) {
-                    openFragment(new BlankFragment());
+                } else if (itemid == R.id.bottom_dealers) {
+                    openFragment(new DealersFragment());
                     return true;
                 } else if (itemid == R.id.bottom_vehicles) {
-                    openFragment(new DemoFragment());
+                    openFragment(new MyVehiclesFragment());
                     return true;
                 } else if (itemid == R.id.bottom_profile) {
-                   startActivity(new Intent(MainActivty.this,ProfileActivity.class));
+                    openFragment(new ProfileFragment());
                     return true;
                 }
 
@@ -151,7 +144,7 @@ public class MainActivty extends AppCompatActivity  {
                     return true;
                 } else if (itemId == R.id.menu_settings) {
 
-                    openFragment(new FinalFragment());
+                    openFragment(new HomeFragment());
                     return true;
 
                 } else if (itemId == R.id.menu_log) {
@@ -178,7 +171,7 @@ public class MainActivty extends AppCompatActivity  {
 
         if (itemIDd == R.id.nav_companydtls) {
 
-            openFragment(new DashboardFragment());
+            openFragment(new ModelsFragment());
 
         }
         else if (itemIDd == R.id.nav_aboutus) {

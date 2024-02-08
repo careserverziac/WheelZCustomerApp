@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 
 import com.ziac.wheelzonline.R;
 
-public class FinalFragment extends Fragment {
+
+public class MyVehiclesFragment extends Fragment {
+
 
 
     @Override
@@ -18,8 +20,9 @@ public class FinalFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         View view=inflater.inflate(R.layout.fragment_final, container, false);
-        return view;
+         View view= inflater.inflate(R.layout.fragment_myvehicles, container, false);
 
+
+        return view;
     }
 }

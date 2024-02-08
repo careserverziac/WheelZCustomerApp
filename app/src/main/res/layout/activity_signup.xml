@@ -37,16 +37,28 @@
 
 
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/signupbackbtn"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:backgroundTint="#E84D4D"
                 android:gravity="center"
-                android:background="@drawable/baseline_arrow_back_ios_24"
-                app:fabSize="mini"
-                app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/wheelzsmalllogo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/calistoga"
+                    android:text="WheelZ"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
 
 

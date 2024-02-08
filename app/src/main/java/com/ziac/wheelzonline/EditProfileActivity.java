@@ -76,7 +76,7 @@ public class EditProfileActivity extends AppCompatActivity {
         Picasso picasso=builder.build();
         picasso.load(Uri.parse(image)).into(ProfileImage );
 
-        EPbackbtn=findViewById(R.id.EPbackbuttontn);
+        //EPbackbtn=findViewById(R.id.EPbackbuttontn);
 
         Name=findViewById(R.id.name);
         Mobilenumber=findViewById(R.id.mobile);
@@ -98,11 +98,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
-        EPbackbtn.setOnClickListener(view -> {
+      /*  EPbackbtn.setOnClickListener(view -> {
 
            // startActivity(new Intent(new Intent(EditProfileActivity.this,ProfileActivity.class)));
             finish();
-        });
+        });*/
 
 
         UpdateProfilebtn.setOnClickListener(v -> Updateprofiledetails());

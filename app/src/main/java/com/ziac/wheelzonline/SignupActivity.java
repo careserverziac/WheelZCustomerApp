@@ -47,7 +47,7 @@ import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
 public class SignupActivity extends AppCompatActivity {
-    FloatingActionButton Signupbackbtn;
+    /*FloatingActionButton Signupbackbtn;*/
     EditText Name,Email,Mobile,Username,Password,Cpassword;
     CheckBox checkBox;
     TextView TermsandConditions;
@@ -73,7 +73,7 @@ public class SignupActivity extends AppCompatActivity {
             Global.customtoast(SignupActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
 
-        Signupbackbtn=findViewById(R.id.signupbackbtn);
+       // Signupbackbtn=findViewById(R.id.signupbackbtn);
         Name=findViewById(R.id.name);
         Email=findViewById(R.id.email);
         Mobile=findViewById(R.id.mobile);
@@ -83,7 +83,7 @@ public class SignupActivity extends AppCompatActivity {
         checkBox=findViewById(R.id.checkbox);
         TermsandConditions=findViewById(R.id.termsandconditions);
         Register=findViewById(R.id.register);
-        Signupbackbtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
+       // Signupbackbtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
         Register.setOnClickListener(v -> {// startActivity(new Intent(SignupActivity.this, LoginActivity.class));
         });
 

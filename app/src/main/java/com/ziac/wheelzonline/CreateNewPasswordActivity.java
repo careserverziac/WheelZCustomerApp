@@ -38,12 +38,11 @@ import ModelClasses.Global;
 
 public class CreateNewPasswordActivity extends AppCompatActivity {
 
-    FloatingActionButton NPbackbtn;
+   // FloatingActionButton NPbackbtn;
     EditText Newpassword;
     TextView UsernameTxt,MobileTxt,Resendotp;
     AppCompatButton SubmitOTP;
     String username,mobile;
-
 
     PinView pinView;
 
@@ -54,7 +53,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_password);
 
-        NPbackbtn=findViewById(R.id.CPbackbtn);
+       // NPbackbtn=findViewById(R.id.CPbackbtn);
 
         if (AppStatus.getInstance(this).isOnline()) {
             //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
@@ -76,7 +75,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         MobileTxt.setText(mobile);
 
 
-        NPbackbtn.setOnClickListener(v -> startActivity(new Intent(CreateNewPasswordActivity.this,ForgotPasswordActivity.class)));
+       // NPbackbtn.setOnClickListener(v -> startActivity(new Intent(CreateNewPasswordActivity.this,ForgotPasswordActivity.class)));
 
         SubmitOTP.setOnClickListener(v ->   ChangePasswordandSubmit());
         Resendotp.setOnClickListener(v ->   getotpmethod());

@@ -38,7 +38,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     AppCompatButton SendOTp;
     EditText Username,Mobileno;
-    FloatingActionButton Forgotbackbtn;
+   // FloatingActionButton Forgotbackbtn;
     String username,mobile;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -54,18 +54,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
         SendOTp=findViewById(R.id.sendotp);
-        Forgotbackbtn=findViewById(R.id.forgotbackbtn);
+       // Forgotbackbtn=findViewById(R.id.forgotbackbtn);
         Username=findViewById(R.id.fusername);
         Mobileno=findViewById(R.id.fmobile);
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         username = Global.sharedPreferences.getString("username", "");
         Username.setText(username);
-        Forgotbackbtn.setOnClickListener(new View.OnClickListener() {
+        /*Forgotbackbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
             }
-        });
+        });*/
         SendOTp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

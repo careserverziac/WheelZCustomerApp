@@ -23,7 +23,7 @@ public class Global {
     private static Picasso picassoInstance;
 
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.13:9394/";
+   public static String baseurl = "http://192.168.1.3:9394/";
 
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
@@ -38,7 +38,11 @@ public class Global {
 
     public static String changepasswordurl = baseurl + "api/Account/ChangePassword";
     public static String getuserprofiledetails = baseurl + "api/Users/GetUserProfile";
+    public static String GetStates = baseurl + "api/List/GetStates";
+    public static ArrayList<zList> statearraylist;
+    public static String GetCity = baseurl + "api/List/Getcity?";
 
+    public static ArrayList<zList> cityarraylist;
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
 

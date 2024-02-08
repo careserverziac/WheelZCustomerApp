@@ -4,23 +4,19 @@
 
 
     <item
-        android:id="@+id/bottom_dashboard"
-        android:title="Dashboard"
-        android:icon="@drawable/dashboard" />
+        android:id="@+id/bottom_home"
+        android:title="Home"
+        android:icon="@drawable/home" />
 
- <!--   <item
-        android:id="@+id/bottom_masters"
-        android:title="Masters"
-        android:icon="@drawable/masters"/>
--->
-    <item
-        android:id="@+id/bottom_worskshop"
-        android:title="Workshop"
-        android:icon="@drawable/workshop" />
 
     <item
-        android:id="@+id/bottom_crm"
-        android:title="CRM"
+        android:id="@+id/bottom_models"
+        android:title="Models"
+        android:icon="@drawable/model" />
+
+    <item
+        android:id="@+id/bottom_dealers"
+        android:title="Dealers"
         android:icon="@drawable/crm" />
     <item
         android:id="@+id/bottom_vehicles"
