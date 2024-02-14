@@ -15,8 +15,8 @@
     </style>
 
 
- <!--   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowDisablePreview">true</item>
-    </style>
--->
+    <!--   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+           <item name="android:windowDisablePreview">true</item>
+       </style>
+   -->
 </resources>

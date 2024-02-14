@@ -34,7 +34,7 @@ import java.util.Map;
 
 import AdapterClass.ModelsAdapter;
 import ModelClasses.Global;
-import ModelClasses.TaskClass;
+import ModelClasses.CommonClass;
 
 
 public class ModelsFragment extends Fragment {
@@ -65,7 +65,6 @@ public class ModelsFragment extends Fragment {
     private void  GetAllBrands() {
 
 
-
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
         String url = Global.getallbrands;
 
@@ -92,22 +91,22 @@ public class ModelsFragment extends Fragment {
                     String sale_price = jsonObject.getString("sale_price");
                     String charging_time = jsonObject.getString("charging_time");
 
-                    TaskClass taskClass = new TaskClass();
-                    taskClass.setCategory(vmodelCode);
-                    taskClass.setImage_path(vehimage);
+                    CommonClass commonClass = new CommonClass();
+                    commonClass.setCategory(vmodelCode);
+                    commonClass.setImage_path(vehimage);
 
-                    taskClass.setCategory(vcate_name);
-                    taskClass.setManufacture(mfg_name);
-                    taskClass.setCc(veh_cc);
-                    taskClass.setBhp(veh_bhp);
-                    taskClass.setTopspeed(veh_top_speed);
-                    taskClass.setBodytype(body_type);
-                    taskClass.setFuelname(fuel_name);
-                    taskClass.setModel_name(app_model_name);
-                    taskClass.setChargingtime(charging_time);
-                    taskClass.setSaleprice(sale_price);
+                    commonClass.setCategory(vcate_name);
+                    commonClass.setManufacture(mfg_name);
+                    commonClass.setCc(veh_cc);
+                    commonClass.setBhp(veh_bhp);
+                    commonClass.setTopspeed(veh_top_speed);
+                    commonClass.setBodytype(body_type);
+                    commonClass.setFuelname(fuel_name);
+                    commonClass.setModel_name(app_model_name);
+                    commonClass.setChargingtime(charging_time);
+                    commonClass.setSaleprice(sale_price);
 
-                    Global.allleadslist.add(taskClass);
+                    Global.allleadslist.add(commonClass);
 
                 }
 

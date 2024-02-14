@@ -2,10 +2,13 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +19,9 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -43,20 +48,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import AdapterClass.DealersAdapter;
+import AdapterClass.ModelsAdapter;
+import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
 
 
 public class DealersFragment extends Fragment {
-
+    String Url;
     private zList statename;
+    private CommonClass commonClass;
     private zList cityname;
     private Dialog zDialog;
 
     TextView Statetxt,Citytxt;
     LinearLayout Lstate,Lcity;
-
-    String statecode;
+    String statecode,citycode;
+    RecyclerView DealerlistRV;
+    DealersAdapter dealersAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -65,11 +75,17 @@ public class DealersFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view=inflater.inflate(R.layout.fragment_dealers, container, false);
-
+        Context context = requireContext();
         Lstate=view.findViewById(R.id.linearstate);
         Lcity=view.findViewById(R.id.linearcity);
-
+        DealerlistRV=view.findViewById(R.id.dealerlist);
         getstates();
+        getDealerslist();
+
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
+        DealerlistRV.setLayoutManager(linearLayoutManager);
+        DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
         Lstate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +102,103 @@ public class DealersFragment extends Fragment {
         });
         return view;
     }
+
+    private void getDealerslist() {
+
+        RequestQueue queue = Volley.newRequestQueue(requireActivity());
+
+        Url=Global.Getdealerslist;
+
+        Url=Url+"state_code="+statecode+"&city_code="+citycode;
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+
+                Global.dealersarraylist = new ArrayList<CommonClass>();
+                commonClass = new CommonClass();
+                for (int i = 0; i < response.length(); i++) {
+                    final JSONObject jsonObject;
+                    try {
+
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    commonClass = new CommonClass();
+                    try {
+
+                        commonClass.setImage_path(jsonObject.getString("logo_image"));
+                        commonClass.setCom_code(jsonObject.getString("com_code"));
+                        commonClass.setState_name(jsonObject.getString("state_name"));
+                        commonClass.setState_code(jsonObject.getString("state_code"));
+                        commonClass.setCity_name(jsonObject.getString("city_name"));
+                        commonClass.setCity_code(jsonObject.getString("city_code"));
+                        commonClass.setCom_name(jsonObject.getString("com_name"));
+                        commonClass.setCom_address(jsonObject.getString("com_address"));
+                        commonClass.setCom_pin(jsonObject.getString("com_pin"));
+                        commonClass.setCom_email(jsonObject.getString("com_email"));
+                        commonClass.setCom_website(jsonObject.getString("com_website"));
+                        commonClass.setCom_contact(jsonObject.getString("com_contact"));
+                        commonClass.setCom_contact_mobno(jsonObject.getString("com_contact_mobno"));
+                        commonClass.setCom_phone(jsonObject.getString("com_phone"));
+                        commonClass.setCom_lng(jsonObject.getString("com_lng"));
+                        commonClass.setCom_lat(jsonObject.getString("com_lat"));
+                        commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
+
+                       /* String statename=jsonObject.getString("state_name");
+                        Toast.makeText(requireActivity(), statename, Toast.LENGTH_SHORT).show();
+*/
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Global.dealersarraylist.add(commonClass);
+                }
+                dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
+                DealerlistRV.setAdapter(dealersAdapter);
+                dealersAdapter.notifyDataSetChanged();
+
+            }
+        },  error -> {
+
+            if (error instanceof NoConnectionError) {
+                if (error instanceof TimeoutError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
+                } else if (error instanceof NoConnectionError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                } else if (error instanceof ServerError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
+                } else if (error instanceof NetworkError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
+                } else if (error instanceof ParseError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
+                }
+            }
+            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
+
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+
+        };
+
+        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        queue.add(jsonArrayrequest);
+
+    }
+
 
     private void getstates() {
 
@@ -248,8 +361,19 @@ public class DealersFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             @SuppressLint("ViewHolder") View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton=v.findViewById(R.id.radio_button);
             statename = mDataArrayList.get(i);
             tvstatenameitem.setText(statename.get_name());
+            radioButton.setOnClickListener(view1 -> {
+                radioButton.setChecked(!radioButton.isChecked());
+                statename = mDataArrayList.get(i);
+                statecode = statename.get_code();
+                zDialog.dismiss();
+                getcity();
+                getDealerslist();
+
+            });
+
             tvstatenameitem.setOnClickListener(view1 -> {
                 statename = mDataArrayList.get(i);
                 statecode = statename.get_code();
@@ -260,6 +384,7 @@ public class DealersFragment extends Fragment {
                 // load the city
                 //tvCity = findViewById(R.id.tvcity);
                 getcity();
+                getDealerslist();
                 //tvCity.setOnClickListener(v -> citiespopup());
 
             });
@@ -454,15 +579,27 @@ public class DealersFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton=v.findViewById(R.id.radio_button);
             cityname = mDataArrayList.get(i);
             tvstatenameitem.setText(cityname.get_name());
+            radioButton.setOnClickListener(view1 -> {
+                radioButton.setChecked(!radioButton.isChecked());
+                statename = mDataArrayList.get(i);
+                statecode = statename.get_code();
+                zDialog.dismiss();
+                getcity();
+                getDealerslist();
+
+            });
             tvstatenameitem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     cityname = mDataArrayList.get(i);
                    // Citytxt.setText(cityname.get_name());
-                   // citycode = cityname.get_code();
+                    citycode = cityname.get_code();
                     zDialog.dismiss();
+
+                    //getDealerslist();
                 }
             });
             return v;

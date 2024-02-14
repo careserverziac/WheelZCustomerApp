@@ -23,11 +23,12 @@ public class Global {
     private static Picasso picassoInstance;
 
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.3:9394/";
-
+   public static String baseurl = "http://192.168.1.17:9394/";
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
     public static String modelsimageurl = baseurl+"/Website_data/models/";
+
+    public static String companyimageurl = baseurl+"/Website_data/Company/Logo/";
 
     public static String tokenurl = baseurl + "Ziac/WebUsers/TOKEN";
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
@@ -40,9 +41,11 @@ public class Global {
     public static String getuserprofiledetails = baseurl + "api/Users/GetUserProfile";
     public static String GetStates = baseurl + "api/List/GetStates";
     public static ArrayList<zList> statearraylist;
+    public static ArrayList<CommonClass> dealersarraylist;
     public static String GetCity = baseurl + "api/List/Getcity?";
-
     public static ArrayList<zList> cityarraylist;
+
+    public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
 
@@ -51,8 +54,8 @@ public class Global {
         public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
 
 
-      public static ArrayList<TaskClass> allleadslist;
-      public static TaskClass  modellist;
+      public static ArrayList<CommonClass> allleadslist;
+      public static CommonClass modellist;
 
 
   public static void customtoast(Context context, LayoutInflater inflater, String msg) {
