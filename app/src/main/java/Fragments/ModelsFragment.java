@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -41,7 +42,7 @@ public class ModelsFragment extends Fragment {
 
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
-
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -51,6 +52,7 @@ public class ModelsFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_models, container, false);
         Context context = requireContext();
         VehicleelistRV=view.findViewById(R.id.vehlisthorizontal);
+        progressBar=view.findViewById(R.id.progressBarmodels);
 
         GetAllBrands();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -156,4 +158,14 @@ public class ModelsFragment extends Fragment {
 
         queue.add(request);
     }
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        VehicleelistRV.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        VehicleelistRV.setVisibility(View.VISIBLE);
+    }
+
 }

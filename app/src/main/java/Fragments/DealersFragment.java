@@ -2,6 +2,7 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,6 +70,7 @@ public class DealersFragment extends Fragment {
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
 
+    ProgressBar progressBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
@@ -79,6 +82,11 @@ public class DealersFragment extends Fragment {
         Lstate=view.findViewById(R.id.linearstate);
         Lcity=view.findViewById(R.id.linearcity);
         DealerlistRV=view.findViewById(R.id.dealerlist);
+        progressBar=view.findViewById(R.id.progressBardealers);
+
+
+
+
         getstates();
         getDealerslist();
 
@@ -104,7 +112,7 @@ public class DealersFragment extends Fragment {
     }
 
     private void getDealerslist() {
-
+        showLoading();
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
 
         Url=Global.Getdealerslist;
@@ -157,11 +165,13 @@ public class DealersFragment extends Fragment {
                 dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
                 DealerlistRV.setAdapter(dealersAdapter);
                 dealersAdapter.notifyDataSetChanged();
+                hideLoading();
 
             }
         },  error -> {
 
             if (error instanceof NoConnectionError) {
+                hideLoading();
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
@@ -377,15 +387,11 @@ public class DealersFragment extends Fragment {
             tvstatenameitem.setOnClickListener(view1 -> {
                 statename = mDataArrayList.get(i);
                 statecode = statename.get_code();
-               // Statetxt.setText(statename.get_name());
-                zDialog.dismiss();
-
-                // state is selected
-                // load the city
-                //tvCity = findViewById(R.id.tvcity);
-                getcity();
+                citycode="";
                 getDealerslist();
-                //tvCity.setOnClickListener(v -> citiespopup());
+                zDialog.dismiss();
+                getcity();
+
 
             });
             return v;
@@ -423,26 +429,16 @@ public class DealersFragment extends Fragment {
                             }
                             cityname = new zList();
                             try {
-                                // getting the state name from the object
+                                // getting the city name from the object
                                 cityname.set_name(e.getString("city_name"));
                                 cityname.set_code(e.getString("city_code"));
+                                citycode = cityname.get_code();
                             } catch (JSONException ex) {
                                 throw new RuntimeException(ex);
                             }
                             Global.cityarraylist.add(cityname);
                         }
-                     /*   try {
-                            if (Global.cityarraylist != null && !Global.cityarraylist.isEmpty()) {
-                                tvCity.setText(Global.cityarraylist.get(0).get_name());
-                                citycode = Global.cityarraylist.get(0).get_code();
-                            } else {
-                                Global.customtoast(RegisterActivity.this, getLayoutInflater(), "No cities found for selected state");
 
-                            }
-                        } catch (Exception e) {
-                            // Handle any potential exceptions here (optional)
-                        }
-*/
 
                     }
                 },
@@ -461,7 +457,7 @@ public class DealersFragment extends Fragment {
                             Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                         }
                     }
-                    // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
+
 
                 }) {
 
@@ -584,11 +580,12 @@ public class DealersFragment extends Fragment {
             tvstatenameitem.setText(cityname.get_name());
             radioButton.setOnClickListener(view1 -> {
                 radioButton.setChecked(!radioButton.isChecked());
-                statename = mDataArrayList.get(i);
-                statecode = statename.get_code();
+                cityname = mDataArrayList.get(i);
+                citycode = cityname.get_code();
+                getDealerslist();
                 zDialog.dismiss();
                 getcity();
-                getDealerslist();
+
 
             });
             tvstatenameitem.setOnClickListener(new View.OnClickListener() {
@@ -597,13 +594,24 @@ public class DealersFragment extends Fragment {
                     cityname = mDataArrayList.get(i);
                    // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
+                    getDealerslist();
                     zDialog.dismiss();
 
-                    //getDealerslist();
+
                 }
             });
             return v;
         }
     }
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+        DealerlistRV.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        DealerlistRV.setVisibility(View.VISIBLE);
+    }
+
 
 }

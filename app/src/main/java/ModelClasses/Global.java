@@ -23,7 +23,7 @@ public class Global {
     private static Picasso picassoInstance;
 
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.17:9394/";
+   public static String baseurl = "http://192.168.1.16:9394/";
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
     public static String modelsimageurl = baseurl+"/Website_data/models/";

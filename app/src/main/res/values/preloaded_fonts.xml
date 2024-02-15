@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/adamina</item>
+        <item>@font/amaranth_bold</item>
         <item>@font/andada</item>
         <item>@font/antic_slab</item>
         <item>@font/archivo_black</item>
