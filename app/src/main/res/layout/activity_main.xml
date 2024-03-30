@@ -30,8 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_menu"
+            app:itemBackground="@drawable/bottom_nav_item_background"
             android:background="#201F1F"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="labeled"
             app:itemPaddingBottom="10dp"
             style="@style/BottomNavigationStyle" />
 

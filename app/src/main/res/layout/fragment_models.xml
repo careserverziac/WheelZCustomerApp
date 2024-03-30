@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refreshprofile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
@@ -48,6 +52,23 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/searchlinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchallleads"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundblackborder" />
+
+
+        </LinearLayout>
+
 
 
 
@@ -60,7 +81,7 @@
 
 </RelativeLayout>
 
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <!--   <RelativeLayout
             android:id="@+id/activity_splash"

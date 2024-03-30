@@ -123,13 +123,14 @@
                             android:background="@android:color/transparent"
                             android:hint="Your name"
                             android:fontFamily="@font/arsenal"
-                            android:inputType="textCapSentences|textEmailAddress"
+                            android:inputType="textCapSentences"
                             android:longClickable="true"
                             android:maxLength="25"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
 
                     </LinearLayout>
 
@@ -174,7 +175,8 @@
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
                     </LinearLayout>
 
 
@@ -221,7 +223,8 @@
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
                     </LinearLayout>
 
 
@@ -264,12 +267,14 @@
                             android:hint="User Name"
                             android:fontFamily="@font/arsenal"
                             android:inputType="textCapSentences|text"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*"
                             android:longClickable="true"
                             android:maxLength="20"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
                     </LinearLayout>
 
 
@@ -318,7 +323,10 @@
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
+
+<!--                        android:inputType="textPassword|textCapSentences"-->
                     </LinearLayout>
 
 
@@ -366,7 +374,8 @@
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:importantForAutofill="no" />
                     </LinearLayout>
 
 
@@ -406,8 +415,10 @@
                     android:layout_marginTop="5dp"
                     android:orientation="vertical">
 
+
+
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/register"
+                        android:id="@+id/registertration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -418,6 +429,7 @@
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
+
 
 
                 </LinearLayout>

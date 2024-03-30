@@ -2,15 +2,12 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,24 +31,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ziac.wheelzonline.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import AdapterClass.DealersAdapter;
-import AdapterClass.ModelsAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
@@ -65,12 +57,13 @@ public class DealersFragment extends Fragment {
     private Dialog zDialog;
 
     TextView Statetxt,Citytxt;
-    LinearLayout Lstate,Lcity;
-    String statecode,citycode;
+    LinearLayout Linearlayoutstate, LinearlayoutCity;
+    String statecode,citycode,statenames;
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
-
     ProgressBar progressBar;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
@@ -79,12 +72,12 @@ public class DealersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view=inflater.inflate(R.layout.fragment_dealers, container, false);
         Context context = requireContext();
-        Lstate=view.findViewById(R.id.linearstate);
-        Lcity=view.findViewById(R.id.linearcity);
+        Linearlayoutstate =view.findViewById(R.id.linearstate);
+        LinearlayoutCity =view.findViewById(R.id.linearcity);
         DealerlistRV=view.findViewById(R.id.dealerlist);
         progressBar=view.findViewById(R.id.progressBardealers);
-
-
+        Statetxt=view.findViewById(R.id.statetext);
+        Citytxt=view.findViewById(R.id.citytext);
 
 
         getstates();
@@ -95,14 +88,14 @@ public class DealersFragment extends Fragment {
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        Lstate.setOnClickListener(new View.OnClickListener() {
+        Linearlayoutstate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 statespopup();
             }
         });
 
-        Lcity.setOnClickListener(new View.OnClickListener() {
+        LinearlayoutCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 citiespopup();
@@ -380,7 +373,9 @@ public class DealersFragment extends Fragment {
                 statecode = statename.get_code();
                 zDialog.dismiss();
                 getcity();
-                getDealerslist();
+
+
+
 
             });
 
@@ -391,7 +386,9 @@ public class DealersFragment extends Fragment {
                 getDealerslist();
                 zDialog.dismiss();
                 getcity();
+                Statetxt.setText(statename.get_name());
 
+               // Toast.makeText(getContext(), "Selected state: " + statename.get_name(), Toast.LENGTH_SHORT).show();
 
             });
             return v;
@@ -433,6 +430,9 @@ public class DealersFragment extends Fragment {
                                 cityname.set_name(e.getString("city_name"));
                                 cityname.set_code(e.getString("city_code"));
                                 citycode = cityname.get_code();
+
+                              Citytxt.setText("City");
+
                             } catch (JSONException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -587,6 +587,8 @@ public class DealersFragment extends Fragment {
                 getcity();
 
 
+
+
             });
             tvstatenameitem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -594,6 +596,7 @@ public class DealersFragment extends Fragment {
                     cityname = mDataArrayList.get(i);
                    // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
+                    Citytxt.setText(cityname.get_name());
                     getDealerslist();
                     zDialog.dismiss();
 

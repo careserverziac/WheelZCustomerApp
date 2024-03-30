@@ -51,11 +51,13 @@ public class SignupActivity extends AppCompatActivity {
     EditText Name,Email,Mobile,Username,Password,Cpassword;
     CheckBox checkBox;
     TextView TermsandConditions;
-    AppCompatButton Register;
+    AppCompatButton Registration;
     Context context;
     boolean passwordvisible;
     private boolean passwordVisible = false;
     private ProgressDialog progressDialog;
+
+    String name,email,mobile,username,password,confirmpasword;
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +69,9 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(true);
 
-        if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
-        } else {
-            Global.customtoast(SignupActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
-        }
 
-       // Signupbackbtn=findViewById(R.id.signupbackbtn);
+
+
         Name=findViewById(R.id.name);
         Email=findViewById(R.id.email);
         Mobile=findViewById(R.id.mobile);
@@ -82,12 +80,13 @@ public class SignupActivity extends AppCompatActivity {
         Cpassword=findViewById(R.id.cpassword);
         checkBox=findViewById(R.id.checkbox);
         TermsandConditions=findViewById(R.id.termsandconditions);
-        Register=findViewById(R.id.register);
-       // Signupbackbtn.setOnClickListener(v -> startActivity(new Intent(SignupActivity.this, LoginActivity.class)));
-        Register.setOnClickListener(v -> {// startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-        });
+        Registration=findViewById(R.id.registertration);
 
-        Register.setEnabled(false);
+
+        Registration.setOnClickListener(v -> validationprocess());
+
+
+       // Registration.setEnabled(false);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -95,20 +94,21 @@ public class SignupActivity extends AppCompatActivity {
 
                 if (isChecked) {
 
-                    Register.setTextColor(Color.WHITE);
-                    Register.setText("Continue");
-                    Register.setBackgroundResource(R.drawable.border_colour);
-                    Register.setEnabled(true);
+                    Registration.setTextColor(Color.WHITE);
+                    Registration.setText("Continue");
+                    Registration.setBackgroundResource(R.drawable.border_colour);
+                    Registration.setEnabled(true);
+
                 } else {
 
-                    Register.setTextColor(Color.WHITE);
-                    Register.setText("Register");
-                    Register.setBackgroundResource(R.drawable.border_colour2);
+                    Registration.setTextColor(Color.WHITE);
+                    Registration.setText("Register");
+                    Registration.setBackgroundResource(R.drawable.border_colour2);
 
                 }
             }
         });
-        Register.setOnClickListener(v -> createnewuser());
+
 
 
         Password.setOnTouchListener((v, event) -> {
@@ -165,10 +165,10 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-    private void createnewuser() {
+    private void validationprocess() {
 
 
-        String name,email,mobile,username,password,confirmpasword;
+
 
         name = Name.getText().toString();
         email = Email.getText().toString();
@@ -190,7 +190,7 @@ public class SignupActivity extends AppCompatActivity {
 
         }
         if (!email.contains("@") || !email.endsWith(".com") || email.contains(" ")) {
-           // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "The provided email format does not exist !!");
+            // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "The provided email format does not exist !!");
             return;
         }
         if (mobile.isEmpty()) {
@@ -199,62 +199,49 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         if (mobile.length() < 10) {
-           // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "Mobile number should not be less than 10 digits !!");
+             Global.customtoast(SignupActivity.this, getLayoutInflater(), "Mobile number should not be less than 10 digits !!");
             return;
         }
-        if (username.contains(" ")) {
-            Username.setError("Admin User Name cannot allow space in between !!");
+        if (username.isEmpty()) {
+            Username.setError("Username field is missing !!!");
             Username.requestFocus();
             return;
         }
-        if (username.endsWith(".")) {
-           // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "Admin User Name cannot end with .");
-            return;
-
-        }
-
-        if (username.contains("..")) {
-           // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "Admin User Name cannot allow two ..");
-            return;
-        }
-
-        if (username.startsWith(".")) {
-           // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "Admin User Name cannot start with .");
-            return;
-
-        }
         if (username.length() < 6) {
-            //Global.customtoast(RegisterActivity.this, getLayoutInflater(), "The Admin User Name must contain 6 to 20 characters !!");
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "The Admin User Name must contain 6 to 20 characters !!");
             return;
 
-//        }if (!adminUserName.matches(".*\\d.*")) {
-//            Global.customtoast(RegisterActivity.this, getLayoutInflater(), "The Admin User Name must contain atleast one number !!");
-//            return;
-//
         }
+        if (username.contains(" ")) {
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Admin User Name cannot allow space in between !!");
+            return;
+        }
+        if (username.endsWith(".")) {
+             Global.customtoast(SignupActivity.this, getLayoutInflater(), "Admin User Name cannot end with .");
+            return;
 
+        }
+        if (username.startsWith(".")) {
+             Global.customtoast(SignupActivity.this, getLayoutInflater(), "Admin User Name cannot start with .");
+            return;
+
+        }
         if (password.isEmpty()) {
             Password.setError("Password field is missing !!");
             Password.requestFocus();
             return;
         }
+
+        if (!isValidPassword(password)) {
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Password must contain one upper case, one lower case, one number, and one special character also it should not start or end with (@), ($), (_) and (.) !!");
+            return;
+        }
+
         if (confirmpasword.isEmpty()) {
-            Cpassword.setError("Confirm pasword field is missing !!");
+            Cpassword.setError("Confirm password field is missing !!");
             Cpassword.requestFocus();
             return;
         }
-
-        if (!isValidPassword(password)) {
-            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Password must contain one upper case, one lower case, one number, and one special character !!");
-            return;
-        }
-
-        if (password.length() < 6) {
-            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Password must contain one upper case,one lower case,one number and one special character !!");
-            return;
-        }
-
-
         if (!password.equals(confirmpasword)) {
             Global.customtoast(SignupActivity.this, getLayoutInflater(), "The given password and confirm password does not match !!");
             return;
@@ -262,9 +249,42 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (!checkBox.isChecked()) {
-            Global.customtoast(SignupActivity.this, getLayoutInflater(), "You are not agree with the terms and conditions of Divine CRM to move further !!");
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "You are not agree with the terms and conditions of WheelZ to move further !!");
             return;
         }
+
+       /*
+
+
+        if (username.contains("..")) {
+            // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "Admin User Name cannot allow two ..");
+            return;
+        }
+
+
+
+        if (!isValidPassword(password)) {
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Password must contain one upper case, one lower case, one number, and one special character !!");
+            return;
+        }
+
+
+        }*/
+
+        if (AppStatus.getInstance(this).isOnline()) {
+
+            createnewuser();
+        } else {
+            Global.customtoast(SignupActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+        }
+
+
+
+    }
+
+    private void createnewuser() {
+
+
         progressDialog.show();
         RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
@@ -300,8 +320,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                // Toast.makeText(RegisterActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-              //  Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
+
+                Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
                     Global.customtoast(SignupActivity.this, getLayoutInflater(), "Request Time-Out");
@@ -330,24 +350,14 @@ public class SignupActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
 
-//                String emailValue = Email.getText().toString();
-//                if (emailValue.isEmpty()) {
-//                    emailValue = "notprovided@gmail.com";
-//                }
-
-
                 params.put("key_person",name);
                 params.put("wuser_email",email);
                 params.put("wuser_mobile1",mobile);
                 params.put("username",username);
                 params.put("password",password);
-               // params.put("confirm_password",confirmpasword);
-                Log.d("params",params.toString());
+                //Log.d("params",params.toString());
                 return params;
 
-//                params.put("com_email", emailValue);
-//                params.put("state_code", String.valueOf(statename.get_code()));
-//                params.put("city_code", String.valueOf(cityname.get_code()));
 
             }
         };
@@ -365,7 +375,7 @@ public class SignupActivity extends AppCompatActivity {
         String upperCaseChars = "(.*[A-Z].*)";
         String lowerCaseChars = "(.*[a-z].*)";
         String numbers = "(.*[0-9].*)";
-        String specialChars = "(.*[@#$%^&+=!].*)";
+        String specialChars = "(.*[@#$%^&+=!_.$].*)";
 
         return password.matches(upperCaseChars) &&
                 password.matches(lowerCaseChars) &&

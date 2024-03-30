@@ -53,7 +53,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     FloatingActionButton EPbackbtn,Camera;
     EditText Name,Mobilenumber,Email;
-    CircleImageView ProfileImage;
+    CircleImageView circularImageView;
     AppCompatButton UpdateProfilebtn;
     Bitmap imageBitmap;
     String image,name,mobile,user_mail;
@@ -63,6 +63,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         if (AppStatus.getInstance(this).isOnline()) {
             //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
@@ -71,12 +72,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-        ProfileImage=findViewById(R.id.profile_images);
+        circularImageView=findViewById(R.id.profile_images);
         Picasso.Builder builder=new Picasso.Builder(getApplication());
         Picasso picasso=builder.build();
-        picasso.load(Uri.parse(image)).into(ProfileImage );
+       // picasso.load(Uri.parse(image)).into(circularImageView );
+        Global.loadWithPicasso(this, circularImageView, image);
 
-        //EPbackbtn=findViewById(R.id.EPbackbuttontn);
+
 
         Name=findViewById(R.id.name);
         Mobilenumber=findViewById(R.id.mobile);
@@ -84,7 +86,7 @@ public class EditProfileActivity extends AppCompatActivity {
         UpdateProfilebtn=findViewById(R.id.updateprofile);
         Camera=findViewById(R.id.fab);
 
-        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
 
          name = Global.sharedPreferences.getString("key_person", "");
          mobile = Global.sharedPreferences.getString("Mobile1", "");
@@ -110,7 +112,10 @@ public class EditProfileActivity extends AppCompatActivity {
         Camera = findViewById(R.id.fab);
         Camera.setOnClickListener(v -> openCamera());
 
-        ProfileImage.setOnClickListener(v -> {
+
+
+
+        circularImageView.setOnClickListener(v -> {
             image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
             showImage(picasso,image);
 
@@ -303,7 +308,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     Global.editor.commit();
 
                     String image = Global.userimageurl +uploadimage;
-                    Picasso.get().load(image).into(ProfileImage);
+                    /*Picasso.get().load(image).into(circularImageView);*/
+                    Global.loadWithPicasso(this, circularImageView, image);
                     Global.customtoast(EditProfileActivity.this, getLayoutInflater(),Message);
 
                 } else {

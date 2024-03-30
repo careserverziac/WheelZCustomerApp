@@ -50,14 +50,14 @@ public class ContactUSActivity extends AppCompatActivity {
         Location=findViewById(R.id.location);
         Call=findViewById(R.id.call);
         Mail=findViewById(R.id.maillink);
-        Backbtn=findViewById(R.id.conbackbtn);
+       // Backbtn=findViewById(R.id.conbackbtn);
 
 
         Instagram.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/ziacsoftwares/"))));
         Facebook.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/ziacsoft/"))));
         Twitter.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.twitter.com/ziacsoft"))));
         Linkedin.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/company/ziacsoft"))));
-        Backbtn.setOnClickListener(v -> finish());
+       // Backbtn.setOnClickListener(v -> finish());
 
         Call.setOnClickListener(v -> {Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:9008098101"));

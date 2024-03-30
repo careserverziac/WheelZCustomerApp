@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -29,11 +31,17 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
@@ -61,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
 
         Username = findViewById(R.id.loginusername);
         Password = findViewById(R.id.loginpassword);
-        //RememberMe = findViewById(R.id.remember);
         loginbtn = findViewById(R.id.loginbtn);
         Signin = findViewById(R.id.signin);
         ForgotPasswordTXT=findViewById(R.id.forgotpasswordtxt);
@@ -69,12 +76,26 @@ public class LoginActivity extends AppCompatActivity {
         versionName.setText("Ver No:" + BuildConfig.VERSION_NAME);
 
 
+        Username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Set importantForAutofill to auto if the EditText is clicked
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Username.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_AUTO);
+                }
+            }
+        });
 
-        if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
-        } else {
-        Global.customtoast(LoginActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
-        }
+        Username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                // Set importantForAutofill to no if the EditText loses focus
+                if (!hasFocus && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Username.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
+                }
+            }
+        });
+
 
         loginbtn.setOnClickListener(v -> {
 
@@ -91,47 +112,17 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            if (isNetworkAvailable()) {
-                /*Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                Global.editor = Global.sharedPreferences.edit();
-
-                if (RememberMe.isChecked()) {
-                    Global.editor.putString("username", username);
-                    Global.editor.putString("password", pwd);
-                } else {
-                    Global.editor.putString("username", "");
-                    Global.editor.putString("password", "");
-                }
-                Global.editor.commit();*/
-
-                // Call login method only if there is internet connectivity
-                dologinVolley();
+            if (AppStatus.getInstance(this).isOnline()) {
+                dologin();
             } else {
-                Global.customtoast(LoginActivity.this, getLayoutInflater(), "No internet connection. Please check your network.");
+                Global.customtoast(LoginActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
             }
 
         });
 
-        /*RememberMe.setChecked(false);
-        try {
-            Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-            username = Global.sharedPreferences.getString("username", "");
-            pwd = Global.sharedPreferences.getString("password", "");
-            Username.setText(username);
-            Password.setText(pwd);
-            if (username.length() == 0) {
-                RememberMe.setChecked(false);
-            } else {
-                RememberMe.setChecked(true);
-            }
 
-        } catch (Exception e) {
-            RememberMe.setChecked(false);
-        }
-*/
         Signin.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this,SignupActivity.class)));
         ForgotPasswordTXT.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class)));
-
         Password.setOnTouchListener((v, event) -> {
             final int Right = 2;
             if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -155,94 +146,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void getuserprofile() {
-
-        String url = Global.getuserprofiledetails;
-        RequestQueue queue= Volley.newRequestQueue(LoginActivity.this);
-        //progressDialog.show();
-        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-
-            try {
-                JSONObject respObj1 = new JSONObject(response);
-                JSONObject respObj = new JSONObject(respObj1.getString("data"));
-
-                String userName = respObj.getString("userName");
-                String key_person = respObj.getString("key_person");
-                String Code = respObj.getString("Code");
-                String Email = respObj.getString("Email");
-                String Image = respObj.getString("Image");
-                String Mobile1 = respObj.getString("Mobile1");
-                String Mobile2 = respObj.getString("Mobile2");
-                String Approved = respObj.getString("Approved");
-                String Ref_Code = respObj.getString("Ref_Code");
-                String Active = respObj.getString("Active");
-                String Type = respObj.getString("Type");
-
-
-                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                Global.editor = Global.sharedPreferences.edit();
-                Global.editor.putString("userName", userName);
-                Global.editor.putString("key_person", key_person);
-                Global.editor.putString("Code", Code);
-                Global.editor.putString("Email", Email);
-                Global.editor.putString("Image", Image);
-                Global.editor.putString("Mobile1", Mobile1);
-                Global.editor.putString("Mobile2", Mobile2);
-                Global.editor.putString("Approved", Approved);
-                Global.editor.putString("Ref_Code", Ref_Code);
-                Global.editor.putString("Active", Active);
-                Global.editor.putString("Type", Type);
-                Global.editor.commit();
 
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(LoginActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(LoginActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(LoginActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
-
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
-                headers.put("Authorization", "Bearer " + accesstoken);
-                return headers;
-            }
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-               // params.put("username", username);
-                return params;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-
-        queue.add(request);
-    }
-    private void dologinVolley() {
+    private void dologin() {
         progressDialog.show();
 
         String url = Global.tokenurl;
@@ -253,8 +160,6 @@ public class LoginActivity extends AppCompatActivity {
                 //String issuccess = respObj.getString("isSuccess");
                 //String error = respObj.getString("error");
 
-                getuserprofile();
-
                 String access_token = respObj.getString("access_token");
                 String refresh_token = respObj.getString("refresh_token");
 
@@ -263,20 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                 Global.editor.putString("refresh_token", refresh_token);
                 Global.editor.commit();
 
-
-               /* if(issuccess.equals("true")){
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(), error);
-                    *//*Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), "OTP is send to your registered mobile number");*//*
-                    startActivity(new Intent(SplashActivity.this,CreateNewPasswordActivity.class));
-                } else {
-                    Global.customtoast(SplashActivity.this, getLayoutInflater(), error);
-                }*/
-
-                startActivity(new Intent(LoginActivity.this, MainActivty.class));
-                progressDialog.dismiss();
-                finish();
-                // getuserdetails();
-
+                getuserprofile();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -288,9 +180,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
                 if (error instanceof TimeoutError) {
-                    Global.customtoast(LoginActivity.this, getLayoutInflater(),"Request Time-Out");
+                   // Global.customtoast(LoginActivity.this, getLayoutInflater(),"Request Time-Out");
                 }  else if (error instanceof NoConnectionError) {
-                    Global.customtoast(LoginActivity.this, getLayoutInflater(),"No Connection Found");
+                   // Global.customtoast(LoginActivity.this, getLayoutInflater(),"No Connection Found");
                 }
 
                 else if (error instanceof ServerError) {
@@ -335,51 +227,100 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
+    private void getuserprofile() {
 
+        String url = Global.getuserprofiledetails;
+        RequestQueue queue= Volley.newRequestQueue(LoginActivity.this);
+        //progressDialog.show();
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
 
-
-
-  /*  private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-        }
-        return false;
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class InternetCheckTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... voids) {
             try {
-                HttpURLConnection urlc = (HttpURLConnection) (new URL("http://www.google.com").openConnection());
-                urlc.setRequestProperty("User-Agent", "Test");
-                urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(3000);
-                urlc.connect();
-                return (urlc.getResponseCode() == 200);} catch (IOException e) {e.printStackTrace();return false;}}
+                JSONObject respObj1 = new JSONObject(response);
+                JSONObject respObj = new JSONObject(respObj1.getString("data"));
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                //  showToast("Internet access is available.");
-            } else {
+                String userName = respObj.getString("userName");
+                String key_person = respObj.getString("key_person");
+                String Code = respObj.getString("Code");
+                String Email = respObj.getString("Email");
+                String Image = respObj.getString("Image");
+                String Mobile1 = respObj.getString("Mobile1");
+                String Mobile2 = respObj.getString("Mobile2");
+                String Approved = respObj.getString("Approved");
+                String Ref_Code = respObj.getString("Ref_Code");
+                String Active = respObj.getString("Active");
+                String Type = respObj.getString("Type");
+
+
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                Global.editor = Global.sharedPreferences.edit();
+                Global.editor.putString("userName", userName);
+                Global.editor.putString("key_person", key_person);
+                Global.editor.putString("Code", Code);
+                Global.editor.putString("Email", Email);
+                Global.editor.putString("Image", Image);
+                Global.editor.putString("Mobile1", Mobile1);
+                Global.editor.putString("Mobile2", Mobile2);
+                Global.editor.putString("Approved", Approved);
+                Global.editor.putString("Ref_Code", Ref_Code);
+                Global.editor.putString("Active", Active);
+                Global.editor.putString("Type", Type);
+                Global.editor.commit();
+
+
+                startActivity(new Intent(LoginActivity.this, MainActivty.class));
                 progressDialog.dismiss();
-                showToast("Connected WIFI or Mobile data has no internet access");
-            }
-        }}*/
-  /*  private void showToast(String message) {
-        LayoutInflater inflater = getLayoutInflater();
-        Global.customtoast(LoginActivity.this, inflater, message);
+                finish();
 
-    }*/
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                if (error instanceof TimeoutError) {
+                    Toast.makeText(LoginActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NoConnectionError) {
+                    Toast.makeText(LoginActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+                    Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(LoginActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                // params.put("username", username);
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+
+        queue.add(request);
+    }
+
+
 
 }
 

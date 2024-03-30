@@ -8,7 +8,7 @@
     </style>
     <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <!-- Set the color for the icons -->
-        <item name="itemIconTint">#9A9797</item>
+        <item name="itemIconTint">#C8C4C4</item>
 
         <!-- Set the color for the text -->
         <item name="itemTextColor">@color/white</item>

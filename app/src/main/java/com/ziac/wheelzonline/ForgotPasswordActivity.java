@@ -107,6 +107,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), error);
                         /*Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), "OTP is send to your registered mobile number");*/
                         startActivity(new Intent(ForgotPasswordActivity.this,CreateNewPasswordActivity.class));
+                        finish();
                     } else {
                         Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), error);
                     }

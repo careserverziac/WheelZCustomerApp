@@ -242,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arsenal"                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/border_colour"
+                    android:background="@drawable/border_colour2"
                     android:text="Update"
                     android:textColor="#ffffff"
                     android:textSize="16sp" />

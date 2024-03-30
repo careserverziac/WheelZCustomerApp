@@ -23,7 +23,7 @@ public class Global {
     private static Picasso picassoInstance;
 
     //public static String baseurl = "http://192.168.1.8/ziaccrm.main/";
-   public static String baseurl = "http://192.168.1.16:9394/";
+   public static String baseurl = "http://192.168.1.21:9394/";
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
     public static String modelsimageurl = baseurl+"/Website_data/models/";
@@ -48,10 +48,12 @@ public class Global {
     public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
+    public static String searchallbrands = baseurl + "api/Brands/GetAllBrands?searchtext=";
 
 
     public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
-        public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
+    public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
+    public static String urlSearchdealers = baseurl + "";
 
 
       public static ArrayList<CommonClass> allleadslist;
@@ -67,7 +69,7 @@ public class Global {
    customToast.setDuration(Toast.LENGTH_SHORT);
    customToast.setView(customToastView);
    customToast.show();
-   new Handler().postDelayed(new Runnable() {@Override public void run() {customToast.cancel();}}, 2000);}
+   new Handler().postDelayed(new Runnable() {@Override public void run() {customToast.cancel();}}, 6000);}
 
 
 
