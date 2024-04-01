@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -18,6 +20,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -50,7 +54,7 @@ public class SignupActivity extends AppCompatActivity {
     /*FloatingActionButton Signupbackbtn;*/
     EditText Name,Email,Mobile,Username,Password,Cpassword;
     CheckBox checkBox;
-    TextView TermsandConditions;
+    TextView TermsandConditions,Privacypolicy;
     AppCompatButton Registration;
     Context context;
     boolean passwordvisible;
@@ -80,6 +84,7 @@ public class SignupActivity extends AppCompatActivity {
         Cpassword=findViewById(R.id.cpassword);
         checkBox=findViewById(R.id.checkbox);
         TermsandConditions=findViewById(R.id.termsandconditions);
+        Privacypolicy=findViewById(R.id.privacypolicy);
         Registration=findViewById(R.id.registertration);
 
 
@@ -156,12 +161,34 @@ public class SignupActivity extends AppCompatActivity {
             return false;
         });
 
-        String text = TermsandConditions.getText().toString();
-        SpannableString spannableString = new SpannableString(text);
-        spannableString.setSpan(new UnderlineSpan(), 0, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TermsandConditions.setText(spannableString);
+        String terms = TermsandConditions.getText().toString();
+        SpannableString spannableStringterms = new SpannableString(terms);
+        spannableStringterms.setSpan(new UnderlineSpan(), 0, spannableStringterms.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        TermsandConditions.setText(spannableStringterms);
+
+        String privacy = Privacypolicy.getText().toString();
+        SpannableString spannableStringprivacy = new SpannableString(privacy);
+        spannableStringprivacy.setSpan(new UnderlineSpan(), 0, spannableStringprivacy.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Privacypolicy.setText(spannableStringprivacy);
+
 
         TermsandConditions.setOnClickListener(v -> golink());
+        Privacypolicy.setOnClickListener(v -> privacyMethod());
+
+    }
+
+    private void privacyMethod() {
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
+
+        if (networkInfo == null || !networkInfo.isConnected() || !networkInfo.isAvailable()) {
+
+            Toast.makeText(SignupActivity.this, "Network not available !!", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Uri uri = Uri.parse("https://www.ziacsoft.com/privacy.html");
+            startActivity(new Intent(Intent.ACTION_VIEW, uri));        }
 
     }
 

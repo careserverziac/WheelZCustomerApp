@@ -392,6 +392,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:textSize="11sp"
                         android:fontFamily="@font/arsenal"
                         android:buttonTint="@color/white"
                         android:text="I agree to the"
@@ -403,12 +404,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
+                        android:textSize="12sp"
                         android:fontFamily="@font/arsenal"
                         android:textColor="@color/othertext"
                         android:text="Terms and Conditions" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:layout_marginStart="3dp"
+                        android:textColor="@color/white"
+                        android:text="&amp;" />
+
+                    <TextView
+                        android:id="@+id/privacypolicy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/arsenal"
+                        android:textColor="@color/othertext"
+                        android:textSize="12sp"
+                        android:text="Privacy Policy" />
+
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

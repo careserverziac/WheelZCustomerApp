@@ -179,6 +179,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
+
                 if (error instanceof TimeoutError) {
                    // Global.customtoast(LoginActivity.this, getLayoutInflater(),"Request Time-Out");
                 }  else if (error instanceof NoConnectionError) {
@@ -250,6 +251,7 @@ public class LoginActivity extends AppCompatActivity {
                 String Ref_Code = respObj.getString("Ref_Code");
                 String Active = respObj.getString("Active");
                 String Type = respObj.getString("Type");
+                String wuser_code = respObj.getString("wuser_code");
 
 
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -265,6 +267,7 @@ public class LoginActivity extends AppCompatActivity {
                 Global.editor.putString("Ref_Code", Ref_Code);
                 Global.editor.putString("Active", Active);
                 Global.editor.putString("Type", Type);
+                Global.editor.putString("wuser_code", wuser_code);
                 Global.editor.commit();
 
 

@@ -79,6 +79,13 @@ public class DealersFragment extends Fragment {
         Statetxt=view.findViewById(R.id.statetext);
         Citytxt=view.findViewById(R.id.citytext);
 
+        int newWidthInPixels = 100;
+        int newHeightInPixels = 100;
+        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
+        params.width = newWidthInPixels;
+        params.height = newHeightInPixels;
+        progressBar.setLayoutParams(params);
+
 
         getstates();
         getDealerslist();

@@ -2,6 +2,7 @@ package com.ziac.wheelzonline;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
@@ -11,6 +12,8 @@ import android.view.MotionEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import com.android.volley.AuthFailureError;
@@ -25,20 +28,22 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.google.android.gms.auth.api.phone.SmsRetriever;
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
+import ModelClasses.SMSBrodcastReciever;
 
 public class CreateNewPasswordActivity extends AppCompatActivity {
 
-   // FloatingActionButton NPbackbtn;
+    public  static  final  int REQ_USER_CONSENT=100;
+    SMSBrodcastReciever smsBroadcastReceiver;
     EditText Newpassword;
     TextView UsernameTxt,MobileTxt,Resendotp;
     AppCompatButton SubmitOTP;
@@ -68,6 +73,8 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         SubmitOTP=findViewById(R.id.submitotp);
         pinView=findViewById(R.id.pinview);
 
+        startSmartUserConsent();
+
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         username = Global.sharedPreferences.getString("otpusername", "");
         mobile = Global.sharedPreferences.getString("otpmobile", "");
@@ -77,7 +84,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
        // NPbackbtn.setOnClickListener(v -> startActivity(new Intent(CreateNewPasswordActivity.this,ForgotPasswordActivity.class)));
 
-        SubmitOTP.setOnClickListener(v ->   ChangePasswordandSubmit());
+        SubmitOTP.setOnClickListener(v ->   NewPasswordandSubmit());
         Resendotp.setOnClickListener(v ->   getotpmethod());
 
         Newpassword.setOnTouchListener((v, event) -> {
@@ -101,7 +108,85 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
             return false;
         });
     }
-    private void ChangePasswordandSubmit() {
+
+    private void startSmartUserConsent() {
+
+        SmsRetrieverClient client = SmsRetriever.getClient(this);
+        client.startSmsUserConsent(null);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_USER_CONSENT){
+
+            if ((resultCode == RESULT_OK) && (data != null)){
+
+                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
+                getOtpFromMessage(message);
+
+
+            }
+
+
+        }
+
+    }
+
+    private void getOtpFromMessage(String message) {
+
+        Pattern otpPattern = Pattern.compile("(|^)\\d{6}");
+        Matcher matcher = otpPattern.matcher(message);
+        if (matcher.find()){
+
+            pinView.setText(matcher.group(0));
+
+        }
+
+
+    }
+
+    private void registerBroadcastReceiver(){
+
+        smsBroadcastReceiver = new SMSBrodcastReciever();
+
+        smsBroadcastReceiver.smsBroadcastReceiverListener = new SMSBrodcastReciever.SmsBroadcastReceiverListener() {
+            @Override
+            public void onSuccess(Intent intent) {
+
+                startActivityForResult(intent,REQ_USER_CONSENT);
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
+        registerReceiver(smsBroadcastReceiver,intentFilter);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerBroadcastReceiver();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(smsBroadcastReceiver);
+    }
+
+
+
+    private void NewPasswordandSubmit() {
 
         String usrnme,usermobile,otp,password;
         usrnme = UsernameTxt.getText().toString();
@@ -150,7 +235,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                     String issuccess = respObj.getString("isSuccess");
                     String error = respObj.getString("error");
 
-                    System.out.println(respObj);
+                  //  System.out.println(respObj);
 
 
                     if(issuccess.equals("true")){
@@ -206,8 +291,6 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-
-
     private void getotpmethod() {
         String url = Global.forgotpasswordurl;
         RequestQueue queue= Volley.newRequestQueue(CreateNewPasswordActivity.this);
@@ -220,7 +303,9 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                     String issuccess = respObj.getString("isSuccess");
                     String error = respObj.getString("error");
 
+
                     if(issuccess.equals("true")){
+                        startSmartUserConsent();
                         Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(), error);
                     } else {
                         Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(), error);

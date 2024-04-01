@@ -2,12 +2,16 @@ package com.ziac.wheelzonline;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +27,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,10 +39,11 @@ import ModelClasses.Global;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    AppCompatButton SendOTp;
+    AppCompatButton GetOTp;
     EditText Username,Mobileno;
-   // FloatingActionButton Forgotbackbtn;
     String username,mobile;
+    ProgressBar progressBar;
+    LinearLayout ForgetLinearLayout;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +51,32 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_forgot_password);
 
+
         if (AppStatus.getInstance(this).isOnline()) {
             //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(ForgotPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
 
-        SendOTp=findViewById(R.id.sendotp);
-       // Forgotbackbtn=findViewById(R.id.forgotbackbtn);
+        GetOTp =findViewById(R.id.getotp);
         Username=findViewById(R.id.fusername);
         Mobileno=findViewById(R.id.fmobile);
+        progressBar=findViewById(R.id.progressBarforget);
+        ForgetLinearLayout=findViewById(R.id.forgetlinearlayout);
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         username = Global.sharedPreferences.getString("username", "");
         Username.setText(username);
-        /*Forgotbackbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ForgotPasswordActivity.this, LoginActivity.class));
-            }
-        });*/
-        SendOTp.setOnClickListener(new View.OnClickListener() {
+
+
+        int newWidthInPixels = 100;
+        int newHeightInPixels = 100;
+        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
+        params.width = newWidthInPixels;
+        params.height = newHeightInPixels;
+        progressBar.setLayoutParams(params);
+
+
+        GetOTp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 username = Username.getText().toString();
@@ -87,11 +97,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 Global.editor.putString("otpusername", username);
                 Global.editor.putString("otpmobile",mobile);
                 Global.editor.commit();
+
                 getotpmethod();
             }
         });
     }
+
+
+
+
+
     private void getotpmethod() {
+        showLoading();;
         String url = Global.forgotpasswordurl;
         RequestQueue queue= Volley.newRequestQueue(ForgotPasswordActivity.this);
         StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
@@ -104,10 +121,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     String error = respObj.getString("error");
 
                     if(issuccess.equals("true")){
+
                         Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), error);
                         /*Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), "OTP is send to your registered mobile number");*/
                         startActivity(new Intent(ForgotPasswordActivity.this,CreateNewPasswordActivity.class));
                         finish();
+                        hideLoading();;
                     } else {
                         Global.customtoast(ForgotPasswordActivity.this, getLayoutInflater(), error);
                     }
@@ -119,7 +138,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                hideLoading();;
                 if (error instanceof TimeoutError) {
                     Toast.makeText(ForgotPasswordActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NoConnectionError) {
@@ -151,5 +170,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         };
         queue.add(request);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+       // ForgetLinearLayout.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+        //ForgetLinearLayout.setVisibility(View.VISIBLE);
     }
 }

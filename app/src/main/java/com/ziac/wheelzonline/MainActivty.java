@@ -21,9 +21,10 @@ import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import Fragments.DealersFragment;
-import Fragments.MyVehiclesFragment;
+import Fragments.AddVehicleFragment;
 import Fragments.HomeFragment;
 import Fragments.ModelsFragment;
+import Fragments.MyVehcileFragment;
 import Fragments.ProfileFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
@@ -122,7 +123,7 @@ public class MainActivty extends AppCompatActivity  {
                     openFragment(new DealersFragment());
                     return true;
                 } else if (itemid == R.id.bottom_vehicles) {
-                    openFragment(new MyVehiclesFragment());
+                    openFragment(new MyVehcileFragment());
                     return true;
                 } else if (itemid == R.id.bottom_profile) {
                     openFragment(new ProfileFragment());

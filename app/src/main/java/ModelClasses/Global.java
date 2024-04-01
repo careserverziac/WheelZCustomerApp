@@ -48,10 +48,14 @@ public class Global {
     public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
+
+    public static String getallMyVehicles = baseurl + "api/MyVehicles/Get?";
     public static String searchallbrands = baseurl + "api/Brands/GetAllBrands?searchtext=";
 
 
     public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
+
+    public static String urladdvehicle = baseurl + "api/MyVehicles/Add";
     public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
     public static String urlSearchdealers = baseurl + "";
 
