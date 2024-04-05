@@ -103,11 +103,11 @@ public class LoginActivity extends AppCompatActivity {
             username = Username.getText().toString();
             pwd = Password.getText().toString();
             if (username.isEmpty()) {
-                Username.setError("Please enter the User name");
+                Username.setError("Please enter the user name");
                 Username.requestFocus();
                 return;
             } else if (pwd.isEmpty()) {
-                Password.setError("Please enter the Password");
+                Password.setError("Please enter the password");
                 Password.requestFocus();
                 return;
             }

@@ -9,7 +9,9 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
@@ -45,9 +48,9 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
     public  static  final  int REQ_USER_CONSENT=100;
     SMSBrodcastReciever smsBroadcastReceiver;
     EditText Newpassword;
-    TextView UsernameTxt,MobileTxt,Resendotp;
-    AppCompatButton SubmitOTP;
-    String username,mobile;
+    ProgressBar progressBar;
+    AppCompatButton SubmitOTP,Cancelpage;
+    String username,mobile,email;
 
     PinView pinView;
 
@@ -58,34 +61,25 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_password);
 
-       // NPbackbtn=findViewById(R.id.CPbackbtn);
 
         if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(CreateNewPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
 
         Newpassword=findViewById(R.id.newpassword);
-        UsernameTxt=findViewById(R.id.usernametxt);
-        MobileTxt=findViewById(R.id.mobiletxt);
-        Resendotp=findViewById(R.id.resendotp);
+        progressBar=findViewById(R.id.progressbarcnp);
         SubmitOTP=findViewById(R.id.submitotp);
+        Cancelpage=findViewById(R.id.cancelpage);
         pinView=findViewById(R.id.pinview);
-
+        hideLoading();
         startSmartUserConsent();
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        username = Global.sharedPreferences.getString("otpusername", "");
-        mobile = Global.sharedPreferences.getString("otpmobile", "");
-        UsernameTxt.setText(username);
-        MobileTxt.setText(mobile);
-
-
-       // NPbackbtn.setOnClickListener(v -> startActivity(new Intent(CreateNewPasswordActivity.this,ForgotPasswordActivity.class)));
 
         SubmitOTP.setOnClickListener(v ->   NewPasswordandSubmit());
-        Resendotp.setOnClickListener(v ->   getotpmethod());
+        Cancelpage.setOnClickListener(v -> {startActivity(new Intent(CreateNewPasswordActivity.this,LoginActivity.class));finish();});
+
 
         Newpassword.setOnTouchListener((v, event) -> {
             final int Right = 2;
@@ -188,9 +182,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
     private void NewPasswordandSubmit() {
 
-        String usrnme,usermobile,otp,password;
-        usrnme = UsernameTxt.getText().toString();
-        usermobile = MobileTxt.getText().toString();
+        String otp,password;
         otp=pinView.getText().toString();
         password = Newpassword.getText().toString();
 
@@ -278,15 +270,23 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("UserName",usrnme);
-                params.put("Mobile",usermobile);
+                params.put("UserName",Global.sharedPreferences.getString("usernamefp",""));
+                params.put("Mobile",Global.sharedPreferences.getString("mobilefp",""));
+                params.put("Email",Global.sharedPreferences.getString("emailfp",""));
                 params.put("otp", otp);
                 params.put("NewPassword",password);
+                params.put("FPType",Global.sharedPreferences.getString("fptype",""));
 
                // Log.d("getParams", params.toString());
                 return params;
             }
         };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
 
         queue.add(request);
     }
@@ -340,7 +340,21 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                 return params;
             }
         };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
         queue.add(request);
     }
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
 
+    }
+
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+
+    }
 }

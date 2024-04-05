@@ -27,17 +27,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DeleteAccountActivity"
+            android:exported="true" >
+          <!--  <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+-->
+        </activity>
+        <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".ContactUSActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivty"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".CreateNewPasswordActivity"
             android:exported="false" />

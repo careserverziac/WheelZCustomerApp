@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 import ModelClasses.Global;
 
 
-public class AddVehicleFragment extends Fragment {
+public class VehicleRegistrationFragment extends Fragment {
 
 
     String regno,engineno,chassisno;
@@ -37,6 +39,7 @@ public class AddVehicleFragment extends Fragment {
     EditText Registrationno,Engineno,Chassisno;
 
     AppCompatButton Addvehicle;
+    FragmentManager fragmentManager;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
@@ -44,6 +47,8 @@ public class AddVehicleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view= inflater.inflate(R.layout.fragment_addvehicle, container, false);
+
+
 
 
         Registrationno=view.findViewById(R.id.regno);
@@ -122,9 +127,19 @@ public class AddVehicleFragment extends Fragment {
                         if (response.getBoolean("isSuccess")) {
 //                                Toast.makeText(ProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
-                           // Global.customtoast(requireContext(),getLayoutInflater(),"Updated successfully !!");
 
-                       /*     Intent intent = new Intent(requireContext(), EditProfileActivity.class);
+
+                            MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
+                            fragmentManager = requireActivity().getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+
+
+                            // Global.customtoast(requireContext(),getLayoutInflater(),"Updated successfully !!");
+
+                       /*     Intent intent = new Intent(requireContext(), ProfileActivity.class);
                             startActivity(intent);
 */
                         } else {
@@ -172,4 +187,6 @@ public class AddVehicleFragment extends Fragment {
 
 
     }
+
+
 }

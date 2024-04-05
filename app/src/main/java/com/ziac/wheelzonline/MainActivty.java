@@ -21,7 +21,6 @@ import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import Fragments.DealersFragment;
-import Fragments.AddVehicleFragment;
 import Fragments.HomeFragment;
 import Fragments.ModelsFragment;
 import Fragments.MyVehcileFragment;
@@ -193,7 +192,7 @@ public class MainActivty extends AppCompatActivity  {
 */
     @Override
     public void onBackPressed() {
-        //  Get the total number of fragments in the back stack
+
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         // Handle the back navigation based on the fragment count
@@ -236,6 +235,8 @@ public class MainActivty extends AppCompatActivity  {
                 break;
         }
     }
+
+
 
     public void exitdialog() {
 

@@ -35,6 +35,11 @@ public class Global {
 
 
     public static String forgotpasswordurl = baseurl + "api/Account/ForgotPasswordCustomer";
+    public static String otpfordeleteaccounturl = baseurl + "api/Users/DeleteCustomerAccount";
+
+
+    public static String validateOTPurl = baseurl + "api/Account/ForgotPasswordCustomer";
+    public static String velidateanddeleteaccounturl = baseurl + "api/Users/DeleteCustomerValidateOTP?";
     public static String validateotpurl = baseurl + "api/Account/ValidateOTPCustomer";
 
     public static String changepasswordurl = baseurl + "api/Account/ChangePassword";

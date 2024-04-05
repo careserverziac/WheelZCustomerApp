@@ -216,7 +216,7 @@ public class ModelsFragment extends Fragment {
     }
     private void  GetAllBrands() {
 
-
+        showLoading();
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
         String url = Global.getallbrands;
 
@@ -260,6 +260,7 @@ public class ModelsFragment extends Fragment {
                     Global.allleadslist.add(commonClass);
                     swipeRefreshLayout.setRefreshing(false);
 
+                    hideLoading();;
                 }
 
             } catch (JSONException e) {
@@ -273,6 +274,7 @@ public class ModelsFragment extends Fragment {
 
         }, error -> {
 
+            hideLoading();;
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
