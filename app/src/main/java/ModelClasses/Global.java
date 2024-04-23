@@ -15,7 +15,9 @@ import com.ziac.wheelzonline.R;
 
 import java.util.ArrayList;
 
-
+/**
+ * Created on 28/2/2024.
+ */
 public class Global {
     public static SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/black"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="@drawable/square_border_dark"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+<!--            android:baselineAligned="false"-->
+
+            <LinearLayout
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/com_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arsenal"
+                    android:padding="4dp"
+                    android:text="Com name"
+                    android:textColor="#087A4C"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/state_icon"/>
+
+                    <TextView
+                        android:id="@+id/com_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal_bold"
+                        android:text="Bangalore"
+                        android:textColor="#344955"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/company_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/telephone"/>
+
+                    <TextView
+                        android:id="@+id/com_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="9567542499"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="16sp"
+                        android:padding="3dp"
+                        android:textColor="#CAC8C8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/gmail"/>
+
+                    <TextView
+                        android:id="@+id/com_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="suryakumaryadhav@gmail.com"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="16sp"
+                        android:padding="3dp"
+                        android:textColor="#CAC8C8" />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/website"/>
+
+                    <TextView
+                        android:id="@+id/com_website"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="www.google.com"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="16sp"
+                        android:padding="3dp"
+                        android:textColor="#CAC8C8" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/dealer_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:src="@drawable/surya"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_overlay="true"
+                    app:civ_border_width="2dp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/locationi"/>
+
+            <TextView
+                android:id="@+id/com_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arsenal"
+                android:text="5 th cross  Bangalore karnataka 670004"
+                android:textColor="#CAC8C8"
+                android:textSize="16sp" />
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_border_light"
+            android:orientation="horizontal">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/dealernameicon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="18dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/person"/>
+
+                    <TextView
+                        android:id="@+id/dealername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:fontFamily="@font/arsenal"
+                        android:text="Surya"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/dealerphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="18dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/telephone"/>
+
+                    <TextView
+                        android:id="@+id/dealer_mobno"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="9567542499"
+                        android:layout_marginStart="3dp"
+                        android:textColor="#CAC8C8"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="18dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/gmail"/>
+
+                    <TextView
+                        android:id="@+id/dealer_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="shamith@ziacsoft.com"
+                        android:layout_marginStart="3dp"
+                        android:textColor="#CAC8C8"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+          <!--  <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="end|center"
+                android:orientation="vertical">
+
+                <LinearLayout
+
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/square_border_dark"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_call_icon" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="center"
+                        android:text="Call"
+                        android:textColor="#FAEF5D"
+                        android:textSize="18dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>-->
+
+
+        </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+
+

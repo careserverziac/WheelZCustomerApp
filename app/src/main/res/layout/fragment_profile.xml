@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context="Fragments.ProfileFragment">
+
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:src="@drawable/wheelzsmalllogo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calistoga"
+            android:text="WheelZ"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/pro_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/surya"
+                    android:layout_gravity="center"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_overlay="true"
+                    app:civ_border_width="2dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/PRusername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Surya kumar yadhav"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/PRusermobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="9567542499"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:id="@+id/PRusermail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="suryakumaryadhav@gmail.com"
+                        android:fontFamily="@font/arsenal"
+                        android:textSize="18sp"
+                        android:padding="8dp"
+                        android:textColor="@color/white"/>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Account"
+                android:fontFamily="@font/arsenal"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"/>
+
+
+            <LinearLayout
+                android:id="@+id/editprofile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/person_white_icon"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit profile"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+
+            <View
+
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Support"
+                android:fontFamily="@font/arsenal"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+
+
+            <LinearLayout
+                android:id="@+id/faq"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/person_white_icon"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="FAQ's"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D"/>
+
+            <LinearLayout
+                android:id="@+id/sharebutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_share_icon"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D"/>
+
+
+            <LinearLayout
+                android:id="@+id/contactus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_contact_us"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Contact Us"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LEGAL"
+                android:fontFamily="@font/arsenal"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:id="@+id/privacy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_visibility_off_eyes"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Privacy Policy"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+            <LinearLayout
+                android:id="@+id/terms_conditions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/terms_and_conditions"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terms &amp; Conditions "
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:fontFamily="@font/arsenal"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:padding="10dp"
+                android:textColor="@color/white"/>
+
+            <LinearLayout
+                android:id="@+id/changepasword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/change_password_icon"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+
+
+            <LinearLayout
+                android:id="@+id/deleteaccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20sp"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_delete_icon"
+                    android:textColor="@color/white"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete Account"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+            <LinearLayout
+                android:id="@+id/logoutbtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/logout_icon"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Logout"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/arsenal"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_small_white_arrow"
+                    android:textColor="@color/white"/>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#4E4D4D" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+        </ScrollView>
+
+</RelativeLayout>
+
+
+
+    <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/Pbackbtn"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:focusable="true"
+         android:gravity="center"
+         android:backgroundTint="#E84D4D"
+         android:background="@drawable/baseline_arrow_back_ios_24"
+         app:fabSize="mini"
+         app:srcCompat="@drawable/baseline_arrow_back_ios_24" />-->
+

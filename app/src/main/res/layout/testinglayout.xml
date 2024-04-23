@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+
+   <ProgressBar
+       android:id="@+id/progressBardealers"
+       android:layout_width="100dp"
+       android:layout_height="100dp"
+       android:layout_centerInParent="true"
+       android:visibility="invisible" />
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="horizontal">
+
+         <ImageView
+             android:layout_width="60dp"
+             android:layout_height="55dp"
+             android:src="@drawable/wheelzsmalllogo" />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:fontFamily="@font/calistoga"
+             android:text="WheelZ"
+             android:textColor="@color/white"
+             android:textSize="20sp"
+             android:textStyle="bold" />
+
+
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="15dp"
+          android:padding="10dp"
+          android:orientation="horizontal">
+
+         <LinearLayout
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="40dp"
+                   android:orientation="horizontal">
+
+
+                  <LinearLayout
+                      android:id="@+id/linearstate"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_weight="1"
+                      android:background="@color/red"
+                      android:gravity="center"
+                      android:orientation="horizontal">
+
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:drawablePadding="5dp"
+                         android:fontFamily="@font/arsenal"
+                         android:gravity="center"
+                         android:paddingLeft="5dp"
+                         android:text="State"
+                         android:textStyle="bold"
+                         android:textColor="@color/white"
+                         android:textSize="18dp" />
+                     <ImageView
+
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:src="@drawable/baseline_arrow_down_icon"
+                         />
+
+                  </LinearLayout>
+
+               </LinearLayout>
+
+            </LinearLayout>
+
+         </LinearLayout>
+
+
+
+
+         <LinearLayout
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:orientation="vertical">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/red"
+                android:layout_marginStart="2dp"
+                android:orientation="vertical">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="40dp"
+                   android:orientation="horizontal">
+
+
+
+                  <LinearLayout
+                      android:id="@+id/linearcity"
+                      android:layout_width="0dp"
+                      android:layout_height="match_parent"
+                      android:layout_gravity="bottom"
+                      android:gravity="center"
+                      android:orientation="horizontal"
+                      android:layout_weight="1">
+
+                     <TextView
+                         android:id="@+id/manufacturer"
+                         android:layout_width="wrap_content"
+                         android:layout_height="match_parent"
+                         android:gravity="center"
+                         android:fontFamily="@font/arsenal"
+                         android:text="City"
+                         android:textStyle="bold"
+                         android:textColor="@color/white"
+                         android:textSize="18dp" />
+
+                     <ImageView
+
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:src="@drawable/baseline_arrow_down_icon" />
+                  </LinearLayout>
+
+
+
+
+
+
+               </LinearLayout>
+
+            </LinearLayout>
+
+
+         </LinearLayout>
+
+
+      </LinearLayout>
+
+
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/dealerlist"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+
+   </LinearLayout>
+
+</RelativeLayout>
+
+
+
+    <!--   <RelativeLayout
+            android:id="@+id/activity_splash"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:src="@drawable/electricscooter"
+                android:scaleType="centerCrop"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:background="#99050000" />
+    -->
+
+    <!-- </RelativeLayout>-->
