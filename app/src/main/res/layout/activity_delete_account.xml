@@ -105,13 +105,46 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/arsenal"
-                    android:text="All data and history will be deleted  "
+                    android:text="Your personal data will be deleted"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
 
             </LinearLayout>
 
+
+
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/deleteprofille"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Account transaction history will be retained"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
 
             <LinearLayout
 
@@ -150,7 +183,7 @@
                 android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:fontFamily="@font/arsenal"
-                android:text=" To confirm the user "
+                android:text="To confirm the deletion process  "
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -162,10 +195,33 @@
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/arsenal"
-                android:text="An OTP will be send to your registered mobile number please enter the OTP below  to confirm "
+                android:text="an OTP will be sent to your registered mobile number and email address. Click on Proceed to receive the OTP"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/proceedbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/border_colour2"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Proceed"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
 
             <com.chaos.view.PinView
                 android:id="@+id/pinviewdelete"
@@ -175,6 +231,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:cursorVisible="true"
+                android:visibility="invisible"
+                android:autofillHints="smsOTPCode"
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/white"
@@ -194,52 +252,23 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp">
+                    android:layout_height="wrap_content">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/getotp"
+                        android:id="@+id/validatedelete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:layout_alignParentTop="true"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="invisible"
+                        android:layout_marginRight="20dp"
                         android:background="@drawable/border_colour2"
                         android:fontFamily="@font/arsenal"
-                        android:text="Proceed"
+                        android:text="Validate and Delete"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/validateOTP"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:visibility="invisible"
-                        android:layout_above="@+id/getotp"
-                        android:background="@drawable/border_colour2"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Validate and delete"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:textSize="16sp" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/deleteaccountp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:visibility="invisible"
-                        android:layout_above="@+id/validateOTP"
-                        android:background="@drawable/border_colour2"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Delete Account"
-                        android:textAllCaps="false"
-                        android:textColor="@color/red"
-                        android:textSize="16sp" />
 
                 </RelativeLayout>
 

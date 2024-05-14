@@ -44,7 +44,7 @@ import ModelClasses.Global;
 public class MyVehcileFragment extends Fragment {
 
     RecyclerView VehiclelistRV;
-    LinearLayout Registerpage;
+    LinearLayout Registervehicle;
     FragmentManager fragmentManager;
     VehiclesAdapter vehiclesAdapter;
 
@@ -57,7 +57,7 @@ public class MyVehcileFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_my_vehcile, container, false);
         Context context = requireContext();
         VehiclelistRV=view.findViewById(R.id.myvehiclelist);
-        Registerpage=view.findViewById(R.id.registerpage);
+        Registervehicle =view.findViewById(R.id.registerpage);
 
 
         GetAllvehicles();
@@ -65,7 +65,7 @@ public class MyVehcileFragment extends Fragment {
         VehiclelistRV.setLayoutManager(linearLayoutManager);
         VehiclelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        Registerpage.setOnClickListener(new View.OnClickListener() {
+        Registervehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

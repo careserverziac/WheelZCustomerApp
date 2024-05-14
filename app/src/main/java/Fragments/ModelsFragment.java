@@ -82,7 +82,7 @@ public class ModelsFragment extends Fragment {
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                swipeRefreshLayout.setEnabled(false);
                 searchView.setIconified(false);
                 searchView.requestFocus();
             }
@@ -90,7 +90,7 @@ public class ModelsFragment extends Fragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
+                swipeRefreshLayout.setEnabled(false);
                 performSearch(query);
 
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

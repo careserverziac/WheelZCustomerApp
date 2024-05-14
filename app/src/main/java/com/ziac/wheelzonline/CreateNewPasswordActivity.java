@@ -1,8 +1,11 @@
 package com.ziac.wheelzonline;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.method.HideReturnsTransformationMethod;
@@ -15,9 +18,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -33,6 +40,10 @@ import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -41,18 +52,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
-import ModelClasses.SMSBrodcastReciever;
+
 
 public class CreateNewPasswordActivity extends AppCompatActivity {
 
-    public  static  final  int REQ_USER_CONSENT=100;
-    SMSBrodcastReciever smsBroadcastReceiver;
     EditText Newpassword;
     ProgressBar progressBar;
     AppCompatButton SubmitOTP,Cancelpage;
-    String username,mobile,email;
 
     PinView pinView;
+
+    private static final int REQ_USER_CONSENT = 200;
+
 
     private boolean passwordVisible = false;
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
@@ -64,7 +75,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
         if (AppStatus.getInstance(this).isOnline()) {
         } else {
-            Global.customtoast(CreateNewPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+            Global.customtoast(CreateNewPasswordActivity.this,getLayoutInflater(),"No connection found!!");
         }
 
         Newpassword=findViewById(R.id.newpassword);
@@ -72,8 +83,10 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         SubmitOTP=findViewById(R.id.submitotp);
         Cancelpage=findViewById(R.id.cancelpage);
         pinView=findViewById(R.id.pinview);
-        hideLoading();
-        startSmartUserConsent();
+        progressBar.setVisibility(View.GONE);
+
+        RequestPermission();
+        new OTPReceiver().setEditText(Newpassword);
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
@@ -101,83 +114,18 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
             }
             return false;
         });
-    }
-
-    private void startSmartUserConsent() {
-
-        SmsRetrieverClient client = SmsRetriever.getClient(this);
-        client.startSmsUserConsent(null);
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void RequestPermission() {
 
-        if (requestCode == REQ_USER_CONSENT){
-
-            if ((resultCode == RESULT_OK) && (data != null)){
-
-                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                getOtpFromMessage(message);
-
-
-            }
-
-
+        if (ContextCompat.checkSelfPermission(CreateNewPasswordActivity.this, Manifest.permission.RECEIVE_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(CreateNewPasswordActivity.this,new String[]{
+                    Manifest.permission.RECEIVE_SMS
+            },100);
         }
-
     }
-
-    private void getOtpFromMessage(String message) {
-
-        Pattern otpPattern = Pattern.compile("(|^)\\d{6}");
-        Matcher matcher = otpPattern.matcher(message);
-        if (matcher.find()){
-
-            pinView.setText(matcher.group(0));
-
-        }
-
-
-    }
-
-    private void registerBroadcastReceiver(){
-
-        smsBroadcastReceiver = new SMSBrodcastReciever();
-
-        smsBroadcastReceiver.smsBroadcastReceiverListener = new SMSBrodcastReciever.SmsBroadcastReceiverListener() {
-            @Override
-            public void onSuccess(Intent intent) {
-
-                startActivityForResult(intent,REQ_USER_CONSENT);
-
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        };
-
-        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        registerReceiver(smsBroadcastReceiver,intentFilter);
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerBroadcastReceiver();
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unregisterReceiver(smsBroadcastReceiver);
-    }
-
 
 
     private void NewPasswordandSubmit() {
@@ -291,70 +239,8 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    private void getotpmethod() {
-        String url = Global.forgotpasswordurl;
-        RequestQueue queue= Volley.newRequestQueue(CreateNewPasswordActivity.this);
-        StringRequest request = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONObject respObj = new JSONObject(response);
-                    String issuccess = respObj.getString("isSuccess");
-                    String error = respObj.getString("error");
 
 
-                    if(issuccess.equals("true")){
-                        startSmartUserConsent();
-                        Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(), error);
-                    } else {
-                        Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(), error);
-                    }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(CreateNewPasswordActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(CreateNewPasswordActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(CreateNewPasswordActivity.this, "Server Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(CreateNewPasswordActivity.this, "Network Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(CreateNewPasswordActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("UserName", username);
-                params.put("Mobile", mobile);
-                Log.d("getHeaders", params.toString());
-                return params;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-        queue.add(request);
-    }
-    private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-
-    }
-
-    private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
-
-    }
 }

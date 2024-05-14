@@ -518,7 +518,7 @@
                 android:layout_gravity="center_vertical"
                 android:background="#4E4D4D" />
 
-            <LinearLayout
+          <!--  <LinearLayout
                 android:id="@+id/logoutbtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -553,7 +553,7 @@
                     android:src="@drawable/baseline_small_white_arrow"
                     android:textColor="@color/white"/>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
 
             <View
@@ -563,7 +563,31 @@
                 android:background="#4E4D4D" />
 
 
+        <LinearLayout
+            android:id="@+id/logoutbtn"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center"
+            android:background="@drawable/border_colour"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/arsenal"
+                android:text="Logout"
+                android:textColor="@color/white" />
+
+
+
         </LinearLayout>
+
+
+
+    </LinearLayout>
 
     </LinearLayout>
         </ScrollView>
