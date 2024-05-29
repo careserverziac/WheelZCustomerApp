@@ -111,12 +111,12 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Sample text"
+                                android:text="Book Service"
                                 android:layout_marginTop="20dp"
                                 android:layout_marginStart="10dp"
                                 android:fontFamily="@font/arsenal"
                                 android:textColor="@color/white"
-                                android:textSize="16dp"
+                                android:textSize="13dp"
                                 android:textStyle="bold" />
 
 
@@ -182,12 +182,12 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sample text"
+                                    android:text="Service History"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/arsenal"
                                     android:textColor="@color/white"
-                                    android:textSize="16dp"
+                                    android:textSize="13dp"
                                     android:textStyle="bold" />
 
 
@@ -257,12 +257,12 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sample text"
+                                    android:text="Vehicle Documents"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/arsenal"
                                     android:textColor="@color/white"
-                                    android:textSize="16dp"
+                                    android:textSize="13dp"
                                     android:textStyle="bold" />
 
 
@@ -329,12 +329,12 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Sample text"
+                                    android:text="Latest News"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/arsenal"
                                     android:textColor="@color/white"
-                                    android:textSize="16dp"
+                                    android:textSize="13dp"
                                     android:textStyle="bold" />
 
 

@@ -22,6 +22,7 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -107,10 +108,31 @@ public class ProfileActivity extends AppCompatActivity {
         });*/
 
 
-        UpdateProfilebtn.setOnClickListener(v -> Updateprofiledetails());
+
+
+        UpdateProfilebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
+                    Updateprofiledetails();
+                } else {
+                    Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+                }
+            }
+        });
 
         Camera = findViewById(R.id.fab);
         Camera.setOnClickListener(v -> openCamera());
+        Camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
+                    openCamera();
+                } else {
+                    Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+                }
+            }
+        });
 
 
 

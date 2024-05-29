@@ -1,5 +1,6 @@
 package Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,7 +40,7 @@ public class ProfileFragment extends Fragment {
     LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword;
     FloatingActionButton BackButton;
     Intent intent;
-    TextView Username,Usermobile,Useremail;
+    TextView Username,Usermobile,Useremail,Account;
 
     CircleImageView circularImageView;
 
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
              View view= inflater.inflate(R.layout.fragment_profile, container, false);
@@ -74,6 +76,7 @@ public class ProfileFragment extends Fragment {
 
 
 
+        Account=view.findViewById(R.id.account);
         Editprofile=view.findViewById(R.id.editprofile);
        // BackButton=view.findViewById(R.id.Pbackbtn);
         Sharebutton=view.findViewById(R.id.sharebutton);
@@ -93,11 +96,13 @@ public class ProfileFragment extends Fragment {
         String dealername = Global.sharedPreferences.getString("key_person", "");
         String user_mail = Global.sharedPreferences.getString("Email", "");
         String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
+        String user_name = Global.sharedPreferences.getString("userName", "");
 
        //Picasso.get().load(image).into(circularImageView);
         Username.setText(dealername);
         Usermobile.setText(user_mobile);
         Useremail.setText(user_mail);
+        Account.setText("Account "+"("+ user_name+")");
 
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
@@ -180,6 +185,7 @@ public class ProfileFragment extends Fragment {
                 Global.editor = Global.sharedPreferences.edit();
                 Global.editor.remove("access_token");
                 Global.editor.remove("refresh_token");
+                Global.editor.remove("message");
                 Global.editor.commit();
 
                 startActivity(new Intent(requireActivity(), LoginActivity.class));

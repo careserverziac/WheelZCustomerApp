@@ -188,7 +188,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {

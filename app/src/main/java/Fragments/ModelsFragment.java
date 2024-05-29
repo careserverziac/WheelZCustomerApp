@@ -60,7 +60,7 @@ public class ModelsFragment extends Fragment {
         progressBar=view.findViewById(R.id.progressBarmodels);
         swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
 
-        GetAllBrands();
+        GetAllModels();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehicleelistRV.setLayoutManager(linearLayoutManager);
         VehicleelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -72,7 +72,7 @@ public class ModelsFragment extends Fragment {
             @Override
             public void onRefresh() {
 
-                GetAllBrands();
+                GetAllModels();
                // swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -127,8 +127,6 @@ public class ModelsFragment extends Fragment {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String vmodelCode = jsonObject.getString("vmodel_code");
                     String vehimage = jsonObject.getString("veh_image1");
-
-
                     String vcate_name = jsonObject.getString("vcate_name");
                     String app_model_name = jsonObject.getString("app_model_name");
                     String mfg_name = jsonObject.getString("mfg_name");
@@ -174,7 +172,7 @@ public class ModelsFragment extends Fragment {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {
@@ -207,7 +205,7 @@ public class ModelsFragment extends Fragment {
 
         queue.add(request);
     }
-    private void  GetAllBrands() {
+    private void  GetAllModels() {
 
         showLoading();
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
@@ -217,6 +215,10 @@ public class ModelsFragment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
             try {
                 JSONArray jsonArray = new JSONArray(response);
+                if (jsonArray.length() == 0) {
+                    hideLoading();
+                    return;
+                }
                 Global.allleadslist = new ArrayList<>();
                 // Loop through the array to extract vmodel_code values
                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -272,7 +274,7 @@ public class ModelsFragment extends Fragment {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {

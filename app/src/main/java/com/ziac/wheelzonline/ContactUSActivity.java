@@ -30,6 +30,8 @@ public class ContactUSActivity extends AppCompatActivity {
     RelativeLayout Contact_whatsapp;
     LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
     FloatingActionButton Backbtn;
+    RelativeLayout relativeLayout;
+
     boolean message = false;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -50,7 +52,7 @@ public class ContactUSActivity extends AppCompatActivity {
         Location=findViewById(R.id.location);
         Call=findViewById(R.id.call);
         Mail=findViewById(R.id.maillink);
-       // Backbtn=findViewById(R.id.conbackbtn);
+        relativeLayout=findViewById(R.id.locaterelative);
 
 
         Instagram.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/ziacsoftwares/"))));
@@ -119,8 +121,7 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
-  /*  public void onLocateClicked(View view) {
+  /*  public void onLocateClickeded(View view) {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
@@ -130,18 +131,6 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }*/
 
-    public void onLocateClicked(View view) {
-        // Check if the app has permission to access the location
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Request the permission
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-        } else {
-            // Permission already granted, proceed to locate
-            locateAddress();
-        }
-    }
 
     private void locateAddress() {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
@@ -183,4 +172,16 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }
 
+    public void onLocateClicked(View view) {
+        // Check if the app has permission to access the location
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Request the permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        } else {
+            // Permission already granted, proceed to locate
+            locateAddress();
+        }
+    }
 }

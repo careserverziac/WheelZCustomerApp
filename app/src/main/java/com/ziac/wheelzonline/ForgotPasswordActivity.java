@@ -1,7 +1,9 @@
 package com.ziac.wheelzonline;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -12,8 +14,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -50,6 +57,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         } else {
             Global.customtoast(ForgotPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
+
+
+        requestSMSPermission();
 
         GetOTp =findViewById(R.id.getotp);
         Username=findViewById(R.id.fusername);
@@ -106,9 +116,49 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             Global.editor.commit();
 
             getotpmethod();
+
+
         });
     }
+    private void  requestSMSPermission()
+    {
+        String permission = Manifest.permission.RECEIVE_SMS;
 
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+        if (grant != PackageManager.PERMISSION_GRANTED)
+        {
+            String[] permission_list = new String[1];
+            permission_list[0] = permission;
+
+            ActivityCompat.requestPermissions(this, permission_list,1);
+        }
+    }
+
+   /* private void requestSMSPermission() {
+        String permission = Manifest.permission.RECEIVE_SMS;
+
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            String[] permission_list = new String[1];
+            permission_list[0] = permission;
+
+            ActivityCompat.requestPermissions(this, permission_list, 1);
+        } else {
+            getotpmethod();
+        }
+    }*/
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getotpmethod();
+            } else {
+                Toast.makeText(this, "Permission denied cant proceed further", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 
 
@@ -143,7 +193,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             if (error instanceof TimeoutError) {
                 Toast.makeText(ForgotPasswordActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(ForgotPasswordActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(ForgotPasswordActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
             } else if (error instanceof ServerError) {
                 Toast.makeText(ForgotPasswordActivity.this, "Server Error", Toast.LENGTH_LONG).show();
             } else if (error instanceof NetworkError) {

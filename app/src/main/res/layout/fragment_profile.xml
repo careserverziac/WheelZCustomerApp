@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:text="Surya kumar yadhav"
                         android:fontFamily="@font/arsenal"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:padding="8dp"
                         android:textColor="@color/white"/>
 
@@ -115,12 +115,13 @@
 
 
             <TextView
+              android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Account"
                 android:fontFamily="@font/arsenal"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/white"/>
@@ -150,6 +151,7 @@
                     android:fontFamily="@font/arsenal"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -179,7 +181,7 @@
                 android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:textColor="@color/white"/>
 
@@ -208,6 +210,7 @@
                     android:fontFamily="@font/arsenal"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -253,6 +256,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -324,7 +328,7 @@
                 android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:textColor="@color/white"/>
 
@@ -352,6 +356,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -397,6 +402,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -424,7 +430,7 @@
                 android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:padding="10dp"
                 android:textColor="@color/white"/>
 
@@ -452,6 +458,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -497,6 +504,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/white"/>
 
 
@@ -579,6 +587,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/arsenal"
                 android:text="Logout"
+                android:textSize="16sp"
                 android:textColor="@color/white" />
 
 

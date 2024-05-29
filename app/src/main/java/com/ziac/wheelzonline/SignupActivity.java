@@ -217,7 +217,7 @@ public class SignupActivity extends AppCompatActivity {
 
         }
         if (!email.contains("@") || !email.endsWith(".com") || email.contains(" ")) {
-            // Global.customtoast(RegisterActivity.this, getLayoutInflater(), "The provided email format does not exist !!");
+             Global.customtoast(SignupActivity.this, getLayoutInflater(), "The provided email format does not exist !!");
             return;
         }
         if (mobile.isEmpty()) {
@@ -229,6 +229,16 @@ public class SignupActivity extends AppCompatActivity {
              Global.customtoast(SignupActivity.this, getLayoutInflater(), "Mobile number should not be less than 10 digits !!");
             return;
         }
+        if (mobile.matches("0+")) {
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Mobile number should not consist of all zeroes !!");
+            return;
+        }
+
+        if ( mobile.startsWith("0")) {
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "The provided mobile number does not exist !!");
+            return;
+        }
+
         if (username.isEmpty()) {
             Username.setError("Username field is missing !!!");
             Username.requestFocus();
@@ -253,6 +263,12 @@ public class SignupActivity extends AppCompatActivity {
             return;
 
         }
+
+        if (username.contains("..")) {
+             Global.customtoast(SignupActivity.this, getLayoutInflater(), "Admin User Name cannot allow two ..");
+            return;
+        }
+
         if (password.isEmpty()) {
             Password.setError("Password field is missing !!");
             Password.requestFocus();
@@ -353,7 +369,7 @@ public class SignupActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(SignupActivity.this, getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(SignupActivity.this, getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(SignupActivity.this, getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {

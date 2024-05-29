@@ -3,13 +3,18 @@ package com.ziac.wheelzonline;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +48,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
     final Context context = this;
     AppCompatButton Proceedbtn, ValidateandDelete;
-    String OTP,otp;
+    String OTP,otp,autoOTP;
     PinView pinView;
     ProgressBar progressBar;
 
@@ -56,6 +61,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
         Proceedbtn = findViewById(R.id.proceedbtn);
         ValidateandDelete = findViewById(R.id.validatedelete);
         progressBar = findViewById(R.id.progressbarline);
+        requestSMSPermission();
+
 
         hideLoading();
         pinView = findViewById(R.id.pinviewdelete);
@@ -125,7 +132,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Toast.makeText(DeleteAccountActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(DeleteAccountActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DeleteAccountActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
                 } else if (error instanceof ServerError) {
                     Toast.makeText(DeleteAccountActivity.this, "Server Error", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NetworkError) {
@@ -178,6 +185,33 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
                     if(issuccess.equals("true")){
 
+                        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        autoOTP=Global.sharedPreferences.getString("message","");
+
+
+                        if (autoOTP.isEmpty()) {
+                            showLoading();
+                           //Toast.makeText(context, "auto OTP has value", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            //Toast.makeText(context, "auto OTP has no value is empty", Toast.LENGTH_SHORT).show();
+                            Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                            autoOTP=Global.sharedPreferences.getString("message","");
+                            pinView.setText(autoOTP);
+
+
+                            if (!TextUtils.isEmpty(pinView.getText().toString())) {
+                                Global.customtoast(DeleteAccountActivity.this, getLayoutInflater(), error);
+                                Proceedbtn.setVisibility(View.GONE);
+                                pinView.setVisibility(View.VISIBLE);
+                                ValidateandDelete.setVisibility(View.VISIBLE);
+                                hideLoading();
+
+                            }
+
+                        }
+
+
                         Global.customtoast(DeleteAccountActivity.this, getLayoutInflater(), error);
                         Proceedbtn.setVisibility(View.GONE);
                         pinView.setVisibility(View.VISIBLE);
@@ -199,7 +233,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Toast.makeText(DeleteAccountActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(DeleteAccountActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DeleteAccountActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
                 } else if (error instanceof ServerError) {
                     Toast.makeText(DeleteAccountActivity.this, "Server Error", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NetworkError) {
@@ -288,5 +322,18 @@ public class DeleteAccountActivity extends AppCompatActivity {
     private void hideLoading() {
         progressBar.setVisibility(View.GONE);
 
+    }
+    private void  requestSMSPermission()
+    {
+        String permission = Manifest.permission.RECEIVE_SMS;
+
+        int grant = ContextCompat.checkSelfPermission(this, permission);
+        if (grant != PackageManager.PERMISSION_GRANTED)
+        {
+            String[] permission_list = new String[1];
+            permission_list[0] = permission;
+
+            ActivityCompat.requestPermissions(this, permission_list,1);
+        }
     }
 }

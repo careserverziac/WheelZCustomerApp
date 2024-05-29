@@ -1,8 +1,10 @@
 package com.ziac.wheelzonline;
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -19,6 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -65,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(LoginActivity.this);
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(true);
+
 
 
         Username = findViewById(R.id.loginusername);
@@ -287,7 +293,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Toast.makeText(LoginActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(LoginActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
                 } else if (error instanceof ServerError) {
                     Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_LONG).show();
                 } else if (error instanceof NetworkError) {
@@ -322,7 +328,6 @@ public class LoginActivity extends AppCompatActivity {
 
         queue.add(request);
     }
-
 
 
 }

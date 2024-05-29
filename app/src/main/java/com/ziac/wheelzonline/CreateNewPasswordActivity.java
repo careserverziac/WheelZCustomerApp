@@ -2,32 +2,25 @@ package com.ziac.wheelzonline;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Telephony;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
@@ -38,12 +31,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.chaos.view.PinView;
-import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -59,36 +46,40 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
     EditText Newpassword;
     ProgressBar progressBar;
     AppCompatButton SubmitOTP,Cancelpage;
-
     PinView pinView;
+    private boolean passwordVisible = false;
 
+    String message,otp;
     private static final int REQ_USER_CONSENT = 200;
 
 
-    private boolean passwordVisible = false;
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_password);
 
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        message=Global.sharedPreferences.getString("message","");
+        pinView = findViewById(R.id.pinview);
+        pinView.setText(message);
+        Global.editor = Global.sharedPreferences.edit();
+        Global.editor.remove("message");
+        Global.editor.commit();
+
 
         if (AppStatus.getInstance(this).isOnline()) {
         } else {
-            Global.customtoast(CreateNewPasswordActivity.this,getLayoutInflater(),"No connection found!!");
+            Global.customtoast(CreateNewPasswordActivity.this,getLayoutInflater(),"Internet connection unavailable !!");
         }
 
-        Newpassword=findViewById(R.id.newpassword);
+
+        Newpassword=findViewById(R.id.resetpassword);
         progressBar=findViewById(R.id.progressbarcnp);
         SubmitOTP=findViewById(R.id.submitotp);
         Cancelpage=findViewById(R.id.cancelpage);
-        pinView=findViewById(R.id.pinview);
         progressBar.setVisibility(View.GONE);
 
-        RequestPermission();
-        new OTPReceiver().setEditText(Newpassword);
-
-        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         SubmitOTP.setOnClickListener(v ->   NewPasswordandSubmit());
         Cancelpage.setOnClickListener(v -> {startActivity(new Intent(CreateNewPasswordActivity.this,LoginActivity.class));finish();});
@@ -117,15 +108,6 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
 
     }
 
-    private void RequestPermission() {
-
-        if (ContextCompat.checkSelfPermission(CreateNewPasswordActivity.this, Manifest.permission.RECEIVE_SMS)
-                != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(CreateNewPasswordActivity.this,new String[]{
-                    Manifest.permission.RECEIVE_SMS
-            },100);
-        }
-    }
 
 
     private void NewPasswordandSubmit() {
@@ -175,12 +157,12 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                     String issuccess = respObj.getString("isSuccess");
                     String error = respObj.getString("error");
 
-                  //  System.out.println(respObj);
+                    //  System.out.println(respObj);
 
 
                     if(issuccess.equals("true")){
                         Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),error);
-                       // Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Password Reset Successfully");
+                        // Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Password Reset Successfully");
                         startActivity(new Intent(CreateNewPasswordActivity.this,LoginActivity.class));
                         finish();
                     }  if(issuccess.equals("false")){
@@ -203,7 +185,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Request Time-Out");
                 }  else if (error instanceof NoConnectionError) {
-                    Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"No Connection Found");
+                    Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Internet connection unavailable");
                 }else if (error instanceof ServerError) {
                     Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"ServerError");
                 }  else if (error instanceof ParseError) {
@@ -225,7 +207,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                 params.put("NewPassword",password);
                 params.put("FPType",Global.sharedPreferences.getString("fptype",""));
 
-               // Log.d("getParams", params.toString());
+                // Log.d("getParams", params.toString());
                 return params;
             }
         };
@@ -239,8 +221,11 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish(); // This will exit the activity when back button is pressed
+    }
 
 }
+

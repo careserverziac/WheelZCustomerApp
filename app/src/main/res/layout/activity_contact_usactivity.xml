@@ -17,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="15dp"
             android:orientation="vertical">
 
@@ -399,12 +399,14 @@
 
 
             <RelativeLayout
+                android:id="@+id/locaterelative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onLocateClicked"
                 android:layout_marginTop="15dp"
                 android:padding="8dp"
-                android:background="@drawable/border_colour">
+                android:background="@drawable/border_colour"
+                tools:ignore="UsingOnClickInXml">
 
                 <ImageView
                     android:layout_width="70dp"

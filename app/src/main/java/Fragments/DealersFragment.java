@@ -8,6 +8,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +64,7 @@ public class DealersFragment extends Fragment {
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
     ProgressBar progressBar;
-
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -78,6 +80,7 @@ public class DealersFragment extends Fragment {
         progressBar=view.findViewById(R.id.progressBardealers);
         Statetxt=view.findViewById(R.id.statetext);
         Citytxt=view.findViewById(R.id.citytext);
+        swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
 
         int newWidthInPixels = 100;
         int newHeightInPixels = 100;
@@ -90,6 +93,13 @@ public class DealersFragment extends Fragment {
         getstates();
         getDealerslist();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                getDealerslist();
+            }
+        });
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         DealerlistRV.setLayoutManager(linearLayoutManager);
@@ -161,10 +171,12 @@ public class DealersFragment extends Fragment {
                         throw new RuntimeException(ex);
                     }
                     Global.dealersarraylist.add(commonClass);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
                 dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
                 DealerlistRV.setAdapter(dealersAdapter);
                 dealersAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
                 hideLoading();
 
             }
@@ -175,7 +187,7 @@ public class DealersFragment extends Fragment {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {
@@ -183,6 +195,7 @@ public class DealersFragment extends Fragment {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
             // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
 
@@ -247,7 +260,7 @@ public class DealersFragment extends Fragment {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {
@@ -455,7 +468,7 @@ public class DealersFragment extends Fragment {
                         if (error instanceof TimeoutError) {
                             Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                         } else if (error instanceof NoConnectionError) {
-                            Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                            Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                         } else if (error instanceof ServerError) {
                             Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                         } else if (error instanceof NetworkError) {

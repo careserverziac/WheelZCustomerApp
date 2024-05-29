@@ -57,7 +57,7 @@ public class MyVehcileFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_my_vehcile, container, false);
         Context context = requireContext();
         VehiclelistRV=view.findViewById(R.id.myvehiclelist);
-        Registervehicle =view.findViewById(R.id.registerpage);
+        Registervehicle =view.findViewById(R.id.registervehicle);
 
 
         GetAllvehicles();
@@ -78,10 +78,6 @@ public class MyVehcileFragment extends Fragment {
 
             }
         });
-
-
-
-
 
         return  view;
     }
@@ -158,7 +154,7 @@ public class MyVehcileFragment extends Fragment {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "No Connection Found");
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
                 } else if (error instanceof ServerError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
                 } else if (error instanceof NetworkError) {

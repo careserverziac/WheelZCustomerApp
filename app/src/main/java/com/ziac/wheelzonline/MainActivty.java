@@ -14,6 +14,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,7 +24,7 @@ import android.widget.ImageView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import Fragments.DealersFragment;
-import Fragments.HomeFragment;
+import Fragments.DashboardFragment;
 import Fragments.ModelsFragment;
 import Fragments.MyVehcileFragment;
 import Fragments.ProfileFragment;
@@ -37,6 +40,7 @@ public class MainActivty extends AppCompatActivity  {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
+    SpannableString spannableString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +57,14 @@ public class MainActivty extends AppCompatActivity  {
        // Toolbaricon = findViewById(R.id.profileicon);
 
 
-        openFragment(new HomeFragment());
+        openFragment(new DashboardFragment());
+
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            MenuItem menuItem = bottomNavigationView.getMenu().getItem(i);
+            spannableString = new SpannableString(menuItem.getTitle());
+            spannableString.setSpan(new AbsoluteSizeSpan(10, true), 0, spannableString.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+            menuItem.setTitle(spannableString);
+        }
 
        // toolbar = findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
@@ -113,7 +124,7 @@ public class MainActivty extends AppCompatActivity  {
                 int itemid = item.getItemId();
 
                 if (itemid == R.id.bottom_home) {
-                    openFragment(new HomeFragment());
+                    openFragment(new DashboardFragment());
                     return true;
                 } else if (itemid == R.id.bottom_models) {
                     openFragment(new ModelsFragment());

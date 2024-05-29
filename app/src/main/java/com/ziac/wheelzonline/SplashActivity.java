@@ -139,7 +139,7 @@ public class SplashActivity extends AppCompatActivity {
             if (error instanceof TimeoutError) {
                 Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet is slow / Request Time-Out");
             }  else if (error instanceof NoConnectionError) {
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"No Connection / Internet not available");
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet connection unavailable");
             }else if (error instanceof ServerError) {
                 Log.e("ServerError", "Server error response: " + new String(error.networkResponse.data));
                 Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate to Server");
@@ -226,7 +226,7 @@ public class SplashActivity extends AppCompatActivity {
             if (error instanceof TimeoutError) {
                 Toast.makeText(SplashActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
             } else if (error instanceof NoConnectionError) {
-                Toast.makeText(SplashActivity.this, "No Connection Found", Toast.LENGTH_LONG).show();
+                Toast.makeText(SplashActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
             } else if (error instanceof ServerError) {
                 Toast.makeText(SplashActivity.this, "Server Error", Toast.LENGTH_LONG).show();
             } else if (error instanceof NetworkError) {

@@ -12,6 +12,8 @@
 
         <!-- Set the color for the text -->
         <item name="itemTextColor">@color/white</item>
+
+
     </style>
 
 
