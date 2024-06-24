@@ -33,11 +33,8 @@ import ModelClasses.Global;
 
 public class VehicleRegistrationFragment extends Fragment {
 
-
     String regno,engineno,chassisno;
-
     EditText Registrationno,Engineno,Chassisno;
-
     AppCompatButton Addvehicle;
     FragmentManager fragmentManager;
     @Override
@@ -47,8 +44,6 @@ public class VehicleRegistrationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view= inflater.inflate(R.layout.fragment_addvehicle, container, false);
-
-
 
 
         Registrationno=view.findViewById(R.id.regno);
@@ -63,10 +58,20 @@ public class VehicleRegistrationFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
+
+  /*  private void Updateprofiledetails() {
+        Toast.makeText(requireContext(),"Vehicle Registration Successful", Toast.LENGTH_SHORT).show();
+
+        MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
+        fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }*/
 
     private void Updateprofiledetails() {
 

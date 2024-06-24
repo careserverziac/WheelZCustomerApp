@@ -54,8 +54,6 @@ public class MainActivty extends AppCompatActivity  {
 
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         frameLayout = findViewById(R.id.framelayout);
-       // Toolbaricon = findViewById(R.id.profileicon);
-
 
         openFragment(new DashboardFragment());
 
@@ -66,57 +64,6 @@ public class MainActivty extends AppCompatActivity  {
             menuItem.setTitle(spannableString);
         }
 
-       // toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
-
-
-        //drawerLayout = findViewById(R.id.drawer_layout);
-       // toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-       // drawerLayout.addDrawerListener(toggle);
-       // toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.red));
-      //  toggle.syncState();
-
-
-      /*  drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
-            @Override
-            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-            }
-
-            @Override
-            public void onDrawerOpened(@NonNull View drawerView) {
-
-                CircleImageView header_img;
-                TextView Dealername, referenccode,email;
-
-                header_img = drawerLayout.findViewById(R.id.header_image);
-                Dealername = drawerLayout.findViewById(R.id.header_user_name);
-                referenccode = drawerLayout.findViewById(R.id.header_refercode);
-                email = drawerLayout.findViewById(R.id.header_email);
-
-                String userimage = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-                String dealername = Global.sharedPreferences.getString("key_person", "");
-                String refcode = Global.sharedPreferences.getString("Ref_Code", "");
-                String user_mail = Global.sharedPreferences.getString("Email", "");
-
-                Picasso.get().load(userimage).into(header_img);
-
-                Dealername.setText(dealername);
-                referenccode.setText(refcode);
-                email.setText(" "+user_mail+" ");
-
-            }
-
-            @Override
-            public void onDrawerClosed(@NonNull View drawerView) {
-                //Toast.makeText(NewMainActivity.this, "On onDrawerClosed", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                //Toast.makeText(NewMainActivity.this, "On onDrawerStateChanged", Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -145,27 +92,7 @@ public class MainActivty extends AppCompatActivity  {
         });
 
 
-      /*  Toolbaricon.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(MainActivty.this, v);
-            popup.getMenuInflater().inflate(R.menu.menu_profile, popup.getMenu());
-            popup.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
-                if (itemId == R.id.menu_profiles) {
-                    startActivity(new Intent(MainActivty.this, ProfileActivity.class));
-                    return true;
-                } else if (itemId == R.id.menu_settings) {
 
-                    openFragment(new HomeFragment());
-                    return true;
-
-                } else if (itemId == R.id.menu_log) {
-                    exitdialog();
-                    return true;
-                }
-                return false;
-            });
-            popup.show();
-        });*/
 
     }
 
@@ -175,32 +102,11 @@ public class MainActivty extends AppCompatActivity  {
         fragmentTransaction.replace(R.id.framelayout, fragment);
         fragmentTransaction.commit();
     }
-
-  /*  @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int itemIDd = item.getItemId();
-
-        if (itemIDd == R.id.nav_companydtls) {
-
-            openFragment(new ModelsFragment());
-
-        }
-        else if (itemIDd == R.id.nav_aboutus) {
-
-            startActivity(new Intent(MainActivty.this, SignupActivity.class));
-
-        } else if (itemIDd == R.id.nav_share) {
-
-            //ShareIntent();
-
-        } else if (itemIDd == R.id.nav_logout) {
-
-            exitdialog();
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
+    public void setBottomNavigationViewSelectedItem(int itemId) {
+        bottomNavigationView.setSelectedItemId(itemId);
     }
-*/
+
+
     @Override
     public void onBackPressed() {
 

@@ -384,35 +384,36 @@ public class DealersFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             @SuppressLint("ViewHolder") View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
-            RadioButton radioButton=v.findViewById(R.id.radio_button);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
             statename = mDataArrayList.get(i);
             tvstatenameitem.setText(statename.get_name());
+
             radioButton.setOnClickListener(view1 -> {
-                radioButton.setChecked(!radioButton.isChecked());
+                boolean isChecked = radioButton.isChecked();
+                radioButton.setChecked(!isChecked);
                 statename = mDataArrayList.get(i);
                 statecode = statename.get_code();
+                citycode = "";
+                getDealerslist();
                 zDialog.dismiss();
                 getcity();
-
-
-
-
+                Statetxt.setText(statename.get_name());
             });
 
             tvstatenameitem.setOnClickListener(view1 -> {
                 statename = mDataArrayList.get(i);
                 statecode = statename.get_code();
-                citycode="";
+                citycode = "";
                 getDealerslist();
                 zDialog.dismiss();
                 getcity();
                 Statetxt.setText(statename.get_name());
-
-               // Toast.makeText(getContext(), "Selected state: " + statename.get_name(), Toast.LENGTH_SHORT).show();
-
             });
+
             return v;
         }
+
+
     }
 
 
@@ -511,7 +512,6 @@ public class DealersFragment extends Fragment {
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
 
         if (Global.cityarraylist == null || Global.cityarraylist.size() == 0) {
-//            Toast.makeText(getBaseContext(), "City list not found !! Please try again !!", Toast.LENGTH_LONG).show();
             Global.customtoast(requireActivity(), getLayoutInflater(), "No cities found for selected state");
 
             return;
@@ -598,23 +598,27 @@ public class DealersFragment extends Fragment {
             RadioButton radioButton=v.findViewById(R.id.radio_button);
             cityname = mDataArrayList.get(i);
             tvstatenameitem.setText(cityname.get_name());
-            radioButton.setOnClickListener(view1 -> {
-                radioButton.setChecked(!radioButton.isChecked());
-                cityname = mDataArrayList.get(i);
-                citycode = cityname.get_code();
-                getDealerslist();
-                zDialog.dismiss();
-                getcity();
 
 
-
-
-            });
             tvstatenameitem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     cityname = mDataArrayList.get(i);
                    // Citytxt.setText(cityname.get_name());
+                    citycode = cityname.get_code();
+                    Citytxt.setText(cityname.get_name());
+                    getDealerslist();
+                    zDialog.dismiss();
+
+
+                }
+            });
+
+            radioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cityname = mDataArrayList.get(i);
+                    // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
                     Citytxt.setText(cityname.get_name());
                     getDealerslist();

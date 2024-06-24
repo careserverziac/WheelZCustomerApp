@@ -12,19 +12,23 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.ziac.wheelzonline.R;
 
 import java.util.List;
@@ -61,8 +65,8 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
         holder.Comyname.setText(dealerList.get(position).getCom_name());
         holder.ComCity.setText(dealerList.get(position).getCity_name());
-        holder.ComMobile.setText(dealerList.get(position).getCom_phone());
-        holder.ComMail.setText(dealerList.get(position).getCom_email());
+       // holder.ComMobile.setText(dealerList.get(position).getCom_phone());
+       // holder.ComMail.setText(dealerList.get(position).getCom_email());
         holder.Comwebsite.setText(dealerList.get(position).getCom_website());
         holder.ComAddress.setText(dealerList.get(position).getCom_address());
         holder.DealerName.setText(dealerList.get(position).getCom_contact());
@@ -70,7 +74,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
         holder.Dealeremail.setText(dealerList.get(position).getCom_contact_email());
 
 
-        holder.Company_phone.setOnClickListener(v -> {
+        holder.Dealermobno.setOnClickListener(v -> {
             String phoneNumber = dealerList.get(position).getCom_phone();
             initiatePhoneCall(phoneNumber);
         });
@@ -78,7 +82,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             String phoneNumber = dealerList.get(position).getCom_contact_mobno();
             initiatePhoneCall(phoneNumber);
         });
-        holder.ComMail.setOnClickListener(v -> {
+        holder.Dealeremail.setOnClickListener(v -> {
             String mailid = dealerList.get(position).getCom_email();
             sendEmail(mailid);
 
@@ -88,8 +92,60 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             openWebsite(website);
         });
 
+        holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
+                View view1 = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_dailog, null);
+                bottomSheetDialog.setContentView(view1);
+
+                // Initialize the CalendarView and TimePicker
+                CalendarView calendarView = view1.findViewById(R.id.calendarView);
+                TimePicker timePicker = view1.findViewById(R.id.timePicker);
+                TextView selectedDateTime = view1.findViewById(R.id.selecteddatetime);
+                AppCompatButton confirmBooking = view1.findViewById(R.id.confirmbooking);
+
+                // Set up a listener to capture the selected date from the CalendarView
+                final int[] selectedYear = new int[1];
+                final int[] selectedMonth = new int[1];
+                final int[] selectedDay = new int[1];
+                calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                    @Override
+                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                        selectedYear[0] = year;
+                        selectedMonth[0] = month + 1; // Month is 0-indexed
+                        selectedDay[0] = dayOfMonth;
+                        selectedDateTime.setText("Selected date: " + selectedDay[0] + "/" + selectedMonth[0] + "/" + selectedYear[0]);
+                    }
+                });
+
+                // Set up the TimePicker to use 24-hour format
+                timePicker.setIs24HourView(true);
+
+                confirmBooking.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int hour = timePicker.getHour();
+                        int minute = timePicker.getMinute();
+                        String selectedTime = hour + ":" + minute;
+                        String selectedDate = selectedDay[0] + "/" + selectedMonth[0] + "/" + selectedYear[0];
+
+                        // Send the selected date and time to the server
+                        sendDateTimeToServer(selectedDate, selectedTime);
+                        bottomSheetDialog.cancel();;
+                    }
+                });
+
+                bottomSheetDialog.show();
+            }
+        });
 
 
+    }
+
+    private void sendDateTimeToServer(String selectedDate, String selectedTime) {
+
+        Toast.makeText(context, selectedDate+" "+selectedTime, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -156,9 +212,10 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView Dealer_image;
-        TextView Comyname,ComCity,ComMobile,ComMail,ComAddress;
+        TextView Comyname,ComCity,ComMobile,ComMail,ComAddress,Bookaservice;
         TextView DealerName,Dealermobno,Dealeremail,Comwebsite;
         LinearLayout Company_phone,DealerPhone;
+        BottomSheetDialog bottomSheetDialog;
        // CardView Modelscardview;
 
         public ViewHolder(@NonNull View itemView) {
@@ -167,15 +224,16 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             Dealer_image=itemView.findViewById(R.id.dealer_image);
             Comyname=itemView.findViewById(R.id.com_name);
             ComCity=itemView.findViewById(R.id.com_city);
-            ComMobile=itemView.findViewById(R.id.com_phone);
-            ComMail=itemView.findViewById(R.id.com_email);
+           // ComMobile=itemView.findViewById(R.id.com_phone);
+           // ComMail=itemView.findViewById(R.id.com_email);
             ComAddress=itemView.findViewById(R.id.com_address);
             DealerName=itemView.findViewById(R.id.dealername);
             Dealermobno=itemView.findViewById(R.id.dealer_mobno);
             Dealeremail=itemView.findViewById(R.id.dealer_email);
-            Company_phone=itemView.findViewById(R.id.company_phone);
+           // Company_phone=itemView.findViewById(R.id.company_phone);
             DealerPhone=itemView.findViewById(R.id.dealerphone);
             Comwebsite=itemView.findViewById(R.id.com_website);
+            Bookaservice=itemView.findViewById(R.id.bookaservice);
 
 
            // Modelscardview=itemView.findViewById(R.id.modelscardview);

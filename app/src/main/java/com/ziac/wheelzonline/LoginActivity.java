@@ -108,6 +108,10 @@ public class LoginActivity extends AppCompatActivity {
 
             username = Username.getText().toString();
             pwd = Password.getText().toString();
+
+          /*  username ="Demouser";
+            pwd = "Ziac1234$";*/
+
             if (username.isEmpty()) {
                 Username.setError("Please enter the user name");
                 Username.requestFocus();
@@ -189,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (error instanceof TimeoutError) {
                    // Global.customtoast(LoginActivity.this, getLayoutInflater(),"Request Time-Out");
                 }  else if (error instanceof NoConnectionError) {
-                   // Global.customtoast(LoginActivity.this, getLayoutInflater(),"No Connection Found");
+                    Global.customtoast(LoginActivity.this, getLayoutInflater(),"No Connection Found");
                 }
 
                 else if (error instanceof ServerError) {

@@ -70,55 +70,6 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/company_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-
-                        android:layout_width="20dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/telephone"/>
-
-                    <TextView
-                        android:id="@+id/com_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="9567542499"
-                        android:fontFamily="@font/arsenal"
-                        android:textSize="16sp"
-                        android:padding="3dp"
-                        android:textColor="#CAC8C8" />
-
-                </LinearLayout>
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-
-                        android:layout_width="20dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/gmail"/>
-
-                    <TextView
-                        android:id="@+id/com_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="suryakumaryadhav@gmail.com"
-                        android:fontFamily="@font/arsenal"
-                        android:textSize="16sp"
-                        android:padding="3dp"
-                        android:textColor="#CAC8C8" />
-
-                </LinearLayout>
 
                 <LinearLayout
 
@@ -151,7 +102,7 @@
 
             <LinearLayout
                 android:layout_width="100dp"
-                android:layout_height="110dp"
+                android:layout_height="90dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -160,7 +111,8 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/dealer_image"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="match_parent"
+
                     android:src="@drawable/surya"
                     app:civ_border_color="#FF000000"
                     app:civ_border_overlay="true"
@@ -201,25 +153,27 @@
             android:padding="4dp"
             android:orientation="vertical">
 
-        <LinearLayout
+      <!--  <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/square_border_light"
             android:orientation="horizontal">
-
+-->
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
-                android:orientation="vertical">
+                android:background="@drawable/square_border_light"
+                android:orientation="vertical"
+                android:padding="6dp">
 
 
                 <LinearLayout
                     android:id="@+id/dealernameicon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -227,7 +181,7 @@
 
                         android:layout_width="18dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/person"/>
+                        android:src="@drawable/person" />
 
                     <TextView
                         android:id="@+id/dealername"
@@ -241,12 +195,11 @@
 
                 </LinearLayout>
 
-
-
                 <LinearLayout
                     android:id="@+id/dealerphone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/dealernameicon"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -254,24 +207,26 @@
 
                         android:layout_width="18dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/telephone"/>
+                        android:src="@drawable/telephone" />
 
                     <TextView
                         android:id="@+id/dealer_mobno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
                         android:fontFamily="@font/arsenal"
                         android:text="9567542499"
-                        android:layout_marginStart="3dp"
                         android:textColor="#CAC8C8"
                         android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-
+                    android:id="@+id/dealermailid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/dealerphone"
+                    android:layout_marginBottom="9dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -279,63 +234,40 @@
 
                         android:layout_width="18dp"
                         android:layout_height="15dp"
-                        android:src="@drawable/gmail"/>
+                        android:src="@drawable/gmail" />
 
                     <TextView
                         android:id="@+id/dealer_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
                         android:fontFamily="@font/arsenal"
                         android:text="shamith@ziacsoft.com"
-                        android:layout_marginStart="3dp"
+
                         android:textColor="#CAC8C8"
                         android:textSize="16sp" />
 
                 </LinearLayout>
-
-
-
             </LinearLayout>
 
-          <!--  <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="end|center"
-                android:orientation="vertical">
-
-                <LinearLayout
-
-                    android:layout_width="70dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/square_border_dark"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/baseline_call_icon" />
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center"
-                        android:text="Call"
-                        android:textColor="#FAEF5D"
-                        android:textSize="18dp" />
+            <TextView
+                android:id="@+id/bookaservice"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dealermailid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-15dp"
+                android:background="@drawable/bgborder_book"
+                android:fontFamily="@font/arsenal"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:padding="3dp"
+                android:layout_marginRight="10dp"
+                android:text="Book a service"
+                android:textColor="#087A4C"
+                android:textSize="18sp" />
 
 
-                </LinearLayout>
-
-            </LinearLayout>-->
-
-
-        </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

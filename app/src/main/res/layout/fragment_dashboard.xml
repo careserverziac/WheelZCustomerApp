@@ -82,6 +82,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/servicebookCD"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="125dp"
@@ -153,6 +154,7 @@
                         android:layout_weight="0.1"/>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/servicehistoryCD"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="125dp"
@@ -228,6 +230,7 @@
                     android:padding="10dp">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/vehdocumentsCD"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="125dp"
@@ -300,6 +303,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/latestnewsCD"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="125dp"

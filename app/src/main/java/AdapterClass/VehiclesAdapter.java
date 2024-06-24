@@ -16,6 +16,7 @@ import com.ziac.wheelzonline.R;
 import java.util.List;
 
 import ModelClasses.CommonClass;
+import ModelClasses.Global;
 
 public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicleviewholder> {
 
@@ -38,6 +39,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
     @Override
     public void onBindViewHolder(@NonNull Vehicleviewholder holder, int position) {
 
+        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + commonClassList.get(position).getLogo_image());
         holder.Regis_No.setText(commonClassList.get(position).getRegistrationno());
         holder.Model_name.setText(commonClassList.get(position).getVehiclemodelname());
 

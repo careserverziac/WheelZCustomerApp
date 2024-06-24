@@ -12,4 +12,22 @@
     <string name="email_address">Email Address</string>
     <string name="icon">">"</string>
     <string name="your_name">Your name</string>
+
+
+    <string name="back"><![CDATA[<-]]></string>
+    <string name="forward"><![CDATA[->]]></string>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/offwhite</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <!-- Custom style for CalendarView -->
+    <style name="CustomCalendarView" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
 </resources>

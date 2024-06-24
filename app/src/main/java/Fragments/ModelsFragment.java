@@ -44,10 +44,8 @@ public class ModelsFragment extends Fragment {
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
     ProgressBar progressBar;
-
     LinearLayout Search;
     SearchView searchView;
-
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}

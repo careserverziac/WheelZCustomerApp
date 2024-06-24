@@ -101,9 +101,9 @@ public class MyVehcileFragment extends Fragment {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                   /*  String vmodelCode = jsonObject.getString("vmodel_code");
-                    String vehimage = jsonObject.getString("veh_image1");
-*/
 
+*/
+                    String vehimage = jsonObject.getString("veh_image1");
                     String wuser_code1 = jsonObject.getString("wuser_code");
                     String com_code = jsonObject.getString("com_code");
                     String engine_no = jsonObject.getString("engine_no");
@@ -115,9 +115,9 @@ public class MyVehcileFragment extends Fragment {
                     CommonClass commonClass = new CommonClass();
                     commonClass.setCategory(wuser_code1);
                     commonClass.setManufacture(chasis_no);
-
                     commonClass.setRegis_no(Regis_no);
                     commonClass.setVehiclemodelname(Veh_modelname);
+                    commonClass.setLogo_image(vehimage);
 
                     Global.allleadslist.add(commonClass);
 
