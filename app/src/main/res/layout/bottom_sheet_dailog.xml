@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dailog_bg"
+    android:orientation="vertical">
+
+
+  <CalendarView
+      android:id="@+id/calendarView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/CustomCalendarView">
+
+  </CalendarView>
+
+  <TimePicker
+      android:id="@+id/timePicker"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:timePickerMode="spinner" />
+
+
+  <TextView
+      android:id="@+id/selecteddatetime"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Time_Date" />
+
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/confirmbooking"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+       android:text="Confirm Booking"/>
+
+
+</LinearLayout>
