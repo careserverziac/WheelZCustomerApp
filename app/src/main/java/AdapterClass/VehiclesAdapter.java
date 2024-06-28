@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
     @NonNull
     @Override
     public Vehicleviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.models_layout,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.myvehicle_layout,parent,false);
         VehiclesAdapter.Vehicleviewholder vehicleviewholder=new Vehicleviewholder(view);
         return vehicleviewholder;
     }
@@ -53,7 +53,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
 
     public class Vehicleviewholder extends RecyclerView.ViewHolder {
         ImageView Veh_image;
-        TextView Regis_No,Model_name;
+        TextView Regis_No,Model_name,Documents,Service;
         CardView Modelscardview;
 
         public Vehicleviewholder(@NonNull View itemView) {
@@ -63,6 +63,8 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
             Regis_No=itemView.findViewById(R.id.manufacture_name);
             Model_name=itemView.findViewById(R.id.model_name);
             Modelscardview=itemView.findViewById(R.id.modelscardview);
+            Documents=itemView.findViewById(R.id.documents);
+            Service=itemView.findViewById(R.id.service);
         }
 
 

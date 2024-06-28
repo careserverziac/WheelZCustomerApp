@@ -1,4 +1,4 @@
-package com.ziac.wheelzonline;
+package com.ziac.wheelzcustomer;
 
 import org.junit.Test;
 

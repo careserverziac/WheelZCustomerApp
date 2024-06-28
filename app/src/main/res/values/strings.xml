@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WheelZOnline</string>
+    <string name="app_name">WheelZ</string>
     <string name="password_msg">We have sent an OTP on your registered mobile number please enter the OTP to proceed further</string>
     <string name="open_nav">Open Navigation Drawer</string>
     <string name="close_nav">Close Navigation Drawer</string>

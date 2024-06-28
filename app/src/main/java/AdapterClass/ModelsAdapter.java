@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import java.util.List;
 

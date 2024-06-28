@@ -19,7 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

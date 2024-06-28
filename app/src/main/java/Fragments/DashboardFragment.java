@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ziac.wheelzonline.MainActivty;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.MainActivty;
+import com.ziac.wheelzcustomer.R;
 
 public class DashboardFragment extends Fragment {
 

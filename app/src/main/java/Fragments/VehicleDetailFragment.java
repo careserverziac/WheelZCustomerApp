@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import ModelClasses.Global;
 

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 
 import com.squareup.picasso.Picasso;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import java.util.ArrayList;
 
@@ -23,8 +23,8 @@ public class Global {
     public static SharedPreferences.Editor editor;
 
     private static Picasso picassoInstance;
-   //public static String baseurl = "http://nds.ziaconline.com/";
-    public static String baseurl = "http://192.168.1.21:9394/";
+   public static String baseurl = "http://nds.ziaconline.com/";
+    //public static String baseurl = "http://192.168.1.21:9394/";
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
     public static String modelsimageurl = baseurl+"/Website_data/models/";

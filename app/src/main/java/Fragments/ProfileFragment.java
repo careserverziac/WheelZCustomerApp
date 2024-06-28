@@ -22,12 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.ziac.wheelzonline.ChangePasswordActivity;
-import com.ziac.wheelzonline.ContactUSActivity;
-import com.ziac.wheelzonline.DeleteAccountActivity;
-import com.ziac.wheelzonline.ProfileActivity;
-import com.ziac.wheelzonline.LoginActivity;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.ChangePasswordActivity;
+import com.ziac.wheelzcustomer.ContactUSActivity;
+import com.ziac.wheelzcustomer.DeleteAccountActivity;
+import com.ziac.wheelzcustomer.ProfileActivity;
+import com.ziac.wheelzcustomer.LoginActivity;
+import com.ziac.wheelzcustomer.R;
 
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
@@ -37,13 +37,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
 
-    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword;
+    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword,Editicon;
     FloatingActionButton BackButton;
     Intent intent;
     TextView Username,Usermobile,Useremail,Account;
-
     CircleImageView circularImageView;
-
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -86,6 +84,7 @@ public class ProfileFragment extends Fragment {
         Deleteaccount=view.findViewById(R.id.deleteaccount);
         Changepassword=view.findViewById(R.id.changepasword);
         Logout=view.findViewById(R.id.logoutbtn);
+        Editicon=view.findViewById(R.id.editicon);
        // swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
 
         Username=view.findViewById(R.id.PRusername);
@@ -106,6 +105,7 @@ public class ProfileFragment extends Fragment {
 
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
+        Editicon.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ContactUSActivity.class))));
         Changepassword.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ChangePasswordActivity.class))));
 

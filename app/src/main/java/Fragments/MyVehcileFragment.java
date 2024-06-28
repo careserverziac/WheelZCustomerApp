@@ -26,7 +26,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

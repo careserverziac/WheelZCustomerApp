@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.ziac.wheelzonline'
+    namespace 'com.ziac.wheelzcustomer'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.ziac.wheelzonline"
+        applicationId "com.ziac.wheelzcustomer"
         minSdk 23
         targetSdk 34
         versionCode 1

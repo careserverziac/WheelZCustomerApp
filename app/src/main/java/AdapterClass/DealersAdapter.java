@@ -20,20 +20,15 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.ziac.wheelzonline.R;
+import com.ziac.wheelzcustomer.R;
 
 import java.util.List;
 
-import Fragments.VehicleDetailFragment;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 

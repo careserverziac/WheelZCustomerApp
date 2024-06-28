@@ -1,4 +1,4 @@
-package com.ziac.wheelzonline;
+package com.ziac.wheelzcustomer;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -37,8 +37,6 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
 
         Context context=this;
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Logging in...");
+        progressDialog.setMessage("Registering Please Wait..");
         progressDialog.setCancelable(true);
 
 
