@@ -11,4 +11,5 @@
     <color name="offwhite">#C3BEBE</color>
     <color name="red">@color/othertext</color>
     <color name="navyblue">#030637</color>
+    <color name="lightgrey">#353434</color>
 </resources>

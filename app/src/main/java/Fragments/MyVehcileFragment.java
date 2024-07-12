@@ -61,6 +61,7 @@ public class MyVehcileFragment extends Fragment {
 
 
         GetAllvehicles();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehiclelistRV.setLayoutManager(linearLayoutManager);
         VehiclelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -97,7 +98,7 @@ public class MyVehcileFragment extends Fragment {
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 Global.allleadslist = new ArrayList<>();
-                // Loop through the array to extract vmodel_code values
+
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                   /*  String vmodelCode = jsonObject.getString("vmodel_code");

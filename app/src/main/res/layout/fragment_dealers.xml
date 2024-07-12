@@ -76,7 +76,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/linearstate"
+                            android:id="@+id/statedp"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -137,7 +137,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/linearcity"
+                            android:id="@+id/citydp"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom"

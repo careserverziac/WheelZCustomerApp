@@ -68,6 +68,7 @@ public class Global {
 
       public static ArrayList<CommonClass> allleadslist;
       public static CommonClass modellist;
+      public static CommonClass dealersdetails;
 
 
   public static void customtoast(Context context, LayoutInflater inflater, String msg) {

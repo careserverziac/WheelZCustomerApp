@@ -258,7 +258,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-15dp"
                 android:background="@drawable/bgborder_book"
-                android:fontFamily="@font/arsenal"
+                android:fontFamily="@font/arsenal_bold"
                 android:layout_gravity="end"
                 android:gravity="center"
                 android:padding="3dp"

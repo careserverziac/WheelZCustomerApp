@@ -78,48 +78,7 @@
             android:background="#2C2B2B" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:cardBackgroundColor="@color/black"
-            tools:ignore="MissingConstraints">
 
-            <!--android:background="#2E2D2D"-->
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/arsenal"
-                android:drawableLeft="@drawable/baseline_attach"
-                android:text="Supporting documents"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:drawableStart="@drawable/baseline_history"
-                android:fontFamily="@font/arsenal"
-                android:text="Service history"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"

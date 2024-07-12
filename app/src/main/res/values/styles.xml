@@ -17,6 +17,12 @@
     </style>
 
 
+    <style name="CustomSeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:thumb">@drawable/custom_thumb</item>
+        <item name="android:progressDrawable">@drawable/custom_progress</item>
+    </style>
+
+
     <!--   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
            <item name="android:windowDisablePreview">true</item>
        </style>

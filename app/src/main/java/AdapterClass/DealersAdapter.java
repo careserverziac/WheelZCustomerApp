@@ -6,8 +6,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +24,34 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.ziac.wheelzcustomer.GoogleMapActivity;
 import com.ziac.wheelzcustomer.R;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.Executor;
 
+import Fragments.BookServiceFragment;
+import Fragments.VehicleDetailFragment;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 
@@ -36,6 +59,12 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
     private final List<CommonClass> dealerList;
     private final Context context;
+    private GoogleMap myMap;
+    private FusedLocationProviderClient fusedLocationClient;
+    private String currentLocationString;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+
     public DealersAdapter(List<CommonClass> dealerList, Context context) {
         this.context = context;
         this.dealerList = dealerList;
@@ -48,6 +77,8 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dealerlist_layout, parent, false);
 
         DealersAdapter.ViewHolder viewHolder = new DealersAdapter.ViewHolder(view);
+
+
         return viewHolder;
 
     }
@@ -87,7 +118,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             openWebsite(website);
         });
 
-        holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
+       /* holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
@@ -133,8 +164,23 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
                 bottomSheetDialog.show();
             }
-        });
+        });*/
 
+
+        holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Global.dealersdetails = dealerList.get(position);
+
+                BookServiceFragment bookServiceFragment = new BookServiceFragment();
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, bookServiceFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
     }
 
@@ -148,6 +194,10 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     public int getItemCount() {
         return dealerList.size();
     }
+
+
+
+
 
     private void initiatePhoneCall(String phoneNumber) {
         // Check if the device has the required permissions
@@ -219,19 +269,14 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             Dealer_image=itemView.findViewById(R.id.dealer_image);
             Comyname=itemView.findViewById(R.id.com_name);
             ComCity=itemView.findViewById(R.id.com_city);
-           // ComMobile=itemView.findViewById(R.id.com_phone);
-           // ComMail=itemView.findViewById(R.id.com_email);
             ComAddress=itemView.findViewById(R.id.com_address);
             DealerName=itemView.findViewById(R.id.dealername);
             Dealermobno=itemView.findViewById(R.id.dealer_mobno);
             Dealeremail=itemView.findViewById(R.id.dealer_email);
-           // Company_phone=itemView.findViewById(R.id.company_phone);
             DealerPhone=itemView.findViewById(R.id.dealerphone);
             Comwebsite=itemView.findViewById(R.id.com_website);
             Bookaservice=itemView.findViewById(R.id.bookaservice);
 
-
-           // Modelscardview=itemView.findViewById(R.id.modelscardview);
 
 
             // CC=itemView.findViewById(R.id.veh_cc);
