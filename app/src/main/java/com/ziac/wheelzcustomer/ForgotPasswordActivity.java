@@ -58,7 +58,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
 
 
-        requestSMSPermission();
+
 
         GetOTp =findViewById(R.id.getotp);
         Username=findViewById(R.id.fusername);
@@ -118,45 +118,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
         });
-    }
-    private void  requestSMSPermission()
-    {
-        String permission = Manifest.permission.RECEIVE_SMS;
-
-        int grant = ContextCompat.checkSelfPermission(this, permission);
-        if (grant != PackageManager.PERMISSION_GRANTED)
-        {
-            String[] permission_list = new String[1];
-            permission_list[0] = permission;
-
-            ActivityCompat.requestPermissions(this, permission_list,1);
-        }
-    }
-
-   /* private void requestSMSPermission() {
-        String permission = Manifest.permission.RECEIVE_SMS;
-
-        int grant = ContextCompat.checkSelfPermission(this, permission);
-        if (grant != PackageManager.PERMISSION_GRANTED) {
-            String[] permission_list = new String[1];
-            permission_list[0] = permission;
-
-            ActivityCompat.requestPermissions(this, permission_list, 1);
-        } else {
-            getotpmethod();
-        }
-    }*/
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getotpmethod();
-            } else {
-                Toast.makeText(this, "Permission denied cant proceed further", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
 

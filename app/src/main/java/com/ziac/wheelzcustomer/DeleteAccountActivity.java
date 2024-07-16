@@ -38,8 +38,9 @@ import java.util.Map;
 import ModelClasses.Global;
 
 public class DeleteAccountActivity extends AppCompatActivity {
-    public  static  final  int REQ_USER_CONSENT=100;
 
+
+    public  static  final  int REQ_USER_CONSENT=100;
     final Context context = this;
     AppCompatButton Proceedbtn, ValidateandDelete;
     String OTP,otp,autoOTP;
@@ -55,7 +56,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         Proceedbtn = findViewById(R.id.proceedbtn);
         ValidateandDelete = findViewById(R.id.validatedelete);
         progressBar = findViewById(R.id.progressbarline);
-        requestSMSPermission();
+
 
 
         hideLoading();
@@ -265,48 +266,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-  /*  private void startSmartUserConsent() {
 
-        SmsRetrieverClient client = SmsRetriever.getClient(this);
-        client.startSmsUserConsent(null);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQ_USER_CONSENT){
-
-            if ((resultCode == RESULT_OK) && (data != null)){
-
-                String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                getOtpFromMessage(message);
-
-
-            }
-
-
-        }
-
-    }
-
-    private void getOtpFromMessage(String message) {
-
-        Pattern otpPattern = Pattern.compile("(|^)\\d{6}");
-        Matcher matcher = otpPattern.matcher(message);
-        if (matcher.find()){
-
-            pinView.setText(matcher.group(0));
-
-
-
-        }
-
-
-    }
-
-  */
 
     private void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
@@ -317,17 +277,5 @@ public class DeleteAccountActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
 
     }
-    private void  requestSMSPermission()
-    {
-        String permission = Manifest.permission.RECEIVE_SMS;
 
-        int grant = ContextCompat.checkSelfPermission(this, permission);
-        if (grant != PackageManager.PERMISSION_GRANTED)
-        {
-            String[] permission_list = new String[1];
-            permission_list[0] = permission;
-
-            ActivityCompat.requestPermissions(this, permission_list,1);
-        }
-    }
 }

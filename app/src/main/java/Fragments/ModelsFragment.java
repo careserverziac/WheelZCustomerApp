@@ -44,7 +44,7 @@ public class ModelsFragment extends Fragment {
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
     ProgressBar progressBar;
-    LinearLayout Search;
+    LinearLayout LinearSearch;
     SearchView searchView;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -75,9 +75,9 @@ public class ModelsFragment extends Fragment {
             }
         });
 
-        Search =view.findViewById(R.id.searchlinear);
-        searchView =view.findViewById(R.id.searchallleads);
-        Search.setOnClickListener(new View.OnClickListener() {
+        LinearSearch =view.findViewById(R.id.modelsearchlnr);
+        searchView =view.findViewById(R.id.searchallmodels);
+        LinearSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 swipeRefreshLayout.setEnabled(false);

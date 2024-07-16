@@ -1,8 +1,11 @@
 package com.ziac.wheelzcustomer;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -17,7 +20,11 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -29,6 +36,14 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.Task;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -38,6 +53,7 @@ import ModelClasses.Global;
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
 
+
     ImageView splashimage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +61,6 @@ public class SplashActivity extends AppCompatActivity {
 //        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-
-
-
-
-        /*progressDialog = new ProgressDialog(SplashActivity.this);
-        progressDialog.setMessage("Logging in...");
-        progressDialog.setCancelable(true);*/
 
 
         splashimage = findViewById(R.id.splash_logo);
@@ -110,6 +119,8 @@ public class SplashActivity extends AppCompatActivity {
 
 
     }
+
+
     private void dorefreshtokenVolley() {
         String url = Global.tokenurl;
         RequestQueue queue= Volley.newRequestQueue(SplashActivity.this);

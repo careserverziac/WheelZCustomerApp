@@ -52,7 +52,7 @@
             </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/searchlinear"
+            android:id="@+id/modelsearchlnr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -60,7 +60,7 @@
 
 
             <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchallleads"
+                android:id="@+id/searchallmodels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/roundblackborder" />

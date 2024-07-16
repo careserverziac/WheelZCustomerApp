@@ -1,5 +1,6 @@
 package AdapterClass;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,23 +9,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ziac.wheelzcustomer.UploadFiles;
 import com.ziac.wheelzcustomer.R;
+import com.ziac.wheelzcustomer.ServiceHistory;
 
 import java.util.List;
 
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 
-public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicleviewholder> {
+  public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicleviewholder> {
 
-    private final List<CommonClass> commonClassList;
+    private static final int YOUR_REQUEST_CODE =12 ;
+    private final List<CommonClass> vehicledetailsList;
     private final Context context;
 
+
     public VehiclesAdapter(List<CommonClass> commonClassList, Context context) {
-        this.commonClassList = commonClassList;
+        this.vehicledetailsList = commonClassList;
         this.context = context;
     }
 
@@ -37,18 +45,48 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Vehicleviewholder holder, int position) {
+    public void onBindViewHolder(@NonNull Vehicleviewholder holder, @SuppressLint("RecyclerView") int position) {
 
-        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + commonClassList.get(position).getLogo_image());
-        holder.Regis_No.setText(commonClassList.get(position).getRegistrationno());
-        holder.Model_name.setText(commonClassList.get(position).getVehiclemodelname());
+        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + vehicledetailsList.get(position).getLogo_image());
+        holder.Regis_No.setText(vehicledetailsList.get(position).getRegistrationno());
+        holder.Model_name.setText(vehicledetailsList.get(position).getVehiclemodelname());
 
+
+        holder.Documents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Global.vehicledetails = vehicledetailsList.get(position);
+
+                UploadFiles uploadFiles = new UploadFiles();
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, uploadFiles);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        holder.Service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Global.vehicledetails = vehicledetailsList.get(position);
+
+                ServiceHistory documentFragment = new ServiceHistory();
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, documentFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return commonClassList.size();
+        return vehicledetailsList.size();
     }
 
     public class Vehicleviewholder extends RecyclerView.ViewHolder {
@@ -64,10 +102,12 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
             Model_name=itemView.findViewById(R.id.model_name);
             Modelscardview=itemView.findViewById(R.id.modelscardview);
             Documents=itemView.findViewById(R.id.documents);
-            Service=itemView.findViewById(R.id.service);
+            Service=itemView.findViewById(R.id.servicehistory);
         }
-
-
     }
 
+
+
 }
+
+

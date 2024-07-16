@@ -8,6 +8,10 @@ public class CommonClass {
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
             com_website,com_contact,com_contact_mobno,logo_image,com_phone,com_lng,com_lat,com_contact_email;
 
+
+
+
+    public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path;
     public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname;
 
 /*
@@ -68,6 +72,70 @@ public class CommonClass {
         this. regis_no = regis_no;
 
 
+    }
+
+    public String getImgdoc_path() {
+        return imgdoc_path;
+    }
+
+    public void setImgdoc_path(String imgdoc_path) {
+        this.imgdoc_path = imgdoc_path;
+    }
+
+    public String getCveh_code() {
+        return cveh_code;
+    }
+
+    public void setCveh_code(String cveh_code) {
+        this.cveh_code = cveh_code;
+    }
+
+    public String getJc_datec() {
+        return jc_datec;
+    }
+
+    public void setJc_datec(String jc_datec) {
+        this.jc_datec = jc_datec;
+    }
+
+    public String getJobtype_name() {
+        return jobtype_name;
+    }
+
+    public void setJobtype_name(String jobtype_name) {
+        this.jobtype_name = jobtype_name;
+    }
+
+    public String getVeh_modelname() {
+        return Veh_modelname;
+    }
+
+    public void setVeh_modelname(String veh_modelname) {
+        Veh_modelname = veh_modelname;
+    }
+
+    public String getTotal_amt() {
+        return total_amt;
+    }
+
+    public void setTotal_amt(String total_amt) {
+        this.total_amt = total_amt;
+    }
+
+    public String getKms_done() {
+        return kms_done;
+    }
+
+    public void setKms_done(String kms_done) {
+        this.kms_done = kms_done;
+    }
+
+    public String getVehhis_code() {
+        return vehhis_code;
+    }
+
+    public void setVehhis_code(String vehhis_code) {
+        this.vehhis_code = vehhis_code;
     }
 
     public String getWuser_code() {

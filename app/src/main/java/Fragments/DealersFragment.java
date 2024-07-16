@@ -9,7 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-
+import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -62,12 +63,15 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import AdapterClass.DealersAdapter;
+import AdapterClass.ModelsAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
 
 
 public class DealersFragment extends Fragment {
+
+
     String Url;
     private zList statename;
     private CommonClass commonClass;
@@ -82,22 +86,21 @@ public class DealersFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     private FusedLocationProviderClient fusedLocationClient;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
+    SearchView searchView;
+    LinearLayout LinearSearch;
     LocationManager locationManager;
+
     private static final int REQUEST_CHECK_SETTINGS = 1;
     private static final int REQUEST_LOCATION_PERMISSIONS = 2;
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
-    }
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view=inflater.inflate(R.layout.fragment_dealers, container, false);
-        Context context = requireContext();
+        Context context = requireActivity();
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         Statedp =view.findViewById(R.id.statedp);
         Citydp =view.findViewById(R.id.citydp);
@@ -117,13 +120,13 @@ public class DealersFragment extends Fragment {
 
         getstates();
         getDealerslist();
-
+/*
         if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         } else {
             // Permission already granted, get current location
             getCurrentLocation();
-        }
+        }*/
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -132,6 +135,41 @@ public class DealersFragment extends Fragment {
                 getDealerslist();
             }
         });
+
+
+        LinearSearch =view.findViewById(R.id.searchdealerslnr);
+        searchView =view.findViewById(R.id.searchalldealers);
+        LinearSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipeRefreshLayout.setEnabled(false);
+                searchView.setIconified(false);
+                searchView.requestFocus();
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                swipeRefreshLayout.setEnabled(false);
+                performSearch(query);
+
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (inputMethodManager != null) {
+                    inputMethodManager.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                performSearch(newText);
+                return false;
+            }
+        });
+
+
+
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         DealerlistRV.setLayoutManager(linearLayoutManager);
@@ -154,7 +192,7 @@ public class DealersFragment extends Fragment {
     }
 
 
-    @SuppressLint("MissingPermission")
+  /*  @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
@@ -213,8 +251,106 @@ public class DealersFragment extends Fragment {
             }
         }
     }
+*/
 
 
+    private void performSearch(String query) {
+        showLoading();
+        RequestQueue queue= Volley.newRequestQueue(requireActivity());
+        String Url = Global.searchalldealers+query;
+
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET,Url, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+
+                Global.dealersarraylist = new ArrayList<CommonClass>();
+                commonClass = new CommonClass();
+                for (int i = 0; i < response.length(); i++) {
+                    final JSONObject jsonObject;
+                    try {
+
+                        jsonObject = response.getJSONObject(i);
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    commonClass = new CommonClass();
+                    try {
+
+                        commonClass.setCom_name(jsonObject.getString("com_name"));
+                        commonClass.setImage_path(jsonObject.getString("logo_image"));
+                        commonClass.setCom_code(jsonObject.getString("com_code"));
+                        commonClass.setState_name(jsonObject.getString("state_name"));
+                        commonClass.setState_code(jsonObject.getString("state_code"));
+                        commonClass.setCity_name(jsonObject.getString("city_name"));
+                        commonClass.setCity_code(jsonObject.getString("city_code"));
+                        commonClass.setCom_address(jsonObject.getString("com_address"));
+                        commonClass.setCom_pin(jsonObject.getString("com_pin"));
+                        commonClass.setCom_email(jsonObject.getString("com_email"));
+                        commonClass.setCom_website(jsonObject.getString("com_website"));
+                        commonClass.setCom_contact(jsonObject.getString("com_contact"));
+                        commonClass.setCom_contact_mobno(jsonObject.getString("com_contact_mobno"));
+                        commonClass.setCom_phone(jsonObject.getString("com_phone"));
+                        commonClass.setCom_lng(jsonObject.getString("com_lng"));
+                        commonClass.setCom_lat(jsonObject.getString("com_lat"));
+                        commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
+
+
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Global.dealersarraylist.add(commonClass);
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+
+                dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
+                DealerlistRV.setAdapter(dealersAdapter);
+                dealersAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                hideLoading();
+
+            }
+        },  error -> {
+
+            if (error instanceof NoConnectionError) {
+                hideLoading();
+                if (error instanceof TimeoutError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
+                } else if (error instanceof NoConnectionError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
+                } else if (error instanceof ServerError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
+                } else if (error instanceof NetworkError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
+                } else if (error instanceof ParseError) {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
+                }
+                swipeRefreshLayout.setRefreshing(false);
+            }
+            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
+
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+
+        };
+
+        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        queue.add(jsonArrayrequest);
+
+    }
 
 
     private void getDealerslist() {

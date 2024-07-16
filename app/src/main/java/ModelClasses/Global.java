@@ -23,8 +23,8 @@ public class Global {
     public static SharedPreferences.Editor editor;
 
     private static Picasso picassoInstance;
-   public static String baseurl = "http://nds.ziaconline.com/";
-    //public static String baseurl = "http://192.168.1.21:9394/";
+   //public static String baseurl = "http://nds.ziaconline.com/";
+    public static String baseurl = "http://192.168.1.21:9394/";
 
     public static String userimageurl = baseurl+"/Website_data/web_users/";
     public static String modelsimageurl = baseurl+"/Website_data/models/";
@@ -52,23 +52,29 @@ public class Global {
     public static ArrayList<zList> cityarraylist;
 
     public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
+    public static String UrlGetDocuments = baseurl + "api/List/GetDocumentList?";
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
 
     public static String getallMyVehicles = baseurl + "api/MyVehicles/Get?";
+    public static String getservicehistory = baseurl + "api/MyVehicles/GetServiceHistory?";
     public static String searchallbrands = baseurl + "api/Brands/GetAllBrands?searchtext=";
+    public static String searchalldealers = baseurl + "api/Company/GetAllDealers?searchtext=";
 
 
     public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
 
     public static String urladdvehicle = baseurl + "api/MyVehicles/Add";
     public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
+    public static String urluploadfiles = baseurl + "api/Myvehicles/upload";
     public static String urlSearchdealers = baseurl + "";
 
 
       public static ArrayList<CommonClass> allleadslist;
+      public static ArrayList<CommonClass> alldealerslist;
       public static CommonClass modellist;
       public static CommonClass dealersdetails;
+      public static CommonClass vehicledetails;
 
 
   public static void customtoast(Context context, LayoutInflater inflater, String msg) {

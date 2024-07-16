@@ -2,8 +2,10 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -83,7 +85,10 @@ public class MyVehcileFragment extends Fragment {
         return  view;
     }
 
+
+
     private void  GetAllvehicles() {
+
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wuser_code = Global.sharedPreferences.getString("wuser_code", "");
 
@@ -101,9 +106,8 @@ public class MyVehcileFragment extends Fragment {
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                  /*  String vmodelCode = jsonObject.getString("vmodel_code");
 
-*/
+
                     String vehimage = jsonObject.getString("veh_image1");
                     String wuser_code1 = jsonObject.getString("wuser_code");
                     String com_code = jsonObject.getString("com_code");
@@ -111,6 +115,8 @@ public class MyVehcileFragment extends Fragment {
                     String chasis_no = jsonObject.getString("chasis_no");
                     String Regis_no = jsonObject.getString("reg_no");
                     String Veh_modelname = jsonObject.getString("model_name");
+                    String vehhis_code = jsonObject.getString("vehhis_code");
+                    String cveh_code = jsonObject.getString("cveh_code");
 
 
                     CommonClass commonClass = new CommonClass();
@@ -119,24 +125,11 @@ public class MyVehcileFragment extends Fragment {
                     commonClass.setRegis_no(Regis_no);
                     commonClass.setVehiclemodelname(Veh_modelname);
                     commonClass.setLogo_image(vehimage);
+                    commonClass.setVehhis_code(vehhis_code);
+                    commonClass.setCveh_code(cveh_code);
 
                     Global.allleadslist.add(commonClass);
 
-
-/*                    String veh_top_speed = jsonObject.getString("model_name");*/
-                 /*   String veh_top_speed = jsonObject.getString("veh_top_speed");
-                    String body_type = jsonObject.getString("body_type");
-                    String fuel_name = jsonObject.getString("fuel_name");
-                    String sale_price = jsonObject.getString("sale_price");
-                    String charging_time = jsonObject.getString("charging_time");
-*/
-
-
-
-                 /*   commonClass.setCategory(vmodelCode);
-                    commonClass.setImage_path(vehimage);*/
-
-                   // swipeRefreshLayout.setRefreshing(false);
 
                 }
 
@@ -188,4 +181,5 @@ public class MyVehcileFragment extends Fragment {
 
         queue.add(request);
     }
+
 }
