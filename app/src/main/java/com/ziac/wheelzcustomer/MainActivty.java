@@ -23,6 +23,7 @@ import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import Fragments.BookServiceFragment;
 import Fragments.DealersFragment;
 import Fragments.DashboardFragment;
 import Fragments.ModelsFragment;
@@ -41,6 +42,7 @@ public class MainActivty extends AppCompatActivity  {
     ActionBarDrawerToggle toggle;
     Toolbar toolbar;
     SpannableString spannableString;
+    boolean flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,16 @@ public class MainActivty extends AppCompatActivity  {
         } else {
             Global.customtoast(MainActivty.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey("flag"))
+            flag = extras.getBoolean("flag");
+        if (flag) {
+            openFragment(getOneFragment());
+        } else {
+            openFragment(new DashboardFragment());
+        }
+
 
         bottomNavigationView = findViewById(R.id.bottomnavigationview);
         frameLayout = findViewById(R.id.framelayout);
@@ -94,6 +106,10 @@ public class MainActivty extends AppCompatActivity  {
 
 
 
+    }
+    private Fragment getOneFragment() {
+        // Return the specific fragment you want when the flag is true
+        return new BookServiceFragment();
     }
 
     private void openFragment(Fragment fragment) {

@@ -300,11 +300,11 @@ public class ProfileActivity extends AppCompatActivity {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            postselelectedimage();
+            Uploadselectedimage();
         }
     }
 
-    private void postselelectedimage() {
+    private void Uploadselectedimage() {
 
         if (imageBitmap == null) {return;}
 

@@ -10,6 +10,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="offwhite">#C3BEBE</color>
     <color name="red">@color/othertext</color>
+    <color name="green">#48E803</color>
     <color name="navyblue">#030637</color>
     <color name="lightgrey">#353434</color>
+    <color name="darkgrey">#8E8C8C</color>
 </resources>

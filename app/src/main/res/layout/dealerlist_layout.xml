@@ -89,7 +89,7 @@
                         android:layout_height="wrap_content"
                         android:text="www.google.com"
                         android:fontFamily="@font/arsenal"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:padding="3dp"
                         android:textColor="#CAC8C8" />
 
@@ -141,7 +141,7 @@
                 android:fontFamily="@font/arsenal"
                 android:text="5 th cross  Bangalore karnataka 670004"
                 android:textColor="#CAC8C8"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
 
 

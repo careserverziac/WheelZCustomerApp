@@ -1,9 +1,11 @@
 package Fragments;
 
 import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -31,12 +34,15 @@ import java.util.concurrent.TimeUnit;
 import ModelClasses.Global;
 
 
-public class VehicleRegistrationFragment extends Fragment {
+public class RegisterVehicleFragment extends Fragment {
 
     String regno,engineno,chassisno;
     EditText Registrationno,Engineno,Chassisno;
     AppCompatButton Addvehicle;
     FragmentManager fragmentManager;
+    LinearLayout RegLinear,Enginelinear,Chassislinear;
+    private Drawable backgroundgrey;
+    private Drawable backgroundblack;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
@@ -51,6 +57,46 @@ public class VehicleRegistrationFragment extends Fragment {
         Chassisno=view.findViewById(R.id.chassisno);
         Addvehicle=view.findViewById(R.id.addvehicle);
 
+        RegLinear=view.findViewById(R.id.reglnr);
+        Enginelinear=view.findViewById(R.id.englnr);
+        Chassislinear=view.findViewById(R.id.chasislnr);
+
+        backgroundgrey = ContextCompat.getDrawable(getActivity(), R.drawable.border_colour2);
+        backgroundblack = ContextCompat.getDrawable(getActivity(), R.drawable.border_colour);
+
+
+        Addvehicle.setBackground(backgroundblack);
+
+        Registrationno.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                Addvehicle.setBackground(backgroundgrey);
+                Addvehicle.setText("Proceed");
+            } else {
+                Addvehicle.setBackground(backgroundblack);
+            }
+        });
+
+        Engineno.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                Addvehicle.setBackground(backgroundgrey);
+                Addvehicle.setText("Proceed");
+            } else {
+                Addvehicle.setBackground(backgroundblack);
+            }
+        });
+
+        Chassisno.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                Addvehicle.setBackground(backgroundgrey);
+                Addvehicle.setText("Proceed");
+            } else {
+                Addvehicle.setBackground(backgroundblack);
+            }
+        });
+
+
+
+
         Addvehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,17 +107,12 @@ public class VehicleRegistrationFragment extends Fragment {
         return view;
     }
 
-  /*  private void Updateprofiledetails() {
-        Toast.makeText(requireContext(),"Vehicle Registration Successful", Toast.LENGTH_SHORT).show();
+    private void updateAddVehicleButton() {
+        Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
+        Addvehicle.setText("Updated Text"); // Change this to your desired text
+        Addvehicle.setBackgroundColor(getResources().getColor(R.color.red)); // Change to your desired color
+    }
 
-        MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
-        fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }*/
 
     private void Updateprofiledetails() {
 
@@ -100,7 +141,6 @@ public class VehicleRegistrationFragment extends Fragment {
             return;
         }
 */
-
 
         RequestQueue queue = Volley.newRequestQueue(requireContext());
 

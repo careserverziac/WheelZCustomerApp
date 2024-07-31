@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -27,19 +25,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.ziac.wheelzcustomer.MainActivty;
 import com.ziac.wheelzcustomer.R;
@@ -52,7 +44,7 @@ import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, latestnews;
+    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList;
     FragmentManager fragmentManager;
     private static final int REQUEST_CHECK_SETTINGS = 11;
     private static final int REQUEST_LOCATION_PERMISSIONS = 22;
@@ -69,7 +61,7 @@ public class DashboardFragment extends Fragment {
         Bookservice = view.findViewById(R.id.servicebookCD);
         Servicehistory = view.findViewById(R.id.servicehistoryCD);
         Vehdocuments = view.findViewById(R.id.vehdocumentsCD);
-        latestnews = view.findViewById(R.id.latestnewsCD);
+        ServiceList = view.findViewById(R.id.bookingCD);
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
@@ -129,6 +121,19 @@ public class DashboardFragment extends Fragment {
                 fragmentTransaction.commit();
 
                 ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+            }
+        });
+        ServiceList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ServiceListFragment serviceListFragment = new ServiceListFragment();
+                fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, serviceListFragment);
+                fragmentTransaction.commit();
+
+                ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
             }
         });
 
@@ -230,7 +235,7 @@ public class DashboardFragment extends Fragment {
         if (requestCode == 100 && (grantResults.length >0 ) && (grantResults[0] + grantResults[1]  == PackageManager.PERMISSION_GRANTED)) {
             getcurrentlocation();
         }else {
-            Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
         }
 
 

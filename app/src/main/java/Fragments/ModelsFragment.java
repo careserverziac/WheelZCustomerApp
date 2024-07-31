@@ -45,7 +45,7 @@ public class ModelsFragment extends Fragment {
     ModelsAdapter modelsAdapter;
     ProgressBar progressBar;
     LinearLayout LinearSearch;
-    SearchView searchView;
+        SearchView searchView;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}

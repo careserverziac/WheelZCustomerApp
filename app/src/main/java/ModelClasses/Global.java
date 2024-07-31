@@ -23,16 +23,18 @@ public class Global {
     public static SharedPreferences.Editor editor;
 
     private static Picasso picassoInstance;
-   //public static String baseurl = "http://nds.ziaconline.com/";
-    public static String baseurl = "http://192.168.1.21:9394/";
+    public static String baseurl = "http://nds.ziaconline.com/";
+    //public static String baseurl = "http://192.168.1.21:9394/";
 
-    public static String userimageurl = baseurl+"/Website_data/web_users/";
-    public static String modelsimageurl = baseurl+"/Website_data/models/";
+    public static String userimageurl = baseurl + "/Website_data/web_users/";
+    public static String modelsimageurl = baseurl + "/Website_data/models/";
 
-    public static String companyimageurl = baseurl+"/Website_data/Company/Logo/";
+    public static String companyimageurl = baseurl + "/Website_data/Company/Logo/";
 
     public static String tokenurl = baseurl + "Ziac/WebUsers/TOKEN";
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
+
+    public static String urlBookServices = baseurl + "api/Users/BookServices";
 
 
     public static String forgotpasswordurl = baseurl + "api/Account/ForgotPasswordCustomer";
@@ -51,15 +53,16 @@ public class Global {
     public static String GetCity = baseurl + "api/List/Getcity?";
     public static ArrayList<zList> cityarraylist;
 
-    public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
+   // public static String Getdealerslist = baseurl + "api/Company/GetCompanies?";
     public static String UrlGetDocuments = baseurl + "api/List/GetDocumentList?";
 
     public static String getallbrands = baseurl + "api/Brands/GetAllBrands";
 
     public static String getallMyVehicles = baseurl + "api/MyVehicles/Get?";
     public static String getservicehistory = baseurl + "api/MyVehicles/GetServiceHistory?";
+    public static String getGetBookings = baseurl + "api/Users/GetBookings?";
     public static String searchallbrands = baseurl + "api/Brands/GetAllBrands?searchtext=";
-    public static String searchalldealers = baseurl + "api/Company/GetAllDealers?searchtext=";
+    public static String searchalldealers = baseurl + "api/Company/GetAllDealers?";
 
 
     public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
@@ -67,13 +70,16 @@ public class Global {
     public static String urladdvehicle = baseurl + "api/MyVehicles/Add";
     public static String urlUpdateprofileImage = baseurl + "api/Users/UpdateProfilePhoto";
     public static String urluploadfiles = baseurl + "api/Myvehicles/upload";
-    public static String urlSearchdealers = baseurl + "";
+    public static String urldeletefiles= baseurl + "api/MyVehicles/Delete?";
+    public static String urlfilepath= baseurl + "Website_Data/web_users/Docs/";
+
 
 
       public static ArrayList<CommonClass> allleadslist;
       public static ArrayList<CommonClass> alldealerslist;
       public static CommonClass modellist;
       public static CommonClass dealersdetails;
+      public static zList vehiclelist;
       public static CommonClass vehicledetails;
 
 

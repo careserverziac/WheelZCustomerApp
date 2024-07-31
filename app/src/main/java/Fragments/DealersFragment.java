@@ -3,23 +3,13 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +23,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -49,21 +37,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import AdapterClass.DealersAdapter;
-import AdapterClass.ModelsAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
@@ -79,7 +62,7 @@ public class DealersFragment extends Fragment {
     private Dialog zDialog;
     TextView Statetxt,Citytxt;
     LinearLayout Statedp,Citydp;
-    String statecode,citycode,currentLocationString,fullAddress,sublocality;
+    String statecode,citycode,searchquery,currentLocationString,fullAddress,sublocality;
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
     ProgressBar progressBar;
@@ -117,6 +100,9 @@ public class DealersFragment extends Fragment {
         params.height = newHeightInPixels;
         progressBar.setLayoutParams(params);
 
+        searchquery="";
+        statecode="0";
+        citycode="0";
 
         getstates();
         getDealerslist();
@@ -169,8 +155,6 @@ public class DealersFragment extends Fragment {
 
 
 
-
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
@@ -192,74 +176,17 @@ public class DealersFragment extends Fragment {
     }
 
 
-  /*  @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            // Get current location
-                            double latitude = location.getLatitude();
-                            double longitude = location.getLongitude();
-                            currentLocationString = latitude + ", " + longitude;
 
-                            // Use Geocoder to get address details
-                            Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
-                            try {
-                                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                                if (addresses != null && !addresses.isEmpty()) {
-                                    Address address = addresses.get(0);
-                                    sublocality = address.getSubLocality();  // Area name
-                                    fullAddress = address.getAddressLine(0); // Full address
-
-                                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
-                                    Global.editor = Global.sharedPreferences.edit();
-                                    Global.editor.putString("currentLocationString", currentLocationString);
-                                    Global.editor.putString("currentStreetName", sublocality);
-                                    Global.editor.putString("currentFullAddress", fullAddress);
-                                    Global.editor.apply();
-
-                                } else {
-                                    Log.e("DealersFragment", "Unable to get address");
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.e("DealersFragment", "Geocoder service not available");
-                            }
-                        } else {
-                            Toast.makeText(requireContext(), "Location not available", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-
-
-    // Handle permission request result
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, get current location
-                getCurrentLocation();
-            } else {
-                // Permission denied, handle accordingly (e.g., show message or disable location features)
-                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-*/
 
 
     private void performSearch(String query) {
+        searchquery=query;
         showLoading();
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
-        String Url = Global.searchalldealers+query;
 
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET,Url, null, new Response.Listener<JSONArray>() {
+        String Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
+
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -357,9 +284,7 @@ public class DealersFragment extends Fragment {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
 
-        Url=Global.Getdealerslist;
-
-        Url=Url+"state_code="+statecode+"&city_code="+citycode;
+        Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -875,3 +800,64 @@ public class DealersFragment extends Fragment {
 
 
 }
+
+/*  @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            // Get current location
+                            double latitude = location.getLatitude();
+                            double longitude = location.getLongitude();
+                            currentLocationString = latitude + ", " + longitude;
+
+                            // Use Geocoder to get address details
+                            Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
+                            try {
+                                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                if (addresses != null && !addresses.isEmpty()) {
+                                    Address address = addresses.get(0);
+                                    sublocality = address.getSubLocality();  // Area name
+                                    fullAddress = address.getAddressLine(0); // Full address
+
+                                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+                                    Global.editor = Global.sharedPreferences.edit();
+                                    Global.editor.putString("currentLocationString", currentLocationString);
+                                    Global.editor.putString("currentStreetName", sublocality);
+                                    Global.editor.putString("currentFullAddress", fullAddress);
+                                    Global.editor.apply();
+
+                                } else {
+                                    Log.e("DealersFragment", "Unable to get address");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                Log.e("DealersFragment", "Geocoder service not available");
+                            }
+                        } else {
+                            Toast.makeText(requireContext(), "Location not available", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+
+    // Handle permission request result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, get current location
+                getCurrentLocation();
+            } else {
+                // Permission denied, handle accordingly (e.g., show message or disable location features)
+                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+*/

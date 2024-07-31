@@ -2,10 +2,8 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -72,10 +70,10 @@ public class MyVehcileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                VehicleRegistrationFragment vehicleRegistrationFragment =new VehicleRegistrationFragment();
+                RegisterVehicleFragment registerVehicleFragment =new RegisterVehicleFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, vehicleRegistrationFragment);
+                fragmentTransaction.replace(R.id.framelayout, registerVehicleFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
 
@@ -111,22 +109,40 @@ public class MyVehcileFragment extends Fragment {
                     String vehimage = jsonObject.getString("veh_image1");
                     String wuser_code1 = jsonObject.getString("wuser_code");
                     String com_code = jsonObject.getString("com_code");
-                    String engine_no = jsonObject.getString("engine_no");
-                    String chasis_no = jsonObject.getString("chasis_no");
-                    String Regis_no = jsonObject.getString("reg_no");
-                    String Veh_modelname = jsonObject.getString("model_name");
                     String vehhis_code = jsonObject.getString("vehhis_code");
                     String cveh_code = jsonObject.getString("cveh_code");
 
 
+                    String Veh_modelname = jsonObject.getString("model_name");
+                    String mfg_name = jsonObject.getString("mfg_name");
+                    String chasis_no = jsonObject.getString("chasis_no");
+                    String engine_no = jsonObject.getString("engine_no");
+                    String Regis_no = jsonObject.getString("reg_no");
+                    String batt_no = jsonObject.getString("batt_no");
+                    String vcol_name = jsonObject.getString("vcol_name");
+                    String prv_serdt = jsonObject.getString("prv_serdt");
+                    String nxt_serdt = jsonObject.getString("nxt_serdt");
+
+
+
                     CommonClass commonClass = new CommonClass();
-                    commonClass.setCategory(wuser_code1);
-                    commonClass.setManufacture(chasis_no);
+                    commonClass.setImage_path(vehimage);
+                    commonClass.setWuser_code(wuser_code1);
                     commonClass.setRegis_no(Regis_no);
                     commonClass.setVehiclemodelname(Veh_modelname);
-                    commonClass.setLogo_image(vehimage);
-                    commonClass.setVehhis_code(vehhis_code);
+                    commonClass.setMfg_name(mfg_name);
+                    commonClass.setChassis_no(chasis_no);
+                    commonClass.setEngine_no(engine_no);
+                    commonClass.setRegis_no(Regis_no);
+                    commonClass.setBatt_no(batt_no);
+                    commonClass.setVcol_name(vcol_name);
+                    commonClass.setPrv_serdt(prv_serdt);
+                    commonClass.setNxt_serdt(nxt_serdt);
                     commonClass.setCveh_code(cveh_code);
+                    commonClass.setVehhis_code(vehhis_code);
+
+
+
 
                     Global.allleadslist.add(commonClass);
 

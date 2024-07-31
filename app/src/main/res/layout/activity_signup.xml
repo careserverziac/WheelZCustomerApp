@@ -439,7 +439,6 @@
                     android:orientation="vertical">
 
 
-
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/registertration"
                         android:layout_width="match_parent"
@@ -452,7 +451,6 @@
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="16sp" />
-
 
 
                 </LinearLayout>

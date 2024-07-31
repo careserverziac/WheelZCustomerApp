@@ -8,11 +8,14 @@ public class CommonClass {
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
             com_website,com_contact,com_contact_mobno,logo_image,com_phone,com_lng,com_lat,com_contact_email;
 
+    public String chassis_no,batt_no,vcol_name,prv_serdt,nxt_serdt;
+
+    public String service_code,service_date,service_time,service_type,pick_flag,drop_flag,additional_info
+            ,location_map,service_address;
 
 
-
-    public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path;
-    public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname;
+    public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
+    public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname,mfg_name;
 
 /*
     String wuser_code1 = jsonObject.getString("wuser_code");
@@ -72,6 +75,142 @@ public class CommonClass {
         this. regis_no = regis_no;
 
 
+    }
+
+    public String getService_code() {
+        return service_code;
+    }
+
+    public void setService_code(String service_code) {
+        this.service_code = service_code;
+    }
+
+    public String getService_date() {
+        return service_date;
+    }
+
+    public void setService_date(String service_date) {
+        this.service_date = service_date;
+    }
+
+    public String getService_time() {
+        return service_time;
+    }
+
+    public void setService_time(String service_time) {
+        this.service_time = service_time;
+    }
+
+    public String getService_type() {
+        return service_type;
+    }
+
+    public void setService_type(String service_type) {
+        this.service_type = service_type;
+    }
+
+    public String getPick_flag() {
+        return pick_flag;
+    }
+
+    public void setPick_flag(String pick_flag) {
+        this.pick_flag = pick_flag;
+    }
+
+    public String getDrop_flag() {
+        return drop_flag;
+    }
+
+    public void setDrop_flag(String drop_flag) {
+        this.drop_flag = drop_flag;
+    }
+
+    public String getAdditional_info() {
+        return additional_info;
+    }
+
+    public void setAdditional_info(String additional_info) {
+        this.additional_info = additional_info;
+    }
+
+    public String getLocation_map() {
+        return location_map;
+    }
+
+    public void setLocation_map(String location_map) {
+        this.location_map = location_map;
+    }
+
+    public String getService_address() {
+        return service_address;
+    }
+
+    public void setService_address(String service_address) {
+        this.service_address = service_address;
+    }
+
+    public String getChassis_no() {
+        return chassis_no;
+    }
+
+    public void setChassis_no(String chassis_no) {
+        this.chassis_no = chassis_no;
+    }
+
+    public String getBatt_no() {
+        return batt_no;
+    }
+
+    public void setBatt_no(String batt_no) {
+        this.batt_no = batt_no;
+    }
+
+    public String getVcol_name() {
+        return vcol_name;
+    }
+
+    public void setVcol_name(String vcol_name) {
+        this.vcol_name = vcol_name;
+    }
+
+    public String getPrv_serdt() {
+        return prv_serdt;
+    }
+
+    public void setPrv_serdt(String prv_serdt) {
+        this.prv_serdt = prv_serdt;
+    }
+
+    public String getNxt_serdt() {
+        return nxt_serdt;
+    }
+
+    public void setNxt_serdt(String nxt_serdt) {
+        this.nxt_serdt = nxt_serdt;
+    }
+
+    public String getMfg_name() {
+        return mfg_name;
+    }
+
+    public void setMfg_name(String mfg_name) {
+        this.mfg_name = mfg_name;
+    }
+
+    public String getImgdoc_code() {
+        return imgdoc_code;
+    }
+
+    public void setImgdoc_code(String imgdoc_code) {
+        this.imgdoc_code = imgdoc_code;
+    }
+
+    public String getFile_type() {
+        return file_type;
+    }
+
+    public void setFile_type(String file_type) {
+        this.file_type = file_type;
     }
 
     public String getImgdoc_path() {
