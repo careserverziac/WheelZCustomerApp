@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class ModelsFragment extends Fragment {
     LinearLayout LinearSearch;
         SearchView searchView;
     SwipeRefreshLayout swipeRefreshLayout;
+    CommonClass commonClass;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
     @SuppressLint("MissingInflatedId")
@@ -104,6 +106,8 @@ public class ModelsFragment extends Fragment {
                 return false;
             }
         });
+
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
 
 
         return view;
@@ -203,6 +207,7 @@ public class ModelsFragment extends Fragment {
 
         queue.add(request);
     }
+    
     private void  GetAllModels() {
 
         showLoading();
@@ -221,10 +226,10 @@ public class ModelsFragment extends Fragment {
                 // Loop through the array to extract vmodel_code values
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+
                     String vmodelCode = jsonObject.getString("vmodel_code");
                     String vehimage = jsonObject.getString("veh_image1");
-
-
                     String vcate_name = jsonObject.getString("vcate_name");
                     String app_model_name = jsonObject.getString("app_model_name");
                     String mfg_name = jsonObject.getString("mfg_name");
@@ -236,9 +241,9 @@ public class ModelsFragment extends Fragment {
                     String sale_price = jsonObject.getString("sale_price");
                     String charging_time = jsonObject.getString("charging_time");
 
-                    CommonClass commonClass = new CommonClass();
-                    commonClass.setCategory(vmodelCode);
-                    commonClass.setImage_path(vehimage);
+                    commonClass = new CommonClass();
+                    commonClass.setModel_code(vmodelCode);
+                    commonClass.setImage(vehimage);
                     commonClass.setCategory(vcate_name);
                     commonClass.setManufacture(mfg_name);
                     commonClass.setCc(veh_cc);

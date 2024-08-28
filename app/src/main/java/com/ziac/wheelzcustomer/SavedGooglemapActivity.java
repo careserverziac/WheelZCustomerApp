@@ -1,0 +1,205 @@
+package com.ziac.wheelzcustomer;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import Fragments.BookServiceFragment;
+import ModelClasses.Global;
+
+public class SavedGooglemapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    private GoogleMap myMap;
+    private FusedLocationProviderClient fusedLocationClient;
+    private String currentLocationString;
+    private LinearLayout shareLocationButton;
+    private LatLng selectedLatLng;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_google_map);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
+
+        shareLocationButton = findViewById(R.id.btn_share_location);
+
+      /*  shareLocationButton.setOnClickListener(v -> {
+            if (selectedLatLng != null) {
+                // Use Geocoder to get the address
+                Geocoder geocoder = new Geocoder(GoogleMapActivity.this, Locale.getDefault());
+                try {
+                    List<Address> addresses = geocoder.getFromLocation(selectedLatLng.latitude, selectedLatLng.longitude, 1);
+                    if (addresses != null && !addresses.isEmpty()) {
+                        Address address = addresses.get(0);
+                        String sublocality = address.getSubLocality();  // Area name
+                        String fullAddress = address.getAddressLine(0); // Full address
+
+
+                        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        Global.editor = Global.sharedPreferences.edit();
+                        Global.editor.putString("currentLocationString", selectedLatLng.latitude + ", " + selectedLatLng.longitude);
+                        Global.editor.putString("currentStreetName", sublocality);
+                        Global.editor.putString("currentFullAddress", fullAddress);
+                        Global.editor.apply();
+
+                        String uri = "http://maps.google.com/maps?saddr=" + selectedLatLng.latitude + "," + selectedLatLng.longitude;
+
+                        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                        Global.editor = Global.sharedPreferences.edit();
+                        Global.editor.putString("locationuri", uri);
+                        Global.editor.commit();
+
+
+                        finish();
+
+                    } else {
+                        Toast.makeText(GoogleMapActivity.this, "Unable to get address", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(GoogleMapActivity.this, "Geocoder service not available", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(GoogleMapActivity.this, "Location not selected", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        shareLocationButton.setOnClickListener(v -> {shareLocation();});
+
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        myMap = googleMap;
+        myMap.setOnMapClickListener(this); // Set map click listener
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            enableMyLocation();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void enableMyLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            myMap.setMyLocationEnabled(true);
+
+            fusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                                selectedLatLng = currentLocation; // Set initial location
+                                currentLocationString = currentLocation.latitude + ", " + currentLocation.longitude;
+                                myMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+                                myMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
+                            }
+                        }
+                    });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                enableMyLocation();
+            }
+        }
+    }
+
+    @Override
+    public void onMapClick(@NonNull LatLng latLng) {
+        // Clear previous marker and add new marker on map click
+        myMap.clear();
+        myMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
+        selectedLatLng = latLng; // Store selected location
+    }
+
+    private void shareLocation() {
+        if (selectedLatLng != null) {
+            Geocoder geocoder = new Geocoder(SavedGooglemapActivity.this, Locale.getDefault());
+            try {
+                List<Address> addresses = geocoder.getFromLocation(selectedLatLng.latitude, selectedLatLng.longitude, 1);
+                if (addresses != null && !addresses.isEmpty()) {
+                    Address address = addresses.get(0);
+                    String sublocality = address.getSubLocality();
+                    String fullAddress = address.getAddressLine(0);
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("currentLocationString", selectedLatLng.latitude + ", " + selectedLatLng.longitude);
+                    editor.putString("currentStreetName", sublocality);
+                    editor.putString("currentFullAddress", fullAddress);
+                    editor.apply();
+
+                    String uri = "http://maps.google.com/maps?saddr=" + selectedLatLng.latitude + "," + selectedLatLng.longitude;
+                    editor.putString("locationuri", uri);
+                    editor.apply();
+
+                    finish();
+                } else {
+                    Toast.makeText(SavedGooglemapActivity.this, "Unable to get address", Toast.LENGTH_SHORT).show();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(SavedGooglemapActivity.this, "Geocoder service not available", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(SavedGooglemapActivity.this, "Location not selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+}

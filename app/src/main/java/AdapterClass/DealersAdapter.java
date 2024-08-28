@@ -59,9 +59,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
     private final List<CommonClass> dealerList;
     private final Context context;
-    private GoogleMap myMap;
     private FusedLocationProviderClient fusedLocationClient;
-    private String currentLocationString;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
 
@@ -77,8 +75,6 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dealerlist_layout, parent, false);
 
         DealersAdapter.ViewHolder viewHolder = new DealersAdapter.ViewHolder(view);
-
-
         return viewHolder;
 
     }
@@ -91,8 +87,6 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
         holder.Comyname.setText(dealerList.get(position).getCom_name());
         holder.ComCity.setText(dealerList.get(position).getCity_name());
-       // holder.ComMobile.setText(dealerList.get(position).getCom_phone());
-       // holder.ComMail.setText(dealerList.get(position).getCom_email());
         holder.Comwebsite.setText(dealerList.get(position).getCom_website());
         holder.ComAddress.setText(dealerList.get(position).getCom_address());
         holder.DealerName.setText(dealerList.get(position).getCom_contact());

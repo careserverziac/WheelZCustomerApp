@@ -153,7 +153,7 @@ public class SplashActivity extends AppCompatActivity {
                 Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet connection unavailable");
             }else if (error instanceof ServerError) {
                 Log.e("ServerError", "Server error response: " + new String(error.networkResponse.data));
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate to Server");
+                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate with Server");
             }  else if (error instanceof ParseError) {
                 Global.customtoast(SplashActivity.this, getLayoutInflater(),"Data Parse Error ");
             }  else if (error instanceof AuthFailureError) {

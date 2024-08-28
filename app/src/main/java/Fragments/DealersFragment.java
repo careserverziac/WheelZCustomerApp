@@ -62,7 +62,7 @@ public class DealersFragment extends Fragment {
     private Dialog zDialog;
     TextView Statetxt,Citytxt;
     LinearLayout Statedp,Citydp;
-    String statecode,citycode,searchquery,currentLocationString,fullAddress,sublocality;
+    String statecode,citycode,searchquery;
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
     ProgressBar progressBar;
@@ -788,6 +788,8 @@ public class DealersFragment extends Fragment {
             return v;
         }
     }
+
+
     private void showLoading() {
         progressBar.setVisibility(View.VISIBLE);
         DealerlistRV.setVisibility(View.GONE);

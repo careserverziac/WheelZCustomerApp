@@ -4,11 +4,11 @@ public class CommonClass {
 
 
     private String Image_path;
-    public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,saleprice,chargingtime;
+    public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
             com_website,com_contact,com_contact_mobno,logo_image,com_phone,com_lng,com_lat,com_contact_email;
 
-    public String chassis_no,batt_no,vcol_name,prv_serdt,nxt_serdt;
+    public String chassis_no,batt_no,vcol_name,prv_serdt,nxt_serdt,image;
 
     public String service_code,service_date,service_time,service_type,pick_flag,drop_flag,additional_info
             ,location_map,service_address;
@@ -75,6 +75,22 @@ public class CommonClass {
         this. regis_no = regis_no;
 
 
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getModel_code() {
+        return model_code;
+    }
+
+    public void setModel_code(String model_code) {
+        this.model_code = model_code;
     }
 
     public String getService_code() {

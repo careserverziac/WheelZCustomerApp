@@ -2,6 +2,7 @@ package AdapterClass;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ziac.wheelzcustomer.R;
+import com.ziac.wheelzcustomer.TestDriveActivity;
+import com.ziac.wheelzcustomer.TestRideActivity;
 
 import java.util.List;
 
@@ -25,8 +28,10 @@ import ModelClasses.CommonClass;
 
 public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder> {
 
-    private final List<CommonClass> commonClassList;
+     List<CommonClass> commonClassList;
     private final Context context;
+
+
     public ModelsAdapter(List<CommonClass> commonClassList, Context context) {
         this.context = context;
         this.commonClassList = commonClassList;
@@ -47,8 +52,9 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + commonClassList.get(position).getImage_path());
+        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + commonClassList.get(position).getImage());
 
+        String image=commonClassList.get(position).getImage();
         holder.Manufacturer.setText(commonClassList.get(position).getManufacture());
 
         String ccString = commonClassList.get(position).getCc();
@@ -56,6 +62,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
         int ccInteger = (int) cc;
 
         holder.Model_name.setText(commonClassList.get(position).getModel_name() + " - " + ccInteger);
+
         holder.Modelscardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +92,17 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             }
         });
 
+        holder.Testdrive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Global.modellist = commonClassList.get(position);
+                Intent intent = new Intent(context, TestRideActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -96,7 +114,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView Veh_image;
-        TextView Manufacturer,Model_name,Category,CC,BHP;
+        TextView Manufacturer,Model_name,Testdrive,CC,BHP;
         CardView Modelscardview;
 
         public ViewHolder(@NonNull View itemView) {
@@ -106,6 +124,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             Manufacturer=itemView.findViewById(R.id.manufacture_name);
             Model_name=itemView.findViewById(R.id.model_name);
             Modelscardview=itemView.findViewById(R.id.modelscardview);
+            Testdrive=itemView.findViewById(R.id.testdrive);
 
 
             // CC=itemView.findViewById(R.id.veh_cc);

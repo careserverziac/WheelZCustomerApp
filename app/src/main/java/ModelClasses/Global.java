@@ -23,8 +23,8 @@ public class Global {
     public static SharedPreferences.Editor editor;
 
     private static Picasso picassoInstance;
-    public static String baseurl = "http://nds.ziaconline.com/";
-    //public static String baseurl = "http://192.168.1.21:9394/";
+    //public static String baseurl = "http://nds.ziaconline.com/";
+    public static String baseurl = "http://192.168.1.21:9394/";
 
     public static String userimageurl = baseurl + "/Website_data/web_users/";
     public static String modelsimageurl = baseurl + "/Website_data/models/";
@@ -35,6 +35,7 @@ public class Global {
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
 
     public static String urlBookServices = baseurl + "api/Users/BookServices";
+    public static String urlBookTestDrive = baseurl + "api/Users/BookTestDrive";
 
 
     public static String forgotpasswordurl = baseurl + "api/Account/ForgotPasswordCustomer";

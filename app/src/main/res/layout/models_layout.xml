@@ -44,12 +44,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="10dp"
             app:cardBackgroundColor="@color/black"
             tools:ignore="MissingConstraints">
 
-            <!--android:background="#2E2D2D"-->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:cardBackgroundColor="@color/black"
+                tools:ignore="MissingConstraints">
+
 
             <TextView
                 android:id="@+id/manufacture_name"
@@ -69,8 +77,52 @@
                 android:textColor="@color/white"
                 android:textSize="18dp" />
 
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                app:cardBackgroundColor="@color/black"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/testdrive"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/dealermailid"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bgborder_book"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:layout_gravity="end"
+                    android:gravity="center"
+                    android:padding="3dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Book a test drive"
+                    android:textColor="#087A4C"
+                    android:textSize="15sp" />
+
+
+               <!-- <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bgborder_book"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:layout_centerHorizontal="true"
+                    android:text="Go for a test drive"
+                    android:textColor="#087A4C"
+                    android:textSize="13dp" />
+-->
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
+
 
         <View
             android:layout_width="match_parent"
