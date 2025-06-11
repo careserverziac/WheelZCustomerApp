@@ -3,7 +3,6 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.location.LocationManager;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -67,14 +66,9 @@ public class DealersFragment extends Fragment {
     DealersAdapter dealersAdapter;
     ProgressBar progressBar;
     SwipeRefreshLayout swipeRefreshLayout;
-    private FusedLocationProviderClient fusedLocationClient;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+    FusedLocationProviderClient fusedLocationClient;
     SearchView searchView;
     LinearLayout LinearSearch;
-    LocationManager locationManager;
-
-    private static final int REQUEST_CHECK_SETTINGS = 1;
-    private static final int REQUEST_LOCATION_PERMISSIONS = 2;
 
 
     @SuppressLint("MissingInflatedId")
@@ -106,32 +100,14 @@ public class DealersFragment extends Fragment {
 
         getstates();
         getDealerslist();
-/*
-        if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        } else {
-            // Permission already granted, get current location
-            getCurrentLocation();
-        }*/
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                getDealerslist();
-            }
-        });
-
-
+        swipeRefreshLayout.setOnRefreshListener(this::getDealerslist);
         LinearSearch =view.findViewById(R.id.searchdealerslnr);
         searchView =view.findViewById(R.id.searchalldealers);
-        LinearSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipeRefreshLayout.setEnabled(false);
-                searchView.setIconified(false);
-                searchView.requestFocus();
-            }
+        LinearSearch.setOnClickListener(v -> {
+            swipeRefreshLayout.setEnabled(false);
+            searchView.setIconified(false);
+            searchView.requestFocus();
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -159,25 +135,11 @@ public class DealersFragment extends Fragment {
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        Statedp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statespopup();
-            }
-        });
+        Statedp.setOnClickListener(v -> statespopup());
 
-        Citydp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                citiespopup();
-            }
-        });
+        Citydp.setOnClickListener(v -> citiespopup());
         return view;
     }
-
-
-
-
 
     private void performSearch(String query) {
         searchquery=query;

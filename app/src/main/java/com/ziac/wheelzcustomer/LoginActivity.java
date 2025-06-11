@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.multidex.BuildConfig;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -75,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
         Username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Set importantForAutofill to auto if the EditText is clicked
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Username.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_AUTO);
                 }
@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
         Username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                // Set importantForAutofill to no if the EditText loses focus
                 if (!hasFocus && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Username.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
                 }
@@ -94,13 +93,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         loginbtn.setOnClickListener(v -> {
-
-
             username = Username.getText().toString();
             pwd = Password.getText().toString();
-
-          /*  username ="Demouser";
-            pwd = "Ziac1234$";*/
 
             if (username.isEmpty()) {
                 Username.setError("Please enter the user name");
@@ -111,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                 Password.requestFocus();
                 return;
             }
-
             if (AppStatus.getInstance(this).isOnline()) {
                 dologin();
             } else {
@@ -157,9 +150,6 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 JSONObject respObj = new JSONObject(response);
-                //String issuccess = respObj.getString("isSuccess");
-                //String error = respObj.getString("error");
-
                 String access_token = respObj.getString("access_token");
                 String refresh_token = respObj.getString("refresh_token");
 
@@ -187,7 +177,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 if (error instanceof TimeoutError) {
-                   // Global.customtoast(LoginActivity.this, getLayoutInflater(),"Request Time-Out");
                 }  else if (error instanceof NoConnectionError) {
                     Global.customtoast(LoginActivity.this, getLayoutInflater(),"No Connection Found");
                 }
@@ -199,11 +188,8 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject errorJson = new JSONObject(errorResponse);
                         String errorCode = errorJson.optString("error", "");
                         String errorDescription = errorJson.optString("error_description", "");
-                       /* if ("invalid_grant".equals(errorCode)) {*/
                             Global.customtoast(LoginActivity.this, getLayoutInflater(), errorDescription);
-                        /*} else {
-                            Global.customtoast(LoginActivity.this, getLayoutInflater(), errorDescription);
-                        }*/
+
                     } catch (JSONException e) {
                         Global.customtoast(LoginActivity.this, getLayoutInflater(), "An error occurred. Please try again later.");
                     }
@@ -239,7 +225,6 @@ public class LoginActivity extends AppCompatActivity {
 
         String url = Global.getuserprofiledetails;
         RequestQueue queue= Volley.newRequestQueue(LoginActivity.this);
-        //progressDialog.show();
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
 
             try {
@@ -275,7 +260,6 @@ public class LoginActivity extends AppCompatActivity {
                 Global.editor.putString("Type", Type);
                 Global.editor.putString("wuser_code", wuser_code);
                 Global.editor.commit();
-
 
                 startActivity(new Intent(LoginActivity.this, MainActivty.class));
                 progressDialog.dismiss();
@@ -314,7 +298,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                // params.put("username", username);
                 return params;
             }
         };

@@ -44,7 +44,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -52,7 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    FloatingActionButton EPbackbtn,Camera;
+    FloatingActionButton Camera;
     EditText Name,Mobilenumber,Email;
     CircleImageView circularImageView;
     AppCompatButton UpdateProfilebtn;
@@ -67,7 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
@@ -76,10 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         circularImageView=findViewById(R.id.profile_images);
         Picasso.Builder builder=new Picasso.Builder(getApplication());
         Picasso picasso=builder.build();
-       // picasso.load(Uri.parse(image)).into(circularImageView );
         Global.loadWithPicasso(this, circularImageView, image);
-
-
 
         Name=findViewById(R.id.name);
         Mobilenumber=findViewById(R.id.mobile);
@@ -87,27 +82,13 @@ public class ProfileActivity extends AppCompatActivity {
         UpdateProfilebtn=findViewById(R.id.updateprofile);
         Camera=findViewById(R.id.fab);
 
-
-
          name = Global.sharedPreferences.getString("key_person", "");
          mobile = Global.sharedPreferences.getString("Mobile1", "");
          user_mail = Global.sharedPreferences.getString("Email", "");
 
-
-       // Picasso.get().load(image).into(ProfileImage);
-        Name.setText(name);
+         Name.setText(name);
         Mobilenumber.setText(mobile);
         Email.setText(user_mail);
-
-
-
-      /*  EPbackbtn.setOnClickListener(view -> {
-
-           // startActivity(new Intent(new Intent(ProfileActivity.this,ProfileActivity.class)));
-            finish();
-        });*/
-
-
 
 
         UpdateProfilebtn.setOnClickListener(new View.OnClickListener() {
@@ -135,8 +116,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
-
         circularImageView.setOnClickListener(v -> {
             image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
             showImage(picasso,image);
@@ -153,7 +132,6 @@ public class ProfileActivity extends AppCompatActivity {
         personname = Name.getText().toString();
         mobile = Mobilenumber.getText().toString();
         email = Email.getText().toString();
-
 
         if (personname.isEmpty()) {
 

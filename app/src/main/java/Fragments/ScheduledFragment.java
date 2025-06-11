@@ -4,22 +4,15 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.ziac.wheelzcustomer.R;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -55,8 +48,6 @@ public class ScheduledFragment extends Fragment {
         Email = view.findViewById(R.id.tdmail);
         Proceed = view.findViewById(R.id.proceedbtn);
 
-
-
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         name = Global.sharedPreferences.getString("key_person", "");
         mobile = Global.sharedPreferences.getString("Mobile1", "");
@@ -64,8 +55,6 @@ public class ScheduledFragment extends Fragment {
         Name.setText(name);
         Mobile.setText(mobile);
         Email.setText(mail);
-
-
 
         manufacture=Global.vehicledetails.getManufacture();
         modelname=Global.vehicledetails.getModel_name();
@@ -139,15 +128,9 @@ public class ScheduledFragment extends Fragment {
 
 
         Proceed.setOnClickListener(v -> {
-/*
-            Global.editor = Global.sharedPreferences.edit();
-            Global.editor.putString("manufacturer",manufacture);
-            Global.editor.putString("modelname",modelname);
-            Global.editor.putString("modelimage",modelimage);
-            Global.editor.commit();*/
 
             if (viewPager != null) {
-                viewPager.setCurrentItem(2); // Index of SubmitRequest Fragment
+                viewPager.setCurrentItem(2);
             }
         });
 

@@ -38,10 +38,6 @@ import java.util.Map;
 import ModelClasses.Global;
 
 public class DeleteAccountActivity extends AppCompatActivity {
-
-
-    public  static  final  int REQ_USER_CONSENT=100;
-    final Context context = this;
     AppCompatButton Proceedbtn, ValidateandDelete;
     String OTP,otp,autoOTP;
     PinView pinView;
@@ -57,12 +53,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
         ValidateandDelete = findViewById(R.id.validatedelete);
         progressBar = findViewById(R.id.progressbarline);
 
-
-
         hideLoading();
         pinView = findViewById(R.id.pinviewdelete);
-       // startSmartUserConsent();
-
         Proceedbtn.setOnClickListener(v -> getotpmethod());
         ValidateandDelete.setOnClickListener(v -> validateOTPmethod());
     }
@@ -110,7 +102,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
                         startActivity(new Intent(DeleteAccountActivity.this, LoginActivity.class));
                         finish();
 
-
                     } else {
                         hideLoading();;
                         Global.customtoast(DeleteAccountActivity.this, getLayoutInflater(), error);
@@ -145,14 +136,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
                 return headers;
             }
-          /*  @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("UserName", Global.sharedPreferences.getString("userName",""));
-                params.put("Mobile", Global.sharedPreferences.getString("Mobile1",""));
-                Log.d("getHeaders", params.toString());
-                return params;
-            }*/
+
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -183,17 +167,13 @@ public class DeleteAccountActivity extends AppCompatActivity {
                         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                         autoOTP=Global.sharedPreferences.getString("message","");
 
-
                         if (autoOTP.isEmpty()) {
                             showLoading();
-                           //Toast.makeText(context, "auto OTP has value", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            //Toast.makeText(context, "auto OTP has no value is empty", Toast.LENGTH_SHORT).show();
                             Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                             autoOTP=Global.sharedPreferences.getString("message","");
                             pinView.setText(autoOTP);
-
 
                             if (!TextUtils.isEmpty(pinView.getText().toString())) {
                                 Global.customtoast(DeleteAccountActivity.this, getLayoutInflater(), error);
@@ -201,12 +181,9 @@ public class DeleteAccountActivity extends AppCompatActivity {
                                 pinView.setVisibility(View.VISIBLE);
                                 ValidateandDelete.setVisibility(View.VISIBLE);
                                 hideLoading();
-
                             }
 
                         }
-
-
                         Global.customtoast(DeleteAccountActivity.this, getLayoutInflater(), error);
                         Proceedbtn.setVisibility(View.GONE);
                         pinView.setVisibility(View.VISIBLE);
@@ -251,7 +228,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("UserName", Global.sharedPreferences.getString("userName",""));
                 params.put("Mobile", Global.sharedPreferences.getString("Mobile1",""));
-                // params.put("FPType", Global.sharedPreferences.getString("Mobile1",""));
                 params.put("FPType", "M");
                 Log.d("getHeaders", params.toString());
                 return params;
@@ -262,11 +238,8 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
-
         queue.add(request);
     }
-
-
 
     private void showLoading() {
         progressBar.setVisibility(View.VISIBLE);

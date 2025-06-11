@@ -21,10 +21,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -37,19 +35,16 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
 public class SignupActivity extends AppCompatActivity {
-    /*FloatingActionButton Signupbackbtn;*/
+
     EditText Name,Email,Mobile,Username,Password,Cpassword;
     CheckBox checkBox;
     TextView TermsandConditions,Privacypolicy;
@@ -84,12 +79,8 @@ public class SignupActivity extends AppCompatActivity {
         TermsandConditions=findViewById(R.id.termsandconditions);
         Privacypolicy=findViewById(R.id.privacypolicy);
         Registration=findViewById(R.id.registertration);
-
-
         Registration.setOnClickListener(v -> validationprocess());
 
-
-       // Registration.setEnabled(false);
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

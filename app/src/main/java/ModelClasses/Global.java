@@ -95,8 +95,6 @@ public class Global {
    customToast.show();
    new Handler().postDelayed(new Runnable() {@Override public void run() {customToast.cancel();}}, 6000);}
 
-
-
     private static Picasso getPicassoInstance(Context context) {
         if (picassoInstance == null) {
 
@@ -104,15 +102,10 @@ public class Global {
         }
         return picassoInstance;
     }
-
-
     public static void loadWithPicasso(Context context, ImageView imageView, String imageUrl) {
         Picasso picasso = getPicassoInstance(context);
         picasso.load(imageUrl)
                 .error(R.drawable.no_image_available_icon)
                 .into(imageView);
     }
-
-
-
 }

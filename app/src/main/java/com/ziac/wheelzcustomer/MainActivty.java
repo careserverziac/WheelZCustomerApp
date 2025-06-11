@@ -49,7 +49,6 @@ public class MainActivty extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(MainActivty.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
@@ -108,7 +107,6 @@ public class MainActivty extends AppCompatActivity  {
 
     }
     private Fragment getOneFragment() {
-        // Return the specific fragment you want when the flag is true
         return new BookServiceFragment();
     }
 
@@ -128,7 +126,6 @@ public class MainActivty extends AppCompatActivity  {
 
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
-        // Handle the back navigation based on the fragment count
         switch (count) {
             case 0:
                 // super.onBackPressed(); // If no fragments in the back stack, allow default back behavior

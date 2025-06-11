@@ -3,13 +3,11 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -46,7 +43,7 @@ public class ModelsFragment extends Fragment {
     ModelsAdapter modelsAdapter;
     ProgressBar progressBar;
     LinearLayout LinearSearch;
-        SearchView searchView;
+    SearchView searchView;
     SwipeRefreshLayout swipeRefreshLayout;
     CommonClass commonClass;
     @Override
@@ -64,28 +61,15 @@ public class ModelsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehicleelistRV.setLayoutManager(linearLayoutManager);
         VehicleelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-      /*  adapter = new ModelsAdapter(new ArrayList<>(),context);
-        VehicleelistRV.setAdapter(adapter);
-*/
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                GetAllModels();
-               // swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::GetAllModels);
 
         LinearSearch =view.findViewById(R.id.modelsearchlnr);
         searchView =view.findViewById(R.id.searchallmodels);
-        LinearSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipeRefreshLayout.setEnabled(false);
-                searchView.setIconified(false);
-                searchView.requestFocus();
-            }
+        LinearSearch.setOnClickListener(v -> {
+            swipeRefreshLayout.setEnabled(false);
+            searchView.setIconified(false);
+            searchView.requestFocus();
         });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -108,8 +92,6 @@ public class ModelsFragment extends Fragment {
         });
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
-
-
         return view;
     }
 
@@ -124,7 +106,6 @@ public class ModelsFragment extends Fragment {
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 Global.allleadslist = new ArrayList<>();
-                // Loop through the array to extract vmodel_code values
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String vmodelCode = jsonObject.getString("vmodel_code");
@@ -184,7 +165,6 @@ public class ModelsFragment extends Fragment {
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
 
         }) {
 
@@ -195,8 +175,6 @@ public class ModelsFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -223,7 +201,6 @@ public class ModelsFragment extends Fragment {
                     return;
                 }
                 Global.allleadslist = new ArrayList<>();
-                // Loop through the array to extract vmodel_code values
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
@@ -287,8 +264,6 @@ public class ModelsFragment extends Fragment {
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
         }) {
 
             @Override
@@ -298,8 +273,6 @@ public class ModelsFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -314,10 +287,8 @@ public class ModelsFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         VehicleelistRV.setVisibility(View.GONE);
     }
-
     private void hideLoading() {
         progressBar.setVisibility(View.GONE);
         VehicleelistRV.setVisibility(View.VISIBLE);
     }
-
 }

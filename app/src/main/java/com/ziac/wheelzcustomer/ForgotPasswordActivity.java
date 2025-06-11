@@ -72,14 +72,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         hideLoading();
 
-     /*   int newWidthInPixels = 100;
-        int newHeightInPixels = 100;
-        ViewGroup.LayoutParams params = progressBar.getLayoutParams();
-        params.width = newWidthInPixels;
-        params.height = newHeightInPixels;
-        progressBar.setLayoutParams(params);*/
-
-
         GetOTp.setOnClickListener(v -> {
             username = Username.getText().toString();
             mobile = Mobileno.getText().toString();
@@ -119,9 +111,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         });
     }
-
-
-
 
     private void getotpmethod() {
         showLoading();
@@ -177,8 +166,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 params.put("Mobile", mobile);
                 params.put("Email", email);
                 params.put("FPType", fptype);
-
-                Log.d("getHeaders", params.toString());
                 return params;
             }
         };

@@ -9,29 +9,22 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import ModelClasses.Global;
 
 public class ChangePasswordActivity extends AppCompatActivity {
@@ -51,12 +44,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         Updatepassword=findViewById(R.id.updatebtn);
 
 
-        Updatepassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ChangePasswordMethod();
-            }
-        });
+        Updatepassword.setOnClickListener(view -> ChangePasswordMethod());
 
 
         Newpassword.setOnTouchListener((v, event) -> {
@@ -150,58 +138,52 @@ public class ChangePasswordActivity extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(ChangePasswordActivity.this);
 
         String url= Global.changepasswordurl;
-        StringRequest stringRequest=new StringRequest(Request.Method.POST,url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String sresponse) {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,url, sresponse -> {
 
+            try {
+
+                JSONObject response;
                 try {
+                    response = new JSONObject(sresponse);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
 
-                    JSONObject response = null;
-                    try {
-                        response = new JSONObject(sresponse);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    Log.d("Register", sresponse);
+                Log.d("Register", sresponse);
 //
 
-                    try {
-                        if (response.getBoolean("isSuccess")) {
-                            Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(),response.getString("error"));
-                            finish();
-                        } else {
-                            Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(),response.getString("error"));
+                try {
+                    if (response.getBoolean("isSuccess")) {
+                        Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(),response.getString("error"));
+                        finish();
+                    } else {
+                        Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(),response.getString("error"));
 
-                        }
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
                     }
-
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error instanceof TimeoutError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Request Time-Out");
-                } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Internet connection unavailable");
-                } else if (error instanceof ServerError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Server Error");
-                } else if (error instanceof NetworkError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Network Error");
-                } else if (error instanceof ParseError) {
-                    Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Parse Error");
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
                 }
 
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
+        }, error -> {
+            if (error instanceof TimeoutError) {
+                Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Request Time-Out");
+            } else if (error instanceof NoConnectionError) {
+                Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Internet connection unavailable");
+            } else if (error instanceof ServerError) {
+                Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Server Error");
+            } else if (error instanceof NetworkError) {
+                Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Network Error");
+            } else if (error instanceof ParseError) {
+                Global.customtoast(ChangePasswordActivity.this, getLayoutInflater(), "Parse Error");
+            }
+
         }){
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
                 Log.d("getHeaders", params.toString());
                 return params;

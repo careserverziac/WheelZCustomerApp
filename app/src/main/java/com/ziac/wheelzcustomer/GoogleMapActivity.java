@@ -107,13 +107,6 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
         }
     }
 
-  /*  private void enableMyLocation() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            myMap.setMyLocationEnabled(true);
-        }
-    }*/
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -126,10 +119,9 @@ public class GoogleMapActivity extends AppCompatActivity implements OnMapReadyCa
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
-        // Clear previous marker and add new marker on map click
         myMap.clear();
         myMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-        selectedLatLng = latLng; // Store selected location
+        selectedLatLng = latLng;
     }
 
     private void shareLocation() {

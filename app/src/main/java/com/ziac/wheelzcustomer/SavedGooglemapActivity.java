@@ -1,28 +1,20 @@
 package com.ziac.wheelzcustomer;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,13 +24,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import Fragments.BookServiceFragment;
-import ModelClasses.Global;
 
 public class SavedGooglemapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -58,55 +47,12 @@ public class SavedGooglemapActivity extends AppCompatActivity implements OnMapRe
         setContentView(R.layout.activity_google_map);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
 
         shareLocationButton = findViewById(R.id.btn_share_location);
-
-      /*  shareLocationButton.setOnClickListener(v -> {
-            if (selectedLatLng != null) {
-                // Use Geocoder to get the address
-                Geocoder geocoder = new Geocoder(GoogleMapActivity.this, Locale.getDefault());
-                try {
-                    List<Address> addresses = geocoder.getFromLocation(selectedLatLng.latitude, selectedLatLng.longitude, 1);
-                    if (addresses != null && !addresses.isEmpty()) {
-                        Address address = addresses.get(0);
-                        String sublocality = address.getSubLocality();  // Area name
-                        String fullAddress = address.getAddressLine(0); // Full address
-
-
-                        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                        Global.editor = Global.sharedPreferences.edit();
-                        Global.editor.putString("currentLocationString", selectedLatLng.latitude + ", " + selectedLatLng.longitude);
-                        Global.editor.putString("currentStreetName", sublocality);
-                        Global.editor.putString("currentFullAddress", fullAddress);
-                        Global.editor.apply();
-
-                        String uri = "http://maps.google.com/maps?saddr=" + selectedLatLng.latitude + "," + selectedLatLng.longitude;
-
-                        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                        Global.editor = Global.sharedPreferences.edit();
-                        Global.editor.putString("locationuri", uri);
-                        Global.editor.commit();
-
-
-                        finish();
-
-                    } else {
-                        Toast.makeText(GoogleMapActivity.this, "Unable to get address", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(GoogleMapActivity.this, "Geocoder service not available", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(GoogleMapActivity.this, "Location not selected", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
         shareLocationButton.setOnClickListener(v -> {shareLocation();});
 
 
@@ -158,10 +104,9 @@ public class SavedGooglemapActivity extends AppCompatActivity implements OnMapRe
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
-        // Clear previous marker and add new marker on map click
         myMap.clear();
         myMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
-        selectedLatLng = latLng; // Store selected location
+        selectedLatLng = latLng;
     }
 
     private void shareLocation() {

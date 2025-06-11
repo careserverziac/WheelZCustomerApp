@@ -9,10 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ziac.wheelzcustomer.ChangePasswordActivity;
 import com.ziac.wheelzcustomer.ContactUSActivity;
@@ -28,7 +25,6 @@ import com.ziac.wheelzcustomer.DeleteAccountActivity;
 import com.ziac.wheelzcustomer.ProfileActivity;
 import com.ziac.wheelzcustomer.LoginActivity;
 import com.ziac.wheelzcustomer.R;
-
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,11 +34,9 @@ public class ProfileFragment extends Fragment {
 
 
     LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword,Editicon;
-    FloatingActionButton BackButton;
     Intent intent;
     TextView Username,Usermobile,Useremail,Account;
     CircleImageView circularImageView;
-    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -55,16 +49,9 @@ public class ProfileFragment extends Fragment {
 
 
         if (AppStatus.getInstance(requireActivity()).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(requireActivity(),getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
-
-       /* String image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-        Picasso.Builder builder=new Picasso.Builder(requireActivity());
-        ProfileImage=view.findViewById(R.id.pro_image);
-        Picasso picasso=builder.build();
-        picasso.load(Uri.parse(image)).into(ProfileImage );*/
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String userimage = Global.userimageurl + Global.sharedPreferences.getString("user_image", "");
@@ -72,11 +59,8 @@ public class ProfileFragment extends Fragment {
         circularImageView =view.findViewById(R.id.pro_image);
         Global.loadWithPicasso(requireContext(), circularImageView, userimage);
 
-
-
         Account=view.findViewById(R.id.account);
         Editprofile=view.findViewById(R.id.editprofile);
-       // BackButton=view.findViewById(R.id.Pbackbtn);
         Sharebutton=view.findViewById(R.id.sharebutton);
         Contactus=view.findViewById(R.id.contactus);
         PrivacyPolicy=view.findViewById(R.id.privacy);
@@ -85,19 +69,15 @@ public class ProfileFragment extends Fragment {
         Changepassword=view.findViewById(R.id.changepasword);
         Logout=view.findViewById(R.id.logoutbtn);
         Editicon=view.findViewById(R.id.editicon);
-       // swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
-
         Username=view.findViewById(R.id.PRusername);
         Usermobile=view.findViewById(R.id.PRusermobile);
         Useremail=view.findViewById(R.id.PRusermail);
-
 
         String dealername = Global.sharedPreferences.getString("key_person", "");
         String user_mail = Global.sharedPreferences.getString("Email", "");
         String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
         String user_name = Global.sharedPreferences.getString("userName", "");
 
-       //Picasso.get().load(image).into(circularImageView);
         Username.setText(dealername);
         Usermobile.setText(user_mobile);
         Useremail.setText(user_mail);
@@ -108,25 +88,6 @@ public class ProfileFragment extends Fragment {
         Editicon.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ContactUSActivity.class))));
         Changepassword.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ChangePasswordActivity.class))));
-
-
-     /*   swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                String dealername = Global.sharedPreferences.getString("key_person", "");
-                String user_mail = Global.sharedPreferences.getString("Email", "");
-                String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
-
-                Picasso.get().load(image).into(ProfileImage);
-                Username.setText(dealername);
-                Usermobile.setText(user_mobile);
-                Useremail.setText(user_mail);
-
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });*/
-
 
         Sharebutton.setOnClickListener(v ->  ShareIntent());
         PrivacyPolicy.setOnClickListener(v ->  privacyMethod());

@@ -4,18 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +22,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -42,18 +35,14 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ziac.wheelzcustomer.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import AdapterClass.DealersAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
@@ -61,8 +50,6 @@ import ModelClasses.zList;
 
 
 public class ChooseDealerFragment extends Fragment {
-
-
     String Url;
     private zList statename;
     private CommonClass commonClass;
@@ -72,14 +59,9 @@ public class ChooseDealerFragment extends Fragment {
     LinearLayout Statedp,Citydp;
     String statecode,citycode,searchquery;
     RecyclerView DealerlistRV;
-
     DealerAdapter dealersAdapter;
     ProgressBar progressBar;
     private ViewPager viewPager;
-
-
-    // Context context;
-
     public ChooseDealerFragment(ViewPager viewPager) {
         this.viewPager = viewPager;
     }
@@ -94,10 +76,8 @@ public class ChooseDealerFragment extends Fragment {
         Statedp=view.findViewById(R.id.statedp);
         Citydp=view.findViewById(R.id.citydp);
 
-
         Statetxt=view.findViewById(R.id.statetext);
         Citytxt=view.findViewById(R.id.citytext);
-
 
         searchquery="";
         statecode="0";
@@ -105,9 +85,6 @@ public class ChooseDealerFragment extends Fragment {
 
         getstates();
         getDealerslist();
-
-
-
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireActivity());
         DealerlistRV.setLayoutManager(linearLayoutManager);
@@ -126,9 +103,6 @@ public class ChooseDealerFragment extends Fragment {
                 citiespopup();
             }
         });
-
-
-
         return view;
     }
 

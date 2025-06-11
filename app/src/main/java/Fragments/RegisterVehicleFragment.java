@@ -3,20 +3,17 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -95,24 +92,10 @@ public class RegisterVehicleFragment extends Fragment {
         });
 
 
-
-
-        Addvehicle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Updateprofiledetails();
-            }
-        });
+        Addvehicle.setOnClickListener(v -> Updateprofiledetails());
 
         return view;
     }
-
-    private void updateAddVehicleButton() {
-        Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-        Addvehicle.setText("Updated Text"); // Change this to your desired text
-        Addvehicle.setBackgroundColor(getResources().getColor(R.color.red)); // Change to your desired color
-    }
-
 
     private void Updateprofiledetails() {
 
@@ -120,34 +103,11 @@ public class RegisterVehicleFragment extends Fragment {
         engineno = Engineno.getText().toString();
         chassisno = Chassisno.getText().toString();
 
-
-    /*    if (regno.isEmpty()) {
-
-            Toast.makeText(requireContext(), "Person name should not be empty!!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (engineno.isEmpty()) {
-            Toast.makeText(requireContext(), "Mobile number should not be empty !!", Toast.LENGTH_SHORT).show();
-
-            return;
-        }
-        if (chassisno.length() < 10) {
-            Toast.makeText(requireContext(), "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
-
-            return;
-        }if (chassisno.length() < 10) {
-            Toast.makeText(requireContext(), "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
-
-            return;
-        }
-*/
-
         RequestQueue queue = Volley.newRequestQueue(requireContext());
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urladdvehicle,
                 sresponse -> {
 
-                    // progressBar.setVisibility(View.GONE);
+
                     JSONObject response = null;
                     try {
                         response = new JSONObject(sresponse);
@@ -155,25 +115,10 @@ public class RegisterVehicleFragment extends Fragment {
                         throw new RuntimeException(e);
                     }
 
-/*
-
-                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
-                    Global.editor = Global.sharedPreferences.edit();
-                    Global.editor.putString("key_person", Registrationno.getText().toString());
-                    Global.editor.putString("Mobile1", Engineno.getText().toString());
-                    Global.editor.putString("Email", Chassisno.getText().toString());
-                    Global.editor.putString("Email", Chassisno.getText().toString());
-                    Global.editor.commit();
-*/
-
-
 
                     try {
                         if (response.getBoolean("isSuccess")) {
-//                                Toast.makeText(ProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
-
-
                             MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                             fragmentManager = requireActivity().getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -182,15 +127,8 @@ public class RegisterVehicleFragment extends Fragment {
                             fragmentTransaction.commit();
 
 
-                            // Global.customtoast(requireContext(),getLayoutInflater(),"Updated successfully !!");
-
-                       /*     Intent intent = new Intent(requireContext(), ProfileActivity.class);
-                            startActivity(intent);
-*/
                         } else {
-                            //textViewError.setText(response.getString("error"));
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
-                            //textViewError.setVisibility(View.VISIBLE);
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -198,10 +136,6 @@ public class RegisterVehicleFragment extends Fragment {
 
                 }, error -> {
 
-            //  progressBar.setVisibility(View.GONE);
-            //  Toast.makeText(ProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    /*textViewError.setText(error.getLocalizedMessage());
-                    textViewError.setVisibility(View.VISIBLE);*/
 
         }) {
             @Override

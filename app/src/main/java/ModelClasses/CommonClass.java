@@ -17,14 +17,6 @@ public class CommonClass {
     public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
     public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname,mfg_name;
 
-/*
-    String wuser_code1 = jsonObject.getString("wuser_code");
-    String com_code = jsonObject.getString("com_code");
-    String engine_no = jsonObject.getString("engine_no");
-    String chasis_no = jsonObject.getString("chasis_no");
-    String regis_no = jsonObject.getString("reg_no");
-    String Veh_modelname = jsonObject.getString("model_name");
-*/
 
     public CommonClass(){}
 

@@ -39,7 +39,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,7 +91,6 @@ public class BookServiceFragment extends Fragment {
     String wuser_code, vehhis_code, lattitude, longitude;
     EditText Odometer, Complaints;
     CircleImageView DealerImage;
-    BottomSheetDialog bottomSheetDialog;
     private zList modelclass;
     Context context;
     private Dialog zDialog;
@@ -100,7 +98,6 @@ public class BookServiceFragment extends Fragment {
     FusedLocationProviderClient client;
     RadioGroup ServiceRB, PickupRB, VehdropRB;
     RadioButton Freeservice, Paidservice, PickupTrue, PickupFalse, VehdropTrue, VehdropFalse;
-    FragmentTransaction fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -162,7 +159,6 @@ public class BookServiceFragment extends Fragment {
 
         getvehicles();
 
-
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         getcurrentlocation();
 
@@ -204,7 +200,6 @@ public class BookServiceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 vehiclepopup();
-                ;
             }
         });
 

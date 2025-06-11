@@ -2,24 +2,16 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.preference.PreferenceManager;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -31,11 +23,9 @@ import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ziac.wheelzcustomer.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,10 +33,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
-import ModelClasses.ServiceDetails;
+
 
 
 public class ServiceListFragment extends Fragment {
@@ -54,8 +43,6 @@ public class ServiceListFragment extends Fragment {
     RecyclerView ServicelistRV;
     ServiceListAdapter adapter;
     String wuser_code;
-
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -68,7 +55,6 @@ public class ServiceListFragment extends Fragment {
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         wuser_code = Global.sharedPreferences.getString("wuser_code", "");
         Servicehistory();
-
 
         return view;
     }
@@ -142,12 +128,9 @@ public class ServiceListFragment extends Fragment {
                 adapter = new ServiceListAdapter(requireContext(), Global.allleadslist);
                 ServicelistRV.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
         }, error -> {
 
@@ -163,12 +146,9 @@ public class ServiceListFragment extends Fragment {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                 }
-
             }
 
-
         }) {
-
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -176,7 +156,6 @@ public class ServiceListFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
 
         };
 
@@ -198,15 +177,12 @@ public class ServiceListFragment extends Fragment {
             this.context = context;
             this.serviceHistoryList = serviceHistoryList;
         }
-
         @NonNull
         @Override
         public ServiceListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context).inflate(R.layout.service_list, parent, false);
             return new ServiceListAdapter.ViewHolder(view);
         }
-
-
         @Override
         public void onBindViewHolder(@NonNull ServiceListAdapter.ViewHolder holder, int position) {
             CommonClass service = serviceHistoryList.get(position);
@@ -220,33 +196,25 @@ public class ServiceListFragment extends Fragment {
             String originalDateStr = service.getService_date();
             SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MMM-yy");
-
             Date date = null;
             try {
                 date = originalFormat.parse(originalDateStr);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
             String formattedDateTimeStr = targetFormat.format(date);
             holder.Dateandtime.setText(formattedDateTimeStr);
-
-
         }
-
         @Override
         public int getItemCount() {
             return serviceHistoryList.size();
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-
             TextView Modelname, Servicetype, Totalamount, Kmdone, Dateandtime;
-
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-
                 Modelname = itemView.findViewById(R.id.modelname);
                 Servicetype = itemView.findViewById(R.id.servicetype);
                 Totalamount = itemView.findViewById(R.id.totalamount);
@@ -254,9 +222,7 @@ public class ServiceListFragment extends Fragment {
                 Dateandtime = itemView.findViewById(R.id.dateandtime);
             }
         }
-
     }
-
 }
 
 

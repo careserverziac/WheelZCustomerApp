@@ -1,8 +1,5 @@
 package com.ziac.wheelzcustomer;
 
-
-
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -24,8 +21,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.DefaultRetryPolicy;
@@ -44,7 +39,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,14 +47,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import Fragments.DealersFragment;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
 
 public class TestRideActivity extends AppCompatActivity {
-
 
     String Url;
     private zList statename;
@@ -103,8 +94,6 @@ public class TestRideActivity extends AppCompatActivity {
         Model.setText(Global.modellist.getModel_name());
         vmodel_code=Global.modellist.getModel_code();
         Global.loadWithPicasso(TestRideActivity.this, Veh_image, Global.modelsimageurl + Global.modellist.getImage_path());
-
-
 
         Statetxt=findViewById(R.id.statetext);
         Citytxt=findViewById(R.id.citytext);
@@ -164,7 +153,6 @@ public class TestRideActivity extends AppCompatActivity {
 
                     }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
-            // Set the minimum date to the current date
             datePickerDialog.getDatePicker().setMinDate(newCalendar.getTimeInMillis());
 
             datePickerDialog.show();
@@ -191,7 +179,6 @@ public class TestRideActivity extends AppCompatActivity {
             timePickerDialog.show();
         });
 
-
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,23 +190,11 @@ public class TestRideActivity extends AppCompatActivity {
 
     }
     private void BookTestDrive() {
-
-       /* com_code=
-        vmodel_code=
-        sqldateformat=
-        selectedTime24=
-*/
-
-
-
-
         RequestQueue queue = Volley.newRequestQueue(TestRideActivity.this);
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookTestDrive,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String sresponse) {
-
                         JSONObject response = null;
                         try {
                             response = new JSONObject(sresponse);
@@ -238,14 +213,11 @@ public class TestRideActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
-                        /*progressDialog.dismiss();*/
+
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                /*progressDialog.dismiss();*/
-
-                // Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
                     Global.customtoast(TestRideActivity.this, getLayoutInflater(), "Request Time-Out");
@@ -258,8 +230,6 @@ public class TestRideActivity extends AppCompatActivity {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(TestRideActivity.this, getLayoutInflater(), "Parse Error");
                 }
-
-
             }
         }) {
             @Override
@@ -273,15 +243,11 @@ public class TestRideActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
-
                 params.put("wuser_code", Global.sharedPreferences.getString("wuser_code",""));
                 params.put("com_code",com_code);
                 params.put("vmodel_code", vmodel_code);
                 params.put("testdriv_date", sqldateformat);
                 params.put("testdriv_time", selectedTime24);
-
-
-                //Log.d("params",params.toString());
                 return params;
 
             }
@@ -293,8 +259,6 @@ public class TestRideActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(stringRequest);
-
-
     }
 
     private void getDealerslist() {
@@ -305,7 +269,6 @@ public class TestRideActivity extends AppCompatActivity {
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
 
                 Global.dealersarraylist = new ArrayList<CommonClass>();
                 commonClass = new CommonClass();
@@ -319,7 +282,6 @@ public class TestRideActivity extends AppCompatActivity {
                     }
                     commonClass = new CommonClass();
                     try {
-
                         commonClass.setImage_path(jsonObject.getString("logo_image"));
                         commonClass.setCom_code(jsonObject.getString("com_code"));
                         commonClass.setState_name(jsonObject.getString("state_name"));
@@ -338,20 +300,14 @@ public class TestRideActivity extends AppCompatActivity {
                         commonClass.setCom_lat(jsonObject.getString("com_lat"));
                         commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
 
-                       /* String statename=jsonObject.getString("state_name");
-                        Toast.makeText(requireActivity(), statename, Toast.LENGTH_SHORT).show();
-*/
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
                     Global.dealersarraylist.add(commonClass);
-
                 }
-
                 dealerAdapter = new DealerAdapter(Global.dealersarraylist, getApplicationContext(), Displaydata, DealerlistRV);
                 DealerlistRV.setAdapter(dealerAdapter);
                 dealerAdapter.notifyDataSetChanged();
-
 
             }
         },  error -> {
@@ -369,10 +325,7 @@ public class TestRideActivity extends AppCompatActivity {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(TestRideActivity.this, getLayoutInflater(), "Parse Error");
                 }
-
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
         }) {
 
             @Override
@@ -382,8 +335,6 @@ public class TestRideActivity extends AppCompatActivity {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
@@ -399,25 +350,20 @@ public class TestRideActivity extends AppCompatActivity {
     private void getstates() {
 
         RequestQueue queue = Volley.newRequestQueue(TestRideActivity.this);
-
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Global.GetStates, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
-
                 Global.statearraylist = new ArrayList<zList>();
                 statename = new zList();
                 for (int i = 0; i < response.length(); i++) {
                     final JSONObject e;
                     try {
-                        // converting to json object
                         e = response.getJSONObject(i);
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
                     statename = new zList();
                     try {
-                        // getting the state name from the object
                         statename.set_name(e.getString("state_name"));
                         statename.set_code(e.getString("state_code"));
                     } catch (JSONException ex) {
@@ -442,8 +388,6 @@ public class TestRideActivity extends AppCompatActivity {
                     Global.customtoast(TestRideActivity.this, getLayoutInflater(), "Parse Error");
                 }
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
         }) {
 
             @Override
@@ -453,18 +397,13 @@ public class TestRideActivity extends AppCompatActivity {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
-
         jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
                 0, // timeout in milliseconds
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
-
         queue.add(jsonArrayrequest);
-
     }
 
     public void statespopup() {
@@ -475,7 +414,6 @@ public class TestRideActivity extends AppCompatActivity {
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
 
         if (Global.statearraylist == null || Global.statearraylist.size() == 0) {
-            // Toast.makeText(getBaseContext(), "States list not found !! Please try again !!", Toast.LENGTH_LONG).show();
             return;
         }
         final StateAdapter laStates = new StateAdapter(Global.statearraylist);
@@ -488,13 +426,10 @@ public class TestRideActivity extends AppCompatActivity {
         svstate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //  Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
                 laStates.getFilter().filter(newText);
                 return false;
             }
@@ -582,14 +517,9 @@ public class TestRideActivity extends AppCompatActivity {
                 getcity();
                 Statetxt.setText(statename.get_name());
             });
-
             return v;
         }
-
-
     }
-
-
     private void getcity() {
         RequestQueue queue = Volley.newRequestQueue(TestRideActivity.this);
 
@@ -597,7 +527,6 @@ public class TestRideActivity extends AppCompatActivity {
         url= url+"state_code="+statecode;
         StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET,url,
                 new Response.Listener<String>() {
-
                     @Override
                     public void onResponse(String sresponse) {
 
@@ -609,31 +538,25 @@ public class TestRideActivity extends AppCompatActivity {
                         }
                         Global.cityarraylist = new ArrayList<zList>();
                         cityname = new zList();
-                        // tvCity.setText("");
                         for (int i = 0; i < response.length(); i++) {
                             final JSONObject e;
                             try {
-                                // converting to json object
                                 e = response.getJSONObject(i);
                             } catch (JSONException ex) {
                                 throw new RuntimeException(ex);
                             }
                             cityname = new zList();
                             try {
-                                // getting the city name from the object
                                 cityname.set_name(e.getString("city_name"));
                                 cityname.set_code(e.getString("city_code"));
                                 citycode = cityname.get_code();
 
                                 Citytxt.setText("City");
-
                             } catch (JSONException ex) {
                                 throw new RuntimeException(ex);
                             }
                             Global.cityarraylist.add(cityname);
                         }
-
-
                     }
                 },
                 error -> {
@@ -651,8 +574,6 @@ public class TestRideActivity extends AppCompatActivity {
                             Global.customtoast(TestRideActivity.this, getLayoutInflater(), "Parse Error");
                         }
                     }
-
-
                 }) {
 
             @Override
@@ -662,28 +583,20 @@ public class TestRideActivity extends AppCompatActivity {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
                 (int) TimeUnit.SECONDS.toMillis(0),
                 0,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-
         queue.add(jsonArrayrequest);
-
     }
 
     public void citiespopup() {
 
         zDialog = new Dialog(TestRideActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
-        //zDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         zDialog.setContentView(R.layout.popup_list);
-
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
-
         if (Global.cityarraylist == null || Global.cityarraylist.size() == 0) {
             Global.customtoast(TestRideActivity.this, getLayoutInflater(), "No cities found for selected state");
 

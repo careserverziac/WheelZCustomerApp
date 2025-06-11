@@ -10,14 +10,12 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -46,10 +44,7 @@ public class DashboardFragment extends Fragment {
 
     CardView Bookservice, Servicehistory, Vehdocuments, ServiceList;
     FragmentManager fragmentManager;
-    private static final int REQUEST_CHECK_SETTINGS = 11;
-    private static final int REQUEST_LOCATION_PERMISSIONS = 22;
     String lattitude, longitude, currentLocationString, fullAddress, sublocality;
-
     FusedLocationProviderClient client;
 
 
@@ -65,7 +60,6 @@ public class DashboardFragment extends Fragment {
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-
         client=LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED &&
@@ -77,10 +71,6 @@ public class DashboardFragment extends Fragment {
         } else {
            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
         }
-
-
-        /*checkPermissionsAndEnableLocation();*/
-
 
         Bookservice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,10 +126,7 @@ public class DashboardFragment extends Fragment {
                 ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
             }
         });
-
-
         return view;
-
     }
 
     @SuppressLint("MissingPermission")
@@ -158,18 +145,8 @@ public class DashboardFragment extends Fragment {
                     Location location=task.getResult();
                     if (location !=null){
 
-                     /*  lattitude=String.valueOf(location.getLatitude());
-                       longitude=String.valueOf(location.getLongitude());
-                        Global.editor = Global.sharedPreferences.edit();
-                        Global.editor.putString("lattitude", lattitude);
-                        Global.editor.putString("longitude", longitude);
-                        Global.editor.commit();*/
-
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
-                       // saveLocationData(latitude, longitude);
-
-
                     }else {
                         LocationRequest locationRequest=new LocationRequest()
                                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -235,43 +212,6 @@ public class DashboardFragment extends Fragment {
         if (requestCode == 100 && (grantResults.length >0 ) && (grantResults[0] + grantResults[1]  == PackageManager.PERMISSION_GRANTED)) {
             getcurrentlocation();
         }else {
-           // Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
         }
-
-
-
     }
-
-  /*  private void enableLocation() {
-        LocationRequest locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(1000)
-                .setFastestInterval(500);
-
-        LocationSettingsRequest.Builder locationSettingsRequestBuilder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(locationRequest)
-                .setAlwaysShow(true);
-
-        SettingsClient settingsClient = LocationServices.getSettingsClient(requireActivity());
-        Task<LocationSettingsResponse> task = settingsClient.checkLocationSettings(locationSettingsRequestBuilder.build());
-
-        task.addOnSuccessListener(requireActivity(), locationSettingsResponse -> {
-
-        });
-
-        task.addOnFailureListener(requireActivity(), e -> {
-            if (e instanceof ResolvableApiException) {
-                ResolvableApiException resolvableApiException = (ResolvableApiException) e;
-                try {
-                    resolvableApiException.startResolutionForResult(requireActivity(), REQUEST_CHECK_SETTINGS);
-                } catch (IntentSender.SendIntentException ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-    }*/
-
-
-
-
 }

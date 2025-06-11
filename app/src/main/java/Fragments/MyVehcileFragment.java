@@ -3,13 +3,11 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,20 +80,14 @@ public class MyVehcileFragment extends Fragment {
 
         return  view;
     }
-
-
-
     private void  GetAllvehicles() {
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wuser_code = Global.sharedPreferences.getString("wuser_code", "");
 
-
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
-
         String url = Global.getallMyVehicles;
         String Url = url+"wuser_code="+wuser_code;
-
         @SuppressLint("NotifyDataSetChanged")
         StringRequest request = new StringRequest(Request.Method.GET, Url, response -> {
             try {
@@ -105,14 +97,11 @@ public class MyVehcileFragment extends Fragment {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
                     String vehimage = jsonObject.getString("veh_image1");
                     String wuser_code1 = jsonObject.getString("wuser_code");
                     String com_code = jsonObject.getString("com_code");
                     String vehhis_code = jsonObject.getString("vehhis_code");
                     String cveh_code = jsonObject.getString("cveh_code");
-
-
                     String Veh_modelname = jsonObject.getString("model_name");
                     String mfg_name = jsonObject.getString("mfg_name");
                     String chasis_no = jsonObject.getString("chasis_no");
@@ -122,8 +111,6 @@ public class MyVehcileFragment extends Fragment {
                     String vcol_name = jsonObject.getString("vcol_name");
                     String prv_serdt = jsonObject.getString("prv_serdt");
                     String nxt_serdt = jsonObject.getString("nxt_serdt");
-
-
 
                     CommonClass commonClass = new CommonClass();
                     commonClass.setImage_path(vehimage);

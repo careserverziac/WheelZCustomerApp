@@ -8,7 +8,6 @@ public class ServiceDetails {
        private String dateAndTime;
        private int imageResId;
 
-
        public ServiceDetails(String modelName, String serviceType, String totalAmount, String kmDone, String dateAndTime, int imageResId) {
            this.modelName = modelName;
            this.serviceType = serviceType;

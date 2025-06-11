@@ -58,51 +58,37 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
 
         splashimage = findViewById(R.id.splash_logo);
-
-        // Create a set of animations
         AnimationSet animationSet = new AnimationSet(true);
-
-        // Scale animation
         Animation scaleAnimation = new ScaleAnimation(0.5f, 1.5f, 0.5f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(800);
 
-        // Rotation animation
         Animation rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setDuration(1200);
 
-        // Bounce animation
         Animation bounceAnimation = new TranslateAnimation(0, 0, 0, -50);
         bounceAnimation.setInterpolator(new BounceInterpolator());
         bounceAnimation.setDuration(800);
 
-        // Fade-in animation
         Animation fadeInAnimation = new AlphaAnimation(0.0f, 1.0f);
         fadeInAnimation.setDuration(800);
-
 
         animationSet.addAnimation(scaleAnimation);
         animationSet.addAnimation(rotateAnimation);
         animationSet.addAnimation(bounceAnimation);
         animationSet.addAnimation(fadeInAnimation);
 
-
         splashimage.startAnimation(animationSet);
-
 
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-
             try {
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 if (Global.sharedPreferences.contains("access_token") && Global.sharedPreferences.contains("refresh_token")) {
-
-
                     dorefreshtokenVolley();
                 } else {
 
@@ -116,10 +102,7 @@ public class SplashActivity extends AppCompatActivity {
 
         }, 2000);
 
-
-
     }
-
 
     private void dorefreshtokenVolley() {
         String url = Global.tokenurl;
@@ -127,7 +110,6 @@ public class SplashActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 JSONObject respObj = new JSONObject(response);
-
                 String access_token = respObj.getString("access_token");
                 String refresh_token = respObj.getString("refresh_token");
 
@@ -135,18 +117,15 @@ public class SplashActivity extends AppCompatActivity {
                 Global.editor.putString("access_token", access_token);
                 Global.editor.putString("refresh_token", refresh_token);
                 Global.editor.commit();
-
                 getuserprofile();
 
                 startActivity(new Intent(SplashActivity.this, MainActivty.class));
                 finish();
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }, error -> {
-            //progressDialog.dismiss();
             if (error instanceof TimeoutError) {
                 Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet is slow / Request Time-Out");
             }  else if (error instanceof NoConnectionError) {
@@ -159,7 +138,6 @@ public class SplashActivity extends AppCompatActivity {
             }  else if (error instanceof AuthFailureError) {
                 Global.customtoast(SplashActivity.this, getLayoutInflater(), "Authorization Failure");
             }
-
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
         }) {

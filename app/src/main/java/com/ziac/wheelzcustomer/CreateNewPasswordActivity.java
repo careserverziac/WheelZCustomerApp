@@ -42,10 +42,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
     AppCompatButton SubmitOTP,Cancelpage;
     PinView pinView;
     private boolean passwordVisible = false;
-
-    String message,otp;
-    private static final int REQ_USER_CONSENT = 200;
-
+    String message;
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
@@ -151,30 +148,22 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                     String issuccess = respObj.getString("isSuccess");
                     String error = respObj.getString("error");
 
-                    //  System.out.println(respObj);
-
-
                     if(issuccess.equals("true")){
                         Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),error);
-                        // Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Password Reset Successfully");
                         startActivity(new Intent(CreateNewPasswordActivity.this,LoginActivity.class));
                         finish();
                     }  if(issuccess.equals("false")){
                         Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),error);
 
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    //  progressBar.setVisibility(View.GONE);
                     Toast.makeText(CreateNewPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                //  progressBar.setVisibility(View.GONE);
                 Toast.makeText(CreateNewPasswordActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 if (error instanceof TimeoutError) {
                     Global.customtoast(CreateNewPasswordActivity.this, getLayoutInflater(),"Request Time-Out");
@@ -201,7 +190,6 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
                 params.put("NewPassword",password);
                 params.put("FPType",Global.sharedPreferences.getString("fptype",""));
 
-                // Log.d("getParams", params.toString());
                 return params;
             }
         };
@@ -218,7 +206,7 @@ public class CreateNewPasswordActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish(); // This will exit the activity when back button is pressed
+        finish();
     }
 
 }

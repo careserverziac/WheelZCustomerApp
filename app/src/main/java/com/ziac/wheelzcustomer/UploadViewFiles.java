@@ -9,14 +9,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -29,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -102,7 +99,6 @@ public class UploadViewFiles extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.setType("*/*");
-                // Specify MIME types for PDF, Word documents (both .doc and .docx), and Excel files
                 intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{ "image/*","application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
                 startActivityForResult(intent, 1);
             }
@@ -173,11 +169,6 @@ public class UploadViewFiles extends Fragment {
                 result = result.substring(cut + 1);
             }
         }
-     /*   if(result != null){
-            String[] FILE = result.split(".");
-            result = FILE[0];
-        }*/
-
         return result;
     }
 
@@ -224,8 +215,6 @@ public class UploadViewFiles extends Fragment {
                         if (resp.has("error")) {
 
                             Global.customtoast(getActivity(), getLayoutInflater(), resp.getString("error"));
-                            /*String errorMessage = resp.getString("error");
-                            Toast.makeText(ApplyLeaveActivity.this, errorMessage, Toast.LENGTH_LONG).show();*/
                         }
                     }
                 } catch (JSONException e) {
@@ -275,16 +264,8 @@ public class UploadViewFiles extends Fragment {
                 params.put("file_type",file_type);
                 params.put("imgdoc_path", file_name);
 
-
-               /* params.put("file_name", file_name);
-                params.put("file_type", file_type);
-                params.put("actual_name", actual_filename);*/
-
-
                 return params;
             }
-
-
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,

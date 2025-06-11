@@ -1,7 +1,6 @@
 package ModelClasses;
 
- public  class zList
-{
+ public  class zList {
     private String name;
     private String code;
     private String wuser_code,com_code,vehhis_code,reg_no;

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -17,9 +16,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
@@ -29,7 +25,6 @@ public class ContactUSActivity extends AppCompatActivity {
     private static final int YOUR_CALL_PERMISSION_REQUEST_CODE =2 ;
     RelativeLayout Contact_whatsapp;
     LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
-    FloatingActionButton Backbtn;
     RelativeLayout relativeLayout;
 
     boolean message = false;
@@ -40,7 +35,6 @@ public class ContactUSActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contact_usactivity);
 
         if (AppStatus.getInstance(this).isOnline()) {
-            //Toast.makeText(this,"You are online!!!!", Toast.LENGTH_SHORT).show();
         } else {
             Global.customtoast(ContactUSActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
@@ -59,7 +53,6 @@ public class ContactUSActivity extends AppCompatActivity {
         Facebook.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/ziacsoft/"))));
         Twitter.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.twitter.com/ziacsoft"))));
         Linkedin.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/company/ziacsoft"))));
-       // Backbtn.setOnClickListener(v -> finish());
 
         Call.setOnClickListener(v -> {Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:9008098101"));
@@ -121,17 +114,6 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }
 
-  /*  public void onLocateClickeded(View view) {
-        String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
-        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
-    }*/
-
-
     private void locateAddress() {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + address);
@@ -142,7 +124,6 @@ public class ContactUSActivity extends AppCompatActivity {
         }
     }
 
-    // Handle the result of the permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
