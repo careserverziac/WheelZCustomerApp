@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="55dp"
+                android:src="@drawable/wheelzsmalllogo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calistoga"
+                android:text="WheelZ"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/bkdealer_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/surya"
+                app:civ_border_color="#FF000000"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/bkcomname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/arsenal_bold"
+            android:text="Companyname"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+        <TextView
+            android:id="@+id/bkdealername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/arsenal_bold"
+            android:text="Dealername"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/bkdealermob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/arsenal_bold"
+            android:text="Dealermob"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/bkdlraddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/arsenal_bold"
+            android:text="Dealermob"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+
+
+
+     <!--   <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arsenal_bold"
+            android:text="Current Location"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp" />-->
+
+        <LinearLayout
+            android:id="@+id/maplocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border_colour"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/baseline_location_whiteicon" />
+
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/streetname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:text="Select the location"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/currentaddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arsenal"
+                    android:text="from google map"
+                    android:textColor="@color/offwhite"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:src="@drawable/location_pin" />
+
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/selectvehicledp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/selectedveh"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="Select Vehicle"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/selected_veh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:layout_marginTop="5dp"
+                        android:text="Royal Enfield"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/selectdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_calendar"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="Service Appointment Date"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/ser_app_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:layout_marginTop="5dp"
+                        android:text="Sun 22-12-1996"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+
+            <LinearLayout
+                android:id="@+id/selecttime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_time"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="Service Appointment Time"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:id="@+id/seld_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:layout_marginTop="5dp"
+                        android:text="12:26 Am"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/km"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/odometer"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/arsenal"
+                        android:text="Odometer Reading"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/square_border_grey"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/odometerreading"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:hint="000"
+                        android:maxLength="6"
+                        android:inputType="number"
+                        android:layout_marginStart="2dp"
+                        android:background="@android:color/transparent"
+                        android:textColorHint="@color/darkgrey"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/sevicedp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/pickupcar"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Select Service"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/serviceRG"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp">
+
+                <RadioButton
+                    android:id="@+id/freeservice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="Free service"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="4dp"
+                    android:fontFamily="@font/arsenal" />
+
+                <RadioButton
+                    android:id="@+id/paidservice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Paid service"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arsenal" />
+
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                android:id="@+id/pickupdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/pickupcar"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Do you want a pick up ?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/pickupRG"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp">
+
+                <RadioButton
+                    android:id="@+id/pickuptrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/arsenal" />
+
+                <RadioButton
+                    android:id="@+id/pickupfalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arsenal" />
+
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+
+            <LinearLayout
+                android:id="@+id/vehicledropdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/vehicledrop"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Vehicle drop required ?"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/vehdropRG"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp">
+
+                <RadioButton
+                    android:id="@+id/vehdroptrue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="50dp"
+                    android:fontFamily="@font/arsenal" />
+
+                <RadioButton
+                    android:id="@+id/vehdropfalse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/arsenal" />
+
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/lightgrey"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            tools:ignore="MissingConstraints">
+
+
+            <LinearLayout
+                android:id="@+id/complaintdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/complaint"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Complaints"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="125dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/square_border_grey"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/complaints"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/arsenal"
+                        android:hint="Raise your complaints here"
+                        android:backgroundTint="@color/lightgrey"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:textColorHint="@color/darkgrey"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:gravity="start" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/baseline_arrow_dp"
+                    android:text="Username"
+                    android:textColor="@color/white" />
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <LinearLayout
+            android:id="@+id/confirmbooking"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/border_colour"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arsenal"
+                android:gravity="center"
+                android:text="Confirm Booking"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+
+

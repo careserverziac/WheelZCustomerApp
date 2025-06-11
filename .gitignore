@@ -1,15 +1,49 @@
+# Ignore Android Studio project files
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
+.gradle/
+local.properties
+/.idea/
+/.idea/caches/
+/.idea/libraries/
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+
+# macOS
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+
+# Build folders
+/build/
+**/build/     # Ignore build folders in all modules
+/captures/
+/externalNativeBuild/
+.cxx/
+
+# Ignore generated files
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore logs
+*.log
+
+# Keystore files (if accidentally added)
+*.jks
+*.keystore
+
+# Ignore test result output
+/test-output/
+
+# Ignore any local VM options
+*.vmoptions
+
+# Prevent large cache or Gradle distribution files from being tracked
+**/.gradle/
+**/caches/
+**/wrapper/
+

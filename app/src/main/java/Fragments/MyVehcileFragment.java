@@ -141,23 +141,14 @@ public class MyVehcileFragment extends Fragment {
                     commonClass.setCveh_code(cveh_code);
                     commonClass.setVehhis_code(vehhis_code);
 
-
-
-
                     Global.allleadslist.add(commonClass);
-
-
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             vehiclesAdapter = new VehiclesAdapter(Global.allleadslist,getContext());
             VehiclelistRV.setAdapter(vehiclesAdapter);
             vehiclesAdapter.notifyDataSetChanged();
-           // swipeRefreshLayout.setRefreshing(false);
-
         }, error -> {
 
             if (error instanceof NoConnectionError) {
@@ -172,9 +163,7 @@ public class MyVehcileFragment extends Fragment {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                 }
-               // swipeRefreshLayout.setRefreshing(false);
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
 
         }) {
 
@@ -185,8 +174,6 @@ public class MyVehcileFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(

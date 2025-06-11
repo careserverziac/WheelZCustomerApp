@@ -164,7 +164,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     }
 
                     Log.d("Register", sresponse);
-//                    {"isSuccess":true,"error":"Change Password Successful !!"}
+//
 
                     try {
                         if (response.getBoolean("isSuccess")) {
