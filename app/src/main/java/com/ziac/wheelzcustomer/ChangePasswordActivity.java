@@ -33,6 +33,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     EditText Newpassword,Cpassword;
     AppCompatButton Updatepassword;
     private boolean passwordVisible = false;
+
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {

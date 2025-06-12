@@ -43,6 +43,7 @@ public class MainActivty extends AppCompatActivity  {
     Toolbar toolbar;
     SpannableString spannableString;
     boolean flag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

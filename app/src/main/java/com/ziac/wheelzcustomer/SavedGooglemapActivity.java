@@ -39,7 +39,6 @@ public class SavedGooglemapActivity extends AppCompatActivity implements OnMapRe
     private LinearLayout shareLocationButton;
     private LatLng selectedLatLng;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

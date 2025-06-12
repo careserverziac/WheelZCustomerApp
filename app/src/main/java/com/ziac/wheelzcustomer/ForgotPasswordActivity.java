@@ -44,6 +44,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     String username,mobile,email,fptype;
     ProgressBar progressBar;
     LinearLayout ForgetLinearLayout;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

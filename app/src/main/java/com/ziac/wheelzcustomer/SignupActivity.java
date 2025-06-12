@@ -53,8 +53,8 @@ public class SignupActivity extends AppCompatActivity {
     boolean passwordvisible;
     private boolean passwordVisible = false;
     private ProgressDialog progressDialog;
-
     String name,email,mobile,username,password,confirmpasword;
+
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {

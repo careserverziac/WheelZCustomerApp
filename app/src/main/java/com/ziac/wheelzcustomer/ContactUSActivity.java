@@ -26,8 +26,8 @@ public class ContactUSActivity extends AppCompatActivity {
     RelativeLayout Contact_whatsapp;
     LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
     RelativeLayout relativeLayout;
-
     boolean message = false;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

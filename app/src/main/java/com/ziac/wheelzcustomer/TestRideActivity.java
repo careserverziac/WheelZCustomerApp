@@ -121,7 +121,6 @@ public class TestRideActivity extends AppCompatActivity {
                 citiespopup();
             }
         });
-
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM yyyy", Locale.getDefault());
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
@@ -132,7 +131,6 @@ public class TestRideActivity extends AppCompatActivity {
         String currentTime = timeFormat.format(calendar.getTime());
         SelectedDate.setText(currentDate);
         Selectedtime.setText(currentTime);
-
 
         selectedTime24 = time24Format.format(calendar.getTime());
         sqldateformat = sqlDateFormat.format(calendar.getTime());

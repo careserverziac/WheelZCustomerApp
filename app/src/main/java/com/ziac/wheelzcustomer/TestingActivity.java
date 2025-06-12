@@ -51,7 +51,6 @@ public class TestingActivity extends AppCompatActivity {
             }
         }
     }
-
     private void openMap() {
 
         double latitude = 28.6129;
