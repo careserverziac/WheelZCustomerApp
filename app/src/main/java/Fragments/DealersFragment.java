@@ -130,7 +130,6 @@ public class DealersFragment extends Fragment {
         });
 
 
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

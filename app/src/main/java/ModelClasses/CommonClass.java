@@ -2,7 +2,7 @@ package ModelClasses;
 
 public class CommonClass {
 
-
+    private String createdby,createdon,doc_type;
     private String Image_path;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
@@ -563,6 +563,30 @@ public class CommonClass {
 
     public void setCom_contact_email(String com_contact_email) {
         this.com_contact_email = com_contact_email;
+    }
+
+    public String getCreatedby() {
+        return createdby;
+    }
+
+    public void setCreatedby(String createdby) {
+        this.createdby = createdby;
+    }
+
+    public String getCreatedon() {
+        return createdon;
+    }
+
+    public void setCreatedon(String createdon) {
+        this.createdon = createdon;
+    }
+
+    public String getDoc_type() {
+        return doc_type;
+    }
+
+    public void setDoc_type(String doc_type) {
+        this.doc_type = doc_type;
     }
 
     /*  public void setMobile_no(String mobile_no) {

@@ -8,11 +8,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -38,67 +43,89 @@ public class RegisterVehicleFragment extends Fragment {
     AppCompatButton Addvehicle;
     FragmentManager fragmentManager;
     LinearLayout RegLinear,Enginelinear,Chassislinear;
-    private Drawable backgroundgrey;
-    private Drawable backgroundblack;
+    Drawable backgroundgrey;
+    ImageView Backbtn;
+
+
+    ProgressBar progressBar;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         View view= inflater.inflate(R.layout.fragment_addvehicle, container, false);
+         View view= inflater.inflate(R.layout.fragment_register_vehicle, container, false);
 
 
         Registrationno=view.findViewById(R.id.regno);
         Engineno=view.findViewById(R.id.engineno);
         Chassisno=view.findViewById(R.id.chassisno);
         Addvehicle=view.findViewById(R.id.addvehicle);
-
         RegLinear=view.findViewById(R.id.reglnr);
         Enginelinear=view.findViewById(R.id.englnr);
         Chassislinear=view.findViewById(R.id.chasislnr);
-
+        progressBar=view.findViewById(R.id.progressBar);
+        Backbtn = view.findViewById(R.id.backbtn);
+        hideLoading();
         backgroundgrey = ContextCompat.getDrawable(getActivity(), R.drawable.border_colour2);
-        backgroundblack = ContextCompat.getDrawable(getActivity(), R.drawable.border_colour);
 
 
-        Addvehicle.setBackground(backgroundblack);
+        Registrationno.addTextChangedListener(new TextWatcher() {
+            private String previousText = "";
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                previousText = s.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String upperText = s.toString().toUpperCase();
+                if (!s.toString().equals(upperText)) {
+                    Registrationno.setText(upperText);
+                    Registrationno.setSelection(upperText.length()); // move cursor to end
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
         Registrationno.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                Addvehicle.setBackground(backgroundgrey);
                 Addvehicle.setText("Proceed");
             } else {
-                Addvehicle.setBackground(backgroundblack);
             }
         });
 
         Engineno.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                Addvehicle.setBackground(backgroundgrey);
                 Addvehicle.setText("Proceed");
             } else {
-                Addvehicle.setBackground(backgroundblack);
             }
         });
 
         Chassisno.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                Addvehicle.setBackground(backgroundgrey);
                 Addvehicle.setText("Proceed");
             } else {
-                Addvehicle.setBackground(backgroundblack);
+
             }
         });
 
 
         Addvehicle.setOnClickListener(v -> Updateprofiledetails());
+        Backbtn.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack();
+        });
 
         return view;
     }
 
     private void Updateprofiledetails() {
-
+        showLoading();
         regno = Registrationno.getText().toString();
         engineno = Engineno.getText().toString();
         chassisno = Chassisno.getText().toString();
@@ -118,6 +145,7 @@ public class RegisterVehicleFragment extends Fragment {
 
                     try {
                         if (response.getBoolean("isSuccess")) {
+                            hideLoading();
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
                             MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                             fragmentManager = requireActivity().getSupportFragmentManager();
@@ -128,15 +156,17 @@ public class RegisterVehicleFragment extends Fragment {
 
 
                         } else {
+                            hideLoading();
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
+                        hideLoading();
                         throw new RuntimeException(e);
                     }
 
                 }, error -> {
 
-
+                    hideLoading();
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -165,6 +195,13 @@ public class RegisterVehicleFragment extends Fragment {
         queue.add(stringRequest);
 
 
+    }
+
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
     }
 
 

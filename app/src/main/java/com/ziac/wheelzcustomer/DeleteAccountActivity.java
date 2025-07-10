@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
@@ -41,6 +42,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
     AppCompatButton Proceedbtn, ValidateandDelete;
     String OTP,otp,autoOTP;
     PinView pinView;
+    ImageView Backbtn;
     ProgressBar progressBar;
 
     @SuppressLint("MissingInflatedId")
@@ -52,6 +54,12 @@ public class DeleteAccountActivity extends AppCompatActivity {
         Proceedbtn = findViewById(R.id.proceedbtn);
         ValidateandDelete = findViewById(R.id.validatedelete);
         progressBar = findViewById(R.id.progressbarline);
+        Backbtn = findViewById(R.id.backbtn);
+
+        Backbtn.setOnClickListener(v -> {
+            finish();
+        });
+
 
         hideLoading();
         pinView = findViewById(R.id.pinviewdelete);

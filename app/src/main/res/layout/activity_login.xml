@@ -39,7 +39,7 @@
         android:layout_width="290dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:src="@drawable/wheelz_logowhite" />
+        android:src="@drawable/wheelz" />
 
   <LinearLayout
       android:layout_width="match_parent"

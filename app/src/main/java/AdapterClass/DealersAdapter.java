@@ -112,55 +112,6 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             openWebsite(website);
         });
 
-       /* holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(context);
-                View view1 = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_dailog, null);
-                bottomSheetDialog.setContentView(view1);
-
-                // Initialize the CalendarView and TimePicker
-                CalendarView calendarView = view1.findViewById(R.id.calendarView);
-                TimePicker timePicker = view1.findViewById(R.id.timePicker);
-                TextView selectedDateTime = view1.findViewById(R.id.selecteddatetime);
-                AppCompatButton confirmBooking = view1.findViewById(R.id.confirmbooking);
-
-                // Set up a listener to capture the selected date from the CalendarView
-                final int[] selectedYear = new int[1];
-                final int[] selectedMonth = new int[1];
-                final int[] selectedDay = new int[1];
-                calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-                    @Override
-                    public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                        selectedYear[0] = year;
-                        selectedMonth[0] = month + 1; // Month is 0-indexed
-                        selectedDay[0] = dayOfMonth;
-                        selectedDateTime.setText("Selected date: " + selectedDay[0] + "/" + selectedMonth[0] + "/" + selectedYear[0]);
-                    }
-                });
-
-                // Set up the TimePicker to use 24-hour format
-                timePicker.setIs24HourView(true);
-
-                confirmBooking.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int hour = timePicker.getHour();
-                        int minute = timePicker.getMinute();
-                        String selectedTime = hour + ":" + minute;
-                        String selectedDate = selectedDay[0] + "/" + selectedMonth[0] + "/" + selectedYear[0];
-
-                        // Send the selected date and time to the server
-                        sendDateTimeToServer(selectedDate, selectedTime);
-                        bottomSheetDialog.cancel();;
-                    }
-                });
-
-                bottomSheetDialog.show();
-            }
-        });*/
-
-
         holder.Bookaservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

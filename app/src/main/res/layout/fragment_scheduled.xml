@@ -394,7 +394,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/border_colour"
+                android:background="@drawable/border_colour2"
                 android:gravity="center"
                 android:orientation="vertical">
 

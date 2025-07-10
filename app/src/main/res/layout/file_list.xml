@@ -23,7 +23,7 @@
             android:padding="5dp">
 
             <LinearLayout
-                android:id="@+id/selectfilelnr"
+                android:id="@+id/file1"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -48,7 +48,7 @@
 
 
             <LinearLayout
-                android:id="@+id/selectfilelnr2"
+                android:id="@+id/file2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -35,6 +35,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -94,11 +95,12 @@ public class BookServiceFragment extends Fragment {
     private zList modelclass;
     Context context;
     private Dialog zDialog;
-    String locationUri, sqldateformat, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
+    String locationUri, sqldateformat,selctdveh, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
     FusedLocationProviderClient client;
     RadioGroup ServiceRB, PickupRB, VehdropRB;
     RadioButton Freeservice, Paidservice, PickupTrue, PickupFalse, VehdropTrue, VehdropFalse;
 
+    ImageView Backbtn;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +111,8 @@ public class BookServiceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_book_service, container, false);
         context = getContext();
+
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         Companyname = view.findViewById(R.id.bkcomname);
         Dealername = view.findViewById(R.id.bkdealername);
@@ -145,6 +149,8 @@ public class BookServiceFragment extends Fragment {
         VehdropTrue = view.findViewById(R.id.vehdroptrue);
         VehdropFalse = view.findViewById(R.id.vehdropfalse);
 
+        Backbtn = view.findViewById(R.id.backbtn);
+
         ServiceRB.check(R.id.paidservice);
         PickupRB.check(R.id.pickupfalse);
         VehdropRB.check(R.id.vehdropfalse);
@@ -157,7 +163,7 @@ public class BookServiceFragment extends Fragment {
         streetname = Global.sharedPreferences.getString("currentStreetName", "");
         fulladdress = Global.sharedPreferences.getString("currentFullAddress", "");
 
-        getvehicles();
+        getvehicledetails();
 
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         getcurrentlocation();
@@ -191,10 +197,8 @@ public class BookServiceFragment extends Fragment {
         SerApptDate.setText(currentDate);
         SelectedTm.setText(currentTime);
 
-
         selectedTime24 = time24Format.format(calendar.getTime());
         sqldateformat = sqlDateFormat.format(calendar.getTime());
-
 
         SelectedvehDp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,7 +206,6 @@ public class BookServiceFragment extends Fragment {
                 vehiclepopup();
             }
         });
-
 
         SerApptDate.setOnClickListener(v -> {
             Calendar newCalendar = Calendar.getInstance();
@@ -212,7 +215,6 @@ public class BookServiceFragment extends Fragment {
                         selectedDate.set(year, monthOfYear, dayOfMonth);
                         String selectedDateString = dateFormat.format(selectedDate.getTime());
                         SerApptDate.setText(selectedDateString);
-
 
                         sqldateformat = String.format("%04d %02d %02d",
                                 selectedDate.get(Calendar.YEAR),
@@ -243,7 +245,6 @@ public class BookServiceFragment extends Fragment {
             timePickerDialog.show();
         });
 
-
         Maplocation.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), GoogleMapActivity.class))));
 
         CnfrmbkgbBTN.setOnClickListener(new View.OnClickListener() {
@@ -252,7 +253,6 @@ public class BookServiceFragment extends Fragment {
                 validationprocess();
             }
         });
-
 
         serviceValue = "0";
         ServiceRB.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -296,19 +296,28 @@ public class BookServiceFragment extends Fragment {
             }
         });
 
+        Backbtn.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack();
+        });
 
         return view;
     }
 
-
     private void validationprocess() {
 
+        selctdveh = Selectedveh.getText().toString();
         odoreading = Odometer.getText().toString();
         complaint = Complaints.getText().toString();
 
-
+        if (selctdveh.isEmpty()) {
+            Toast.makeText(context, "Select vehicle field must not be null !!", Toast.LENGTH_SHORT).show();
+            Selectedveh.requestFocus();
+            return;
+        }
         if (odoreading.isEmpty()) {
-            Odometer.setError("Odometer field must not be null !!");
+            Toast.makeText(context, "Odometer field must not be null !!", Toast.LENGTH_SHORT).show();
             Odometer.requestFocus();
             return;
         }
@@ -317,28 +326,22 @@ public class BookServiceFragment extends Fragment {
             Complaints.requestFocus();
             return;
         }
-
         bookingservice();
     }
 
     private void bookingservice() {
 
-
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookServices,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String sresponse) {
-
-
                         JSONObject response = null;
                         try {
                             response = new JSONObject(sresponse);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
-
 
                         try {
                             if (response.getBoolean("isSuccess")) {
@@ -351,21 +354,16 @@ public class BookServiceFragment extends Fragment {
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
 
-
                             } else {
                                 Global.customtoast(getActivity(), getLayoutInflater(), response.getString("error"));
-
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
-                        /*progressDialog.dismiss();*/
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                /*progressDialog.dismiss();*/
-
                 // Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
@@ -418,7 +416,6 @@ public class BookServiceFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(stringRequest);
-
 
     }
 
@@ -634,40 +631,34 @@ public class BookServiceFragment extends Fragment {
         }
     }*/
 
-    private void getvehicles() {
+    private void getvehicledetails() {
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wusercode = Global.sharedPreferences.getString("wuser_code", "");
         String Url = Global.getallMyVehicles+"wuser_code="+wusercode;
 
-
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
-
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
 
                 Global.statearraylist = new ArrayList<zList>();
                 modelclass = new zList();
                 for (int i = 0; i < response.length(); i++) {
                     final JSONObject jsonObject;
                     try {
-                        // converting to json object
                         jsonObject = response.getJSONObject(i);
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
                     modelclass = new zList();
                     try {
-                        // getting the data  from the object
                         modelclass.set_name(jsonObject.getString("model_name"));
                         modelclass.setReg_no(jsonObject.getString("reg_no"));
                         modelclass.set_code(jsonObject.getString("cveh_code"));
                         modelclass.setWuser_code(jsonObject.getString("wuser_code"));
                         modelclass.setCom_code(jsonObject.getString("com_code"));
                         modelclass.setVehhis_code(jsonObject.getString("vehhis_code"));
-
                         vehcode = modelclass.get_code();
                         vehhis_code = modelclass.getVehhis_code();
                         wuser_code = modelclass.getWuser_code();
@@ -843,12 +834,23 @@ public class BookServiceFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Global.editor = Global.sharedPreferences.edit();
+        streetname = Global.sharedPreferences.getString("currentStreetName", "");
+        fulladdress = Global.sharedPreferences.getString("currentFullAddress", "");
+        Global.editor.apply();
+    }
+
+
+
+    @Override
     public void onResume() {
         super.onResume();
         refreshData();
     }
     private void refreshData() {
-        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         streetname = Global.sharedPreferences.getString("currentStreetName", "");
         fulladdress = Global.sharedPreferences.getString("currentFullAddress", "");
 

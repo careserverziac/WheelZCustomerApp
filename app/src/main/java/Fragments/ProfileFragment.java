@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
 
-    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword,Editicon;
+    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword;
     Intent intent;
     TextView Username,Usermobile,Useremail,Account;
     CircleImageView circularImageView;
@@ -68,7 +68,6 @@ public class ProfileFragment extends Fragment {
         Deleteaccount=view.findViewById(R.id.deleteaccount);
         Changepassword=view.findViewById(R.id.changepasword);
         Logout=view.findViewById(R.id.logoutbtn);
-        Editicon=view.findViewById(R.id.editicon);
         Username=view.findViewById(R.id.PRusername);
         Usermobile=view.findViewById(R.id.PRusermobile);
         Useremail=view.findViewById(R.id.PRusermail);
@@ -85,7 +84,6 @@ public class ProfileFragment extends Fragment {
 
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
-        Editicon.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ContactUSActivity.class))));
         Changepassword.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ChangePasswordActivity.class))));
 

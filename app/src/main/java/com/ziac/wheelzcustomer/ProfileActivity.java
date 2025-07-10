@@ -8,9 +8,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,19 +22,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -41,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -51,18 +67,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    FloatingActionButton Camera;
+    private static final int REQUEST_CODE_IMAGE = 10;
+    private static final int REQUEST_CODE_DOCUMENT = 1;
+
+    FloatingActionButton Camera,DL;
     EditText Name,Mobilenumber,Email;
     CircleImageView circularImageView;
     AppCompatButton UpdateProfilebtn;
     Bitmap imageBitmap;
-    String image,name,mobile,user_mail;
+    ProgressBar progressBar;
+    String image,name,mobile,user_mail,file_name,file_type,actual_filename,fileUrl,file;
+    ImageButton uploadRc, viewRc;
+    boolean isExpanded = false;
+    Context context;
+    ImageView Backbtn;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
+        context=ProfileActivity.this;
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         if (AppStatus.getInstance(this).isOnline()) {
@@ -76,11 +102,14 @@ public class ProfileActivity extends AppCompatActivity {
         Picasso picasso=builder.build();
         Global.loadWithPicasso(this, circularImageView, image);
 
+        progressBar = findViewById(R.id.progressbarfiles);
         Name=findViewById(R.id.name);
         Mobilenumber=findViewById(R.id.mobile);
         Email=findViewById(R.id.email);
         UpdateProfilebtn=findViewById(R.id.updateprofile);
-        Camera=findViewById(R.id.fab);
+        Camera=findViewById(R.id.pro_pic);
+        DL=findViewById(R.id.doc_upload);
+        Backbtn = findViewById(R.id.backbtn);
 
          name = Global.sharedPreferences.getString("key_person", "");
          mobile = Global.sharedPreferences.getString("Mobile1", "");
@@ -102,7 +131,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        Camera = findViewById(R.id.fab);
+        //Camera = findViewById(R.id.fab_right);
         Camera.setOnClickListener(v -> openCamera());
         Camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,8 +151,50 @@ public class ProfileActivity extends AppCompatActivity {
 
         });
 
-    }
+        uploadRc = findViewById(R.id.upload_rc);
+        viewRc = findViewById(R.id.view_rc);
 
+
+        uploadRc.setAlpha(0f);
+        uploadRc.setVisibility(View.GONE);
+        viewRc.setAlpha(0f);
+        viewRc.setVisibility(View.GONE);
+
+        DL.setOnClickListener(v -> {
+            if (!isExpanded) {
+
+                uploadRc.setVisibility(View.VISIBLE);
+                uploadRc.animate().alpha(1f).setDuration(500).start();
+
+                viewRc.setVisibility(View.VISIBLE);
+                viewRc.animate().alpha(1f).setDuration(800).start();
+            } else {
+
+                uploadRc.animate().alpha(0f).setDuration(800).withEndAction(() -> uploadRc.setVisibility(View.GONE)).start();
+                viewRc.animate().alpha(0f).setDuration(500).withEndAction(() -> viewRc.setVisibility(View.GONE)).start();
+            }
+            isExpanded = !isExpanded;
+        });
+
+        uploadRc.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"image/*", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+            startActivityForResult(intent, 1);
+        });
+
+        viewRc.setOnClickListener(v -> {
+
+            fileUrl = Global.dlpath+Global.sharedPreferences.getString("imgdoc_path",""); // Your file URL
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
+            startActivity(intent);
+        });
+
+        Backbtn.setOnClickListener(v -> {
+           finish();
+        });
+
+    }
 
     private void Updateprofiledetails() {
 
@@ -268,17 +339,50 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 10 && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            //imageList.add(uri);
-            try {
-                imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+
+        if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
+            Uri fileUri = data.getData();
+            String mimeType = context.getContentResolver().getType(fileUri);
+
+            if (requestCode == REQUEST_CODE_IMAGE) {
+                // Handle image
+                try {
+                    imageBitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), fileUri);
+                    Uploadselectedimage(); // Your method
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (requestCode == REQUEST_CODE_DOCUMENT) {
+                // Handle document
+                file_name = convertFileToBase64(fileUri); // Your method to convert to Base64
+
+                if (mimeType != null) {
+                    if (mimeType.equals("application/pdf")) {
+                        file_type = "PDF";
+                    } else if (mimeType.equals("application/msword")) {
+                        file_type = "DOC";
+                    } else if (mimeType.equals("application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
+                        file_type = "DOCX";
+                    } else if (mimeType.equals("application/vnd.ms-excel")) {
+                        file_type = "XLS";
+                    } else if (mimeType.equals("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")) {
+                        file_type = "XLSX";
+                    } else if (mimeType.startsWith("image/")) {
+                        file_type = "IMG"; // Optional — to handle image selection from file picker
+                    } else {
+                        Toast.makeText(context, "Unknown file type", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+
+                actual_filename = getFileName(fileUri); // Your method to get file name
+                uploadfiletoserver(); // Your upload method
             }
-            Uploadselectedimage();
         }
     }
 
@@ -368,8 +472,6 @@ public class ProfileActivity extends AppCompatActivity {
         return Base64.encodeToString(imgBytes, Base64.DEFAULT);
     }
 
-
-
     public void showImage(Picasso picasso, String userimage) {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -432,6 +534,236 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+
+
+    @SuppressLint("Range")
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private String convertFileToBase64(Uri uri) {
+        try {
+            InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            byte[] bytes = getBytes(inputStream);
+            return Base64.encodeToString(bytes, Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
+    }
+
+
+    private void uploadfiletoserver() {
+        showLoading();
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url = Global.urluploadfiles;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject resp = new JSONObject(response);
+                    if (resp.getBoolean("isSuccess")) {
+                        Global.customtoast(context, getLayoutInflater(), resp.getString("message"));
+                        hideLoading();
+                        getuserprofile();
+
+                    } else {
+
+                        if (resp.has("message")) {
+                            Global.customtoast(context, getLayoutInflater(), resp.getString("message"));
+                            hideLoading();
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                hideLoading();
+                if (error instanceof TimeoutError) {
+                    Toast.makeText(context, "Request Time-Out", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NoConnectionError) {
+                    Toast.makeText(context, "No Connection Found", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                    String errorResponse = new String(error.networkResponse.data);
+                    try {
+                        JSONObject errorJson = new JSONObject(errorResponse);
+                        String errorDescription = errorJson.optString("error_description", "");
+                        Global.customtoast(context, getLayoutInflater(), errorDescription);
+                    } catch (JSONException e) {
+                        Global.customtoast(context, getLayoutInflater(), "An error occurred. Please try again later.");
+                    }
+                } else if (error instanceof NetworkError) {
+                    Toast.makeText(context, "Network Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(context, "Parse Error", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("cveh_code", Global.sharedPreferences.getString("cveh_code",""));
+                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code",""));
+                params.put("file_type", file_type);
+                params.put("imgdoc_path", file_name);
+                params.put("doc_type", "D");
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(stringRequest);
+
+
+    }
+    private void showLoading() {
+       // progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void hideLoading() {
+
+        //progressBar.setVisibility(View.GONE);
+    }
+
+    private void getuserprofile() {
+
+        String url = Global.getuserprofiledetails;
+        RequestQueue queue= Volley.newRequestQueue(context);
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+
+            try {
+                JSONObject respObj1 = new JSONObject(response);
+                JSONObject respObj = new JSONObject(respObj1.getString("data"));
+
+                String userName = respObj.getString("userName");
+                String key_person = respObj.getString("key_person");
+                String Code = respObj.getString("Code");
+                String Email = respObj.getString("Email");
+                String Image = respObj.getString("Image");
+                String Mobile1 = respObj.getString("Mobile1");
+                String Mobile2 = respObj.getString("Mobile2");
+                String Approved = respObj.getString("Approved");
+                String Ref_Code = respObj.getString("Ref_Code");
+                String Active = respObj.getString("Active");
+                String Type = respObj.getString("Type");
+                String wuser_code = respObj.getString("wuser_code");
+                String cveh_code = respObj.getString("cveh_code");
+                String imgdoc_path = respObj.getString("imgdoc_path");
+
+
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                Global.editor = Global.sharedPreferences.edit();
+                Global.editor.putString("userName", userName);
+                Global.editor.putString("key_person", key_person);
+                Global.editor.putString("Code", Code);
+                Global.editor.putString("Email", Email);
+                Global.editor.putString("Image", Image);
+                Global.editor.putString("Mobile1", Mobile1);
+                Global.editor.putString("Mobile2", Mobile2);
+                Global.editor.putString("Approved", Approved);
+                Global.editor.putString("Ref_Code", Ref_Code);
+                Global.editor.putString("Active", Active);
+                Global.editor.putString("Type", Type);
+                Global.editor.putString("wuser_code", wuser_code);
+                Global.editor.putString("cveh_code", cveh_code);
+                Global.editor.putString("imgdoc_path", imgdoc_path);
+                Global.editor.commit();
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+                if (error instanceof TimeoutError) {
+                    Toast.makeText(context, "Request Time-Out", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NoConnectionError) {
+                    Toast.makeText(context, "Internet connection unavailable", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(context, "Server Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+                    Toast.makeText(context, "Network Error", Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(context, "Parse Error", Toast.LENGTH_LONG).show();}
+
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<String, String>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+
+        queue.add(request);
+    }
 
     @Override
     public void onBackPressed() {

@@ -10,6 +10,9 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -30,8 +33,9 @@ import ModelClasses.Global;
 public class ChangePasswordActivity extends AppCompatActivity {
 
 
+    ImageView Backbtn;
     EditText Newpassword,Cpassword;
-    AppCompatButton Updatepassword;
+    LinearLayout Updatepassword;
     private boolean passwordVisible = false;
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
@@ -43,6 +47,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         Newpassword=findViewById(R.id.newpassword);
         Cpassword=findViewById(R.id.cpassword);
         Updatepassword=findViewById(R.id.updatebtn);
+        Backbtn=findViewById(R.id.backbtn);
 
 
         Updatepassword.setOnClickListener(view -> ChangePasswordMethod());
@@ -88,6 +93,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        Backbtn.setOnClickListener(v -> {
+            finish();
+        });
+
 
     }
 
@@ -184,10 +194,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         }){
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
-                Log.d("getHeaders", params.toString());
-                return params;
+                Map<String, String> headers = new HashMap<String, String>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
             }
 
             protected Map<String, String> getParams() {

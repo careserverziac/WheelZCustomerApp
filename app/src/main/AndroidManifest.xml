@@ -30,15 +30,12 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/wheelz_logored"
+        android:icon="@drawable/wheelz"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.WheelZOnline"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".TestRideActivity"
-            android:exported="false" />
         <activity
             android:name=".TestDriveActivity"
             android:exported="false" />
@@ -50,31 +47,14 @@
             android:name=".GoogleMapActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".TestingActivity"
-            android:exported="false">
 
-            <!--
-         <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
 
-             <category android:name="android.intent.category.LAUNCHER" />
-         </intent-filter>
-            -->
-
-        </activity>
         <activity
             android:name=".DeleteAccountActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".ChangePasswordActivity"
@@ -118,6 +98,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

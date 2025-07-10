@@ -24,7 +24,7 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="55dp"
-                android:src="@drawable/wheelzsmalllogo" />
+                android:src="@drawable/wheelz" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -286,9 +286,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:padding="10dp"
-                                android:src="@drawable/folder"
-                                />
-
+                                android:src="@drawable/folder" />
 
 
                         </LinearLayout>
@@ -331,7 +329,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Booking"
+                                    android:text="Service"
                                     android:layout_marginTop="20dp"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/arsenal"

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class ContactUSActivity extends AppCompatActivity {
     LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
     RelativeLayout relativeLayout;
     boolean message = false;
+    ImageView Backbtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -47,6 +49,7 @@ public class ContactUSActivity extends AppCompatActivity {
         Call=findViewById(R.id.call);
         Mail=findViewById(R.id.maillink);
         relativeLayout=findViewById(R.id.locaterelative);
+        Backbtn = findViewById(R.id.backbtn);
 
 
         Instagram.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/ziacsoftwares/"))));
@@ -69,6 +72,10 @@ public class ContactUSActivity extends AppCompatActivity {
             Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","ziacsupport@ziacsoft.com", null));
             intent.putExtra(Intent.EXTRA_TEXT, message);
             startActivity(Intent.createChooser(intent, "ziacsupport@ziacsoft.com"));
+        });
+
+        Backbtn.setOnClickListener(v -> {
+           finish();
         });
 
     }

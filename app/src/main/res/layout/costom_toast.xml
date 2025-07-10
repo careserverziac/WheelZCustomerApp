@@ -10,7 +10,7 @@
         android:id="@+id/toast_icon"
         android:layout_width="40dp"
         android:layout_height="18dp"
-        android:src="@drawable/wheelz_logo" />
+        android:src="@drawable/wheelz" />
 
     <TextView
         android:id="@+id/toast_text"

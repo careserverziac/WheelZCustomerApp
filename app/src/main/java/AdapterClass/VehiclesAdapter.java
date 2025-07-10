@@ -80,10 +80,10 @@ import ModelClasses.Global;
 
                 Global.vehicledetails = vehicledetailsList.get(position);
 
-                ServiceHistory documentFragment = new ServiceHistory();
+                ServiceHistory serviceHistory = new ServiceHistory();
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, documentFragment);
+                fragmentTransaction.replace(R.id.framelayout, serviceHistory);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

@@ -19,7 +19,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import com.android.volley.DefaultRetryPolicy;
@@ -60,7 +59,7 @@ public class ChooseDealerFragment extends Fragment {
     String statecode,citycode,searchquery;
     RecyclerView DealerlistRV;
     DealerAdapter dealersAdapter;
-    ProgressBar progressBar;
+
     private ViewPager viewPager;
     public ChooseDealerFragment(ViewPager viewPager) {
         this.viewPager = viewPager;
@@ -90,26 +89,15 @@ public class ChooseDealerFragment extends Fragment {
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false));
 
-        Statedp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statespopup();
-            }
-        });
+        Statedp.setOnClickListener(v -> statespopup());
+        Citydp.setOnClickListener(v -> citiespopup());
 
-        Citydp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                citiespopup();
-            }
-        });
         return view;
     }
 
     private void getDealerslist() {
 
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
-
         Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
             @Override
@@ -160,7 +148,6 @@ public class ChooseDealerFragment extends Fragment {
                 dealersAdapter = new DealerAdapter(Global.dealersarraylist,getContext(),viewPager);
                 DealerlistRV.setAdapter(dealersAdapter);
                 dealersAdapter.notifyDataSetChanged();
-
 
             }
         },  error -> {
@@ -213,7 +200,6 @@ public class ChooseDealerFragment extends Fragment {
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Global.GetStates, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
 
                 Global.statearraylist = new ArrayList<zList>();
                 statename = new zList();

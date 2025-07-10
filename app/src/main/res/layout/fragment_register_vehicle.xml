@@ -9,6 +9,21 @@
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/backbtn"
+        android:layout_width="45dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow_left"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:layout_centerVertical="true" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +33,7 @@
         <ImageView
             android:layout_width="60dp"
             android:layout_height="55dp"
-            android:src="@drawable/wheelzsmalllogo" />
+            android:src="@drawable/wheelz" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -31,6 +46,8 @@
 
 
     </LinearLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,6 +63,17 @@
             android:padding="15dp">
 
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="220dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/red"
+                android:indeterminateTintMode="src_atop"
+                android:max="100"
+                android:progress="0" />
 
 
 
@@ -113,8 +141,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="5dp"
                 android:background="@drawable/border_colour"
+                android:padding="5dp"
                 android:orientation="vertical">
 
 
@@ -173,8 +201,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:padding="5dp"
                 android:background="@drawable/border_colour"
+                android:padding="5dp"
                 android:orientation="vertical">
 
 

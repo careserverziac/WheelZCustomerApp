@@ -12,7 +12,9 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -45,6 +47,7 @@ public class MyVehcileFragment extends Fragment {
     LinearLayout Registervehicle;
     FragmentManager fragmentManager;
     VehiclesAdapter vehiclesAdapter;
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -54,11 +57,12 @@ public class MyVehcileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_my_vehcile, container, false);
         Context context = requireContext();
+
         VehiclelistRV=view.findViewById(R.id.myvehiclelist);
         Registervehicle =view.findViewById(R.id.registervehicle);
+        progressBar =view.findViewById(R.id.progressBar);
 
-
-        GetAllvehicles();
+        VehicleinDetail();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehiclelistRV.setLayoutManager(linearLayoutManager);
@@ -78,10 +82,12 @@ public class MyVehcileFragment extends Fragment {
             }
         });
 
+
         return  view;
     }
-    private void  GetAllvehicles() {
+    private void VehicleinDetail() {
 
+        showLoading();
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wuser_code = Global.sharedPreferences.getString("wuser_code", "");
 
@@ -97,6 +103,7 @@ public class MyVehcileFragment extends Fragment {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
+                    hideLoading();
                     String vehimage = jsonObject.getString("veh_image1");
                     String wuser_code1 = jsonObject.getString("wuser_code");
                     String com_code = jsonObject.getString("com_code");
@@ -132,12 +139,14 @@ public class MyVehcileFragment extends Fragment {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+                hideLoading();
             }
             vehiclesAdapter = new VehiclesAdapter(Global.allleadslist,getContext());
             VehiclelistRV.setAdapter(vehiclesAdapter);
             vehiclesAdapter.notifyDataSetChanged();
-        }, error -> {
 
+        }, error -> {
+                hideLoading();
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
@@ -171,5 +180,11 @@ public class MyVehcileFragment extends Fragment {
 
         queue.add(request);
     }
+    private void showLoading() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
+    private void hideLoading() {
+        progressBar.setVisibility(View.GONE);
+    }
 }

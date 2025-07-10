@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ziac.wheelzcustomer.R;
 import com.ziac.wheelzcustomer.TestDriveActivity;
-import com.ziac.wheelzcustomer.TestRideActivity;
 
 import java.util.List;
 
@@ -97,7 +96,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             public void onClick(View v) {
 
                 Global.modellist = commonClassList.get(position);
-                Intent intent = new Intent(context, TestRideActivity.class);
+                Intent intent = new Intent(context, TestDriveActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

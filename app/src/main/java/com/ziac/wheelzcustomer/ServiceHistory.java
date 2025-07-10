@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -45,12 +46,14 @@ import ModelClasses.Global;
      RecyclerView ServiceRV;
      ServiceHistoryAdapter adapter;
      String vehhis_code;
+     ImageView Backbtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view= inflater.inflate(R.layout.fragment_service_history, container, false);
 
+        Backbtn = view.findViewById(R.id.backbtn);
         ServiceRV=view.findViewById(R.id.servicerv);
         ServiceRV.setLayoutManager(new LinearLayoutManager(requireContext()));
 
@@ -59,6 +62,12 @@ import ModelClasses.Global;
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         Servicehistory();
+
+        Backbtn.setOnClickListener(v -> {
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack();
+        });
         return view;
     }
 

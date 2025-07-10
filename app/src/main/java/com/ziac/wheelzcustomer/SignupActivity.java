@@ -16,6 +16,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -80,6 +81,7 @@ public class SignupActivity extends AppCompatActivity {
         Privacypolicy=findViewById(R.id.privacypolicy);
         Registration=findViewById(R.id.registertration);
         Registration.setOnClickListener(v -> validationprocess());
+
 
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -182,9 +184,6 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void validationprocess() {
-
-
-
 
         name = Name.getText().toString();
         email = Email.getText().toString();

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.multidex.BuildConfig;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -71,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
         ForgotPasswordTXT=findViewById(R.id.forgotpasswordtxt);
         versionName = findViewById(R.id.version);
         versionName.setText("Ver No:" + BuildConfig.VERSION_NAME);
-
 
         Username.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +136,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-
-
-
 
     private void dologin() {
         progressDialog.show();
@@ -243,6 +238,8 @@ public class LoginActivity extends AppCompatActivity {
                 String Active = respObj.getString("Active");
                 String Type = respObj.getString("Type");
                 String wuser_code = respObj.getString("wuser_code");
+                String cveh_code = respObj.getString("cveh_code");
+                String imgdoc_path = respObj.getString("imgdoc_path");
 
 
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -259,6 +256,8 @@ public class LoginActivity extends AppCompatActivity {
                 Global.editor.putString("Active", Active);
                 Global.editor.putString("Type", Type);
                 Global.editor.putString("wuser_code", wuser_code);
+                Global.editor.putString("cveh_code", cveh_code);
+                Global.editor.putString("imgdoc_path", imgdoc_path);
                 Global.editor.commit();
 
                 startActivity(new Intent(LoginActivity.this, MainActivty.class));
