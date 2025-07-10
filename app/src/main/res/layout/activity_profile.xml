@@ -83,28 +83,56 @@
                 android:padding="8dp">
 
                 <!-- Main FAB -->
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/doc_upload"
+                <FrameLayout
+                    android:id="@+id/custom_fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#E84D4D"
-                    android:src="@drawable/article"
-                    android:contentDescription="Main FAB"
-                    app:tint="@android:color/white" />
+                    android:layout_margin="10dp">
 
-                <!-- Upload RC to the right of FAB -->
+                    <LinearLayout
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:backgroundTint="#E84D4D"
+                        android:background="@drawable/roundedbutton"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="4dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/article"
+                            app:tint="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/driving_licence"
+                            android:textSize="9sp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:textColor="@android:color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Driving license"
+                            android:textSize="8sp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:textColor="@android:color/white" />
+                    </LinearLayout>
+                </FrameLayout>
+
                 <ImageButton
                     android:id="@+id/upload_rc"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
                     android:background="@drawable/roundedbutton"
                     android:src="@drawable/add_doc"
                     android:backgroundTint="#4CAF50"
                     app:tint="@android:color/white"
                     android:scaleType="center" />
 
-                <!-- View RC to the right of Upload -->
                 <ImageButton
                     android:id="@+id/view_rc"
                     android:layout_width="40dp"
@@ -116,13 +144,11 @@
                     app:tint="@android:color/white"
                     android:scaleType="center" />
 
-                <!-- Spacer to push pro_pic to the right end -->
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_weight="1" />
 
-                <!-- Profile Picture FAB -->
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/pro_pic"
                     android:layout_width="wrap_content"
@@ -130,8 +156,8 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#E84D4D"
                     android:src="@drawable/camera_icon"
-                    android:contentDescription="Profile Image"
                     app:tint="@android:color/white" />
+
             </LinearLayout>
 
 

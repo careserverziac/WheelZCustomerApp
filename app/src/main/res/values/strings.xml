@@ -19,6 +19,7 @@
     <string name="forward"><![CDATA[->]]></string>
     <string name="contact_us_underlined"><u>CONTACT US</u></string>
     <string name="change_password"><u>Change Password</u></string>
+    <string name="driving_licence">Driving licence</string>
 
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">

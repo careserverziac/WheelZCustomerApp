@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -70,7 +71,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_IMAGE = 10;
     private static final int REQUEST_CODE_DOCUMENT = 1;
 
-    FloatingActionButton Camera,DL;
+    FloatingActionButton Camera;
+    FrameLayout DL;
     EditText Name,Mobilenumber,Email;
     CircleImageView circularImageView;
     AppCompatButton UpdateProfilebtn;
@@ -108,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
         Email=findViewById(R.id.email);
         UpdateProfilebtn=findViewById(R.id.updateprofile);
         Camera=findViewById(R.id.pro_pic);
-        DL=findViewById(R.id.doc_upload);
+        DL=findViewById(R.id.custom_fab);
         Backbtn = findViewById(R.id.backbtn);
 
          name = Global.sharedPreferences.getString("key_person", "");
