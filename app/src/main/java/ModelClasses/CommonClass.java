@@ -3,7 +3,7 @@ package ModelClasses;
 public class CommonClass {
 
     private String createdby,createdon,doc_type;
-    private String Image_path;
+    private String Image_path,image_code;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
             com_website,com_contact,com_contact_mobno,logo_image,com_phone,com_lng,com_lat,com_contact_email;
@@ -11,7 +11,7 @@ public class CommonClass {
     public String chassis_no,batt_no,vcol_name,prv_serdt,nxt_serdt,image;
 
     public String service_code,service_date,service_time,service_type,pick_flag,drop_flag,additional_info
-            ,location_map,service_address;
+            ,location_map,service_address,img_path;
 
 
     public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
@@ -69,12 +69,36 @@ public class CommonClass {
 
     }
 
+ /*   public String getImg_path() {
+        return img_path;
+    }
+
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
+    }*/
+
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getImage_code() {
+        return image_code;
+    }
+
+    public void setImage_code(String image_code) {
+        this.image_code = image_code;
+    }
+
+    public String getImg_path() {
+        return img_path;
+    }
+
+    public void setImg_path(String img_path) {
+        this.img_path = img_path;
     }
 
     public String getModel_code() {

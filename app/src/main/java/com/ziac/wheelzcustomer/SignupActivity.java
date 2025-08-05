@@ -352,7 +352,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
 
-                Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
+               // Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
                     Global.customtoast(SignupActivity.this, getLayoutInflater(), "Request Time-Out");

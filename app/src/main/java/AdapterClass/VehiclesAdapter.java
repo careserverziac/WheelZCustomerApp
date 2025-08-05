@@ -94,7 +94,7 @@ import ModelClasses.Global;
 
     @Override
     public int getItemCount() {
-        return vehicledetailsList.size();
+        return vehicledetailsList !=null? vehicledetailsList.size():0;
     }
 
     public class Vehicleviewholder extends RecyclerView.ViewHolder {

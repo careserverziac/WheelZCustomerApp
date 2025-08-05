@@ -1,0 +1,47 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black">
+
+    <!-- Top bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="55dp"
+            android:src="@drawable/wheelz" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/calistoga"
+            android:text="WheelZ"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressbarfiles"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+      <!-- RecyclerView -->
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/documentRV"
+          android:padding="10dp"
+          android:layout_marginTop="60dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent" />
+    <!-- Sub Buttons Container with proper alignment -->
+
+</FrameLayout>

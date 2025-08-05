@@ -176,7 +176,7 @@ public class SplashActivity extends AppCompatActivity {
 
                 String userName = respObj.getString("userName");
                 String key_person = respObj.getString("key_person");
-                String Code = respObj.getString("Code");
+                String Code = respObj.getString("com_code");
                 String Email = respObj.getString("Email");
                 String Image = respObj.getString("Image");
                 String Mobile1 = respObj.getString("Mobile1");

@@ -42,11 +42,13 @@ import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList;
+    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList,Pre_own_veh;
     FragmentManager fragmentManager;
-    String lattitude, longitude, currentLocationString, fullAddress, sublocality;
+    FragmentTransaction fragmentTransaction;
+    String lattitude,longitude,currentLocationString, fullAddress, sublocality;
     FusedLocationProviderClient client;
 
+    String vehtype="";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -57,8 +59,10 @@ public class DashboardFragment extends Fragment {
         Servicehistory = view.findViewById(R.id.servicehistoryCD);
         Vehdocuments = view.findViewById(R.id.vehdocumentsCD);
         ServiceList = view.findViewById(R.id.bookingCD);
+        Pre_own_veh = view.findViewById(R.id.pre_ownd_veh);
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        vehtype=Global.sharedPreferences.getString("vtypecode","");
 
         client=LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -78,7 +82,7 @@ public class DashboardFragment extends Fragment {
 
                 DealersFragment dealersFragment = new DealersFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, dealersFragment);
                 fragmentTransaction.commit();
 
@@ -92,7 +96,7 @@ public class DashboardFragment extends Fragment {
 
                 MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
@@ -106,7 +110,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
@@ -119,11 +123,36 @@ public class DashboardFragment extends Fragment {
 
                 ServiceListFragment serviceListFragment = new ServiceListFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, serviceListFragment);
                 fragmentTransaction.commit();
 
                 ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
+            }
+        });
+
+        Pre_own_veh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (vehtype.isEmpty()) {
+                    PreferenceFragment preferenceFragment= new PreferenceFragment();
+                    fragmentManager = requireActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.framelayout, preferenceFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                } else {
+                    PreOwnedVehicleFragment preOwnedVehicleFragment = new PreOwnedVehicleFragment();
+                    fragmentManager = requireActivity().getSupportFragmentManager();
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.framelayout, preOwnedVehicleFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                }
+
             }
         });
         return view;

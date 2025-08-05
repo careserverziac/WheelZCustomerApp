@@ -38,10 +38,9 @@ public class VehicleDetailFragment extends Fragment {
         Saleprice=view.findViewById(R.id.saleprice);
         Chargingtime=view.findViewById(R.id.chargingtime);
 
-        Global.loadWithPicasso(requireActivity(), Veh_image, Global.modelsimageurl + Global.modellist.getImage_path());
+        Global.loadWithPicasso(requireActivity(), Veh_image, Global.modelsimageurl + Global.vehicledetails.getImage_path());
 
-
-        Category.setText(Global.modellist.getCategory());
+      /*  Category.setText(Global.modellist.getCategory());
         Fuelname.setText(Global.modellist.getFuelname());
         Bodytype.setText(Global.modellist.getBodytype());
         Bhp.setText(Global.modellist.getBhp());
@@ -49,7 +48,18 @@ public class VehicleDetailFragment extends Fragment {
         Manufacturer.setText(Global.modellist.getManufacture());
         Modelname.setText(Global.modellist.getModel_name());
         Saleprice.setText(Global.modellist.getSaleprice());
-        Chargingtime.setText(Global.modellist.getChargingtime());
+        Chargingtime.setText(Global.modellist.getChargingtime());*/
+
+
+        Category.setText(Global.vehicledetails.getCategory());
+        Fuelname.setText(Global.vehicledetails.getFuelname());
+        Bodytype.setText(Global.vehicledetails.getBodytype());
+        Bhp.setText(Global.vehicledetails.getBhp());
+        Topspeed.setText(Global.vehicledetails.getTopspeed());
+        Manufacturer.setText(Global.vehicledetails.getManufacture());
+        Modelname.setText(Global.vehicledetails.getModel_name());
+        Saleprice.setText(Global.vehicledetails.getSaleprice());
+        Chargingtime.setText(Global.vehicledetails.getChargingtime());
 
         return view;
     }

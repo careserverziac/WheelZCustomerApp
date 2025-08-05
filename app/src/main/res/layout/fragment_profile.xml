@@ -256,14 +256,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="20dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
-                        android:src="@drawable/person_white_icon"
-                        android:text="Username"
-                        android:textColor="@color/white" />
-
+                        android:src="@drawable/faq"
+                        android:textColor="@color/white"
+                        app:tint="@color/white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -343,7 +343,6 @@
                         android:layout_height="20sp"
                         android:layout_gravity="right"
                         android:src="@drawable/baseline_contact_us"
-                        android:text="Username"
                         android:textColor="@color/white" />
 
 

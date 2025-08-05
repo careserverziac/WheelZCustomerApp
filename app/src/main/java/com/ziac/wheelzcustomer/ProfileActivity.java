@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,15 +29,23 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.webkit.MimeTypeMap;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -47,22 +56,30 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
+import ModelClasses.zList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -70,19 +87,23 @@ public class ProfileActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_IMAGE = 10;
     private static final int REQUEST_CODE_DOCUMENT = 1;
-
     FloatingActionButton Camera;
+    zList statename, cityname, vehicletype;
+    String  country_code, state_code, city_code,country_name,state_name,city_name;
+    Dialog zDialog;
     FrameLayout DL;
-    EditText Name,Mobilenumber,Email;
+    EditText Name, Mobilenumber, Email;
+    TextView Country, State, City;
     CircleImageView circularImageView;
     AppCompatButton UpdateProfilebtn;
     Bitmap imageBitmap;
     ProgressBar progressBar;
-    String image,name,mobile,user_mail,file_name,file_type,actual_filename,fileUrl,file;
+    String image, name, mobile, user_mail, file_name, file_type, actual_filename, fileUrl, file;
     ImageButton uploadRc, viewRc;
     boolean isExpanded = false;
     Context context;
     ImageView Backbtn;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,37 +111,53 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
-        context=ProfileActivity.this;
+        context = ProfileActivity.this;
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         if (AppStatus.getInstance(this).isOnline()) {
         } else {
-            Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+            Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
         }
 
         image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-        circularImageView=findViewById(R.id.profile_images);
-        Picasso.Builder builder=new Picasso.Builder(getApplication());
-        Picasso picasso=builder.build();
+        circularImageView = findViewById(R.id.profile_images);
+        Picasso.Builder builder = new Picasso.Builder(getApplication());
+        Picasso picasso = builder.build();
         Global.loadWithPicasso(this, circularImageView, image);
 
         progressBar = findViewById(R.id.progressbarfiles);
-        Name=findViewById(R.id.name);
-        Mobilenumber=findViewById(R.id.mobile);
-        Email=findViewById(R.id.email);
-        UpdateProfilebtn=findViewById(R.id.updateprofile);
-        Camera=findViewById(R.id.pro_pic);
-        DL=findViewById(R.id.custom_fab);
+        Name = findViewById(R.id.name);
+        Mobilenumber = findViewById(R.id.mobile);
+        Email = findViewById(R.id.email);
+        Country = findViewById(R.id.country);
+        State = findViewById(R.id.state);
+        City = findViewById(R.id.city);
+        UpdateProfilebtn = findViewById(R.id.updateprofile);
+        Camera = findViewById(R.id.pro_pic);
+        DL = findViewById(R.id.custom_fab);
         Backbtn = findViewById(R.id.backbtn);
 
-         name = Global.sharedPreferences.getString("key_person", "");
-         mobile = Global.sharedPreferences.getString("Mobile1", "");
-         user_mail = Global.sharedPreferences.getString("Email", "");
+        name = Global.sharedPreferences.getString("key_person", "");
+        mobile = Global.sharedPreferences.getString("Mobile1", "");
+        user_mail = Global.sharedPreferences.getString("Email", "");
 
-         Name.setText(name);
+        country_name = Global.sharedPreferences.getString("country_name", "");
+        state_name = Global.sharedPreferences.getString("state_name", "");
+        city_name = Global.sharedPreferences.getString("city_name", "");
+
+        country_code = Global.sharedPreferences.getString("country_code", "");
+        state_code = Global.sharedPreferences.getString("state_code", "");
+        city_code = Global.sharedPreferences.getString("city_code", "");
+
+        Name.setText(name);
         Mobilenumber.setText(mobile);
         Email.setText(user_mail);
+        Country.setText(country_name);
+        State.setText(state_name);
+        City.setText(city_name);
 
+        getcountries();
+        getstates();
 
         UpdateProfilebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
                     Updateprofiledetails();
                 } else {
-                    Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
                 }
             }
         });
@@ -141,7 +178,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
                     openCamera();
                 } else {
-                    Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
                 }
             }
         });
@@ -149,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         circularImageView.setOnClickListener(v -> {
             image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-            showImage(picasso,image);
+            showImage(picasso, image);
 
         });
 
@@ -187,24 +224,643 @@ public class ProfileActivity extends AppCompatActivity {
 
         viewRc.setOnClickListener(v -> {
 
-            fileUrl = Global.dlpath+Global.sharedPreferences.getString("imgdoc_path",""); // Your file URL
+            fileUrl = Global.dlpath + Global.sharedPreferences.getString("imgdoc_path", ""); // Your file URL
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
             startActivity(intent);
         });
 
         Backbtn.setOnClickListener(v -> {
-           finish();
+            finish();
         });
+
+        Country.setOnClickListener(v -> {
+            countrypopup();
+        });
+
+        State.setOnClickListener(v -> {
+            statespopup();
+        });
+
+        City.setOnClickListener(v -> {
+            citiespopup();
+        });
+
 
     }
 
+    private void getcountries() {
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Global.Getcountries, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                Global.Countryarraylist = new ArrayList<zList>();
+                statename = new zList();
+                for (int i = 0; i < response.length(); i++) {
+                    final JSONObject e;
+                    try {
+                        // converting to json object
+                        e = response.getJSONObject(i);
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    statename = new zList();
+                    try {
+                        // getting the state name from the object
+                        statename.set_name(e.getString("country_name"));
+                        statename.set_code(e.getString("country_code"));
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Global.Countryarraylist.add(statename);
+                }
+
+            }
+        }, error -> {
+
+            if (error instanceof NoConnectionError) {
+                if (error instanceof TimeoutError) {
+                    Global.customtoast(context, getLayoutInflater(), "Request Time-Out");
+                } else if (error instanceof NoConnectionError) {
+                    Global.customtoast(context, getLayoutInflater(), "Internet connection unavailable");
+                } else if (error instanceof ServerError) {
+                    Global.customtoast(context, getLayoutInflater(), "Server Error");
+                } else if (error instanceof NetworkError) {
+                    Global.customtoast(context, getLayoutInflater(), "Network Error");
+                } else if (error instanceof ParseError) {
+                    Global.customtoast(context, getLayoutInflater(), "Parse Error");
+                }
+            }
+            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
+
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+
+        };
+
+        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        queue.add(jsonArrayrequest);
+
+    }
+
+    public void countrypopup() {
+
+        zDialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        zDialog.setContentView(R.layout.popup_list);
+
+        ListView lvStates = zDialog.findViewById(R.id.lvstates);
+
+        if (Global.Countryarraylist == null || Global.Countryarraylist.size() == 0) {
+            // Toast.makeText(getBaseContext(), "States list not found !! Please try again !!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        final CountryAdapter laStates = new CountryAdapter(Global.Countryarraylist);
+        lvStates.setAdapter(laStates);
+
+        zDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        zDialog.show();
+
+        SearchView svstate = zDialog.findViewById(R.id.svstate);
+        svstate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //  Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+                laStates.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    private class CountryAdapter extends BaseAdapter implements Filterable {
+        private ArrayList<zList> mDataArrayList;
+
+        public CountryAdapter(ArrayList<zList> arrayList) {
+            this.mDataArrayList = arrayList;
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    List<zList> mFilteredList = new ArrayList<>();
+                    String charString = charSequence.toString();
+                    if (charString.isEmpty()) {
+                        mFilteredList = Global.Countryarraylist;
+                    } else {
+                        for (zList dataList : Global.Countryarraylist) {
+                            if (dataList.get_name().toLowerCase().contains(charString)) {
+                                mFilteredList.add(dataList);
+                            }
+                        }
+                    }
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = mFilteredList;
+                    filterResults.count = mFilteredList.size();
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    mDataArrayList = (ArrayList<zList>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+
+        @Override
+        public int getCount() {
+            return mDataArrayList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mDataArrayList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            @SuppressLint("ViewHolder") View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
+            final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
+            statename = mDataArrayList.get(i);
+            tvstatenameitem.setText(statename.get_name());
+
+            radioButton.setOnClickListener(view1 -> {
+                boolean isChecked = radioButton.isChecked();
+                radioButton.setChecked(!isChecked);
+                statename = mDataArrayList.get(i);
+                country_code = statename.get_code();
+                city_code = "";
+                zDialog.dismiss();
+                //getcity();
+                Country.setText(statename.get_name());
+            });
+
+            tvstatenameitem.setOnClickListener(view1 -> {
+                statename = mDataArrayList.get(i);
+                country_code = statename.get_code();
+                city_code = "";
+                zDialog.dismiss();
+               // getcity();
+                Country.setText(statename.get_name());
+            });
+
+            return v;
+        }
+
+
+    }
+
+
+    private void getstates() {
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Global.GetStates, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+                Global.statearraylist = new ArrayList<zList>();
+                statename = new zList();
+                for (int i = 0; i < response.length(); i++) {
+                    final JSONObject e;
+                    try {
+                        // converting to json object
+                        e = response.getJSONObject(i);
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    statename = new zList();
+                    try {
+                        // getting the state name from the object
+                        statename.set_name(e.getString("state_name"));
+                        statename.set_code(e.getString("state_code"));
+                    } catch (JSONException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Global.statearraylist.add(statename);
+                }
+
+            }
+        }, error -> {
+
+            if (error instanceof NoConnectionError) {
+                if (error instanceof TimeoutError) {
+                    Global.customtoast(context, getLayoutInflater(), "Request Time-Out");
+                } else if (error instanceof NoConnectionError) {
+                    Global.customtoast(context, getLayoutInflater(), "Internet connection unavailable");
+                } else if (error instanceof ServerError) {
+                    Global.customtoast(context, getLayoutInflater(), "Server Error");
+                } else if (error instanceof NetworkError) {
+                    Global.customtoast(context, getLayoutInflater(), "Network Error");
+                } else if (error instanceof ParseError) {
+                    Global.customtoast(context, getLayoutInflater(), "Parse Error");
+                }
+            }
+            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
+
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+
+        };
+
+        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // timeout in milliseconds
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
+        queue.add(jsonArrayrequest);
+
+    }
+
+    public void statespopup() {
+
+        zDialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+        zDialog.setContentView(R.layout.popup_list);
+
+        ListView lvStates = zDialog.findViewById(R.id.lvstates);
+
+        if (Global.statearraylist == null || Global.statearraylist.size() == 0) {
+            // Toast.makeText(getBaseContext(), "States list not found !! Please try again !!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        final StateAdapter laStates = new StateAdapter(Global.statearraylist);
+        lvStates.setAdapter(laStates);
+
+        zDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        zDialog.show();
+
+        SearchView svstate = zDialog.findViewById(R.id.svstate);
+        svstate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //  Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+                laStates.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+
+    private class StateAdapter extends BaseAdapter implements Filterable {
+        private ArrayList<zList> mDataArrayList;
+
+        public StateAdapter(ArrayList<zList> arrayList) {
+            this.mDataArrayList = arrayList;
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    List<zList> mFilteredList = new ArrayList<>();
+                    String charString = charSequence.toString();
+                    if (charString.isEmpty()) {
+                        mFilteredList = Global.statearraylist;
+                    } else {
+                        for (zList dataList : Global.statearraylist) {
+                            if (dataList.get_name().toLowerCase().contains(charString)) {
+                                mFilteredList.add(dataList);
+                            }
+                        }
+                    }
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = mFilteredList;
+                    filterResults.count = mFilteredList.size();
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    mDataArrayList = (ArrayList<zList>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+
+        @Override
+        public int getCount() {
+            return mDataArrayList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mDataArrayList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            @SuppressLint("ViewHolder") View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
+            final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
+            statename = mDataArrayList.get(i);
+            tvstatenameitem.setText(statename.get_name());
+
+            radioButton.setOnClickListener(view1 -> {
+                boolean isChecked = radioButton.isChecked();
+                radioButton.setChecked(!isChecked);
+                statename = mDataArrayList.get(i);
+                state_code = statename.get_code();
+                city_code = "";
+                City.setText("");
+                zDialog.dismiss();
+                getcity();
+                State.setText(statename.get_name());
+            });
+
+            tvstatenameitem.setOnClickListener(view1 -> {
+                statename = mDataArrayList.get(i);
+                state_code = statename.get_code();
+                city_code = "";
+                City.setText("");
+                zDialog.dismiss();
+                getcity();
+                State.setText(statename.get_name());
+            });
+
+            return v;
+        }
+
+
+    }
+
+    private void getcity() {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        String url = Global.GetCity;
+        url = url + "state_code=" + state_code;
+        StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String sresponse) {
+
+                        JSONArray response;
+                        try {
+                            response = new JSONArray(sresponse);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Global.cityarraylist = new ArrayList<zList>();
+                        cityname = new zList();
+                        // tvCity.setText("");
+                        for (int i = 0; i < response.length(); i++) {
+                            final JSONObject e;
+                            try {
+                                // converting to json object
+                                e = response.getJSONObject(i);
+                            } catch (JSONException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            cityname = new zList();
+                            try {
+                                // getting the city name from the object
+                                cityname.set_name(e.getString("city_name"));
+                                cityname.set_code(e.getString("city_code"));
+                                city_code = cityname.get_code();
+
+                                if (cityname.get_name().isEmpty()) {
+                                    Toast.makeText(context, "No city found for the selected state", Toast.LENGTH_SHORT).show();
+                                    City.setText("");
+                                } else {
+                                    City.setText(cityname.get_name());
+                                }
+
+
+                            } catch (JSONException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            Global.cityarraylist.add(cityname);
+                        }
+
+
+                    }
+                },
+                error -> {
+
+                    if (error instanceof NoConnectionError) {
+                        if (error instanceof TimeoutError) {
+                            Global.customtoast(context, getLayoutInflater(), "Request Time-Out");
+                        } else if (error instanceof NoConnectionError) {
+                            Global.customtoast(context, getLayoutInflater(), "Internet connection unavailable");
+                        } else if (error instanceof ServerError) {
+                            Global.customtoast(context, getLayoutInflater(), "Server Error");
+                        } else if (error instanceof NetworkError) {
+                            Global.customtoast(context, getLayoutInflater(), "Network Error");
+                        } else if (error instanceof ParseError) {
+                            Global.customtoast(context, getLayoutInflater(), "Parse Error");
+                        }
+                    }
+
+
+                }) {
+
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+
+        };
+
+        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(0),
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+        queue.add(jsonArrayrequest);
+
+    }
+
+    public void citiespopup() {
+
+        zDialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);        ;
+        //zDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        zDialog.setContentView(R.layout.popup_list);
+
+        ListView lvStates = zDialog.findViewById(R.id.lvstates);
+
+        if (Global.cityarraylist == null || Global.cityarraylist.size() == 0) {
+            City.setText("");
+            Global.customtoast(context, getLayoutInflater(), "No cities found for selected state");
+
+            return;
+        }
+        final CityAdapter laStates = new CityAdapter(Global.cityarraylist);
+        lvStates.setAdapter(laStates);
+
+        zDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        zDialog.show();
+
+        SearchView svstate = zDialog.findViewById(R.id.svstate);
+        svstate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //  Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
+                laStates.getFilter().filter(newText);
+                return false;
+            }
+        });
+    }
+
+    private class CityAdapter extends BaseAdapter implements Filterable {
+        private ArrayList<zList> mDataArrayList;
+
+        public CityAdapter(ArrayList<zList> arrayList) {
+            this.mDataArrayList = arrayList;
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence charSequence) {
+                    List<zList> mFilteredList = new ArrayList<>();
+                    String charString = charSequence.toString();
+                    if (charString.isEmpty()) {
+                        mFilteredList = Global.statearraylist;
+                    } else {
+                        for (zList dataList : Global.statearraylist) {
+                            if (dataList.get_name().toLowerCase().contains(charString)) {
+                                mFilteredList.add(dataList);
+                            }
+                        }
+                    }
+                    FilterResults filterResults = new FilterResults();
+                    filterResults.values = mFilteredList;
+                    filterResults.count = mFilteredList.size();
+                    return filterResults;
+                }
+
+                @Override
+                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                    mDataArrayList = (ArrayList<zList>) filterResults.values;
+                    notifyDataSetChanged();
+                }
+            };
+        }
+
+        @Override
+        public int getCount() {
+            return mDataArrayList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return mDataArrayList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
+            final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
+            cityname = mDataArrayList.get(i);
+            tvstatenameitem.setText(cityname.get_name());
+
+
+            tvstatenameitem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cityname = mDataArrayList.get(i);
+                    // Citytxt.setText(cityname.get_name());
+                    city_code = cityname.get_code();
+                    City.setText(cityname.get_name());
+                    zDialog.dismiss();
+
+
+                }
+            });
+
+            radioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    cityname = mDataArrayList.get(i);
+                    // Citytxt.setText(cityname.get_name());
+                    city_code = cityname.get_code();
+                    City.setText(cityname.get_name());
+                    zDialog.dismiss();
+
+                }
+            });
+            return v;
+        }
+    }
+
+
     private void Updateprofiledetails() {
 
-        String personname,mobile,email;
+        String personname, mobile, email;
 
         personname = Name.getText().toString();
         mobile = Mobilenumber.getText().toString();
         email = Email.getText().toString();
+        country_name = Country.getText().toString();
+        state_name = State.getText().toString();
+        city_name = City.getText().toString();
 
         if (personname.isEmpty()) {
 
@@ -220,12 +876,12 @@ public class ProfileActivity extends AppCompatActivity {
             Toast.makeText(ProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
 
             return;
-        }if (email.length() < 10) {
+        }
+        if (email.length() < 10) {
             Toast.makeText(ProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
 
             return;
         }
-
 
 
         RequestQueue queue = Volley.newRequestQueue(ProfileActivity.this);
@@ -244,17 +900,22 @@ public class ProfileActivity extends AppCompatActivity {
 
                     Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                     Global.editor = Global.sharedPreferences.edit();
-                    Global.editor.putString("key_person", Name.getText().toString());
-                    Global.editor.putString("Mobile1", Mobilenumber.getText().toString());
-                    Global.editor.putString("Email", Email.getText().toString());
+                    Global.editor.putString("key_person", personname);
+                    Global.editor.putString("Mobile1", mobile);
+                    Global.editor.putString("Email", email);
+                    Global.editor.putString("country_code", country_code);
+                    Global.editor.putString("state_code", state_code);
+                    Global.editor.putString("city_code", city_code);
+                    Global.editor.putString("country_name", country_name);
+                    Global.editor.putString("state_name", state_name);
+                    Global.editor.putString("city_name", city_name);
                     Global.editor.commit();
-
 
 
                     try {
                         if (response.getBoolean("isSuccess")) {
 //                                Toast.makeText(ProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
-                            Global.customtoast(ProfileActivity.this,getLayoutInflater(),"Updated successfully !!");
+                            Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Updated successfully !!");
                             finish();
                             Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
                             startActivity(intent);
@@ -270,12 +931,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                 }, error -> {
 
-                    //  progressBar.setVisibility(View.GONE);
-                    //  Toast.makeText(ProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            //  progressBar.setVisibility(View.GONE);
+            //  Toast.makeText(ProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     /*textViewError.setText(error.getLocalizedMessage());
                     textViewError.setVisibility(View.VISIBLE);*/
 
-                }) {
+        }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -286,11 +947,15 @@ public class ProfileActivity extends AppCompatActivity {
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("key_person",personname);
-                params.put("username", Global.sharedPreferences.getString("userName",""));
-                params.put("wuser_mobile1",mobile);
+                params.put("key_person", personname);
+                params.put("username", Global.sharedPreferences.getString("userName", ""));
+                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code", ""));
+                params.put("wuser_mobile1", mobile);
                 params.put("wuser_mobile2", Mobilenumber.getText().toString());
-                params.put("wuser_email",email);
+                params.put("wuser_email", email);
+                params.put("country_code", country_code);
+                params.put("state_code", state_code);
+                params.put("city_code", city_code);
                 return params;
             }
         };
@@ -390,7 +1055,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void Uploadselectedimage() {
 
-        if (imageBitmap == null) {return;}
+        if (imageBitmap == null) {
+            return;
+        }
 
         String url = Global.urlUpdateprofileImage;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -407,23 +1074,23 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 if (resp.getBoolean("success")) {
                     String Message = resp.getString("message");
-                    String uploadimage= resp.getString("data");
+                    String uploadimage = resp.getString("data");
 
                     Global.editor = Global.sharedPreferences.edit();
                     Global.editor.putString("Image", uploadimage);
                     Global.editor.commit();
 
-                    String image = Global.userimageurl +uploadimage;
+                    String image = Global.userimageurl + uploadimage;
                     /*Picasso.get().load(image).into(circularImageView);*/
                     Global.loadWithPicasso(this, circularImageView, image);
-                    Global.customtoast(ProfileActivity.this, getLayoutInflater(),Message);
+                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), Message);
 
                 } else {
                     if (resp.has("error")) {
 
                         String errorMessage = resp.getString("error");
                         Toast.makeText(ProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                       // Toast.makeText(ProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(ProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -453,8 +1120,9 @@ public class ProfileActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 String image = imageToString(imageBitmap);
 
-                params.put("fileName",image);
-                 Log.d("YourTag", "File Name: " + params.get("fileName"));
+                params.put("fileName", image);
+                params.put("cveh_code", Global.sharedPreferences.getString("cveh_code",""));
+                Log.d("YourTag", "File Name: " + params.get("fileName"));
 
                 // params.put("vehmas_code",Global.selectedvstock.getStockItemId());
 
@@ -537,7 +1205,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
     @SuppressLint("Range")
     private String getFileName(Uri uri) {
         String result = null;
@@ -590,6 +1257,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void uploadfiletoserver() {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(context);
+        String wuser_code= Global.sharedPreferences.getString("wuser_code", "");
         String url = Global.urluploadfiles;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -649,12 +1317,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-
-                params.put("cveh_code", Global.sharedPreferences.getString("cveh_code",""));
-                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code",""));
-                params.put("file_type", file_type);
+                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code", ""));
                 params.put("imgdoc_path", file_name);
-                params.put("doc_type", "D");
+                params.put("file_type", file_type);
 
                 return params;
             }
@@ -667,8 +1332,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     }
+
     private void showLoading() {
-       // progressBar.setVisibility(View.VISIBLE);
+        // progressBar.setVisibility(View.VISIBLE);
     }
 
     private void hideLoading() {
@@ -679,7 +1345,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void getuserprofile() {
 
         String url = Global.getuserprofiledetails;
-        RequestQueue queue= Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
 
             try {
@@ -688,7 +1354,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                 String userName = respObj.getString("userName");
                 String key_person = respObj.getString("key_person");
-                String Code = respObj.getString("Code");
                 String Email = respObj.getString("Email");
                 String Image = respObj.getString("Image");
                 String Mobile1 = respObj.getString("Mobile1");
@@ -702,11 +1367,11 @@ public class ProfileActivity extends AppCompatActivity {
                 String imgdoc_path = respObj.getString("imgdoc_path");
 
 
+
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 Global.editor = Global.sharedPreferences.edit();
                 Global.editor.putString("userName", userName);
                 Global.editor.putString("key_person", key_person);
-                Global.editor.putString("Code", Code);
                 Global.editor.putString("Email", Email);
                 Global.editor.putString("Image", Image);
                 Global.editor.putString("Mobile1", Mobile1);
@@ -718,6 +1383,13 @@ public class ProfileActivity extends AppCompatActivity {
                 Global.editor.putString("wuser_code", wuser_code);
                 Global.editor.putString("cveh_code", cveh_code);
                 Global.editor.putString("imgdoc_path", imgdoc_path);
+                Global.editor.putString("country_code", country_code);
+                Global.editor.putString("state_code", state_code);
+                Global.editor.putString("city_code", city_code);
+                Global.editor.putString("country_name", country_name);
+                Global.editor.putString("state_name", state_name);
+                Global.editor.putString("city_name", city_name);
+                Global.editor.commit();
                 Global.editor.commit();
 
 
@@ -738,7 +1410,8 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (error instanceof NetworkError) {
                     Toast.makeText(context, "Network Error", Toast.LENGTH_LONG).show();
                 } else if (error instanceof ParseError) {
-                    Toast.makeText(context, "Parse Error", Toast.LENGTH_LONG).show();}
+                    Toast.makeText(context, "Parse Error", Toast.LENGTH_LONG).show();
+                }
 
             }
         }) {

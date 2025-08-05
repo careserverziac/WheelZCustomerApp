@@ -51,9 +51,9 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + commonClassList.get(position).getImage());
+        Global.loadWithPicasso(context, holder.Veh_image, Global.brandsimageurl + commonClassList.get(position).getImage_path());
 
-        String image=commonClassList.get(position).getImage();
+        //String image=commonClassList.get(position).getImage();
         holder.Manufacturer.setText(commonClassList.get(position).getManufacture());
 
         String ccString = commonClassList.get(position).getCc();
@@ -65,9 +65,11 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
         holder.Modelscardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CommonClass svel = new CommonClass();
 
-                svel.setImage_path(Global.allleadslist.get(position).getImage_path());
+                Global.vehicledetails = commonClassList.get(position);
+                //CommonClass svel = new CommonClass();
+
+           /*     svel.setImage_path(Global.allleadslist.get(position).getImage());
                 svel.setCategory(Global.allleadslist.get(position).getCategory());
                 svel.setManufacture(Global.allleadslist.get(position).getManufacture());
                 svel.setModel_name(Global.allleadslist.get(position).getModel_name());
@@ -80,7 +82,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
                 svel.setChargingtime(Global.allleadslist.get(position).getChargingtime());
                 svel.setSaleprice(Global.allleadslist.get(position).getSaleprice());
 
-                Global.modellist = svel;
+                Global.modellist = svel;*/
 
                 VehicleDetailFragment vehicleDetailFragment = new VehicleDetailFragment();
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();

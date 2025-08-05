@@ -86,6 +86,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
         Global.loadWithPicasso(context, holder.Dealer_image, Global.companyimageurl + dealerList.get(position).getImage_path());
 
         holder.Comyname.setText(dealerList.get(position).getCom_name());
+        holder.State.setText(dealerList.get(position).getState_name());
         holder.ComCity.setText(dealerList.get(position).getCity_name());
         holder.Comwebsite.setText(dealerList.get(position).getCom_website());
         holder.ComAddress.setText(dealerList.get(position).getCom_address());
@@ -145,26 +146,20 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
 
     private void initiatePhoneCall(String phoneNumber) {
-        // Check if the device has the required permissions
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 context.checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // Request the CALL_PHONE permission
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 123);
             return;
         } else {
-            // Permission already granted, initiate the phone call
             makePhoneCall(phoneNumber);
         }
     }
 
     private void makePhoneCall(String phoneNumber) {
-        // Create an Intent to initiate a phone call
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
 
-        // Check if there is an activity that can handle this intent
         if (callIntent.resolveActivity(context.getPackageManager()) != null) {
-            // Start the phone call
             context.startActivity(callIntent);
         } else {
             Toast.makeText(context, "No app can handle this action", Toast.LENGTH_SHORT).show();
@@ -182,15 +177,11 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     }
 
     private void openWebsite(String websiteUrl) {
-        // Check if the website URL is not empty
         if (!TextUtils.isEmpty(websiteUrl)) {
-            // Create an Intent to open the website
             Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
             websiteIntent.setData(Uri.parse(websiteUrl));
 
-            // Check if there is an activity that can handle this intent
             if (websiteIntent.resolveActivity(context.getPackageManager()) != null) {
-                // Start the activity to open the website
                 context.startActivity(websiteIntent);
             } else {
                 Toast.makeText(context, "No app can handle this action", Toast.LENGTH_SHORT).show();
@@ -203,10 +194,9 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
         ImageView Dealer_image;
         TextView Comyname,ComCity,ComMobile,ComMail,ComAddress,Bookaservice;
-        TextView DealerName,Dealermobno,Dealeremail,Comwebsite;
+        TextView DealerName,Dealermobno,Dealeremail,Comwebsite,State;
         LinearLayout Company_phone,DealerPhone;
         BottomSheetDialog bottomSheetDialog;
-       // CardView Modelscardview;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -221,13 +211,8 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             DealerPhone=itemView.findViewById(R.id.dealerphone);
             Comwebsite=itemView.findViewById(R.id.com_website);
             Bookaservice=itemView.findViewById(R.id.bookaservice);
+            State=itemView.findViewById(R.id.state);
 
-
-
-            // CC=itemView.findViewById(R.id.veh_cc);
-
-          /*  Category=itemView.findViewById(R.id.veh_category);
-            BHP=itemView.findViewById(R.id.veh_bhp);*/
         }
     }
 

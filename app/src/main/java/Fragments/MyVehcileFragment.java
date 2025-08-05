@@ -98,7 +98,7 @@ public class MyVehcileFragment extends Fragment {
         StringRequest request = new StringRequest(Request.Method.GET, Url, response -> {
             try {
                 JSONArray jsonArray = new JSONArray(response);
-                Global.allleadslist = new ArrayList<>();
+                Global.myvehiclelist = new ArrayList<>();
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -135,13 +135,15 @@ public class MyVehcileFragment extends Fragment {
                     commonClass.setCveh_code(cveh_code);
                     commonClass.setVehhis_code(vehhis_code);
 
-                    Global.allleadslist.add(commonClass);
+                    Global.myvehiclelist.add(commonClass);
+
+                    hideLoading();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 hideLoading();
             }
-            vehiclesAdapter = new VehiclesAdapter(Global.allleadslist,getContext());
+            vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist,getContext());
             VehiclelistRV.setAdapter(vehiclesAdapter);
             vehiclesAdapter.notifyDataSetChanged();
 

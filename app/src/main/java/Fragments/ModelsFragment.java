@@ -71,6 +71,7 @@ public class ModelsFragment extends Fragment {
             searchView.setIconified(false);
             searchView.requestFocus();
         });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -186,7 +187,7 @@ public class ModelsFragment extends Fragment {
         queue.add(request);
     }
     
-    private void  GetAllModels() {
+    private void GetAllModels() {
 
         showLoading();
         RequestQueue queue= Volley.newRequestQueue(requireActivity());
@@ -220,7 +221,7 @@ public class ModelsFragment extends Fragment {
 
                     commonClass = new CommonClass();
                     commonClass.setModel_code(vmodelCode);
-                    commonClass.setImage(vehimage);
+                    commonClass.setImage_path(vehimage);
                     commonClass.setCategory(vcate_name);
                     commonClass.setManufacture(mfg_name);
                     commonClass.setCc(veh_cc);

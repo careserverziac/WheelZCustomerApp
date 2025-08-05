@@ -3,7 +3,7 @@ package ModelClasses;
  public  class zList {
     private String name;
     private String code;
-    private String wuser_code,com_code,vehhis_code,reg_no;
+    private String wuser_code,com_code,vehhis_code,reg_no,Veh_type_code;
 
     public String getReg_no() {return reg_no;}
 
@@ -34,5 +34,11 @@ package ModelClasses;
         this.code = code;
     }
 
+     public String getVeh_type_code() {
+         return Veh_type_code;
+     }
 
-}
+     public void setVeh_type_code(String veh_type_code) {
+         Veh_type_code = veh_type_code;
+     }
+ }

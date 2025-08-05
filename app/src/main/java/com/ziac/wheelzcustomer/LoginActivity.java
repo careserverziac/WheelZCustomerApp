@@ -217,99 +217,118 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void getuserprofile() {
-
         String url = Global.getuserprofiledetails;
-        RequestQueue queue= Volley.newRequestQueue(LoginActivity.this);
-        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
+        RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
 
+        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
             try {
                 JSONObject respObj1 = new JSONObject(response);
-                JSONObject respObj = new JSONObject(respObj1.getString("data"));
 
-                String userName = respObj.getString("userName");
-                String key_person = respObj.getString("key_person");
-                String Code = respObj.getString("Code");
-                String Email = respObj.getString("Email");
-                String Image = respObj.getString("Image");
-                String Mobile1 = respObj.getString("Mobile1");
-                String Mobile2 = respObj.getString("Mobile2");
-                String Approved = respObj.getString("Approved");
-                String Ref_Code = respObj.getString("Ref_Code");
-                String Active = respObj.getString("Active");
-                String Type = respObj.getString("Type");
-                String wuser_code = respObj.getString("wuser_code");
-                String cveh_code = respObj.getString("cveh_code");
-                String imgdoc_path = respObj.getString("imgdoc_path");
+                boolean isSuccess = respObj1.getBoolean("isSuccess");
 
+                if (isSuccess) {
+                    JSONObject respObj = new JSONObject(respObj1.getString("data"));
 
-                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                Global.editor = Global.sharedPreferences.edit();
-                Global.editor.putString("userName", userName);
-                Global.editor.putString("key_person", key_person);
-                Global.editor.putString("Code", Code);
-                Global.editor.putString("Email", Email);
-                Global.editor.putString("Image", Image);
-                Global.editor.putString("Mobile1", Mobile1);
-                Global.editor.putString("Mobile2", Mobile2);
-                Global.editor.putString("Approved", Approved);
-                Global.editor.putString("Ref_Code", Ref_Code);
-                Global.editor.putString("Active", Active);
-                Global.editor.putString("Type", Type);
-                Global.editor.putString("wuser_code", wuser_code);
-                Global.editor.putString("cveh_code", cveh_code);
-                Global.editor.putString("imgdoc_path", imgdoc_path);
-                Global.editor.commit();
+                    String com_code = respObj.getString("com_code");
+                    String userName = respObj.getString("userName");
+                    String key_person = respObj.getString("key_person");
+                    String Email = respObj.getString("Email");
+                    String Image = respObj.getString("Image");
+                    String Mobile1 = respObj.getString("Mobile1");
+                    String Mobile2 = respObj.getString("Mobile2");
+                    String Approved = respObj.getString("Approved");
+                    String Ref_Code = respObj.getString("Ref_Code");
+                    String Active = respObj.getString("Active");
+                    String Type = respObj.getString("Type");
+                    String wuser_code = respObj.getString("wuser_code");
+                    String cveh_code = respObj.getString("cveh_code");
+                    String imgdoc_path = respObj.getString("imgdoc_path");
+                    String country_code = respObj.getString("country_code");
+                    String state_code = respObj.getString("state_code");
+                    String city_code = respObj.getString("city_code");
+                    String country_name = respObj.getString("country_name");
+                    String state_name = respObj.getString("state_name");
+                    String city_name = respObj.getString("city_name");
+                    String createdby = respObj.getString("createdby");
 
-                startActivity(new Intent(LoginActivity.this, MainActivty.class));
-                progressDialog.dismiss();
-                finish();
+                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Global.editor = Global.sharedPreferences.edit();
+                    Global.editor.putString("com_code", com_code);
+                    Global.editor.putString("userName", userName);
+                    Global.editor.putString("key_person", key_person);
+                    Global.editor.putString("Email", Email);
+                    Global.editor.putString("Image", Image);
+                    Global.editor.putString("Mobile1", Mobile1);
+                    Global.editor.putString("Mobile2", Mobile2);
+                    Global.editor.putString("Approved", Approved);
+                    Global.editor.putString("Ref_Code", Ref_Code);
+                    Global.editor.putString("Active", Active);
+                    Global.editor.putString("Type", Type);
+                    Global.editor.putString("wuser_code", wuser_code);
+                    Global.editor.putString("cveh_code", cveh_code);
+                    Global.editor.putString("country_code", country_code);
+                    Global.editor.putString("state_code", state_code);
+                    Global.editor.putString("city_code", city_code);
+                    Global.editor.putString("country_name", country_name);
+                    Global.editor.putString("state_name", state_name);
+                    Global.editor.putString("city_name", city_name);
+                    Global.editor.putString("imgdoc_path", imgdoc_path);
+                    Global.editor.putString("createdby", createdby);
+                    Global.editor.commit();
 
+                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivty.class));
+                    finish();
+
+                } else {
+                    String errorMessage = respObj1.optString("error", "Something went wrong");
+                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                Toast.makeText(LoginActivity.this, "Parsing error occurred", Toast.LENGTH_SHORT).show();
+            } finally {
+                progressDialog.dismiss();
             }
-        }, new com.android.volley.Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        }, error -> {
+            progressDialog.dismiss();
 
-
-                if (error instanceof TimeoutError) {
-                    Toast.makeText(LoginActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NoConnectionError) {
-                    Toast.makeText(LoginActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ServerError) {
-                    Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof NetworkError) {
-                    Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_LONG).show();
-                } else if (error instanceof ParseError) {
-                    Toast.makeText(LoginActivity.this, "Parse Error", Toast.LENGTH_LONG).show();}
-
+            if (error instanceof TimeoutError) {
+                Toast.makeText(LoginActivity.this, "Request Time-Out", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NoConnectionError) {
+                Toast.makeText(LoginActivity.this, "Internet connection unavailable", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ServerError) {
+                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_LONG).show();
+            } else if (error instanceof NetworkError) {
+                Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_LONG).show();
+            } else if (error instanceof ParseError) {
+                Toast.makeText(LoginActivity.this, "Parse Error", Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
             public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<String, String>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null).toString();
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
+                return new HashMap<>();
             }
         };
 
         request.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+                0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
-
         queue.add(request);
     }
+
 
 
 }

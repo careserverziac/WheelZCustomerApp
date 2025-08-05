@@ -2,7 +2,6 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -36,16 +33,13 @@ import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.ServiceClass;
-
 
 public class ServiceListFragment extends Fragment {
 
@@ -97,7 +91,7 @@ public class ServiceListFragment extends Fragment {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        com_code = Global.com_code;
+        com_code =Global.sharedPreferences.getString("Code","");
         url = Global.getCategoriesList;
         URL = url + "comcode=" + com_code;
 
@@ -186,7 +180,7 @@ public class ServiceListFragment extends Fragment {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        com_code = Global.com_code;
+        com_code =Global.sharedPreferences.getString("com_code","");
         url = Global.ProductList;
         URL = url + "comcode=" + com_code ;
 
@@ -408,7 +402,7 @@ public class ServiceListFragment extends Fragment {
         private void selected_CatProducts(String prd_cat_code) {
 
             RequestQueue queue = Volley.newRequestQueue(context);
-            com_code = Global.com_code;
+            com_code =Global.sharedPreferences.getString("Code","");
             url = Global.ProductCatPrdFilter;
             URL = url + "comcode=" + com_code + "&vcate_code=" + prd_cat_code ;
 
@@ -452,7 +446,6 @@ public class ServiceListFragment extends Fragment {
                             String sp_photo = jsonObject.getString("sp_photo");
                             String part_no = jsonObject.getString("part_no");
                             String hsn = jsonObject.getString("HSN");
-
                             ServiceClass serviceClass = new ServiceClass();
 
                             serviceClass.setCom_code(com_code);
@@ -466,7 +459,6 @@ public class ServiceListFragment extends Fragment {
                             serviceClass.setPrd_image(sp_photo);
                             serviceClass.setPart_number(part_no);
                             serviceClass.setHsncode(hsn);
-
 
                             Global.commonarraylist.add(serviceClass);
                             swipeRefreshLayout.setRefreshing(false);

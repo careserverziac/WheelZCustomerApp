@@ -142,10 +142,11 @@ public class ProfileFragment extends Fragment {
 
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
                 Global.editor = Global.sharedPreferences.edit();
-                Global.editor.remove("access_token");
+               /* Global.editor.remove("access_token");
                 Global.editor.remove("refresh_token");
-                Global.editor.remove("message");
-                Global.editor.commit();
+                Global.editor.remove("message");*/
+                Global.editor.clear();
+                Global.editor.apply();
 
                 startActivity(new Intent(requireActivity(), LoginActivity.class));
                 requireActivity().finish();
@@ -166,7 +167,7 @@ public class ProfileFragment extends Fragment {
             i.setType("text/plain");
             // i.putExtra(Intent.EXTRA_SUBJECT, "Portaz-DFC");
             String sAux = "\nClick the link to download the app from the Google Play Store\n\n";
-            sAux = sAux + "https://play.google.com/store/apps/details?id=com.ziac.divinecrmapp\n\n";
+            sAux = sAux + "https://play.google.com/store/apps/details?id=com.ziac.wheelzcustomer\n\n";
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             startActivity(Intent.createChooser(i, "Choose to share"));
         } catch (Exception e) {

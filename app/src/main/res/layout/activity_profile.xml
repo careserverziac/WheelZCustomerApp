@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -13,38 +12,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/backbtn"
-        android:layout_width="45dp"
-        android:layout_height="30dp"
-        android:src="@drawable/arrow_left"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_centerVertical="true" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:src="@drawable/wheelz" />
+            android:id="@+id/backbtn"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/arrow_left" />
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/calistoga"
-            android:text="WheelZ"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="55dp"
+                android:src="@drawable/wheelz" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calistoga"
+                android:text="WheelZ"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -62,8 +61,6 @@
             android:padding="15dp">
 
 
-
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_images"
                 android:layout_width="match_parent"
@@ -78,8 +75,8 @@
                 android:id="@+id/fab_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:padding="8dp">
 
                 <!-- Main FAB -->
@@ -92,10 +89,10 @@
                     <LinearLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:backgroundTint="#E84D4D"
                         android:background="@drawable/roundedbutton"
-                        android:orientation="vertical"
+                        android:backgroundTint="#E84D4D"
                         android:gravity="center"
+                        android:orientation="vertical"
                         android:padding="4dp">
 
                         <ImageView
@@ -107,19 +104,19 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal_bold"
                             android:gravity="center"
                             android:text="@string/driving_licence"
-                            android:textSize="9sp"
-                            android:fontFamily="@font/arsenal_bold"
-                            android:textColor="@android:color/white" />
+                            android:textColor="@android:color/white"
+                            android:textSize="9sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Driving license"
-                            android:textSize="8sp"
                             android:fontFamily="@font/arsenal_bold"
-                            android:textColor="@android:color/white" />
+                            android:text="Driving license"
+                            android:textColor="@android:color/white"
+                            android:textSize="8sp" />
                     </LinearLayout>
                 </FrameLayout>
 
@@ -128,10 +125,10 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/roundedbutton"
-                    android:src="@drawable/add_doc"
                     android:backgroundTint="#4CAF50"
-                    app:tint="@android:color/white"
-                    android:scaleType="center" />
+                    android:scaleType="center"
+                    android:src="@drawable/add_doc"
+                    app:tint="@android:color/white" />
 
                 <ImageButton
                     android:id="@+id/view_rc"
@@ -139,10 +136,10 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/roundedbutton"
-                    android:src="@drawable/license"
                     android:backgroundTint="#2196F3"
-                    app:tint="@android:color/white"
-                    android:scaleType="center" />
+                    android:scaleType="center"
+                    android:src="@drawable/license"
+                    app:tint="@android:color/white" />
 
                 <View
                     android:layout_width="0dp"
@@ -169,11 +166,11 @@
                 android:orientation="vertical">
 
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:layout_width="wrap_content"
@@ -192,12 +189,12 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
                         android:hint="@string/your_name"
                         android:inputType="textCapSentences|textEmailAddress"
                         android:longClickable="true"
                         android:maxLength="25"
                         android:padding="5dp"
-                        android:fontFamily="@font/arsenal"
                         android:textColor="@color/white"
                         android:textColorHint="#BDB9B9"
                         android:textSize="16sp" />
@@ -211,9 +208,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:padding="5dp"
                 android:background="@drawable/border_colour"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
 
                 <LinearLayout
@@ -240,7 +237,8 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
-                        android:fontFamily="@font/arsenal"                        android:hint="@string/mobile_number"
+                        android:fontFamily="@font/arsenal"
+                        android:hint="@string/mobile_number"
                         android:inputType="number"
                         android:longClickable="true"
                         android:maxLength="10"
@@ -257,9 +255,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:padding="5dp"
                 android:background="@drawable/border_colour"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
 
                 <LinearLayout
@@ -282,7 +280,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/arsenal"                        android:background="@android:color/transparent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
                         android:hint="@string/email_address"
                         android:inputType="textEmailAddress"
                         android:longClickable="true"
@@ -294,11 +293,172 @@
                 </LinearLayout>
 
 
+            </LinearLayout>
+
+            ////////////////////////////////////////////////////////
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/country"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/country"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="left|center"
+                        android:hint="select country"
+                        android:inputType="textEmailAddress"
+                        android:longClickable="true"
+                        android:maxLength="35"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/hint_txt_clr"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|right"
+                        android:src="@drawable/baseline_arrow_dp"
+                        android:textColor="@color/white"
+                        tools:ignore="RtlHardcoded" />
+                </LinearLayout>
 
 
             </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/state_icon"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/state"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="left|center"
+                        android:hint="select state"
+                        android:inputType="textEmailAddress"
+                        android:longClickable="true"
+                        android:maxLength="35"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/hint_txt_clr"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/dd_vehmanufacturer"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end|right"
+                        android:src="@drawable/baseline_arrow_dp"
+                        android:textColor="@color/white"
+                        tools:ignore="RtlHardcoded" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/border_colour"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#E84D4D"
+                        android:focusable="true"
+                        android:gravity="center"
+                        app:fabSize="mini"
+                        app:srcCompat="@drawable/city"
+                        app:tint="@color/white" />
+
+                    <TextView
+                        android:id="@+id/city"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
+                        android:gravity="left|center"
+                        android:hint="select city"
+                        android:inputType="textEmailAddress"
+                        android:longClickable="true"
+                        android:maxLength="35"
+                        android:padding="5dp"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/hint_txt_clr"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:src="@drawable/baseline_arrow_dp"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            ////////////////////////////////////////////////////////
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -310,9 +470,10 @@
                     android:id="@+id/updateprofile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/border_colour2"
+                    android:fontFamily="@font/arsenal"
                     android:text="Update"
                     android:textColor="#ffffff"
                     android:textSize="16sp" />

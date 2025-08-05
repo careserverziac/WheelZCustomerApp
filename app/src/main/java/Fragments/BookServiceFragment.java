@@ -642,7 +642,7 @@ public class BookServiceFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
 
-                Global.statearraylist = new ArrayList<zList>();
+                Global.vehiclearraylist = new ArrayList<zList>();
                 modelclass = new zList();
                 for (int i = 0; i < response.length(); i++) {
                     final JSONObject jsonObject;
@@ -667,7 +667,7 @@ public class BookServiceFragment extends Fragment {
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
-                    Global.statearraylist.add(modelclass);
+                    Global.vehiclearraylist.add(modelclass);
                 }
 
             }
@@ -718,11 +718,11 @@ public class BookServiceFragment extends Fragment {
 
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
 
-        if (Global.statearraylist == null || Global.statearraylist.size() == 0) {
-            // Toast.makeText(getBaseContext(), "States list not found !! Please try again !!", Toast.LENGTH_LONG).show();
+        if (Global.vehiclearraylist == null || Global.vehiclearraylist.size() == 0) {
+             Toast.makeText(requireActivity(), "Vehicle list not found !!", Toast.LENGTH_LONG).show();
             return;
         }
-        final VehicleAdapter laStates = new VehicleAdapter(Global.statearraylist);
+        final VehicleAdapter laStates = new VehicleAdapter(Global.vehiclearraylist);
         lvStates.setAdapter(laStates);
 
         zDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -761,9 +761,9 @@ public class BookServiceFragment extends Fragment {
                     List<zList> mFilteredList = new ArrayList<>();
                     String charString = charSequence.toString();
                     if (charString.isEmpty()) {
-                        mFilteredList = Global.statearraylist;
+                        mFilteredList = Global.vehiclearraylist;
                     } else {
-                        for (zList dataList : Global.statearraylist) {
+                        for (zList dataList : Global.vehiclearraylist) {
                             if (dataList.get_name().toLowerCase().contains(charString)) {
                                 mFilteredList.add(dataList);
                             }

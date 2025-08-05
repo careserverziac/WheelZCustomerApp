@@ -54,17 +54,16 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/state_icon"/>
+                        android:src="@drawable/loc" />
 
                     <TextView
-                        android:id="@+id/com_city"
+                        android:id="@+id/com_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="Bangalore"
-                        android:textColor="#344955"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/arsenal"
+                        android:text="5 th cross  Bangalore karnataka 670004"
+                        android:textColor="#CAC8C8"
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -126,21 +125,21 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/locationi"/>
+                android:src="@drawable/state_icon"/>
 
             <TextView
-                android:id="@+id/com_address"
+                android:id="@+id/state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/arsenal"
-                android:text="5 th cross  Bangalore karnataka 670004"
-                android:textColor="#CAC8C8"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Karnataka"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
 
 
@@ -148,18 +147,37 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/city_ic"/>
+
+            <TextView
+                android:id="@+id/com_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:fontFamily="@font/arsenal"
+                android:text="Bangalore"
+                android:textColor="#CAC8C8"
+                android:textSize="14sp" />
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp"
             android:orientation="vertical">
-
-      <!--  <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_border_light"
-            android:orientation="horizontal">
--->
-
 
             <LinearLayout
                 android:layout_width="match_parent"
