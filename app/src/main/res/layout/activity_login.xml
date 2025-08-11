@@ -197,18 +197,18 @@
           android:orientation="vertical">
 
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/loginbtn"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/border_colour"
-            android:fontFamily="@font/arsenal"
+            android:background="@drawable/gradient_button_bg"
+            android:elevation="4dp"
+            android:fontFamily="@font/arsenal_bold"
             android:text="Login"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView
