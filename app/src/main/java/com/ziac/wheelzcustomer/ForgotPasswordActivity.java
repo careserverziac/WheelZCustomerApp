@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,7 +40,7 @@ import ModelClasses.Global;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    AppCompatButton GetOTp;
+    Button GetOTp;
     EditText Username,Mobileno,Email;
     String username,mobile,email,fptype;
     ProgressBar progressBar;

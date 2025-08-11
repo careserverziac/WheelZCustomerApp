@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,15 +10,14 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/lambhorginiwheel"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/lambhorginiwheel" />
 
     <!-- Overlay View for Fade Effect -->
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#80000000" />
-
 
 
     <ScrollView
@@ -34,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
 
             <LinearLayout
@@ -61,13 +58,12 @@
             </LinearLayout>
 
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/arsenal"
                 android:gravity="center"
                 android:text="Sign up"
-                android:fontFamily="@font/arsenal"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -76,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:padding="8dp"
                 android:fontFamily="@font/arsenal"
+                android:padding="8dp"
                 android:text="Please provide your details below for registration purposes."
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -101,8 +97,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="5dp"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:layout_width="wrap_content"
@@ -121,16 +117,16 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:hint="Your name"
                             android:fontFamily="@font/arsenal"
+                            android:hint="Your name"
+                            android:importantForAutofill="no"
                             android:inputType="textCapSentences"
                             android:longClickable="true"
                             android:maxLength="25"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="no" />
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -141,9 +137,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:padding="5dp"
                     android:background="@drawable/border_colour"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
 
                     <LinearLayout
@@ -167,16 +163,16 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:hint="Email Address"
                             android:fontFamily="@font/arsenal"
+                            android:hint="Email Address"
+                            android:importantForAutofill="no"
                             android:inputType="textEmailAddress"
                             android:longClickable="true"
                             android:maxLength="35"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="no" />
+                            android:textSize="16sp" />
                     </LinearLayout>
 
 
@@ -186,9 +182,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:padding="5dp"
                     android:background="@drawable/border_colour"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
 
                     <LinearLayout
@@ -217,14 +213,14 @@
                             android:background="@android:color/transparent"
                             android:fontFamily="@font/arsenal"
                             android:hint="Mobile Number"
+                            android:importantForAutofill="no"
                             android:inputType="number"
                             android:longClickable="true"
                             android:maxLength="10"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="no" />
+                            android:textSize="16sp" />
                     </LinearLayout>
 
 
@@ -234,9 +230,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:padding="5dp"
                     android:background="@drawable/border_colour"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
 
                     <LinearLayout
@@ -257,28 +253,26 @@
                             app:tint="@color/white" />
 
 
-
                         <EditText
                             android:id="@+id/username"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
-                            android:hint="User Name"
                             android:fontFamily="@font/arsenal"
+                            android:hint="User Name"
+                            android:importantForAutofill="no"
                             android:inputType="textCapSentences"
                             android:longClickable="true"
                             android:maxLength="20"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="no" />
+                            android:textSize="16sp" />
                     </LinearLayout>
-<!--
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*"
--->
-
+                    <!--
+                                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&amp;*"
+                    -->
 
 
                 </LinearLayout>
@@ -287,9 +281,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:padding="5dp"
                     android:background="@drawable/border_colour"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
 
                     <LinearLayout
@@ -308,7 +302,6 @@
                             app:fabSize="mini"
                             app:srcCompat="@drawable/lock_white_icon"
                             app:tint="@color/white" />
-
 
 
                         <EditText
@@ -318,28 +311,29 @@
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
                             android:drawableEnd="@drawable/baseline_remove_red_eye_24"
-                            android:hint="Password"
                             android:fontFamily="@font/arsenal"
+                            android:hint="Password"
+                            android:importantForAutofill="noExcludeDescendants"
                             android:inputType="textPassword"
                             android:maxLength="18"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="noExcludeDescendants" />
+                            android:textSize="16sp" />
 
-<!--                        android:inputType="textPassword|textCapSentences"-->
+                        <!--                        android:inputType="textPassword|textCapSentences"-->
                     </LinearLayout>
 
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:padding="5dp"
                     android:background="@drawable/border_colour"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
 
                     <LinearLayout
@@ -360,7 +354,6 @@
                             app:tint="@color/white" />
 
 
-
                         <EditText
                             android:id="@+id/cpassword"
                             android:layout_width="match_parent"
@@ -368,15 +361,15 @@
                             android:layout_gravity="center"
                             android:background="@android:color/transparent"
                             android:drawableEnd="@drawable/baseline_remove_red_eye_24"
+                            android:fontFamily="@font/arsenal"
                             android:hint="Confirm Password"
+                            android:importantForAutofill="noExcludeDescendants"
                             android:inputType="textPassword"
                             android:maxLength="18"
-                            android:fontFamily="@font/arsenal"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"
-                            android:textSize="16sp"
-                            android:importantForAutofill="noExcludeDescendants"/>
+                            android:textSize="16sp" />
 
                     </LinearLayout>
 
@@ -394,11 +387,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textSize="11sp"
-                        android:fontFamily="@font/arsenal"
                         android:buttonTint="@color/white"
+                        android:fontFamily="@font/arsenal"
                         android:text="I agree to the"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
 
 
                     <TextView
@@ -406,18 +399,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textSize="12sp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Terms and Conditions"
                         android:textColor="@color/othertext"
-                        android:text="Terms and Conditions" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
                         android:layout_marginStart="3dp"
+                        android:text="&amp;"
                         android:textColor="@color/white"
-                        android:text="&amp;" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/privacypolicy"
@@ -425,48 +418,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="3dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Privacy Policy"
                         android:textColor="@color/othertext"
-                        android:textSize="12sp"
-                        android:text="Privacy Policy" />
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
 
-                <LinearLayout
+
+                <Button
+                    android:id="@+id/registertration"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="vertical">
-
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/registertration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
-                        android:background="@drawable/border_colour2"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Register"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:textSize="16sp" />
-
-
-                </LinearLayout>
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_button_bg"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:text="Register"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
 
-<!--
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_weight="1" />
-
-
-         -->
 
         </LinearLayout>
     </ScrollView>

@@ -40,6 +40,7 @@ import android.widget.Filterable;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
@@ -104,6 +105,7 @@ public class EditProfileActivity extends AppCompatActivity {
     boolean isExpanded = false;
     Context context;
     ImageView Backbtn;
+    LinearLayout Countrypop,Statepop,Citypop;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -131,12 +133,16 @@ public class EditProfileActivity extends AppCompatActivity {
         Mobilenumber = findViewById(R.id.mobile);
         Email = findViewById(R.id.email);
         Country = findViewById(R.id.country);
+        Countrypop = findViewById(R.id.countrypopup);
+        Statepop = findViewById(R.id.statepopup);
+        Citypop = findViewById(R.id.citypop);
         State = findViewById(R.id.state);
         City = findViewById(R.id.city);
         UpdateProfilebtn = findViewById(R.id.updateprofile);
         Camera = findViewById(R.id.pro_pic);
         DL = findViewById(R.id.custom_fab);
         Backbtn = findViewById(R.id.backbtn);
+
 
         name = Global.sharedPreferences.getString("key_person", "");
         mobile = Global.sharedPreferences.getString("Mobile1", "");
@@ -234,16 +240,24 @@ public class EditProfileActivity extends AppCompatActivity {
             finish();
         });
 
-        Country.setOnClickListener(v -> {
-            countrypopup();
+        Countrypop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countrypopup();
+            }
+        });
+        Statepop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statespopup();
+            }
         });
 
-        State.setOnClickListener(v -> {
-            statespopup();
-        });
-
-        City.setOnClickListener(v -> {
-            citiespopup();
+        Citypop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                citiespopup();
+            }
         });
 
 

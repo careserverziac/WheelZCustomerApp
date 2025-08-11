@@ -298,6 +298,7 @@
             ////////////////////////////////////////////////////////
 
             <LinearLayout
+                android:id="@+id/countrypopup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -307,6 +308,7 @@
 
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -352,6 +354,7 @@
 
 
             <LinearLayout
+                android:id="@+id/statepopup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -407,6 +410,7 @@
 
 
             <LinearLayout
+                android:id="@+id/citypop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -460,21 +464,28 @@
 
             ////////////////////////////////////////////////////////
 
-
-
-            <Button
-                android:id="@+id/updateprofile"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/gradient_button_bg"
-                android:elevation="4dp"
-                android:fontFamily="@font/arsenal_bold"
-                android:text="Update"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <!-- Action Button -->
+                <Button
+                    android:id="@+id/updateprofile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/gradient_button_bg"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:text="Update"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

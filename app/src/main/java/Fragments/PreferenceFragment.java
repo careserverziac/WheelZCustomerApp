@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -58,12 +59,14 @@ public class PreferenceFragment extends Fragment {
     Context context;
     ImageView Backbtn;
     //ProgressDialog progressDialog;
-    LinearLayout Selectstate,Selectcity,Pref_Veh_type,Submit;
+    LinearLayout Selectstate,Selectcity,Pref_Veh_type;
+    Button Submit;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_preference, container, false);
+        context = getActivity();
 
 
       /*  progressDialog = new ProgressDialog(context);

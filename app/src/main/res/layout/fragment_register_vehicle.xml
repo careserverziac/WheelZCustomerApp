@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -14,38 +13,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/backbtn"
-        android:layout_width="45dp"
-        android:layout_height="30dp"
-        android:src="@drawable/arrow_left"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_centerVertical="true" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:src="@drawable/wheelz" />
+            android:id="@+id/backbtn"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/arrow_left" />
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/calistoga"
-            android:text="WheelZ"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="55dp"
+                android:src="@drawable/wheelz" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calistoga"
+                android:text="WheelZ"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -76,7 +75,6 @@
                 android:progress="0" />
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,8 +87,8 @@
                     android:id="@+id/reglnr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:layout_width="wrap_content"
@@ -127,10 +125,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/adamina"
-                android:text="Or"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/adamina"
                 android:gravity="center"
+                android:text="Or"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -142,8 +140,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_colour"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
 
                 <LinearLayout
@@ -187,10 +185,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/adamina"
-                android:text="Or"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/adamina"
                 android:gravity="center"
+                android:text="Or"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -202,8 +200,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_colour"
-                android:padding="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
 
                 <LinearLayout
@@ -226,7 +224,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/arsenal"                        android:background="@android:color/transparent"
+                        android:background="@android:color/transparent"
+                        android:fontFamily="@font/arsenal"
                         android:hint="Chassis No"
                         android:inputType="textCapSentences|textEmailAddress"
                         android:longClickable="true"
@@ -240,28 +239,21 @@
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <Button
+                android:id="@+id/addvehicle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/gradient_button_bg"
+                android:elevation="4dp"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Register"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-
-                <Button
-                    android:id="@+id/addvehicle"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/gradient_button_bg"
-                    android:elevation="4dp"
-                    android:fontFamily="@font/arsenal_bold"
-                    android:text="Register"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

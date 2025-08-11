@@ -17,6 +17,7 @@ import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -49,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
     EditText Name,Email,Mobile,Username,Password,Cpassword;
     CheckBox checkBox;
     TextView TermsandConditions,Privacypolicy;
-    AppCompatButton Registration;
+    Button Registration;
     Context context;
     boolean passwordvisible;
     private boolean passwordVisible = false;
@@ -62,12 +63,10 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Context context=this;
+        context=this;
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Registering Please Wait..");
         progressDialog.setCancelable(true);
-
-
 
 
         Name=findViewById(R.id.name);
