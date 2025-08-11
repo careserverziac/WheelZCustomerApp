@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -72,7 +73,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dealerlist_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dealerlist_layout2, parent, false);
 
         DealersAdapter.ViewHolder viewHolder = new DealersAdapter.ViewHolder(view);
         return viewHolder;
@@ -142,9 +143,6 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     }
 
 
-
-
-
     private void initiatePhoneCall(String phoneNumber) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 context.checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -193,10 +191,10 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView Dealer_image;
-        TextView Comyname,ComCity,ComMobile,ComMail,ComAddress,Bookaservice;
+        TextView Comyname,ComCity,ComAddress;
         TextView DealerName,Dealermobno,Dealeremail,Comwebsite,State;
-        LinearLayout Company_phone,DealerPhone;
-        BottomSheetDialog bottomSheetDialog;
+        Button Bookaservice;
+        LinearLayout DealerPhone;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

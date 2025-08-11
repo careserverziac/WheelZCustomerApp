@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ import java.util.Map;
 import ModelClasses.Global;
 
 public class DeleteAccountActivity extends AppCompatActivity {
-    AppCompatButton Proceedbtn, ValidateandDelete;
+    Button Proceedbtn, ValidateandDelete;
     String OTP,otp,autoOTP;
     PinView pinView;
     ImageView Backbtn;

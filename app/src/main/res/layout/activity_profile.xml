@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    tools:context=".EditProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -460,26 +460,21 @@
 
             ////////////////////////////////////////////////////////
 
-            <LinearLayout
+
+
+            <Button
+                android:id="@+id/updateprofile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/updateprofile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/border_colour2"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Update"
-                    android:textColor="#ffffff"
-                    android:textSize="16sp" />
-
-
-            </LinearLayout>
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/gradient_button_bg"
+                android:elevation="4dp"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Update"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    tools:context=".EditProfileActivity">
 
 
     <RelativeLayout
@@ -17,10 +17,10 @@
             android:id="@+id/backbtn"
             android:layout_width="45dp"
             android:layout_height="30dp"
-            android:src="@drawable/arrow_left"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/arrow_left" />
 
 
         <LinearLayout
@@ -50,17 +50,15 @@
 
     <ProgressBar
         android:id="@+id/progressbarline"
-        android:layout_height="20dp"
-        android:layout_width="220dp"
-        android:layout_gravity="center_horizontal"
-        android:progress="0"
-        android:indeterminate="true"
-        android:max="100"
-        android:indeterminateTintMode="src_atop"
-        android:indeterminateTint="@color/red"
         style="?android:attr/progressBarStyleHorizontal"
-/>
-
+        android:layout_width="220dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_horizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/red"
+        android:indeterminateTintMode="src_atop"
+        android:max="100"
+        android:progress="0" />
 
 
     <ScrollView
@@ -80,21 +78,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:fontFamily="@font/arsenal"
+                android:gravity="center"
                 android:text="Delete my account"
                 android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/arsenal"
+                android:gravity="center"
                 android:text="Are you sure you want to delete your account "
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -128,9 +125,6 @@
 
 
             </LinearLayout>
-
-
-
 
 
             <LinearLayout
@@ -198,8 +192,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:gravity="center"
                 android:fontFamily="@font/arsenal"
+                android:gravity="center"
                 android:text="To confirm the deletion process  "
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -209,9 +203,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/arsenal"
+                android:gravity="center"
                 android:text="an OTP will be sent to your registered mobile number and email address. Click on Proceed to receive the OTP"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -222,20 +216,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp">
 
-                <androidx.appcompat.widget.AppCompatButton
+                <!-- Action Button -->
+                <Button
                     android:id="@+id/proceedbtn"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/border_colour2"
-                    android:fontFamily="@font/arsenal"
+                    android:background="@drawable/gradient_button_bg"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/arsenal_bold"
                     android:text="Proceed"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
+
+
 
 
             </RelativeLayout>
@@ -247,12 +243,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:cursorVisible="true"
-                android:visibility="invisible"
                 android:autofillHints="smsOTPCode"
+                android:cursorVisible="true"
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/white"
+                android:visibility="invisible"
                 app:hideLineWhenFilled="false"
                 app:itemCount="6"
                 app:itemHeight="45dp"
@@ -266,46 +262,32 @@
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <!-- Action Button -->
+                    <Button
                         android:id="@+id/validatedelete"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
+                        android:layout_height="48dp"
                         android:layout_marginLeft="20dp"
-                        android:visibility="invisible"
+                        android:layout_marginTop="0dp"
                         android:layout_marginRight="20dp"
-                        android:background="@drawable/border_colour2"
-                        android:fontFamily="@font/arsenal"
+                        android:background="@drawable/gradient_button_bg"
+                        android:elevation="4dp"
+                        android:fontFamily="@font/arsenal_bold"
                         android:text="Validate and Delete"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/white"
+                        android:visibility="invisible"
                         android:textSize="16sp" />
 
 
                 </RelativeLayout>
 
 
-
-                              <!--  <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/submitbutton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="20dp"
-                                    android:layout_marginRight="20dp"
-                                    android:background="@drawable/border_colour2"
-                                    android:fontFamily="@font/arsenal"
-                                    android:text="Delete Account"
-                                    android:textAllCaps="false"
-                                    android:textColor="#ffffff"
-                                    android:textSize="16sp" />-->
-
-
             </LinearLayout>
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"

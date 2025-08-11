@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,7 +41,7 @@ public class RegisterVehicleFragment extends Fragment {
 
     String regno,engineno,chassisno;
     EditText Registrationno,Engineno,Chassisno;
-    AppCompatButton Addvehicle;
+    Button Addvehicle;
     FragmentManager fragmentManager;
     LinearLayout RegLinear,Enginelinear,Chassislinear;
     Drawable backgroundgrey;

@@ -10,19 +10,20 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import com.ziac.wheelzcustomer.ChangePasswordActivity;
 import com.ziac.wheelzcustomer.ContactUSActivity;
 import com.ziac.wheelzcustomer.DeleteAccountActivity;
-import com.ziac.wheelzcustomer.ProfileActivity;
+import com.ziac.wheelzcustomer.EditProfileActivity;
 import com.ziac.wheelzcustomer.LoginActivity;
 import com.ziac.wheelzcustomer.R;
 import ModelClasses.AppStatus;
@@ -33,10 +34,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
 
-    LinearLayout Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Logout,Deleteaccount,Changepassword;
+    LinearLayout Faq,Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Deleteaccount,Changepassword;
     Intent intent;
     TextView Username,Usermobile,Useremail,Account;
     CircleImageView circularImageView;
+    Button Logout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -71,6 +73,7 @@ public class ProfileFragment extends Fragment {
         Username=view.findViewById(R.id.PRusername);
         Usermobile=view.findViewById(R.id.PRusermobile);
         Useremail=view.findViewById(R.id.PRusermail);
+        Faq = view.findViewById(R.id.faq);
 
         String dealername = Global.sharedPreferences.getString("key_person", "");
         String user_mail = Global.sharedPreferences.getString("Email", "");
@@ -83,9 +86,20 @@ public class ProfileFragment extends Fragment {
         Account.setText("Account "+"("+ user_name+")");
 
 
-        Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ProfileActivity.class))));
+        Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), EditProfileActivity.class))));
         Contactus.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ContactUSActivity.class))));
         Changepassword.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), ChangePasswordActivity.class))));
+
+
+        Faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://wheelzonline.co.in/FAQ/WheelzMobile";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                v.getContext().startActivity(intent);
+            }
+        });
 
         Sharebutton.setOnClickListener(v ->  ShareIntent());
         PrivacyPolicy.setOnClickListener(v ->  privacyMethod());

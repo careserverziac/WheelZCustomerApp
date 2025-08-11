@@ -7,6 +7,7 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,7 +33,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     ImageView Backbtn;
     EditText Newpassword,Cpassword;
-    LinearLayout Updatepassword;
+    Button Updatepassword;
     private boolean passwordVisible = false;
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})

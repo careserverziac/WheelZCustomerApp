@@ -33,6 +33,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -83,7 +84,7 @@ import ModelClasses.zList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_IMAGE = 10;
     private static final int REQUEST_CODE_DOCUMENT = 1;
@@ -95,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
     EditText Name, Mobilenumber, Email;
     TextView Country, State, City;
     CircleImageView circularImageView;
-    AppCompatButton UpdateProfilebtn;
+    Button UpdateProfilebtn;
     Bitmap imageBitmap;
     ProgressBar progressBar;
     String image, name, mobile, user_mail, file_name, file_type, actual_filename, fileUrl, file;
@@ -111,12 +112,12 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
 
-        context = ProfileActivity.this;
+        context = EditProfileActivity.this;
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         if (AppStatus.getInstance(this).isOnline()) {
         } else {
-            Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
+            Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
         }
 
         image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
@@ -162,10 +163,10 @@ public class ProfileActivity extends AppCompatActivity {
         UpdateProfilebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
+                if (AppStatus.getInstance(EditProfileActivity.this).isOnline()) {
                     Updateprofiledetails();
                 } else {
-                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
+                    Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
                 }
             }
         });
@@ -175,10 +176,10 @@ public class ProfileActivity extends AppCompatActivity {
         Camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (AppStatus.getInstance(ProfileActivity.this).isOnline()) {
+                if (AppStatus.getInstance(EditProfileActivity.this).isOnline()) {
                     openCamera();
                 } else {
-                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
+                    Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
                 }
             }
         });
@@ -864,27 +865,27 @@ public class ProfileActivity extends AppCompatActivity {
 
         if (personname.isEmpty()) {
 
-            Toast.makeText(ProfileActivity.this, "Person name should not be empty!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Person name should not be empty!!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (mobile.isEmpty()) {
-            Toast.makeText(ProfileActivity.this, "Mobile number should not be empty !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be empty !!", Toast.LENGTH_SHORT).show();
 
             return;
         }
         if (mobile.length() < 10) {
-            Toast.makeText(ProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
 
             return;
         }
         if (email.length() < 10) {
-            Toast.makeText(ProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Mobile number should not be less than 10 digits !!", Toast.LENGTH_SHORT).show();
 
             return;
         }
 
 
-        RequestQueue queue = Volley.newRequestQueue(ProfileActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(EditProfileActivity.this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlupdateprofile,
                 sresponse -> {
@@ -914,15 +915,15 @@ public class ProfileActivity extends AppCompatActivity {
 
                     try {
                         if (response.getBoolean("isSuccess")) {
-//                                Toast.makeText(ProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
-                            Global.customtoast(ProfileActivity.this, getLayoutInflater(), "Updated successfully !!");
+//                                Toast.makeText(EditProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
+                            Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Updated successfully !!");
                             finish();
-                            Intent intent = new Intent(ProfileActivity.this, ProfileActivity.class);
+                            Intent intent = new Intent(EditProfileActivity.this, EditProfileActivity.class);
                             startActivity(intent);
 
                         } else {
                             //textViewError.setText(response.getString("error"));
-                            Toast.makeText(ProfileActivity.this, response.getString("error"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProfileActivity.this, response.getString("error"), Toast.LENGTH_SHORT).show();
                             //textViewError.setVisibility(View.VISIBLE);
                         }
                     } catch (JSONException e) {
@@ -932,7 +933,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }, error -> {
 
             //  progressBar.setVisibility(View.GONE);
-            //  Toast.makeText(ProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(EditProfileActivity.this, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     /*textViewError.setText(error.getLocalizedMessage());
                     textViewError.setVisibility(View.VISIBLE);*/
 
@@ -996,7 +997,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void startCameraIntent() {
-        ImagePicker.with(ProfileActivity.this)
+        ImagePicker.with(EditProfileActivity.this)
                 .crop()                    //Crop image(Optional), Check Customization for more option
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
@@ -1083,14 +1084,14 @@ public class ProfileActivity extends AppCompatActivity {
                     String image = Global.userimageurl + uploadimage;
                     /*Picasso.get().load(image).into(circularImageView);*/
                     Global.loadWithPicasso(this, circularImageView, image);
-                    Global.customtoast(ProfileActivity.this, getLayoutInflater(), Message);
+                    Global.customtoast(EditProfileActivity.this, getLayoutInflater(), Message);
 
                 } else {
                     if (resp.has("error")) {
 
                         String errorMessage = resp.getString("error");
-                        Toast.makeText(ProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        // Toast.makeText(ProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EditProfileActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(EditProfileActivity.this, "Image upload failed", Toast.LENGTH_SHORT).show();
 
 
                     }
@@ -1176,7 +1177,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 // Add padding values
                 int paddingInDp = 16; // You can adjust the padding as per your requirement
-                int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp, ProfileActivity.this.getResources().getDisplayMetrics());
+                int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp, EditProfileActivity.this.getResources().getDisplayMetrics());
 
                 // Adjust the newWidth and newHeight with padding
                 newWidth -= 2 * paddingInPx; // Subtract padding from both sides
