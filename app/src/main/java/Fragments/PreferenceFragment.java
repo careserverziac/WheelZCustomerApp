@@ -736,7 +736,19 @@ public class PreferenceFragment extends Fragment {
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
             vehicletype = mDataArrayList.get(i);
             tvstatenameitem.setText(vehicletype.get_name());
+
             tvstatenameitem.setOnClickListener(view1 -> {
+                zList selectedItem = mDataArrayList.get(i);
+                VtypePref.setText(selectedItem.get_name());
+                Pref_Veh_type.setBackgroundResource(R.drawable.bg_edittext_normal);
+                vtypecode = selectedItem.get_code();
+
+                Global.editor = Global.sharedPreferences.edit();
+                Global.editor.putString("vtypecode", vtypecode);
+                Global.editor.apply(); // Use apply() instead of commit() for async saving
+                zDialog.dismiss();
+            });
+            /*tvstatenameitem.setOnClickListener(view1 -> {
                 vehicletype = mDataArrayList.get(i);
                 VtypePref.setText(vehicletype.get_name());
                 Pref_Veh_type.setBackgroundResource(R.drawable.bg_edittext_normal);
@@ -746,7 +758,7 @@ public class PreferenceFragment extends Fragment {
                 Global.editor.commit();
                 zDialog.dismiss();
 
-            });
+            });*/
             return v;
         }
     }

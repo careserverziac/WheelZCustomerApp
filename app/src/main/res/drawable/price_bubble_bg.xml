@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Outer glow effect -->
+    <item android:top="1dp" android:bottom="1dp" android:left="1dp" android:right="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#30FF6B35" />
+            <corners android:radius="22dp" />
+        </shape>
+    </item>
+
+    <!-- Main bubble background -->
+    <item android:top="2dp" android:bottom="2dp" android:left="2dp" android:right="2dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#FFFFFF"
+                android:centerColor="#FAFAFA"
+                android:endColor="#F5F5F5" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+</layer-list>

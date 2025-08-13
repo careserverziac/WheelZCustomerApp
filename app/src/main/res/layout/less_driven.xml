@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/lessdrvcardview"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lessdrvcardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
     android:layout_marginBottom="10dp"
+    android:background="@color/black"
     app:cardBackgroundColor="@color/black">
 
 
@@ -32,21 +31,66 @@
                     android:id="@+id/lessdrv_vehicle_name"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="CRYSTA"
-                    android:layout_marginTop="10dp"
                     android:textColor="#F40F0F"
                     android:textSize="16sp"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <!-- First Button -->
+                    <LinearLayout
+                        android:id="@+id/edit_icon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/round_red_bg"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/edit_icon"
+                            app:tint="#FF5722" />
+                    </LinearLayout>
+
+                    <!-- Second Button -->
+                    <LinearLayout
+                        android:id="@+id/delete_icon"
+                        android:layout_marginLeft="2dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/round_red_bg"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:src="@drawable/delete"
+                            app:tint="#FF5722" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+            <!-- Edit Icons LinearLayout (Top Right) -->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="100dp"
@@ -64,12 +108,12 @@
                         app:cardElevation="0dp">
 
 
-                    <ImageView
-                        android:id="@+id/lessdrv_vehicle_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/lambhorginiwheel" />
+                        <ImageView
+                            android:id="@+id/lessdrv_vehicle_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/lambhorginiwheel" />
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
@@ -78,26 +122,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="5dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="5dp">
 
                     <TextView
                         android:id="@+id/lessdrv_veh_sellingprice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Selling price"
-                        android:textStyle="bold"
                         android:drawablePadding="5dp"
+                        android:text="Selling price"
                         android:textColor="@color/white"
-                        android:textSize="12dp" />
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/lessdrv_veh_pricingtype"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
                         android:drawableLeft="@drawable/baseline_square_icon"
                         android:drawablePadding="5dp"
-                        android:layout_marginTop="5dp"
                         android:text="Negotiable"
                         android:textColor="@color/white"
                         android:textSize="10dp" />
@@ -112,8 +156,8 @@
                             android:id="@+id/lessdrv_vehicle_year"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
+                            android:drawablePadding="5dp"
                             android:text="2020"
                             android:textColor="@color/white"
                             android:textSize="10dp" />
@@ -123,8 +167,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:drawablePadding="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
+                            android:drawablePadding="5dp"
                             android:text="WHITE"
                             android:textColor="@color/white"
                             android:textSize="10dp" />
@@ -139,20 +183,20 @@
                         <TextView
                             android:id="@+id/lessdrv_vehicle_model"
                             android:layout_width="wrap_content"
-                            android:textSize="10sp"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
+                            android:drawablePadding="5dp"
                             android:text="Sedan"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
 
                         <TextView
                             android:id="@+id/lessdrv_vehicle_type"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
                             android:drawablePadding="5dp"
-                            android:layout_marginStart="5dp"
                             android:text="MPV"
                             android:textColor="@color/white"
                             android:textSize="10sp" />
@@ -160,13 +204,13 @@
                         <TextView
                             android:id="@+id/lessdrv_vehicle_trensmission"
                             android:layout_width="wrap_content"
-                            android:textSize="10sp"
-                            android:layout_marginStart="5dp"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
+                            android:layout_marginStart="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
+                            android:drawablePadding="5dp"
                             android:text="AUTOMATIC"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="10sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -189,9 +233,9 @@
                             android:id="@+id/lessdrv_vehicle_fuel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
                             android:drawableLeft="@drawable/baseline_square_icon"
                             android:drawablePadding="5dp"
-                            android:layout_marginStart="5dp"
                             android:text="DIESAL"
                             android:textColor="@color/white"
                             android:textSize="10sp" />
@@ -200,8 +244,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="end"
                         android:orientation="horizontal">
 
@@ -218,71 +262,27 @@
                             android:id="@+id/lessdrv_vehicle_km"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" 200 "
                             android:fontFamily="@font/arsenal"
+                            android:text=" 200 "
                             android:textColor="@color/black"
                             android:textSize="12dp"
-                            android:textStyle="italic"/>
+                            android:textStyle="italic" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" km run"
                             android:fontFamily="@font/arsenal"
+                            android:text=" km run"
                             android:textColor="@color/black"
                             android:textSize="12dp"
-                            android:textStyle="italic"/>
+                            android:textStyle="italic" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Edit Icons LinearLayout (Top Right) -->
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="top|end"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp">
-
-            <!-- First Button -->
-            <LinearLayout
-                android:id="@+id/edit_icon"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginBottom="10dp"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/round_red_bg">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/edit_icon"
-                    app:tint="#FF5722"  />
-            </LinearLayout>
-
-            <!-- Second Button -->
-            <LinearLayout
-                android:id="@+id/delete"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/round_red_bg">
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/delete"
-                    app:tint="#FF5722" />
-            </LinearLayout>
-        </LinearLayout>
 
     </FrameLayout>
-
 
 
 </LinearLayout>

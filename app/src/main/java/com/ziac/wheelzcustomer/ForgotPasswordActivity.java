@@ -1,12 +1,9 @@
 package com.ziac.wheelzcustomer;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -14,13 +11,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -58,9 +49,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         } else {
             Global.customtoast(ForgotPasswordActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
-
-
-
 
         GetOTp =findViewById(R.id.getotp);
         Username=findViewById(R.id.fusername);
@@ -109,7 +97,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             Global.editor.commit();
 
             getotpmethod();
-
 
         });
     }

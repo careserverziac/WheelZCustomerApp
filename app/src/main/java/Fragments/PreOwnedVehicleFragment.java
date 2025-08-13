@@ -51,8 +51,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
+import com.ziac.wheelzcustomer.LatestVeh_ViewAllActivity;
+import com.ziac.wheelzcustomer.Less_driven_Viewall_Activity;
 import com.ziac.wheelzcustomer.R;
 
 import org.json.JSONArray;
@@ -80,7 +83,7 @@ public class PreOwnedVehicleFragment extends Fragment {
     private boolean allowBack = true;
     SearchView searchView;
     RecyclerView recyclermodels, Latestvehicles, Lessvehicles;
-    TextView latestcarsviewallTV, lessdrivenviewallTV,Veh_typeTV,StateTV,CityTV;
+    TextView latestcarsviewallTV, lessdrivenviewallTV, Veh_typeTV, StateTV, CityTV;
     ImageView Edit, Img_veh_type;
     ModelsClass singleModel;
     LatestVehiclesClass latestVehiclesClass;
@@ -129,10 +132,10 @@ public class PreOwnedVehicleFragment extends Fragment {
         searchView.setQueryHint("Search for Model, Variant & Category");
         StateTV.setText(Global.sharedPreferences.getString("statename", "Select Vehicle Type"));
         CityTV.setText(Global.sharedPreferences.getString("cityname", "Select City"));
-        vehtype =Global.sharedPreferences.getString("vehicletype", "Select City");
+        vehtype = Global.sharedPreferences.getString("vehicletype", "Select City");
         Veh_typeTV.setText(vehtype);
 
-        if (vehtype.equals("4 WHEELER")){
+        if (vehtype.equals("4 WHEELER")) {
             Img_veh_type.setImageResource(R.drawable.car);
         } else if (vehtype.equals("2 WHEELER")) {
             Img_veh_type.setImageResource(R.drawable.bike);
@@ -173,8 +176,7 @@ public class PreOwnedVehicleFragment extends Fragment {
         }*/
 
 
-       /**/
-
+        /**/
 
 
         // VIEW ALL VEHICLES
@@ -247,14 +249,18 @@ public class PreOwnedVehicleFragment extends Fragment {
             fragmentTransaction.replace(R.id.frame_layout, latest_veh_fragmentViewall);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();*/
+            startActivity(new Intent(getContext(), LatestVeh_ViewAllActivity.class));
+
         });
+
         lessdrivenviewallTV.setOnClickListener(v -> {
-           /* Less_driven_ViewallFragment less_driven_Viewall_fragment = new Less_driven_ViewallFragment();
+            /*Less_driven_ViewallFragment less_driven_Viewall_fragment = new Less_driven_ViewallFragment();
             FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.frame_layout, less_driven_Viewall_fragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();*/
+            startActivity(new Intent(getContext(), Less_driven_Viewall_Activity.class));
         });
 
         fab.setOnClickListener(v -> {
@@ -280,7 +286,6 @@ public class PreOwnedVehicleFragment extends Fragment {
 
 
     private void getallmodels() {
-
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
         String url = Global.Getmodels;
         // progressDialog.show();
@@ -808,7 +813,7 @@ public class PreOwnedVehicleFragment extends Fragment {
             private TextView modelnametv;
             private ImageView modelimageiv;
             private String vmodel_code;
-            LinearLayout  cardView;
+            LinearLayout cardView;
 
             public VallCarsViewHOlder(@NonNull View itemView) {
                 super(itemView);
@@ -835,7 +840,7 @@ public class PreOwnedVehicleFragment extends Fragment {
         @NonNull
         @Override
         public RecentcarsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_vehicles, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_vech2, parent, false);
             return new RecentcarsViewHolder(view);
         }
 
@@ -843,10 +848,10 @@ public class PreOwnedVehicleFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull RecentcarsViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-            String createdby=latestVehiclesList.get(position).getCreatedby();
-            String userName=Global.sharedPreferences.getString("userName","");
+            String createdby = latestVehiclesList.get(position).getCreatedby();
+            String userName = Global.sharedPreferences.getString("userName", "");
 
-            if (createdby.equals(userName)){
+            if (createdby.equals(userName)) {
                 holder.Edit.setVisibility(View.VISIBLE);
                 holder.Delete.setVisibility(View.VISIBLE);
             } else {
@@ -854,7 +859,7 @@ public class PreOwnedVehicleFragment extends Fragment {
                 holder.Delete.setVisibility(View.GONE);
             }
 
-            String img=Global.vehimageurl + latestVehiclesList.get(position).getLatestvimage();
+            String img = Global.vehimageurl + latestVehiclesList.get(position).getLatestvimage();
             Global.loadWithPicasso(context, holder.lv_image, img);
 
             holder.lv_name.setText(latestVehiclesList.get(position).getLatestvname() + " (" + latestVehiclesList.get(position).getMan_year() + ")");
@@ -936,7 +941,7 @@ public class PreOwnedVehicleFragment extends Fragment {
             holder.Delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String vehmas_code=Global.latestVehicleslist.get(position).getVehmas_code();
+                    String vehmas_code = Global.latestVehicleslist.get(position).getVehmas_code();
                     deleteimage(vehmas_code);
                 }
             });
@@ -1110,7 +1115,7 @@ public class PreOwnedVehicleFragment extends Fragment {
             View view = inflater.inflate(R.layout.alertdailoglayout, null);
 
 
-            ImageView Veh_image,Edit;
+            ImageView Veh_image;
             TextView Veh_name, Veh_variant, Veh_year, Veh_trnmsn, Veh_category, Veh_price, Veh_fuel, Veh_colour, Veh_cc, Veh_km, Veh_ownership, Veh_rc,
                     Dealercom_name, Dealercity, Dealermobno, Dealeraltermobno, Dealermailid, Manufacture;
 
@@ -1133,7 +1138,6 @@ public class PreOwnedVehicleFragment extends Fragment {
             Dealermobno = view.findViewById(R.id.common_dlrmob);
             Dealeraltermobno = view.findViewById(R.id.common_dlraltmob);
             Dealermailid = view.findViewById(R.id.common_dlrmail);
-
 
 
             Global.loadWithPicasso(context, Veh_image, Global.vehicleimageurl + Global.selectedvehicle.getVeh_image());
@@ -1230,7 +1234,7 @@ public class PreOwnedVehicleFragment extends Fragment {
         public static class RecentcarsViewHolder extends RecyclerView.ViewHolder {
 
             private ImageView lv_image;
-             LinearLayout Edit,Delete;
+            MaterialButton Edit, Delete;
             TextView lv_name, lv_ownership;
             private TextView lv_category, lv_variant, lv_transmission, lvcolor;
             private TextView lv_fuel, lv_date, lv_sellingprice;
@@ -1250,7 +1254,7 @@ public class PreOwnedVehicleFragment extends Fragment {
                 lv_fuel = itemView.findViewById(R.id.lv_veh_fuel);
                 lv_date = itemView.findViewById(R.id.lv_veh_dateTime);
                 lv_sellingprice = itemView.findViewById(R.id.lv_veh_sellingprice);
-                Delete = itemView.findViewById(R.id.delete);
+                Delete = itemView.findViewById(R.id.delete_icon);
             }
         }
     }
@@ -1260,10 +1264,6 @@ public class PreOwnedVehicleFragment extends Fragment {
         private final List<LessDrivenClass> lessDrivenCarsList;
         private int clickedPosition = RecyclerView.NO_POSITION;
         Context context;
-
-        public interface OnItemClickListener {
-            void onItemClick(int position);
-        }
 
 
         public LessDrivenAdapter(List<LessDrivenClass> lessDrivenCarsList, Context context) {
@@ -1283,16 +1283,16 @@ public class PreOwnedVehicleFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull LessDrivenViewholder holder, @SuppressLint("RecyclerView") int position) {
 
-            String createdby=lessDrivenCarsList.get(position).getCreatedby();
-            String userName=Global.sharedPreferences.getString("userName","");
+            String createdby = lessDrivenCarsList.get(position).getCreatedby();
+            String userName = Global.sharedPreferences.getString("userName", "");
 
-            if (createdby.equals(userName)){
-                holder.Edit.setVisibility(View.VISIBLE);
-                holder.Delete.setVisibility(View.VISIBLE);
+            if (createdby.equals(userName)) {
+                holder.PEdit.setVisibility(View.VISIBLE);
+                holder.pDelete.setVisibility(View.VISIBLE);
 
             } else {
-                holder.Edit.setVisibility(View.GONE);
-                holder.Delete.setVisibility(View.GONE);
+                holder.PEdit.setVisibility(View.GONE);
+                holder.pDelete.setVisibility(View.GONE);
             }
 
             Global.loadWithPicasso(context, holder.ld_vimage, Global.vehimageurl + lessDrivenCarsList.get(position).getLd_vimg());
@@ -1337,7 +1337,7 @@ public class PreOwnedVehicleFragment extends Fragment {
                 }
             });
 
-            holder.Edit.setOnClickListener(new View.OnClickListener() {
+            holder.PEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -1371,10 +1371,10 @@ public class PreOwnedVehicleFragment extends Fragment {
                 }
             });
 
-            holder.Delete.setOnClickListener(new View.OnClickListener() {
+            holder.pDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String vehmas_code=Global.lessdrivenlist.get(position).getVehmas_code();
+                    String vehmas_code = Global.lessdrivenlist.get(position).getVehmas_code();
                     deleteimage(vehmas_code);
                 }
             });
@@ -1415,7 +1415,6 @@ public class PreOwnedVehicleFragment extends Fragment {
             Dealermobno = view.findViewById(R.id.common_dlrmob);
             Dealeraltermobno = view.findViewById(R.id.common_dlraltmob);
             Dealermailid = view.findViewById(R.id.common_dlrmail);
-
 
 
             Global.loadWithPicasso(context, Veh_image, Global.vehicleimageurl + Global.selectedvehicle.getVeh_image());
@@ -1475,7 +1474,7 @@ public class PreOwnedVehicleFragment extends Fragment {
 
             private String vmodel_code;
             ImageView ld_vimage;
-            LinearLayout Edit,Delete;
+            LinearLayout PEdit, pDelete;
             TextView ld_vname, ld_vcolour, ld_vyear, ld_model, ld_v_variant, ld_Vtransmission, ld_vownership, ld_vkm, ld_vfuel, ld_selling_price;
             LinearLayout cardView;
 
@@ -1494,8 +1493,8 @@ public class PreOwnedVehicleFragment extends Fragment {
                 ld_vkm = itemView.findViewById(R.id.lessdrv_vehicle_km);
                 ld_vfuel = itemView.findViewById(R.id.lessdrv_vehicle_fuel);
                 ld_selling_price = itemView.findViewById(R.id.lessdrv_veh_sellingprice);
-                Edit = itemView.findViewById(R.id.edit_icon);
-                Delete = itemView.findViewById(R.id.delete);
+                PEdit = itemView.findViewById(R.id.edit_icon);
+                pDelete = itemView.findViewById(R.id.delete_icon);
             }
         }
     }
