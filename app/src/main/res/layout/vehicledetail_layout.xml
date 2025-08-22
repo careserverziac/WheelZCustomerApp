@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -52,245 +51,240 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp"
                 tools:ignore="MissingConstraints">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                tools:ignore="MissingConstraints">
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/vehicleinspection" />
-
-                <TextView
-                    android:id="@+id/manufacturerMV"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:fontFamily="@font/arsenal_bold"
-                    android:text="Manufacturer"
-                    android:textColor="#FAEF5D"
-                    android:textSize="18dp" />
-
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                tools:ignore="MissingConstraints">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
                     tools:ignore="MissingConstraints">
 
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/vehicleinspection" />
 
                     <TextView
+                        android:id="@+id/manufacturerMV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center|left"
-                        android:text="Model"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/modelnameMV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
                         android:fontFamily="@font/arsenal_bold"
-                        android:text="Himalayan"
+                        android:text="Manufacturer"
                         android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
-
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center|left"
-                        android:text="Engine Number"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/engine_no"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="KH8542K96DFSW"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center|left"
-                        android:text="Color"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/vcol_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="Snow White"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
-
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="5dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center|left"
-                        android:text="Previous Service date"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/prv_serdt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="22-12-2022"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
+                        android:textSize="18dp" />
 
 
                 </LinearLayout>
 
-                <View
-                    android:layout_height="match_parent"
-                    android:layout_width="0.5dp"
-                    android:background="#939191" />
-
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
                     tools:ignore="MissingConstraints">
 
-
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center|left"
-                        android:layout_marginStart="10dp"
-                        android:text="Registration Number"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="MissingConstraints">
 
-                    <TextView
-                        android:id="@+id/reg_no"
-                        android:layout_width="match_parent"
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Model"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/modelnameMV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="Himalayan"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Engine Number"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/engine_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="KH8542K96DFSW"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Color"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/vcol_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="Snow White"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:drawablePadding="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Previous Service date"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/prv_serdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="22-12-2022"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="#939191" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="KL 13 AE 9993"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center|left"
-                        android:layout_marginStart="10dp"
-                        android:text="Chassis Number"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/chasis_no"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="ASJc84585DF842"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        tools:ignore="MissingConstraints">
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center|left"
-                        android:layout_marginStart="10dp"
-                        android:text="Battery Number"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Registration Number"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
 
-                    <TextView
-                        android:id="@+id/batt_no"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="FR1245874584"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
+                        <TextView
+                            android:id="@+id/reg_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="KL 13 AE 9993"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Chassis Number"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center|left"
-                        android:layout_marginStart="10dp"
-                        android:text="Next Service date"
-                        android:textColor="@color/white"
-                        android:textSize="12dp" />
-
-                    <TextView
-                        android:id="@+id/nxt_serdt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:fontFamily="@font/arsenal_bold"
-                        android:text="12-10-2030"
-                        android:textColor="#FAEF5D"
-                        android:textSize="16dp" />
+                        <TextView
+                            android:id="@+id/chasis_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="ASJc84585DF842"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
 
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Battery Number"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/batt_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="FR1245874584"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="@font/arsenal"
+                            android:gravity="center|left"
+                            android:text="Next Service date"
+                            android:textColor="@color/white"
+                            android:textSize="12dp" />
+
+                        <TextView
+                            android:id="@+id/nxt_serdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:fontFamily="@font/arsenal_bold"
+                            android:text="12-10-2030"
+                            android:textColor="#FAEF5D"
+                            android:textSize="16dp" />
+
+
+                    </LinearLayout>
 
 
                 </LinearLayout>
-
-
-            </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -298,27 +292,27 @@
                     android:layout_marginTop="10dp"
                     android:background="#939191" />
 
-             <!--   <TextView
+                <!--   <TextView
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Manufacturer"
-                    android:textColor="@color/white"
-                    android:textSize="15dp" />-->
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="20dp"
+                       android:fontFamily="@font/arsenal"
+                       android:text="Manufacturer"
+                       android:textColor="@color/white"
+                       android:textSize="15dp" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         tools:ignore="MissingConstraints">
 
@@ -341,8 +335,8 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical"
                         tools:ignore="MissingConstraints">
 
@@ -366,16 +360,12 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 
 
-
     </LinearLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>

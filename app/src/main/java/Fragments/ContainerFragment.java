@@ -2,7 +2,6 @@ package Fragments;
 
 import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -348,7 +347,7 @@ public class ContainerFragment extends Fragment {
                 }
             });
 
-            holder.fileview2.setOnClickListener(new View.OnClickListener() {
+            holder.Filename.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String imgdoc_path = documentList.get(position).getImgdoc_path();
@@ -376,14 +375,13 @@ public class ContainerFragment extends Fragment {
 
             TextView Filename;
             ImageView DeleteFiles;
-            LinearLayout fileview1, fileview2;
+            ImageView fileview1, fileview2;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                Filename = itemView.findViewById(R.id.filename);
-                DeleteFiles = itemView.findViewById(R.id.deletefile);
-                fileview1 = itemView.findViewById(R.id.file1);
-                fileview2 = itemView.findViewById(R.id.file2);
+                Filename = itemView.findViewById(R.id.imageName);
+                DeleteFiles = itemView.findViewById(R.id.deleteIcon);
+                fileview1 = itemView.findViewById(R.id.imageIcon);
             }
         }
     }
@@ -480,7 +478,7 @@ public class ContainerFragment extends Fragment {
     private void uploadfiletoserver() {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String url = Global.urluploadfiles;
+        String url = Global.MyVehiclesUpload;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

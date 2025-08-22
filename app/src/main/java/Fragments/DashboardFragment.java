@@ -10,12 +10,14 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -42,13 +44,13 @@ import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList,Pre_own_veh;
+    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList, Pre_own_veh;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    String lattitude,longitude,currentLocationString, fullAddress, sublocality;
+    String lattitude, longitude, currentLocationString, fullAddress, sublocality;
     FusedLocationProviderClient client;
 
-    String vehtype="";
+    String vehtype = "";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -62,9 +64,9 @@ public class DashboardFragment extends Fragment {
         Pre_own_veh = view.findViewById(R.id.pre_ownd_veh);
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        vehtype=Global.sharedPreferences.getString("vtypecode","");
+        vehtype = Global.sharedPreferences.getString("vtypecode", "");
 
-        client=LocationServices.getFusedLocationProviderClient(getActivity());
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED &&
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -73,7 +75,7 @@ public class DashboardFragment extends Fragment {
             getcurrentlocation();
 
         } else {
-           requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
         }
 
         Bookservice.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +112,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
                 MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
-                 fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
@@ -136,7 +138,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View v) {
 
                 if (vehtype.isEmpty()) {
-                    PreferenceFragment preferenceFragment= new PreferenceFragment();
+                    PreferenceFragment preferenceFragment = new PreferenceFragment();
                     fragmentManager = requireActivity().getSupportFragmentManager();
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.framelayout, preferenceFragment);
@@ -161,46 +163,46 @@ public class DashboardFragment extends Fragment {
     @SuppressLint("MissingPermission")
     private void getcurrentlocation() {
 
-        LocationManager locationManager=(LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||
-        locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
             client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
 
 
-                    Location location=task.getResult();
-                    if (location !=null){
+                    Location location = task.getResult();
+                    if (location != null) {
 
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
-                    }else {
-                        LocationRequest locationRequest=new LocationRequest()
+                    } else {
+                        LocationRequest locationRequest = new LocationRequest()
                                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                                 .setInterval(1000)
                                 .setFastestInterval(1000)
                                 .setNumUpdates(1);
 
-                        LocationCallback locationCallback=new LocationCallback() {
+                        LocationCallback locationCallback = new LocationCallback() {
                             @Override
                             public void onLocationResult(@NonNull LocationResult locationResult) {
-                                Location location1= locationResult.getLastLocation();
+                                Location location1 = locationResult.getLastLocation();
 
 
-                                lattitude=String.valueOf(location1.getLatitude());
-                                longitude=String.valueOf(location1.getLongitude());
+                                lattitude = String.valueOf(location1.getLatitude());
+                                longitude = String.valueOf(location1.getLongitude());
 
 
                             }
                         };
-                        client.requestLocationUpdates(locationRequest,locationCallback, Looper.myLooper());
+                        client.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
                     }
                 }
             });
 
-        }else {
+        } else {
 
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
@@ -238,9 +240,9 @@ public class DashboardFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 100 && (grantResults.length >0 ) && (grantResults[0] + grantResults[1]  == PackageManager.PERMISSION_GRANTED)) {
+        if (requestCode == 100 && (grantResults.length > 0) && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
             getcurrentlocation();
-        }else {
+        } else {
         }
     }
 }

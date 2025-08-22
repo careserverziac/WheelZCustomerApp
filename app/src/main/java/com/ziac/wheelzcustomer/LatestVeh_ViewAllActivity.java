@@ -43,6 +43,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -233,6 +234,7 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
             this.filteredList = new ArrayList<>(latestDrivenClassList);
             this.context = context;
         }
+
         public Filter getFilter() {
             return new Filter() {
                 @Override
@@ -272,10 +274,9 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
         @NonNull
         @Override
         public LatestDrivenAdapter2.RecentcarsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_vech2, parent, false);
-            return new LatestDrivenAdapter2.RecentcarsViewHolder(view);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.latest_veh3, parent, false);
+            return new RecentcarsViewHolder(view);
         }
-
 
 
         @SuppressLint("SetTextI18n")
@@ -326,7 +327,7 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
         public static class RecentcarsViewHolder extends RecyclerView.ViewHolder {
 
             private ImageView lv_image;
-            MaterialButton Edit, Delete;
+            FloatingActionButton Edit, Delete;
             TextView lv_name, lv_ownership;
             private TextView lv_category, lv_variant, lv_transmission, lvcolor;
             private TextView lv_fuel, lv_date, lv_sellingprice;

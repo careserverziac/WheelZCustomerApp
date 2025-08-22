@@ -47,7 +47,7 @@ import ModelClasses.Global;
 
 public class SignupActivity extends AppCompatActivity {
 
-    EditText Name,Email,Mobile,Username,Password,Cpassword;
+    EditText Name,Email,Mobile,Username,Password,Cpassword,Referral_code;
     CheckBox checkBox;
     TextView TermsandConditions,Privacypolicy;
     Button Registration;
@@ -55,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
     boolean passwordvisible;
     private boolean passwordVisible = false;
     private ProgressDialog progressDialog;
-    String name,email,mobile,username,password,confirmpasword;
+    String name,email,mobile,username,password,confirmpasword,referral_code;
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
@@ -75,6 +75,7 @@ public class SignupActivity extends AppCompatActivity {
         Username=findViewById(R.id.username);
         Password=findViewById(R.id.password);
         Cpassword=findViewById(R.id.cpassword);
+        Referral_code=findViewById(R.id.referral_code);
         checkBox=findViewById(R.id.checkbox);
         TermsandConditions=findViewById(R.id.termsandconditions);
         Privacypolicy=findViewById(R.id.privacypolicy);
@@ -190,6 +191,7 @@ public class SignupActivity extends AppCompatActivity {
         username = Username.getText().toString();
         password = Password.getText().toString();
         confirmpasword = Cpassword.getText().toString();
+        referral_code = Referral_code.getText().toString();
 
 
         if (name.isEmpty()) {
@@ -385,6 +387,7 @@ public class SignupActivity extends AppCompatActivity {
                 params.put("wuser_mobile1",mobile);
                 params.put("username",username);
                 params.put("password",password);
+                params.put("ref_code",referral_code);
                 //Log.d("params",params.toString());
                 return params;
 

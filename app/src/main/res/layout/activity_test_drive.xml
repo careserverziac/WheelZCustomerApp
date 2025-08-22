@@ -4,73 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshprofile"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:fillViewport="true"
-        android:orientation="vertical">
-
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true">
-
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- Header -->
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/backbtn"
-                android:layout_width="45dp"
-                android:layout_height="30dp"
-                android:src="@drawable/arrow_left"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="5dp"
-                android:layout_centerVertical="true" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_height="56dp">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="55dp"
-                    android:src="@drawable/wheelz" />
+                    android:id="@+id/backbtn"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_left" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/calistoga"
-                    android:text="WheelZ"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="55dp"
+                        android:src="@drawable/wheelz" />
 
-            </LinearLayout>
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/calistoga"
+                        android:text="WheelZ"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </RelativeLayout>
+
+            <!-- Section: Selected Model -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/arsenal_bold"
                 android:text="1. Selected Model"
-                android:layout_marginTop="20dp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -78,612 +70,432 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
-                app:cardBackgroundColor="@color/black"
-                tools:ignore="MissingConstraints">
-
-
+                android:padding="12dp">
 
                 <TextView
                     android:id="@+id/manufacturer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/arsenal"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="12dp"
                     android:text="Bounce Infinity E1+"
                     android:textColor="@color/white"
-                    android:textSize="13dp" />
+                    android:textSize="13sp" />
 
                 <TextView
                     android:id="@+id/modelname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:fontFamily="@font/arsenal"
-                    android:layout_marginStart="12dp"
                     android:text="Bounce Infinity E1+"
                     android:textColor="@color/white"
-                    android:textSize="18dp" />
-
+                    android:textSize="18sp" />
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/rclinearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp"
-                tools:ignore="MissingConstraints">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:layout_marginTop="8dp"
                 app:cardBackgroundColor="@color/black"
-                app:cardCornerRadius="30dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
 
                 <ImageView
                     android:id="@+id/veh_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/pulsar_image" />
-
-
             </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
-
+            <!-- Section: Choose Dealer -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/arsenal_bold"
                 android:text="2. Choose dealer"
-                android:layout_marginTop="20dp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/arsenal_bold"
                 android:text="Filter according to state and city"
-                android:layout_marginTop="20dp"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
+            <!-- Filters Row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
+                <!-- State dropdown -->
                 <LinearLayout
+                    android:id="@+id/statedp"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:background="@drawable/border_colour"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/statetext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arsenal"
+                        android:text="State"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal">
-
-
-                            <LinearLayout
-                                android:id="@+id/statedp"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:background="@drawable/border_colour"
-                                android:gravity="center"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/statetext"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:drawablePadding="5dp"
-                                    android:fontFamily="@font/arsenal"
-                                    android:gravity="center"
-                                    android:paddingLeft="5dp"
-                                    android:text="State"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/white"
-                                    android:textSize="16dp" />
-                                <ImageView
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/baseline_arrow_down_icon"
-                                    />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/border_colour"
-                        android:layout_marginStart="2dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:orientation="horizontal">
-
-
-
-                            <LinearLayout
-                                android:id="@+id/citydp"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="bottom"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:layout_weight="1">
-
-                                <TextView
-                                    android:id="@+id/citytext"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:fontFamily="@font/arsenal"
-                                    android:text="City"
-                                    android:textStyle="bold"
-                                    android:textColor="@color/white"
-                                    android:textSize="16dp" />
-
-                                <ImageView
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/baseline_arrow_down_icon" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_arrow_down_icon" />
                 </LinearLayout>
 
+                <Space
+                    android:layout_width="8dp"
+                    android:layout_height="0dp" />
+
+                <!-- City dropdown -->
+                <LinearLayout
+                    android:id="@+id/citydp"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_colour"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/citytext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/arsenal"
+                        android:text="City"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_arrow_down_icon" />
+                </LinearLayout>
             </LinearLayout>
 
-
+            <!-- Dealer list -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dealerlist"
                 android:layout_width="match_parent"
-                android:layout_height="420dp" />
-
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                tools:itemCount="5" />
 
             <TextView
                 android:id="@+id/displaydata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/arsenal_bold"
                 android:text=""
-                android:layout_marginTop="5dp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-
+            <!-- Section: Contact Details -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/arsenal_bold"
                 android:text="3. Contact Details"
-                android:layout_marginTop="5dp"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-
-
-            <LinearLayout
+            <!-- Card: Name -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/lightgrey"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_calendar"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:text="Name"
-                                android:textColor="@color/whiteshade"
-                                android:textSize="12sp" />
-
-
-                            <TextView
-                                android:id="@+id/tdname"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:layout_marginTop="5dp"
-                                android:text="Shamith user"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/lightgrey"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_calendar"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:text="Mobile"
-                                android:textColor="@color/whiteshade"
-                                android:textSize="12sp" />
-
-
-                            <TextView
-                                android:id="@+id/tdmobile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:layout_marginTop="5dp"
-                                android:text="9876543210"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/lightgrey"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-                    <LinearLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_calendar"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:text="Email"
-                                android:textColor="@color/whiteshade"
-                                android:textSize="12sp" />
-
-
-                            <TextView
-                                android:id="@+id/tdmail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:layout_marginTop="5dp"
-                                android:text="sham@gmail.com"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginTop="10dp"
-                    android:backgroundTint="@color/lightgrey"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-                    <LinearLayout
-                        android:id="@+id/selectdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_calendar"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:text="Select Date"
-                                android:textColor="@color/whiteshade"
-                                android:textSize="12sp" />
-
-
-                            <TextView
-                                android:id="@+id/selecteddate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:layout_marginTop="5dp"
-                                android:text="Sun 22-12-1996"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:backgroundTint="@color/lightgrey"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-
-                    <LinearLayout
-                        android:id="@+id/selecttime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_time"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:text="Select Time"
-                                android:textColor="@color/whiteshade"
-                                android:textSize="12sp" />
-
-
-                            <TextView
-                                android:id="@+id/selectedtime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
-                                android:layout_marginTop="5dp"
-                                android:text="12:26 Am"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                        </LinearLayout>
-
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:text="Username"
-                            android:textColor="@color/white" />
-
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
+                android:backgroundTint="@color/lightgrey"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
 
                 <LinearLayout
-                    android:id="@+id/sub_btn"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/border_colour2"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
 
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:visibility="invisible" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar" />
 
-                    <TextView
-                        android:id="@+id/sub_txt"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center"
-                        android:text="Submit"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Name"
+                            android:textColor="@color/whiteshade"
+                            android:textSize="12sp" />
 
+                        <TextView
+                            android:id="@+id/tdname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Shamith user"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <!-- Card: Mobile -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lightgrey"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar" />
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Mobile"
+                            android:textColor="@color/whiteshade"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tdmobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/arsenal"
+                            android:text="9876543210"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Email -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lightgrey"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Email"
+                            android:textColor="@color/whiteshade"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tdmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/arsenal"
+                            android:text="sham@gmail.com"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Select Date -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lightgrey"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:id="@+id/selectdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_calendar" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Select Date"
+                            android:textColor="@color/whiteshade"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/selecteddate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Sun 22-12-1996"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/baseline_arrow_dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Select Time -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/lightgrey"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp">
+
+                <LinearLayout
+                    android:id="@+id/selecttime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_time" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Select Time"
+                            android:textColor="@color/whiteshade"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/selectedtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/arsenal"
+                            android:text="12:26 Am"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/baseline_arrow_dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/sub_btn"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_button_bg"
+                android:elevation="4dp"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
-
-        </ScrollView>
-    </RelativeLayout>
-
+    </ScrollView>
 </LinearLayout>
-

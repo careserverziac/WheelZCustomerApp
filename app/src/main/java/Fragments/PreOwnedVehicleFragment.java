@@ -165,18 +165,6 @@ public class PreOwnedVehicleFragment extends Fragment {
         String vehicleTypeImageUrl = Global.sharedPreferences.getString("vehicletypeimageurl", "");
 
 
-       /* if (vehicleTypeImageUrl != null && !vehicleTypeImageUrl.isEmpty()) {
-            String vimage = Global.dealersdetails.com_website + vehicleTypeImageUrl.substring(2);
-
-            Global.loadWithPicasso(requireActivity(), Img_veh_type, vimage);
-        } else {
-            if (Img_veh_type != null) {
-                Img_veh_type.setImageResource(R.drawable.no_image_available_icon);
-            }
-        }*/
-
-
-        /**/
 
 
         // VIEW ALL VEHICLES

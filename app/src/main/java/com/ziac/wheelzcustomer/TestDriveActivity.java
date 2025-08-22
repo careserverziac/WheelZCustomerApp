@@ -3,14 +3,17 @@ package com.ziac.wheelzcustomer;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -19,11 +22,13 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -37,9 +42,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 import ModelClasses.zList;
@@ -59,16 +67,16 @@ public class TestDriveActivity extends AppCompatActivity {
     private CommonClass commonClass;
     private zList cityname;
     private Dialog zDialog;
-    TextView Statetxt,Citytxt,Manufacture,Model,SelectedDate,Selectedtime,Displaydata;
-    LinearLayout Statedp,Citydp;
-    String statecode,citycode,searchquery,sqldateformat, selectedTime24,vmodel_code,com_code;
-    String dealerName,dealercity,dealerweb,dealeradrs;
+    TextView Statetxt, Citytxt, Manufacture, Model, SelectedDate, Selectedtime, Displaydata;
+    LinearLayout Statedp, Citydp;
+    String statecode, citycode, searchquery, sqldateformat, selectedTime24, vmodel_code, com_code;
+    String dealerName, dealercity, dealerweb, dealeradrs;
     RecyclerView DealerlistRV;
     DealerAdapter dealerAdapter;
     ImageView Veh_image;
-    LinearLayout SelectDt,SelectTm,Submit;
+    LinearLayout SelectDt, SelectTm;
+    Button Submit;
     Context context;
-    ProgressBar progressBar;
     TextView Sub_txt;
     ImageView Backbtn;
 
@@ -78,14 +86,14 @@ public class TestDriveActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_drive);
 
-        context=this;
+        context = this;
 
-        DealerlistRV=findViewById(R.id.dealerlist);
-        Statedp=findViewById(R.id.statedp);
-        Citydp=findViewById(R.id.citydp);
-        Manufacture=findViewById(R.id.manufacturer);
-        Model=findViewById(R.id.modelname);
-        Veh_image=findViewById(R.id.veh_image);
+        DealerlistRV = findViewById(R.id.dealerlist);
+        Statedp = findViewById(R.id.statedp);
+        Citydp = findViewById(R.id.citydp);
+        Manufacture = findViewById(R.id.manufacturer);
+        Model = findViewById(R.id.modelname);
+        Veh_image = findViewById(R.id.veh_image);
 
         SelectDt = findViewById(R.id.selectdate);
         SelectTm = findViewById(R.id.selecttime);
@@ -93,21 +101,22 @@ public class TestDriveActivity extends AppCompatActivity {
         Selectedtime = findViewById(R.id.selectedtime);
         Displaydata = findViewById(R.id.displaydata);
         Submit = findViewById(R.id.sub_btn);
-        progressBar = findViewById(R.id.progressBar);
-        Sub_txt = findViewById(R.id.sub_txt);
         Backbtn = findViewById(R.id.backbtn);
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Manufacture.setText(Global.modellist.getManufacture());
         Model.setText(Global.modellist.getModel_name());
-        vmodel_code=Global.modellist.getModel_code();
+        vmodel_code = Global.modellist.getModel_code();
+        com_code = Global.sharedPreferences.getString("com_code", "");
+
         Global.loadWithPicasso(TestDriveActivity.this, Veh_image, Global.modelsimageurl + Global.modellist.getImage_path());
 
-        Statetxt=findViewById(R.id.statetext);
-        Citytxt=findViewById(R.id.citytext);
+        Statetxt = findViewById(R.id.statetext);
+        Citytxt = findViewById(R.id.citytext);
 
-        searchquery="";
-        statecode="0";
-        citycode="0";
+        searchquery = "";
+        statecode = "0";
+        citycode = "0";
 
         getstates();
         getDealerslist();
@@ -191,13 +200,16 @@ public class TestDriveActivity extends AppCompatActivity {
             }
         });
         Backbtn.setOnClickListener(v -> {
-           finish();
+            finish();
         });
 
 
     }
+
     private void BookTestDrive() {
-        showLoading();
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookTestDrive,
                 new Response.Listener<String>() {
@@ -212,16 +224,16 @@ public class TestDriveActivity extends AppCompatActivity {
 
                         try {
                             if (response.getBoolean("isSuccess")) {
-                                hideLoading();
+                                progressDialog.dismiss();
                                 Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
 
                             } else {
-                                hideLoading();
+                                progressDialog.dismiss();
                                 Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
 
                             }
                         } catch (JSONException e) {
-                            hideLoading();
+                            progressDialog.dismiss();
                             throw new RuntimeException(e);
                         }
 
@@ -229,7 +241,7 @@ public class TestDriveActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                    hideLoading();
+                progressDialog.dismiss();
                 if (error instanceof TimeoutError) {
                     Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
@@ -254,8 +266,8 @@ public class TestDriveActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
-                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code",""));
-                params.put("com_code",com_code);
+                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code", ""));
+                params.put("com_code", com_code);
                 params.put("vmodel_code", vmodel_code);
                 params.put("testdriv_date", sqldateformat);
                 params.put("testdriv_time", selectedTime24);
@@ -276,8 +288,8 @@ public class TestDriveActivity extends AppCompatActivity {
 
         RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
 
-        Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
+        Url = Global.searchalldealers + "searchtext=" + searchquery + "&state_code=" + statecode + "&city_code=" + citycode;
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST, Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
@@ -321,7 +333,7 @@ public class TestDriveActivity extends AppCompatActivity {
                 dealerAdapter.notifyDataSetChanged();
 
             }
-        },  error -> {
+        }, error -> {
 
             if (error instanceof NoConnectionError) {
 
@@ -384,7 +396,7 @@ public class TestDriveActivity extends AppCompatActivity {
                 }
 
             }
-        },  error -> {
+        }, error -> {
 
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
@@ -439,6 +451,7 @@ public class TestDriveActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 laStates.getFilter().filter(newText);
@@ -531,12 +544,13 @@ public class TestDriveActivity extends AppCompatActivity {
             return v;
         }
     }
+
     private void getcity() {
         RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
 
-        String url=Global.GetCity;
-        url= url+"state_code="+statecode;
-        StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET,url,
+        String url = Global.GetCity;
+        url = url + "state_code=" + statecode;
+        StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String sresponse) {
@@ -691,7 +705,7 @@ public class TestDriveActivity extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
-            RadioButton radioButton=v.findViewById(R.id.radio_button);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
             cityname = mDataArrayList.get(i);
             tvstatenameitem.setText(cityname.get_name());
 
@@ -734,7 +748,6 @@ public class TestDriveActivity extends AppCompatActivity {
         private final RecyclerView dealerRecyclerView;
 
 
-
         public DealerAdapter(List<CommonClass> dealerList, Context context, TextView displayDataTextView, RecyclerView dealerRecyclerView) {
             this.context = context;
             this.dealerList = dealerList;
@@ -750,11 +763,12 @@ public class TestDriveActivity extends AppCompatActivity {
             return viewHolder;
 
         }
+
         @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-            com_code=dealerList.get(position).getCom_code();
+           // com_code = dealerList.get(position).getCom_code();
             holder.ItemCount.setText(String.valueOf(position + 1));
             holder.Comyname.setText(dealerList.get(position).getCom_name());
             holder.ComCity.setText(dealerList.get(position).getCity_name());
@@ -763,10 +777,10 @@ public class TestDriveActivity extends AppCompatActivity {
             holder.Dealerlist.setOnClickListener(v -> {
                 dealerRecyclerView.setVisibility(View.GONE);
 
-                dealerName=dealerList.get(position).getCom_name();
-                dealercity=dealerList.get(position).getCity_name();
-                dealerweb=dealerList.get(position).getCom_website();
-                dealeradrs=dealerList.get(position).getCom_address();
+                dealerName = dealerList.get(position).getCom_name();
+                dealercity = dealerList.get(position).getCity_name();
+                dealerweb = dealerList.get(position).getCom_website();
+                dealeradrs = dealerList.get(position).getCom_address();
 
                /* String selectedDealerData = "Dealer Name: " + dealerList.get(position).getCom_name() +
                         "\nCity: " + dealerList.get(position).getCity_name() +
@@ -780,23 +794,25 @@ public class TestDriveActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getItemCount() {return dealerList.size();}
+        public int getItemCount() {
+            return dealerList.size();
+        }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView Comyname,ComCity,ComAddress,Comwebsite,ItemCount;
+            TextView Comyname, ComCity, ComAddress, Comwebsite, ItemCount;
             LinearLayout Dealerlist;
 
 
-            public ViewHolder(@NonNull View itemView) {super(itemView);
+            public ViewHolder(@NonNull View itemView) {
+                super(itemView);
 
-                Comyname=itemView.findViewById(R.id.com_name);
-                ComCity=itemView.findViewById(R.id.com_city);
-                ComAddress=itemView.findViewById(R.id.com_address);
-                Comwebsite=itemView.findViewById(R.id.com_website);
-                ItemCount=itemView.findViewById(R.id.item_count);
-                Dealerlist=itemView.findViewById(R.id.dealer_list);
-
+                Comyname = itemView.findViewById(R.id.com_name);
+                ComCity = itemView.findViewById(R.id.com_city);
+                ComAddress = itemView.findViewById(R.id.com_address);
+                Comwebsite = itemView.findViewById(R.id.com_website);
+                ItemCount = itemView.findViewById(R.id.item_count);
+                Dealerlist = itemView.findViewById(R.id.dealer_list);
 
 
             }
@@ -804,13 +820,5 @@ public class TestDriveActivity extends AppCompatActivity {
 
     }
 
-    private void showLoading() {
-        Sub_txt.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
 
-    }
-    private void hideLoading() {
-        Sub_txt.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.GONE);
-    }
 }

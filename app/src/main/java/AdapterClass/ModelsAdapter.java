@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,23 +68,6 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             public void onClick(View v) {
 
                 Global.vehicledetails = commonClassList.get(position);
-                //CommonClass svel = new CommonClass();
-
-           /*     svel.setImage_path(Global.allleadslist.get(position).getImage());
-                svel.setCategory(Global.allleadslist.get(position).getCategory());
-                svel.setManufacture(Global.allleadslist.get(position).getManufacture());
-                svel.setModel_name(Global.allleadslist.get(position).getModel_name());
-                svel.setCc(Global.allleadslist.get(position).getCc());
-                svel.setBhp(Global.allleadslist.get(position).getBhp());
-                svel.setTopspeed(Global.allleadslist.get(position).getTopspeed());
-                svel.setBodytype(Global.allleadslist.get(position).getBodytype());
-                svel.setFuelname(Global.allleadslist.get(position).getFuelname());
-                svel.setModel_name(Global.allleadslist.get(position).getModel_name());
-                svel.setChargingtime(Global.allleadslist.get(position).getChargingtime());
-                svel.setSaleprice(Global.allleadslist.get(position).getSaleprice());
-
-                Global.modellist = svel;*/
-
                 VehicleDetailFragment vehicleDetailFragment = new VehicleDetailFragment();
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -115,8 +99,9 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView Veh_image;
-        TextView Manufacturer,Model_name,Testdrive,CC,BHP;
+        TextView Manufacturer,Model_name,CC,BHP;
         CardView Modelscardview;
+        Button Testdrive;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,11 +112,6 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             Modelscardview=itemView.findViewById(R.id.modelscardview);
             Testdrive=itemView.findViewById(R.id.testdrive);
 
-
-            // CC=itemView.findViewById(R.id.veh_cc);
-
-          /*  Category=itemView.findViewById(R.id.veh_category);
-            BHP=itemView.findViewById(R.id.veh_bhp);*/
         }
     }
 

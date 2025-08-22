@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/arsenal"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="Sign up"
                 android:textColor="@color/white"
@@ -366,6 +366,52 @@
                             android:importantForAutofill="noExcludeDescendants"
                             android:inputType="textPassword"
                             android:maxLength="18"
+                            android:padding="5dp"
+                            android:textColor="@color/white"
+                            android:textColorHint="#BDB9B9"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border_colour"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#E84D4D"
+                            android:focusable="true"
+                            android:gravity="center"
+                            app:fabSize="mini"
+                            app:srcCompat="@drawable/ic_referral_gift"
+                            app:tint="@color/white" />
+
+
+                        <EditText
+                            android:id="@+id/referral_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/arsenal"
+                            android:hint="Referral Code"
+                            android:importantForAutofill="noExcludeDescendants"
+                            android:maxLength="10"
                             android:padding="5dp"
                             android:textColor="@color/white"
                             android:textColorHint="#BDB9B9"

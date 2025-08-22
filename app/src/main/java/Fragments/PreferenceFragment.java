@@ -68,11 +68,6 @@ public class PreferenceFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_preference, container, false);
         context = getActivity();
 
-
-      /*  progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Loading !!");
-        progressDialog.setCancelable(false);*/
-
         getstates();
         getcity();
         getvehicletype();

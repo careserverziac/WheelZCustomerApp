@@ -89,7 +89,7 @@ public class BookServiceFragment extends Fragment {
 
     TextView Dealername, DealerMob, Companyname, SerApptDate, SelectedTm, Currentadress, Streetname, Dealeraddress, Selectedveh;
     LinearLayout SelectDt, SelectTm, Maplocation, Servicedp, Pickupdp, Vehicledropdp, CnfrmbkgbBTN, Complaintdp, SelectedvehDp;
-    String wuser_code, vehhis_code, lattitude, longitude;
+    String wuser_code, com_code,vehhis_code, lattitude, longitude;
     EditText Odometer, Complaints;
     CircleImageView DealerImage;
     private zList modelclass;
@@ -162,6 +162,7 @@ public class BookServiceFragment extends Fragment {
         locationUri = Global.sharedPreferences.getString("locationuri", "");
         streetname = Global.sharedPreferences.getString("currentStreetName", "");
         fulladdress = Global.sharedPreferences.getString("currentFullAddress", "");
+        com_code = Global.sharedPreferences.getString("com_code", "");
 
         getvehicledetails();
 

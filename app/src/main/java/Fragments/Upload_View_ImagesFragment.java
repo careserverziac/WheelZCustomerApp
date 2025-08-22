@@ -322,15 +322,11 @@ public class Upload_View_ImagesFragment extends Fragment {
                     try {
                         JSONObject resp = new JSONObject(response);
                         if (resp.getBoolean("isSuccess")) {
-                            // Update upload status
-                           // uploadStatus.put(currentUploadType, true);
-                          //  uploadedCount++;
 
                             String message = resp.getString("message");
                             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
                             Getallimages();
-                            // Update UI
-                            //updateUI();
+
                         } else {
                             String error = resp.getString("message");
                             Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();

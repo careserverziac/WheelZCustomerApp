@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
-    app:cardBackgroundColor="#0F0F0F"
+    android:layout_margin="2dp"
+    app:cardBackgroundColor="#1E1E1E"
     app:cardCornerRadius="20dp"
     app:cardElevation="12dp">
 
@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Top Section with Image and Floating Actions -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
@@ -53,7 +52,7 @@
                     android:id="@+id/edit_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
+                    android:layout_marginBottom="6dp"
                     android:contentDescription="Edit"
                     app:backgroundTint="#FF6B35"
                     app:fabSize="mini"
@@ -61,7 +60,7 @@
                     app:tint="#FFFFFF" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/delete"
+                    android:id="@+id/delete_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="Delete"
@@ -92,8 +91,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ENDEAVOUR"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
+                        android:textColor="#FF6B35"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:shadowColor="#000000"
                         android:shadowDx="1"
@@ -105,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Black"
-                        android:textColor="#E0E0E0"
+                        android:textColor="#FF6B35"
                         android:textSize="12sp"
                         android:shadowColor="#000000"
                         android:shadowDx="1"
@@ -295,7 +294,7 @@
                 android:id="@+id/lv_veh_dateTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="2dp"
                 android:fontFamily="@font/arsenal"
                 android:gravity="center"
                 android:text="Listed on 11-Apr-2023"

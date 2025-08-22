@@ -7,6 +7,8 @@
         <item>@font/antic_slab</item>
         <item>@font/archivo_black</item>
         <item>@font/arsenal</item>
+        <item>@font/roboto_bold</item>
+        <item>@font/roboto_medium</item>
 
     </array>
 </resources>

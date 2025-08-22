@@ -85,6 +85,7 @@ public class Global {
     public static String ProductList = baseurl + "api/List/GetProductList?";
     public static String urlupdateprofile = baseurl + "api/Users/UpdateProfileCustomer";
     public static String uploadVehImage = baseurl + "api/MyVehicles/UploadVehImage";
+    public static String MyVehiclesUpload = baseurl + "api/MyVehicles/Upload";
     public static ArrayList<LatestVehiclesClass> latestVehicleslist;
     public static String urllessdriven = baseurl + "api/Vehicles/GetLessDrivenVehicles";
 

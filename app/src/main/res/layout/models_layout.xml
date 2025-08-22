@@ -1,141 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/modelscardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:padding="0dp"
-    app:cardBackgroundColor="@color/black"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="8dp">
-
+    android:layout_margin="2dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="12dp">
 
     <LinearLayout
-        android:id="@+id/rclinearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#1E1E1E"
         android:orientation="vertical"
-        android:padding="10dp"
-        tools:ignore="MissingConstraints">
+        android:padding="0dp">
 
-
+        <!-- Hero Image Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="0dp">
+            android:layout_height="280dp"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp">
 
-            <ImageView
-                android:id="@+id/veh_image"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/pulsar_image" />
+                android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/veh_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/pulsar_image" />
+
+
+            </FrameLayout>
 
         </androidx.cardview.widget.CardView>
 
-
+        <!-- Content Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            app:cardBackgroundColor="@color/black"
-            tools:ignore="MissingConstraints">
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="24dp">
 
-
+            <!-- Vehicle Info -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                app:cardBackgroundColor="@color/black"
-                tools:ignore="MissingConstraints">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-
-                <TextView
-                    android:id="@+id/manufacture_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Bounce Infinity E1+"
-                    android:textColor="@color/white"
-                    android:textSize="13dp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/model_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Bounce Infinity E1+"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    <TextView
+                        android:id="@+id/manufacture_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:letterSpacing="0.05"
+                        android:text="Bounce Infinity"
+                        android:textColor="#B0BEC5"
+                        android:textSize="14sp" />
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical"
-                app:cardBackgroundColor="@color/black"
-                tools:ignore="MissingConstraints">
-
-                <TextView
-                    android:id="@+id/testdrive"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/dealermailid"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/bgborder_book"
-                    android:fontFamily="@font/arsenal_bold"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="Book a test drive"
-                    android:textColor="#087A4C"
-                    android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/model_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="E1+ Electric"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp" />
 
 
-                <!-- <TextView
-
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/bgborder_book"
-                     android:fontFamily="@font/arsenal_bold"
-                     android:layout_centerHorizontal="true"
-                     android:text="Go for a test drive"
-                     android:textColor="#087A4C"
-                     android:textSize="13dp" />
- -->
+                </LinearLayout>
 
 
             </LinearLayout>
 
+            <!-- Action Button -->
+            <Button
+                android:id="@+id/testdrive"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/gradient_button_bg"
+                android:elevation="4dp"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Book A Test Drive"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#2C2B2B" />
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#2C2B2B" />
     </LinearLayout>
 
-
 </androidx.cardview.widget.CardView>
-
-

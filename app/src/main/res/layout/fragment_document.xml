@@ -1,74 +1,73 @@
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/backbtn"
-        android:layout_width="45dp"
-        android:layout_height="30dp"
-        android:src="@drawable/arrow_left"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="5dp"
-        android:layout_centerVertical="true" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:src="@drawable/wheelz" />
+            android:id="@+id/backbtn"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/arrow_left" />
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/calistoga"
-            android:text="WheelZ"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="55dp"
+                android:src="@drawable/wheelz" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/calistoga"
+                android:text="WheelZ"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
         android:padding="16dp"
         android:text="Documents"
-        android:layout_marginTop="80dp"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="140dp"
+        android:orientation="horizontal"
         android:padding="10dp">
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/warranty"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="125dp"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -88,14 +87,13 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Warranty"
-                        android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Warranty"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -104,14 +102,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow"
-                        />
+                        android:src="@drawable/baseline_small_white_arrow" />
 
                 </LinearLayout>
 
@@ -129,16 +127,16 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.1"/>
+            android:layout_weight="0.1" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/emission"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="125dp"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -158,14 +156,13 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emmission"
-                        android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Emmission"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -174,14 +171,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow"
-                        />
+                        android:src="@drawable/baseline_small_white_arrow" />
 
                 </LinearLayout>
 
@@ -190,9 +187,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    android:src="@drawable/emissions"
-                    />
-
+                    android:src="@drawable/emissions" />
 
 
             </LinearLayout>
@@ -204,18 +199,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="280dp"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/insurance"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="125dp"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -235,14 +230,13 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Insurance"
-                        android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Insurance"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -251,14 +245,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow"
-                        />
+                        android:src="@drawable/baseline_small_white_arrow" />
 
                 </LinearLayout>
 
@@ -267,9 +261,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    android:src="@drawable/insurance"
-                    />
-
+                    android:src="@drawable/insurance" />
 
 
             </LinearLayout>
@@ -278,17 +270,17 @@
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.1"/>
+            android:layout_weight="0.1" />
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/permit"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="125dp"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -308,14 +300,13 @@
                     android:orientation="horizontal">
 
 
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Permit"
-                        android:layout_marginTop="20dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="Permit"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -324,14 +315,14 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <ImageView
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow"
-                        />
+                        android:src="@drawable/baseline_small_white_arrow" />
 
                 </LinearLayout>
 
@@ -340,9 +331,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    android:src="@drawable/permit"
-                    />
-
+                    android:src="@drawable/permit" />
 
 
             </LinearLayout>
@@ -352,18 +341,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="420dp"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/rcbook"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="125dp"
-            android:layout_marginTop="2dp"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
@@ -379,18 +368,18 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:background="#353434"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RC Book"
-                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/arsenal"
+                        android:text="RC Book"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
@@ -415,113 +404,110 @@
         </androidx.cardview.widget.CardView>
 
 
-
-
     </LinearLayout>
 
-   <!-- <LinearLayout
-        android:id="@+id/documentCardContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <!-- <LinearLayout
+         android:id="@+id/documentCardContainer"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
 
-        android:padding="14dp">
+         android:padding="14dp">
 
-        &lt;!&ndash; RC Card &ndash;&gt;
-        <androidx.cardview.widget.CardView
-            android:id="@+id/rc_cd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+         &lt;!&ndash; RC Card &ndash;&gt;
+         <androidx.cardview.widget.CardView
+             android:id="@+id/rc_cd"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="8dp"
+             app:cardCornerRadius="12dp"
+             app:cardElevation="6dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="RC Book"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="16dp"
+                 android:text="RC Book"
+                 android:textColor="@color/black"
+                 android:textStyle="bold"
+                 android:textSize="16sp" />
+         </androidx.cardview.widget.CardView>
 
-        &lt;!&ndash; Permit Card &ndash;&gt;
-        <androidx.cardview.widget.CardView
-            android:id="@+id/permit_cd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+         &lt;!&ndash; Permit Card &ndash;&gt;
+         <androidx.cardview.widget.CardView
+             android:id="@+id/permit_cd"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="8dp"
+             app:cardCornerRadius="12dp"
+             app:cardElevation="6dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Permit"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="16dp"
+                 android:text="Permit"
+                 android:textColor="@color/black"
+                 android:textStyle="bold"
+                 android:textSize="16sp" />
+         </androidx.cardview.widget.CardView>
 
-        &lt;!&ndash; Insurance Card &ndash;&gt;
-        <androidx.cardview.widget.CardView
-            android:id="@+id/insurance_cd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+         &lt;!&ndash; Insurance Card &ndash;&gt;
+         <androidx.cardview.widget.CardView
+             android:id="@+id/insurance_cd"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="8dp"
+             app:cardCornerRadius="12dp"
+             app:cardElevation="6dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Insurance"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="16dp"
+                 android:text="Insurance"
+                 android:textColor="@color/black"
+                 android:textStyle="bold"
+                 android:textSize="16sp" />
+         </androidx.cardview.widget.CardView>
 
-        &lt;!&ndash; Emission Card &ndash;&gt;
-        <androidx.cardview.widget.CardView
-            android:id="@+id/emmission_cd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+         &lt;!&ndash; Emission Card &ndash;&gt;
+         <androidx.cardview.widget.CardView
+             android:id="@+id/emmission_cd"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="8dp"
+             app:cardCornerRadius="12dp"
+             app:cardElevation="6dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Emission Test"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="16dp"
+                 android:text="Emission Test"
+                 android:textColor="@color/black"
+                 android:textStyle="bold"
+                 android:textSize="16sp" />
+         </androidx.cardview.widget.CardView>
 
-        &lt;!&ndash; Warranty Card &ndash;&gt;
-        <androidx.cardview.widget.CardView
-            android:id="@+id/warranty_cd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+         &lt;!&ndash; Warranty Card &ndash;&gt;
+         <androidx.cardview.widget.CardView
+             android:id="@+id/warranty_cd"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:cardCornerRadius="12dp"
+             app:cardElevation="6dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="Warranty"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>-->
-
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:padding="16dp"
+                 android:text="Warranty"
+                 android:textColor="@color/black"
+                 android:textStyle="bold"
+                 android:textSize="16sp" />
+         </androidx.cardview.widget.CardView>
+     </LinearLayout>-->
 
 
     <ProgressBar
@@ -694,14 +680,14 @@
     </LinearLayout>-->
 
     <!-- Main FAB -->
-   <!-- <ImageButton
-        android:id="@+id/imagebuttonRP"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/roundedbutton"
-        android:src="@drawable/baseline_add_24"
-        android:elevation="8dp" />-->
+    <!-- <ImageButton
+         android:id="@+id/imagebuttonRP"
+         android:layout_width="56dp"
+         android:layout_height="56dp"
+         android:layout_gravity="bottom|end"
+         android:layout_marginEnd="20dp"
+         android:layout_marginBottom="20dp"
+         android:background="@drawable/roundedbutton"
+         android:src="@drawable/baseline_add_24"
+         android:elevation="8dp" />-->
 </FrameLayout>

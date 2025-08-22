@@ -1,12 +1,15 @@
 package AdapterClass;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,6 @@ import ModelClasses.Global;
 
   public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicleviewholder> {
 
-    private static final int YOUR_REQUEST_CODE =12 ;
     private final List<CommonClass> vehicledetailsList;
     private final Context context;
 
@@ -39,9 +41,8 @@ import ModelClasses.Global;
     @NonNull
     @Override
     public Vehicleviewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicledetail_layout,parent,false);
-        VehiclesAdapter.Vehicleviewholder vehicleviewholder=new Vehicleviewholder(view);
-        return vehicleviewholder;
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.vehicledetail_layout2,parent,false);
+        return new Vehicleviewholder(view);
     }
 
     @Override
@@ -57,6 +58,23 @@ import ModelClasses.Global;
         holder.Vehcolor.setText(vehicledetailsList.get(position).getVcol_name());
         holder.Prvservice.setText(vehicledetailsList.get(position).getPrv_serdt());
         holder.Nextservice.setText(vehicledetailsList.get(position).getNxt_serdt());
+
+        holder.Rcn_copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Get the value of Regis_no from your list
+                String regisNo = vehicledetailsList.get(position).getRegis_no();
+                // Set it into the Regisno TextView/EditText
+                holder.Regisno.setText(regisNo);
+
+                // (Optional) Copy to clipboard too
+                ClipboardManager clipboard = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Regis No", regisNo);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(v.getContext(), "Copied: " + regisNo, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         holder.Documents.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +116,7 @@ import ModelClasses.Global;
     }
 
     public class Vehicleviewholder extends RecyclerView.ViewHolder {
-        ImageView Veh_image;
+        ImageView Veh_image,Rcn_copy;
         TextView Manufacturer,Model_name,Chassisno,Engineno,Regisno,Batteryno,Vehcolor,Prvservice,Nextservice,Documents,Service;
         CardView Modelscardview;
 
@@ -108,6 +126,7 @@ import ModelClasses.Global;
             super(itemView);
 
             Veh_image=itemView.findViewById(R.id.veh_image);
+            Rcn_copy=itemView.findViewById(R.id.rcn_copy);
             Manufacturer =itemView.findViewById(R.id.manufacturerMV);
             Model_name=itemView.findViewById(R.id.modelnameMV);
             Chassisno=itemView.findViewById(R.id.chasis_no);

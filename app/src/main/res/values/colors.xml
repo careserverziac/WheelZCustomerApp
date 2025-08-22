@@ -21,4 +21,14 @@
     <color name="whiteshade">#B3B1B1</color>
     <color name="chipBackground">#E3F2FD</color>
     <color name="primaryColor">#3A5FE5</color>
+    <color name="md_theme_light_primary">#6200EE</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+
+
+    <color name="primary_blue">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#666666</color>
+    <color name="background_light">#F8F9FA</color>
+    <color name="success_green">#4CAF50</color>
 </resources>
