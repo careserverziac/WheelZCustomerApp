@@ -54,6 +54,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
+import com.ziac.wheelzcustomer.GetAllVehViewAllActivity;
 import com.ziac.wheelzcustomer.LatestVeh_ViewAllActivity;
 import com.ziac.wheelzcustomer.Less_driven_Viewall_Activity;
 import com.ziac.wheelzcustomer.R;
@@ -83,7 +84,8 @@ public class PreOwnedVehicleFragment extends Fragment {
     private boolean allowBack = true;
     SearchView searchView;
     RecyclerView recyclermodels, Latestvehicles, Lessvehicles;
-    TextView latestcarsviewallTV, lessdrivenviewallTV, Veh_typeTV, StateTV, CityTV;
+    TextView latestcarsviewallTV, lessdrivenviewallTV, Veh_typeTV, StateTV, CityTV, Viewallicon;
+    TextView userVehicleTerms, userDataPolicy, userPrivacy;
     ImageView Edit, Img_veh_type;
     ModelsClass singleModel;
     LatestVehiclesClass latestVehiclesClass;
@@ -126,7 +128,41 @@ public class PreOwnedVehicleFragment extends Fragment {
         nestedScrollView = view.findViewById(R.id.scrollView);
         Img_veh_type = view.findViewById(R.id.vicon);
         fab = view.findViewById(R.id.fab_add_vehicle);
+
+        userVehicleTerms = view.findViewById(R.id.userVehicleTerms);
+        userDataPolicy = view.findViewById(R.id.userDataPolicy);
+        userPrivacy = view.findViewById(R.id.userPrivacy);
         fab.show();
+
+
+
+        userVehicleTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://ziacsoft.com/usedvehicleterms.php";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                v.getContext().startActivity(intent);
+            }
+        });
+        userDataPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://ziacsoft.com/usedvehicledatapolicy.php";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                v.getContext().startActivity(intent);
+            }
+        });
+        userPrivacy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://ziacsoft.com/usedvehicleprivacy.php";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                v.getContext().startActivity(intent);
+            }
+        });
 
 
         searchView.setQueryHint("Search for Model, Variant & Category");
@@ -220,34 +256,24 @@ public class PreOwnedVehicleFragment extends Fragment {
 
         latestcarsviewallTV = view.findViewById(R.id.viewalllatestvehicles);
         lessdrivenviewallTV = view.findViewById(R.id.viewalllessdriven);
-        //Viewallbrandsicon = view.findViewById(R.id.viewall_vehicles);
+        Viewallicon = view.findViewById(R.id.viewall_vehicles);
 
-        /* Viewallbrandsicon.setOnClickListener(v -> {
-         *//*  GetBrands_Fragment getBrandsFragment = new GetBrands_Fragment();
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, getBrandsFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();*//*
-        });*/
+        Viewallicon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), GetAllVehViewAllActivity.class));
+
+            }
+        });
+
         latestcarsviewallTV.setOnClickListener(v -> {
-           /* Latest_veh_Fragment_viewall latest_veh_fragmentViewall = new Latest_veh_Fragment_viewall();
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, latest_veh_fragmentViewall);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();*/
+
             startActivity(new Intent(getContext(), LatestVeh_ViewAllActivity.class));
 
         });
 
         lessdrivenviewallTV.setOnClickListener(v -> {
-            /*Less_driven_ViewallFragment less_driven_Viewall_fragment = new Less_driven_ViewallFragment();
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, less_driven_Viewall_fragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();*/
+
             startActivity(new Intent(getContext(), Less_driven_Viewall_Activity.class));
         });
 

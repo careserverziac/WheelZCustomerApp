@@ -127,23 +127,21 @@ public class SignupActivity extends AppCompatActivity {
             }
             return false;
         });
-        Cpassword.setOnTouchListener((v, event) -> {
 
+
+        Cpassword.setOnTouchListener((v, event) -> {
             final int Right = 2;
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (event.getRawX() >= Cpassword.getRight() - Cpassword.getCompoundDrawables()[Right].getBounds().width()) {
                     int selection = Cpassword.getSelectionEnd();
-                    if (passwordvisible) {
+                    if (passwordVisible) {
                         Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_remove_red_eye_24, 0);
                         Cpassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                        passwordvisible = false;
-
+                        passwordVisible = false;
                     } else {
                         Cpassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_eyes, 0);
                         Cpassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        passwordvisible = true;
-
-
+                        passwordVisible = true;
                     }
                     Cpassword.setSelection(selection);
                     return true;
@@ -151,6 +149,8 @@ public class SignupActivity extends AppCompatActivity {
             }
             return false;
         });
+
+
 
         String terms = TermsandConditions.getText().toString();
         SpannableString spannableStringterms = new SpannableString(terms);

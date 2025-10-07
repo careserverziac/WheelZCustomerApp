@@ -162,7 +162,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/arsenal"
-                        android:text="Emmission"
+                        android:text="Emission"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />

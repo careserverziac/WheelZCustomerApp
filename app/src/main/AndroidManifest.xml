@@ -40,6 +40,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".GetAllVehViewAllActivity"
+            android:exported="false" />
+        <activity
             android:name=".LatestVeh_ViewAllActivity"
             android:exported="false" />
         <activity
