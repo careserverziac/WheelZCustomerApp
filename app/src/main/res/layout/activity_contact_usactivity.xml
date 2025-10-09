@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/black"
     tools:context=".ContactUSActivity">
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/contact_us_underlined"
+                android:text="CONTACT US"
                 android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9008098101"
+                    android:text="9972595464"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
                     android:layout_gravity="center"
@@ -173,19 +173,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Username"
+                    android:src="@drawable/baseline_web_24"
                     android:layout_gravity="right"
-                    android:src="@drawable/baseline_location_icon"
+                    app:tint="@color/white"
                     android:textColor="@color/white"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027"
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/arsenal"
+                    android:autoLink="web"
+                    android:text="www.ziacsoft.com and www.ziactech.com"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    app:tint="@color/white"
                     android:textColor="@color/white"/>
 
 

@@ -19,7 +19,7 @@
     <string name="forward"><![CDATA[->]]></string>
     <string name="contact_us_underlined"><u>CONTACT US</u></string>
     <string name="change_password"><u>Change Password</u></string>
-    <string name="driving_licence">Driving licence</string>
+    <string name="driving_licence">Driving Licence</string>
 
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -35,4 +35,15 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
+
+    <string name="terms_conditions_icon">Terms and conditions icon</string>
+    <string name="privacy_icon">Privacy policy icon</string>
+    <string name="data_policy_icon">Data policy icon</string>
+    <string name="arrow_icon">Arrow icon</string>
+
+    <string name="change_password_icon">Change password icon</string>
+    <string name="delete_icon">Delete account icon</string>
+    <string name="faq_icon">FAQ icon</string>
+    <string name="share_icon">Share icon</string>
+    <string name="contact_us_icon">Contact us icon</string>
 </resources>

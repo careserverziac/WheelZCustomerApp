@@ -87,7 +87,9 @@ public class MyVehcileFragment extends Fragment {
         return  view;
     }
     private void VehicleinDetail() {
-        showLoading(); // Show loader at start
+        // Show loader at start
+        showLoading();
+
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
         String baseUrl = Global.getallMyVehicles;
         String userCode = Global.sharedPreferences.getString("wuser_code", "");
@@ -95,7 +97,6 @@ public class MyVehcileFragment extends Fragment {
 
         StringRequest request = new StringRequest(Request.Method.GET, fullUrl, response -> {
             try {
-
                 JSONObject jsonObjectResponse = new JSONObject(response);
                 boolean isSuccess = jsonObjectResponse.optBoolean("isSuccess", false);
                 String message = jsonObjectResponse.optString("message", "");
@@ -105,7 +106,11 @@ public class MyVehcileFragment extends Fragment {
                     Global.myvehiclelist = new ArrayList<>();
 
                     if (jsonArray.length() == 0) {
-                        Global.customtoast(requireActivity(), getLayoutInflater(), "No vehicles found.");
+                        // Safe toast check
+                        if (isAdded() && getContext() != null) {
+                            LayoutInflater inflater = LayoutInflater.from(getContext());
+                            Global.customtoast(getContext(), inflater, "No vehicles found.");
+                        }
                     } else {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -143,37 +148,51 @@ public class MyVehcileFragment extends Fragment {
                             Global.myvehiclelist.add(commonClass);
                         }
 
-                        vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist, getContext());
-                        VehiclelistRV.setAdapter(vehiclesAdapter);
-                        vehiclesAdapter.notifyDataSetChanged();
+                        if (isAdded() && getContext() != null) {
+                            vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist, getContext());
+                            VehiclelistRV.setAdapter(vehiclesAdapter);
+                            vehiclesAdapter.notifyDataSetChanged();
+                        }
                     }
-                    hideLoading(); // Hide loader after success
                 } else {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), message);
-                    hideLoading(); // Also hide loader if failed response
+                    // Failed response
+                    if (isAdded() && getContext() != null) {
+                        LayoutInflater inflater = LayoutInflater.from(getContext());
+                        Global.customtoast(getContext(), inflater, message);
+                    }
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Parsing error");
-                hideLoading(); // Hide loader on exception
+                if (isAdded() && getContext() != null) {
+                    LayoutInflater inflater = LayoutInflater.from(getContext());
+                    Global.customtoast(getContext(), inflater, "Parsing error");
+                }
+            } finally {
+                // Hide loader in all cases
+                hideLoading();
             }
 
         }, error -> {
-            hideLoading(); // Hide loader on network error
+            // Hide loader on network error
+            hideLoading();
 
-            if (error instanceof TimeoutError) {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Request timed out. Please try again.");
-            } else if (error instanceof NoConnectionError) {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "No internet connection.");
-            } else if (error instanceof ServerError) {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Server error occurred.");
-            } else if (error instanceof NetworkError) {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Network error.");
-            } else if (error instanceof ParseError) {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Response parsing failed.");
-            } else {
-                Global.customtoast(requireActivity(), getLayoutInflater(), "Something went wrong.");
+            if (isAdded() && getContext() != null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                String errorMsg;
+                if (error instanceof TimeoutError) {
+                    errorMsg = "Request timed out. Please try again.";
+                } else if (error instanceof NoConnectionError) {
+                    errorMsg = "No internet connection.";
+                } else if (error instanceof ServerError) {
+                    errorMsg = "Server error occurred.";
+                } else if (error instanceof NetworkError) {
+                    errorMsg = "Network error.";
+                } else if (error instanceof ParseError) {
+                    errorMsg = "Response parsing failed.";
+                } else {
+                    errorMsg = "Something went wrong.";
+                }
+                Global.customtoast(getContext(), inflater, errorMsg);
             }
 
         }) {
@@ -194,6 +213,7 @@ public class MyVehcileFragment extends Fragment {
 
         queue.add(request);
     }
+
 
 
 

@@ -281,7 +281,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (!checkBox.isChecked()) {
-            Global.customtoast(SignupActivity.this, getLayoutInflater(), "You are not agree with the terms and conditions of WheelZ to move further !!");
+            Global.customtoast(SignupActivity.this, getLayoutInflater(), "Please Agree to the Terms and Conditions to continue !!");
             return;
         }
 

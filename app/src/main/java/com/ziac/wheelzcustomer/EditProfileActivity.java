@@ -930,7 +930,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     try {
                         if (response.getBoolean("isSuccess")) {
 //                                Toast.makeText(EditProfileActivity.this, "Updated successfully !!", Toast.LENGTH_SHORT).show();
-                            Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Updated successfully !!");
+                            Global.customtoast(EditProfileActivity.this, getLayoutInflater(), "Profile Updated successfully !!");
                             finish();
                             Intent intent = new Intent(EditProfileActivity.this, EditProfileActivity.class);
                             startActivity(intent);
