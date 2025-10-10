@@ -163,7 +163,6 @@
                     android:textStyle="bold" />
 
 
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,16 +185,16 @@
                             android:id="@+id/editprofile"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:gravity="center_vertical"
+                            android:orientation="horizontal"
                             android:paddingVertical="0dp">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/person_white_icon"
-                                android:contentDescription="@string/faq_icon"
                                 android:layout_marginEnd="12dp"
+                                android:contentDescription="@string/faq_icon"
+                                android:src="@drawable/person_white_icon"
                                 app:tint="@color/white" />
 
                             <TextView
@@ -203,16 +202,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Edit profile"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                android:contentDescription="@string/arrow_icon"
+                                android:src="@drawable/baseline_small_white_arrow" />
 
                         </LinearLayout>
 
@@ -233,6 +232,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -250,115 +250,114 @@
                         android:orientation="vertical"
                         android:padding="15dp">
 
-                        <!-- FAQ Section -->
                         <LinearLayout
                             android:id="@+id/faq"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:paddingVertical="0dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/faq"
-
                                 android:contentDescription="@string/faq_icon"
-                                android:layout_marginEnd="12dp"
+                                android:src="@drawable/faq"
                                 app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="FAQ's"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/arrow_icon"
                                 android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
-                        <!-- Share Section -->
                         <LinearLayout
                             android:id="@+id/sharebutton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp"
                             android:gravity="center_vertical"
-                            android:paddingVertical="0dp"
-                            android:layout_marginTop="15dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_share_icon"
                                 android:contentDescription="@string/share_icon"
-                                android:layout_marginEnd="12dp" />
+                                android:src="@drawable/baseline_share_icon"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Share"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/arrow_icon"
                                 android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
-                        <!-- Contact Us Section -->
                         <LinearLayout
                             android:id="@+id/contactus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp"
                             android:gravity="center_vertical"
-                            android:paddingVertical="0dp"
-                            android:layout_marginTop="15dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_contact_us"
                                 android:contentDescription="@string/contact_us_icon"
-                                android:layout_marginEnd="12dp" />
+                                android:src="@drawable/baseline_contact_us"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Contact Us"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/arrow_icon"
                                 android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
-
                     </LinearLayout>
 
+
                 </androidx.cardview.widget.CardView>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -392,32 +391,32 @@
                             android:id="@+id/terms_conditions"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/terms_and_conditions"
                                 android:contentDescription="@string/terms_conditions_icon"
+                                android:src="@drawable/terms_and_conditions"
                                 app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginStart="12dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Terms &amp; Conditions"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_small_white_arrow"
                                 android:contentDescription="@string/arrow_icon"
+                                android:src="@drawable/baseline_small_white_arrow"
                                 app:tint="@color/white" />
 
                         </LinearLayout>
@@ -427,32 +426,32 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_visibility_off_eyes"
                                 android:contentDescription="@string/privacy_icon"
+                                android:src="@drawable/baseline_visibility_off_eyes"
                                 app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginStart="12dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Privacy Policy"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_small_white_arrow"
                                 android:contentDescription="@string/arrow_icon"
+                                android:src="@drawable/baseline_small_white_arrow"
                                 app:tint="@color/white" />
 
                         </LinearLayout>
@@ -462,37 +461,36 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_policy_24"
                                 android:contentDescription="@string/data_policy_icon"
+                                android:src="@drawable/baseline_policy_24"
                                 app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_marginStart="12dp"
+                                android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Data Policy"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/baseline_small_white_arrow"
                                 android:contentDescription="@string/arrow_icon"
+                                android:src="@drawable/baseline_small_white_arrow"
                                 app:tint="@color/white" />
 
                         </LinearLayout>
                     </LinearLayout>
-
 
 
                 </androidx.cardview.widget.CardView>
@@ -508,6 +506,88 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <!--  <androidx.cardview.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:backgroundTint="@color/lightgrey"
+                      app:cardCornerRadius="20dp"
+                      app:cardElevation="10dp"
+                      app:cardMaxElevation="12dp"
+                      tools:ignore="MissingConstraints">
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="vertical"
+                          android:padding="15dp">
+
+                          &lt;!&ndash; Change Password Section &ndash;&gt;
+                          <LinearLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal"
+                              android:gravity="center_vertical">
+
+                              <ImageView
+                                  android:layout_width="20dp"
+                                  android:layout_height="20dp"
+
+                                  android:layout_marginEnd="12dp" />
+
+                              <TextView
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_weight="1"
+                                  android:fontFamily="@font/arsenal"
+
+                                  android:textColor="@color/white"
+                                  android:textSize="14sp"
+                                  android:gravity="center_vertical" />
+
+                              <ImageView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:src="@drawable/baseline_small_white_arrow"
+                                  android:contentDescription="@string/arrow_icon" />
+
+                          </LinearLayout>
+
+                          &lt;!&ndash; Delete Account Section &ndash;&gt;
+                          <LinearLayout
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:orientation="horizontal"
+                              android:gravity="center_vertical"
+                              android:layout_marginTop="15dp">
+
+                              <ImageView
+                                  android:layout_width="20dp"
+                                  android:layout_height="20dp"
+
+                                  app:tint="@color/white"
+                                  android:layout_marginEnd="12dp" />
+
+                              <TextView
+                                  android:layout_width="0dp"
+                                  android:layout_height="wrap_content"
+                                  android:layout_weight="1"
+                                  android:fontFamily="@font/arsenal"
+                                  android:textColor="@color/white"
+                                  android:textSize="14sp"
+                                  android:gravity="center_vertical" />
+
+                              <ImageView
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:src="@drawable/baseline_small_white_arrow"
+                                  android:contentDescription="@string/arrow_icon" />
+
+                          </LinearLayout>
+
+                      </LinearLayout>
+
+                  </androidx.cardview.widget.CardView>-->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -518,80 +598,82 @@
                     app:cardMaxElevation="12dp"
                     tools:ignore="MissingConstraints">
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
                         android:padding="15dp">
 
-                        <!-- Change Password Section -->
                         <LinearLayout
                             android:id="@+id/changepasword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:src="@drawable/change_password_icon"
                                 android:contentDescription="@string/change_password_icon"
-                                android:layout_marginEnd="12dp" />
+                                android:src="@drawable/change_password_icon"
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Change Password"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/arrow_icon"
                                 android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
-                        <!-- Delete Account Section -->
                         <LinearLayout
                             android:id="@+id/deleteaccount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp"
                             android:gravity="center_vertical"
-                            android:layout_marginTop="15dp">
+                            android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
                                 android:src="@drawable/baseline_delete_sweep_24"
-                                app:tint="@color/white"
-                                android:layout_marginEnd="12dp" />
+                                app:tint="@color/white" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/arsenal"
+                                android:gravity="center_vertical"
                                 android:text="Delete Account"
                                 android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:gravity="center_vertical" />
+                                android:textSize="14sp" />
 
                             <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:contentDescription="@string/arrow_icon"
                                 android:src="@drawable/baseline_small_white_arrow"
-                                android:contentDescription="@string/arrow_icon" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
-
                     </LinearLayout>
+
 
                 </androidx.cardview.widget.CardView>
 

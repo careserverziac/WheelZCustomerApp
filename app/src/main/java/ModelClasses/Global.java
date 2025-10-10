@@ -25,7 +25,7 @@ public class Global {
 
 
     //public static String baseurl = "https://wheelzonline.co.in/";
-    public static String baseurl = "http://192.168.100.21:7777/";
+    public static String baseurl = "https://192.168.100.21:7777/";
     //public static String baseurl_image = "https://wheelzonline.in/";
     public static String baseurl_image = "http://192.168.100.21:7778/";
 
@@ -165,7 +165,9 @@ public class Global {
         Picasso picasso = getPicassoInstance(context);
 
         picasso.load(imageUrl)
-                .error(R.drawable.no_image_available_icon)
+                .placeholder(R.drawable.no_image_available_icon)  // 👈 Shown during loading
+                .error(R.drawable.no_image_available_icon)        // 👈 Shown if URL fails
                 .into(imageView);
     }
+
 }

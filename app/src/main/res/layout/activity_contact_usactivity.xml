@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".ContactUSActivity">
 
     <RelativeLayout
@@ -16,10 +16,10 @@
             android:id="@+id/backbtn"
             android:layout_width="45dp"
             android:layout_height="30dp"
-            android:src="@drawable/arrow_left"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginStart="5dp"
-            android:layout_centerVertical="true" />
+            android:src="@drawable/arrow_left" />
 
 
         <LinearLayout
@@ -50,26 +50,24 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:scrollbars="none"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:orientation="vertical">
-
-
+            android:orientation="vertical"
+            android:padding="15dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CONTACT US"
-                android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/arsenal"
+                android:text="CONTACT US"
+                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textColor="@color/white"/>
+                android:textStyle="bold" />
 
             <LinearLayout
 
@@ -81,30 +79,31 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_gravity="right"
                     android:src="@drawable/baseline_email_icon"
-                    android:textColor="@color/white"/>
+                    android:text="Username"
+                    android:textColor="@color/white" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ziacsupport@ziacsoft.com"
-                    android:layout_marginStart="4dp"
-                    android:fontFamily="@font/arsenal"
                     android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:fontFamily="@font/arsenal"
+                    android:text="ziacsupport@ziacsoft.com"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_gravity="right"
+                    android:text="Username"
 
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -114,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
-                android:background="#4E4D4D"/>
+                android:background="#4E4D4D" />
 
 
             <LinearLayout
@@ -127,30 +126,31 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_gravity="right"
                     android:src="@drawable/baseline_call_icon"
-                    android:textColor="@color/white"/>
+                    android:text="Username"
+                    android:textColor="@color/white" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="9972595464"
-                    android:layout_marginStart="4dp"
-                    android:fontFamily="@font/arsenal"
                     android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:textColor="@color/white"/>
+                    android:fontFamily="@font/arsenal"
+                    android:text="+ 91 9972595464"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_gravity="right"
+                    android:text="Username"
 
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -159,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
-                android:background="#4E4D4D"/>
+                android:background="#4E4D4D" />
 
 
             <LinearLayout
@@ -172,33 +172,34 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
-                    android:src="@drawable/baseline_web_24"
                     android:layout_gravity="right"
-                    app:tint="@color/white"
-                    android:textColor="@color/white"/>
+                    android:src="@drawable/baseline_web_24"
+                    android:text="Username"
+                    android:textColor="@color/white"
+                    app:tint="@color/white" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:fontFamily="@font/arsenal"
-                    android:autoLink="web"
-                    android:text="www.ziacsoft.com and www.ziactech.com"
                     android:layout_gravity="center"
+                    android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    app:tint="@color/white"
-                    android:textColor="@color/white"/>
+                    android:autoLink="web"
+                    android:fontFamily="@font/arsenal"
+                    android:text="www.ziacsoft.com  and  www.ziactech.com"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:tint="@color/white" />
 
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Username"
                     android:layout_gravity="right"
+                    android:text="Username"
 
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -207,29 +208,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:layout_gravity="center_vertical"
-                android:background="#4E4D4D"/>
+                android:background="#4E4D4D" />
 
 
-         <!--   <View
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
--->
+            <!--   <View
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1" />
+   -->
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/border_colour"
                 android:gravity="center"
-                android:padding="8dp"
-                android:background="@drawable/border_colour">
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/gmail_icon"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/gmail_icon" />
 
                 <LinearLayout
                     android:id="@+id/maillink"
@@ -240,13 +241,13 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="MAIL US"
                         android:layout_marginTop="3dp"
-                        android:gravity="center"
                         android:fontFamily="@font/arsenal"
-                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="MAIL US"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:textColor="@color/white"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -255,14 +256,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
-                android:padding="8dp"
-                android:background="@drawable/border_colour">
+                android:background="@drawable/border_colour"
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/phone_image"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/phone_image" />
 
                 <LinearLayout
                     android:id="@+id/call"
@@ -273,9 +274,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
                         android:fontFamily="@font/arsenal"
                         android:gravity="center"
-                        android:layout_marginTop="3dp"
                         android:text="CALL US"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -288,17 +289,17 @@
                 android:id="@+id/locaterelative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="onLocateClicked"
                 android:layout_marginTop="15dp"
-                android:padding="8dp"
                 android:background="@drawable/border_colour"
+                android:onClick="onLocateClicked"
+                android:padding="8dp"
                 tools:ignore="UsingOnClickInXml">
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/googlemap"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/googlemap" />
 
                 <LinearLayout
                     android:id="@+id/location"
@@ -309,9 +310,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
                         android:fontFamily="@font/arsenal"
                         android:gravity="center"
-                        android:layout_marginTop="3dp"
                         android:text="LOCATE US IN MAP"
                         android:textColor="@color/white"
                         android:textSize="18sp"
@@ -320,22 +321,20 @@
             </RelativeLayout>
 
 
-
-
             <RelativeLayout
                 android:id="@+id/contact_whatsapp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="openWhatsAppChat"
                 android:layout_marginTop="15dp"
-                android:padding="8dp"
-                android:background="@drawable/border_colour">
+                android:background="@drawable/border_colour"
+                android:onClick="openWhatsAppChat"
+                android:padding="8dp">
 
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/whatsapp"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/whatsapp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -345,17 +344,15 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="3dp"
                         android:fontFamily="@font/arsenal"
                         android:gravity="center"
-                        android:layout_marginTop="3dp"
                         android:text="CONTACT US ON WHATSAPP"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
-
-
 
 
             <View
@@ -366,13 +363,13 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="FOLLOW US ONLINE"
-                android:gravity="center"
-                android:fontFamily="@font/arsenal"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
+                android:fontFamily="@font/arsenal"
+                android:gravity="center"
+                android:text="FOLLOW US ONLINE"
+                android:textColor="@color/white"
                 android:textSize="22sp"
-                android:textColor="@color/white"/>
+                android:textStyle="bold" />
 
 
             <LinearLayout
@@ -391,8 +388,8 @@
                 <LinearLayout
                     android:id="@+id/facebookimg"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -412,21 +409,19 @@
                 </LinearLayout>
 
 
-
-
                 <LinearLayout
                     android:id="@+id/linkedinimg"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/linkedin"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/linkedin" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -441,8 +436,8 @@
                 <LinearLayout
                     android:id="@+id/twitterimg"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -450,8 +445,8 @@
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="41dp"
-                        android:src="@drawable/twitter_removebg"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/twitter_removebg" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -466,8 +461,8 @@
                 <LinearLayout
                     android:id="@+id/instagramimg"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -475,8 +470,8 @@
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="39dp"
-                        android:src="@drawable/instagram1"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/instagram1" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -494,9 +489,8 @@
                     android:layout_weight="1" />
 
 
-
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-        </LinearLayout>
+</LinearLayout>

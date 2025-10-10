@@ -32,7 +32,7 @@ import Fragments.ProfileFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
-public class MainActivty extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity  {
 
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
@@ -51,7 +51,7 @@ public class MainActivty extends AppCompatActivity  {
 
         if (AppStatus.getInstance(this).isOnline()) {
         } else {
-            Global.customtoast(MainActivty.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+            Global.customtoast(MainActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
 
         Bundle extras = getIntent().getExtras();
@@ -171,7 +171,7 @@ public class MainActivty extends AppCompatActivity  {
 
     public void exitdialog() {
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder((MainActivty.this));
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder((MainActivity.this));
         alertDialogBuilder.setTitle("Logout Confirmation");
         alertDialogBuilder.setMessage("Are you sure you want to logout?");
         alertDialogBuilder.setIcon(R.drawable.wheelz_logo);
@@ -186,7 +186,7 @@ public class MainActivty extends AppCompatActivity  {
                 Global.editor.commit();
 
 
-                startActivity(new Intent(MainActivty.this, LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finish();
             }
         });

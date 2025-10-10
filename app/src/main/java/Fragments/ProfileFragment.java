@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -15,7 +14,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -38,6 +36,7 @@ import com.ziac.wheelzcustomer.DeleteAccountActivity;
 import com.ziac.wheelzcustomer.EditProfileActivity;
 import com.ziac.wheelzcustomer.LoginActivity;
 import com.ziac.wheelzcustomer.R;
+
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -46,49 +45,51 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
 
-    LinearLayout Data_privacy,Faq,Editprofile,Sharebutton,Contactus,PrivacyPolicy,Terms_Conditions,Deleteaccount,Changepassword;
+    LinearLayout Data_privacy, Faq, Editprofile, Sharebutton, Contactus, PrivacyPolicy, Terms_Conditions, Deleteaccount, Changepassword;
     Intent intent;
-    TextView Username,Usermobile,Useremail,Account;
+    TextView Username, Usermobile, Useremail, Account;
     CircleImageView circularImageView;
     Button Logout;
     String userimage;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-             View view= inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
         if (AppStatus.getInstance(requireActivity()).isOnline()) {
         } else {
-            Global.customtoast(requireActivity(),getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
+            Global.customtoast(requireActivity(), getLayoutInflater(), "Connected WIFI or Mobile data has no internet access!!");
         }
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         userimage = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
 
-        circularImageView =view.findViewById(R.id.pro_image);
+        circularImageView = view.findViewById(R.id.pro_image);
         Global.loadWithPicasso(requireContext(), circularImageView, userimage);
         Picasso.Builder builder = new Picasso.Builder(requireContext());
         Picasso picasso = builder.build();
 
-        Data_privacy=view.findViewById(R.id.data_privacy);
-        Account=view.findViewById(R.id.account);
-        Editprofile=view.findViewById(R.id.editprofile);
-        Sharebutton=view.findViewById(R.id.sharebutton);
-        Contactus=view.findViewById(R.id.contactus);
-        PrivacyPolicy=view.findViewById(R.id.privacy);
-        Terms_Conditions=view.findViewById(R.id.terms_conditions);
-        Deleteaccount=view.findViewById(R.id.deleteaccount);
-        Changepassword=view.findViewById(R.id.changepasword);
-        Logout=view.findViewById(R.id.logoutbtn);
-        Username=view.findViewById(R.id.PRusername);
-        Usermobile=view.findViewById(R.id.PRusermobile);
-        Useremail=view.findViewById(R.id.PRusermail);
+        Data_privacy = view.findViewById(R.id.data_privacy);
+        Account = view.findViewById(R.id.account);
+        Editprofile = view.findViewById(R.id.editprofile);
+        Sharebutton = view.findViewById(R.id.sharebutton);
+        Contactus = view.findViewById(R.id.contactus);
+        PrivacyPolicy = view.findViewById(R.id.privacy);
+        Terms_Conditions = view.findViewById(R.id.terms_conditions);
+        Deleteaccount = view.findViewById(R.id.deleteaccount);
+        Changepassword = view.findViewById(R.id.changepasword);
+        Logout = view.findViewById(R.id.logoutbtn);
+        Username = view.findViewById(R.id.PRusername);
+        Usermobile = view.findViewById(R.id.PRusermobile);
+        Useremail = view.findViewById(R.id.PRusermail);
         Faq = view.findViewById(R.id.faq);
 
         String dealername = Global.sharedPreferences.getString("key_person", "");
@@ -99,7 +100,7 @@ public class ProfileFragment extends Fragment {
         Username.setText(dealername);
         Usermobile.setText(user_mobile);
         Useremail.setText(user_mail);
-        Account.setText("Account "+"("+ user_name+")");
+        Account.setText("Account " + "(" + user_name + ")");
 
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), EditProfileActivity.class))));
@@ -127,31 +128,37 @@ public class ProfileFragment extends Fragment {
         });
 
 
-
-        Sharebutton.setOnClickListener(v ->  ShareIntent());
-        PrivacyPolicy.setOnClickListener(v ->  privacyMethod());
-        Terms_Conditions.setOnClickListener(v ->  TermsOfUseMethod());
+        Sharebutton.setOnClickListener(v -> ShareIntent());
+        PrivacyPolicy.setOnClickListener(v -> privacyMethod());
+        Terms_Conditions.setOnClickListener(v -> TermsOfUseMethod());
         Deleteaccount.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), DeleteAccountActivity.class))));
-        Logout.setOnClickListener(v ->  exitdialog());
-
+        Logout.setOnClickListener(v -> exitdialog());
 
 
         circularImageView.setOnClickListener(v -> {
             userimage = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
-            showImage(picasso, userimage);
-
+            if (userimage == null || userimage.trim().isEmpty()) {
+                circularImageView.setImageResource(R.drawable.no_image_available_icon);
+            } else {
+                Global.loadWithPicasso(requireContext(), circularImageView, userimage);
+                showImage(picasso, userimage);
+            }
         });
+
 
         return view;
     }
 
-    public void showImage(Picasso picasso, String userimage) {
+    public void showImage(Picasso picasso, String fullUrl) {
         Dialog builder = new Dialog(requireActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        builder.setOnDismissListener(dialogInterface -> {
-            // Nothing
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                // Nothing
+            }
         });
 
         // Calculate display dimensions
@@ -160,7 +167,7 @@ public class ProfileFragment extends Fragment {
         int screenHeight = displayMetrics.heightPixels;
 
         // Load the image using Picasso
-        picasso.load(Uri.parse(userimage)).into(new Target() {
+        picasso.load(Uri.parse(fullUrl)).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 ImageView imageView = new ImageView(requireActivity());
@@ -179,8 +186,7 @@ public class ProfileFragment extends Fragment {
 
                 // Add padding values
                 int paddingInDp = 16; // You can adjust the padding as per your requirement
-                int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp,
-                        requireActivity().getResources().getDisplayMetrics());
+                int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp, requireActivity().getResources().getDisplayMetrics());
 
                 // Adjust the newWidth and newHeight with padding
                 newWidth -= 2 * paddingInPx; // Subtract padding from both sides
@@ -209,8 +215,10 @@ public class ProfileFragment extends Fragment {
     }
 
 
+
+
     private void privacyMethod() {
-        ConnectivityManager conMgr = (ConnectivityManager)requireActivity()
+        ConnectivityManager conMgr = (ConnectivityManager) requireActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = conMgr.getActiveNetworkInfo();
 
@@ -223,6 +231,7 @@ public class ProfileFragment extends Fragment {
         }
 
     }
+
     private void TermsOfUseMethod() {
         ConnectivityManager conMgr = (ConnectivityManager) requireActivity()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -237,6 +246,7 @@ public class ProfileFragment extends Fragment {
         }
 
     }
+
     private void golink(String s) {
 
         Uri uri = Uri.parse(s);
@@ -255,9 +265,6 @@ public class ProfileFragment extends Fragment {
 
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
                 Global.editor = Global.sharedPreferences.edit();
-               /* Global.editor.remove("access_token");
-                Global.editor.remove("refresh_token");
-                Global.editor.remove("message");*/
                 Global.editor.clear();
                 Global.editor.apply();
 
@@ -274,6 +281,7 @@ public class ProfileFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
     private Intent ShareIntent() {
         try {
             Intent i = new Intent(Intent.ACTION_SEND);
@@ -288,6 +296,7 @@ public class ProfileFragment extends Fragment {
         }
         return intent;
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -296,7 +305,6 @@ public class ProfileFragment extends Fragment {
         String user_mail = Global.sharedPreferences.getString("Email", "");
         String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
 
-/*        Picasso.get().load(image).into(circularImageView);*/
         Global.loadWithPicasso(requireContext(), circularImageView, image);
         Username.setText(dealername);
         Usermobile.setText(user_mobile);

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivty">
+    tools:context=".MainActivity">
 
     <!--    tools:openDrawer="start"-->
     <!--android:fitsSystemWindows="true"-->

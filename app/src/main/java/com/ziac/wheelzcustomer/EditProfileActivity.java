@@ -61,6 +61,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
@@ -193,6 +194,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         circularImageView.setOnClickListener(v -> {
             image = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
+            Global.loadWithPicasso(this, circularImageView, image);
             showImage(picasso, image);
 
         });
@@ -230,10 +232,11 @@ public class EditProfileActivity extends AppCompatActivity {
         });
 
         viewRc.setOnClickListener(v -> {
-
-            fileUrl = Global.dlpath + Global.sharedPreferences.getString("imgdoc_path", ""); // Your file URL
+           /* fileUrl = Global.dlpath + Global.sharedPreferences.getString("imgdoc_path", ""); // Your file URL
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
-            startActivity(intent);
+            startActivity(intent);*/
+            fileUrl = Global.dlpath + Global.sharedPreferences.getString("imgdoc_path", "");
+            showImage(picasso, fileUrl);
         });
 
         Backbtn.setOnClickListener(v -> {
@@ -1218,6 +1221,9 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
     @SuppressLint("Range")

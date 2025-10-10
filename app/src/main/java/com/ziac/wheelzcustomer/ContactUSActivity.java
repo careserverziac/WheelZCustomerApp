@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -58,7 +59,7 @@ public class ContactUSActivity extends AppCompatActivity {
         Linkedin.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/company/ziacsoft"))));
 
         Call.setOnClickListener(v -> {Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:9008098101"));
+            callIntent.setData(Uri.parse("tel:9972595464"));
             if (ActivityCompat.checkSelfPermission(ContactUSActivity.this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(ContactUSActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, 1);
             } else {
@@ -78,48 +79,60 @@ public class ContactUSActivity extends AppCompatActivity {
            finish();
         });
 
-    }
-    public void openWhatsAppChat(View view) {
-        String phoneNumber = "9972595464";
-        Uri uri = Uri.parse("smsto:" + phoneNumber);
-        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        Contact_whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if WhatsApp is installed
+                if (isAppInstalled("com.whatsapp")) {
+                    openWhatsAppChat("919972595464"); // Open regular WhatsApp
+                } else if (isAppInstalled("com.whatsapp.w4b")) {
+                    openWhatsAppChat("919972595464"); // Open WhatsApp Business
+                } else {
+                    // Show toast if neither app is installed
+                    if (isAppInstalled("com.whatsapp")) {
+                        openWhatsAppChat("919972595464"); // Open regular WhatsApp
+                    } else {
+                        openWhatsAppChat("919972595464"); // Open WhatsApp Business
 
-
-        String whatsappBusinessPackageName = "com.whatsapp.w4b";
-
-        if (isPackageInstalled(whatsappBusinessPackageName, getPackageManager())) {
-            intent.setPackage(whatsappBusinessPackageName);
-            try {
-                startActivity(intent);
-                return;  // Successfully started WhatsApp Business intent
-            } catch (ActivityNotFoundException ignored) {
-
+                    }
+                }
             }
-        }
+        });
 
-
-        if (isPackageInstalled("com.whatsapp", getPackageManager())) {
-            intent.setPackage("com.whatsapp");
-            try {
-                startActivity(intent);
-                return;  // Successfully started regular WhatsApp intent
-            } catch (ActivityNotFoundException ignored) {
-                // Regular WhatsApp intent not available
-            }
-        }
-
-
-        Toast.makeText(this, "WhatsApp is not installed on this device", Toast.LENGTH_SHORT).show();
     }
-
-    private boolean isPackageInstalled(String packageName, PackageManager packageManager) {
+    private boolean isAppInstalled(String packageName) {
+        PackageManager packageManager = (this).getPackageManager();
         try {
             packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
-            return true;
+            return true; // App is installed
         } catch (PackageManager.NameNotFoundException e) {
-            return false;
+            return false; // App is not installed
         }
     }
+
+    private void openWhatsAppChat(String phoneNumber) {
+        try {
+            // Format the phone number for WhatsApp URL
+            String url = "https://wa.me/" + phoneNumber;
+
+            // Check if WhatsApp is installed and try to open the app
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+
+            // If WhatsApp is installed, try opening it directly using its package name
+            if (isAppInstalled("com.whatsapp")) {
+                intent.setPackage("com.whatsapp");
+            } else if (isAppInstalled("com.whatsapp.w4b")) {
+                intent.setPackage("com.whatsapp.w4b"); // Open WhatsApp Business
+            }
+
+            // If WhatsApp is installed, it will open; otherwise, show a toast message
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error opening WhatsApp", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void locateAddress() {
         String address = "Ziac Software No. 5, 2nd Cross, CSI compound, Mission Rd, Bengaluru, Karnataka 560027";
@@ -152,7 +165,7 @@ public class ContactUSActivity extends AppCompatActivity {
     }
     private void makeCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:9008098101"));
+        callIntent.setData(Uri.parse("tel:9972595464"));
         try {
             startActivity(callIntent);
         } catch (SecurityException e) {

@@ -1,11 +1,8 @@
 package com.ziac.wheelzcustomer;
 
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -21,9 +18,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -36,24 +31,21 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.Task;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import ModelClasses.Global;
+import ModelClasses.VolleyRequestHelper;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-
+    String refreshToken, accessToken;
     ImageView splashimage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,90 +73,151 @@ public class SplashActivity extends AppCompatActivity {
         animationSet.addAnimation(fadeInAnimation);
 
         splashimage.startAnimation(animationSet);
-
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             try {
                 Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                if (Global.sharedPreferences.contains("access_token") && Global.sharedPreferences.contains("refresh_token")) {
-                    dorefreshtokenVolley();
-                } else {
 
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                    finish();
+                accessToken = Global.sharedPreferences.getString("access_token", "");
+                refreshToken = Global.sharedPreferences.getString("refresh_token", "");
+
+                // ✅ Check if token values are valid (not null or empty)
+                if (accessToken != null && !accessToken.trim().isEmpty() &&
+                        refreshToken != null && !refreshToken.trim().isEmpty()) {
+
+                    dorefreshtokenVolley();
+
+                } else {
+                    goToLogin();
                 }
-            }catch (Exception ex){
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                finish();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                goToLogin();
             }
 
         }, 2000);
 
     }
 
+    private void goToLogin() {
+        // ✅ Clear saved tokens to avoid looping
+        Global.editor = Global.sharedPreferences.edit();
+        Global.editor.remove("access_token");
+        Global.editor.remove("refresh_token");
+        Global.editor.apply();
+
+        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+        finish();
+    }
+
+
     private void dorefreshtokenVolley() {
         String url = Global.tokenurl;
-        RequestQueue queue= Volley.newRequestQueue(SplashActivity.this);
-        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-            try {
-                JSONObject respObj = new JSONObject(response);
-                String access_token = respObj.getString("access_token");
-                String refresh_token = respObj.getString("refresh_token");
+        VolleyRequestHelper volleyHelper = new VolleyRequestHelper(SplashActivity.this);
+        Map<String, String> params = new HashMap<>();
+        params.put("refresh_token", refreshToken);
+        params.put("grant_type", "refresh_token");
 
+        volleyHelper.makePostRequest(url, params, accessToken, new VolleyRequestHelper.VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                try {
+                    accessToken = response.getString("access_token");
+                    String refresh_token = response.getString("refresh_token");
+
+                    // username = response.getString("userName");
+                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Global.editor = Global.sharedPreferences.edit();
+                    Global.editor.putString("access_token", accessToken);
+                    Global.editor.putString("refresh_token", refresh_token);
+                    Global.editor.commit();
+
+                    getuserdetails();
+
+                } catch (JSONException e) {
+
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SplashActivity.this);
                 Global.editor = Global.sharedPreferences.edit();
-                Global.editor.putString("access_token", access_token);
-                Global.editor.putString("refresh_token", refresh_token);
+                Global.editor.remove("access_token");
+                Global.editor.remove("refresh_token");
+                Global.editor.clear();
                 Global.editor.commit();
-                getuserprofile();
-
-                startActivity(new Intent(SplashActivity.this, MainActivty.class));
-                finish();
-            } catch (JSONException e) {
-                e.printStackTrace();
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             }
-
-        }, error -> {
-            if (error instanceof TimeoutError) {
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet is slow / Request Time-Out");
-            }  else if (error instanceof NoConnectionError) {
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Internet connection unavailable");
-            }else if (error instanceof ServerError) {
-                Log.e("ServerError", "Server error response: " + new String(error.networkResponse.data));
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Unable to get authenticate with Server");
-            }  else if (error instanceof ParseError) {
-                Global.customtoast(SplashActivity.this, getLayoutInflater(),"Data Parse Error ");
-            }  else if (error instanceof AuthFailureError) {
-                Global.customtoast(SplashActivity.this, getLayoutInflater(), "Authorization Failure");
-            }
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-            finish();
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", "");
-                headers.put("Authorization", "Bearer " + accesstoken);
-                headers.put("Content-Type","application/x-www-form-urlencoded");
-                return headers;
-            }
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("refresh_token", Global.sharedPreferences.getString("refresh_token", ""));
-                params.put("grant_type", "refresh_token");
-                return params;
-            }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-        queue.add(request);
+        }, 10000);
     }
-    private void getuserprofile() {
+
+
+    private void getuserdetails() {
+        VolleyRequestHelper volleyHelper = new VolleyRequestHelper(SplashActivity.this);
+        String url = Global.getuserprofiledetails;
+        Map<String, String> params = new HashMap<>();
+
+        volleyHelper.makePostRequest(url, params, accessToken, new VolleyRequestHelper.VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                try {
+
+                    // Get the data object correctly
+                    JSONObject respObj = response.getJSONObject("data");
+
+
+                    String userName = respObj.getString("userName");
+                    String key_person = respObj.getString("key_person");
+                    String Code = respObj.getString("com_code");
+                    String Email = respObj.getString("Email");
+                    String Image = respObj.getString("Image");
+                    String Mobile1 = respObj.getString("Mobile1");
+                    String Mobile2 = respObj.getString("Mobile2");
+                    String Approved = respObj.getString("Approved");
+                    String Ref_Code = respObj.getString("Ref_Code");
+                    String Active = respObj.getString("Active");
+                    String Type = respObj.getString("Type");
+
+
+                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    Global.editor = Global.sharedPreferences.edit();
+                    Global.editor.putString("userName", userName);
+                    Global.editor.putString("key_person", key_person);
+                    Global.editor.putString("Code", Code);
+                    Global.editor.putString("Email", Email);
+                    Global.editor.putString("Image", Image);
+                    Global.editor.putString("Mobile1", Mobile1);
+                    Global.editor.putString("Mobile2", Mobile2);
+                    Global.editor.putString("Approved", Approved);
+                    Global.editor.putString("Ref_Code", Ref_Code);
+                    Global.editor.putString("Active", Active);
+                    Global.editor.putString("Type", Type);
+                    Global.editor.commit();
+
+
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    // Add detailed error logging
+                    Global.customtoast(SplashActivity.this, getLayoutInflater(), "Error parsing response: " + e.getMessage());
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Toast.makeText(SplashActivity.this, "Login failed: " + error, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    /*private void getuserprofile() {
 
         String url = Global.getuserprofiledetails;
         RequestQueue queue= Volley.newRequestQueue(SplashActivity.this);
@@ -245,5 +298,5 @@ public class SplashActivity extends AppCompatActivity {
 
 
         queue.add(request);
-    }
+    }*/
 }

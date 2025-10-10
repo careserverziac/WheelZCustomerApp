@@ -33,7 +33,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.ziac.wheelzcustomer.MainActivty;
+import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
 
 import java.io.IOException;
@@ -88,7 +88,7 @@ public class DashboardFragment extends Fragment {
                 fragmentTransaction.replace(R.id.framelayout, dealersFragment);
                 fragmentTransaction.commit();
 
-                ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_dealers);
+                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_dealers);
             }
         });
 
@@ -102,7 +102,7 @@ public class DashboardFragment extends Fragment {
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
-                ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
 
             }
         });
@@ -116,7 +116,7 @@ public class DashboardFragment extends Fragment {
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
-                ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
             }
         });
         ServiceList.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class DashboardFragment extends Fragment {
                 fragmentTransaction.replace(R.id.framelayout, serviceListFragment);
                 fragmentTransaction.commit();
 
-                ((MainActivty) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
+                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
             }
         });
 
