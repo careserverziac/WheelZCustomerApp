@@ -22,9 +22,9 @@
         android:id="@+id/bottom_vehicles"
         android:title="My Vehicles"
         android:icon="@drawable/vehicles" />
-    <item
+  <!--  <item
         android:id="@+id/bottom_profile"
         android:title="Profile"
-        android:icon="@drawable/profile_icon" />
+        android:icon="@drawable/profile_icon" />-->
 
 </menu>

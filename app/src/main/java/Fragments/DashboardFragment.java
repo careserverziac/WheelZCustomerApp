@@ -17,6 +17,9 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Looper;
 import android.preference.PreferenceManager;
@@ -25,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -33,13 +37,18 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import AdapterClass.CategoryAdapter;
+import ModelClasses.CategoryModel;
 import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
@@ -49,22 +58,39 @@ public class DashboardFragment extends Fragment {
     FragmentTransaction fragmentTransaction;
     String lattitude, longitude, currentLocationString, fullAddress, sublocality;
     FusedLocationProviderClient client;
-
+    ImageView ProfileIcon;
     String vehtype = "";
-
+    private CollapsingToolbarLayout collapsingToolbarLayout;
+    private AppBarLayout appBarLayout;
+    private RecyclerView categoryRecyclerView;
+    private CategoryAdapter categoryAdapter;
+    private List<CategoryModel> categoryList;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard2, container, false);
 
-        Bookservice = view.findViewById(R.id.servicebookCD);
-        Servicehistory = view.findViewById(R.id.servicehistoryCD);
-        Vehdocuments = view.findViewById(R.id.vehdocumentsCD);
-        ServiceList = view.findViewById(R.id.bookingCD);
-        Pre_own_veh = view.findViewById(R.id.pre_ownd_veh);
+        Bookservice = view.findViewById(R.id.bookServiceCard);
+        Servicehistory = view.findViewById(R.id.serviceHistoryCard);
+        Vehdocuments = view.findViewById(R.id.vehicleDocumentsCard);
+       // ServiceList = view.findViewById(R.id.bookingCD);
+        Pre_own_veh = view.findViewById(R.id.preOwnedCard);
+        ProfileIcon = view.findViewById(R.id.profile_icon);
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         vehtype = Global.sharedPreferences.getString("vtypecode", "");
+
+        // Initialize Category RecyclerView
+        categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
+        GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(),3, LinearLayoutManager.VERTICAL, false);
+        categoryRecyclerView.setLayoutManager(layoutManager);
+
+
+        // Prepare category data
+        prepareCategoryData();
+
+        categoryAdapter = new CategoryAdapter(requireActivity(), categoryList);
+        categoryRecyclerView.setAdapter(categoryAdapter);
 
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -119,7 +145,20 @@ public class DashboardFragment extends Fragment {
                 ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
             }
         });
-        ServiceList.setOnClickListener(new View.OnClickListener() {
+
+        ProfileIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProfileFragment profileFragment = new ProfileFragment();
+                fragmentManager = requireActivity().getSupportFragmentManager();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framelayout, profileFragment);
+                fragmentTransaction.commit();
+
+               // ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+            }
+        });
+        /*ServiceList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -131,7 +170,7 @@ public class DashboardFragment extends Fragment {
 
                 ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
             }
-        });
+        });*/
 
         Pre_own_veh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +197,14 @@ public class DashboardFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void prepareCategoryData() {
+        categoryList = new ArrayList<>();
+        categoryList.add(new CategoryModel("Test Drive list", R.drawable.testdrive));
+        categoryList.add(new CategoryModel("Book Test Drive", R.drawable.booktextdrive));
+        categoryList.add(new CategoryModel("Watch Videos", R.drawable.youtube));
+
     }
 
     @SuppressLint("MissingPermission")

@@ -46,11 +46,9 @@ public class ServiceListFragment extends Fragment {
     RecyclerView CategoriesRV,ProductlistRV;
     CategoryAdapter categoryAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
-    FragmentManager fragmentManager;
     ProductListAdapter productlistAdapter;
-    LottieAnimationView lottieAnimationView;
     Context context;
-    String url, URL, com_code, ayear,query,prd_cat_code,wuser_code;
+    String url, URL, com_code, ayear,wuser_code;
 
 
     @SuppressLint("MissingInflatedId")
