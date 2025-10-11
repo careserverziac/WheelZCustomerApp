@@ -89,18 +89,19 @@ public class BookServiceFragment extends Fragment {
 
     TextView Dealername, DealerMob, Companyname, SerApptDate, SelectedTm, Currentadress, Streetname, Dealeraddress, Selectedveh;
     LinearLayout SelectDt, SelectTm, Maplocation, Servicedp, Pickupdp, Vehicledropdp, CnfrmbkgbBTN, Complaintdp, SelectedvehDp;
-    String wuser_code, com_code,vehhis_code, lattitude, longitude;
+    String wuser_code, com_code, vehhis_code, lattitude, longitude;
     EditText Odometer, Complaints;
     CircleImageView DealerImage;
     private zList modelclass;
     Context context;
     private Dialog zDialog;
-    String locationUri, sqldateformat,selctdveh, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
+    String locationUri, sqldateformat, selctdveh, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
     FusedLocationProviderClient client;
     RadioGroup ServiceRB, PickupRB, VehdropRB;
     RadioButton Freeservice, Paidservice, PickupTrue, PickupFalse, VehdropTrue, VehdropFalse;
 
     ImageView Backbtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,7 +209,7 @@ public class BookServiceFragment extends Fragment {
             }
         });
 
-        SerApptDate.setOnClickListener(v -> {
+        SelectDt.setOnClickListener(v -> {
             Calendar newCalendar = Calendar.getInstance();
             @SuppressLint("DefaultLocale") DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                     (view1, year, monthOfYear, dayOfMonth) -> {
@@ -420,85 +421,6 @@ public class BookServiceFragment extends Fragment {
 
     }
 
-
-    @SuppressLint("MissingPermission")
-  /*  private void getcurrentlocation() {
-
-        LocationManager locationManager=(LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
-
-            client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-
-
-                    Location location=task.getResult();
-                    if (location !=null){
-
-                     *//*  lattitude=String.valueOf(location.getLatitude());
-                       longitude=String.valueOf(location.getLongitude());
-                        Global.editor = Global.sharedPreferences.edit();
-                        Global.editor.putString("lattitude", lattitude);
-                        Global.editor.putString("longitude", longitude);
-                        Global.editor.commit();*//*
-
-                        double latitude = location.getLatitude();
-                        double longitude = location.getLongitude();
-                        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                            if (addresses != null && !addresses.isEmpty()) {
-                                Address address = addresses.get(0);
-                              *//*  String sublocality = address.getSubLocality();
-                                String fullAddress = address.getAddressLine(0);*//*
-
-     *//*  Streetname.setText(address.getSubLocality());
-                                Currentadress.setText(address.getAddressLine(0));*//*
-
-
-
-                            } else {
-                                Log.e("DashboardFragment", "Unable to get address");
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("DashboardFragment", "Geocoder service not available");
-                        }
-
-
-                    }else {
-                        LocationRequest locationRequest=new LocationRequest()
-                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                                .setInterval(1000)
-                                .setFastestInterval(1000)
-                                .setNumUpdates(1);
-
-                        LocationCallback locationCallback=new LocationCallback() {
-                            @Override
-                            public void onLocationResult(@NonNull LocationResult locationResult) {
-                                Location location1= locationResult.getLastLocation();
-
-
-                                lattitude=String.valueOf(location1.getLatitude());
-                                longitude=String.valueOf(location1.getLongitude());
-
-
-                            }
-                        };
-                        client.requestLocationUpdates(locationRequest,locationCallback, Looper.myLooper());
-                    }
-                }
-            });
-
-        }else {
-
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-    }*/
-
-
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private void getcurrentlocation() {
@@ -601,16 +523,6 @@ public class BookServiceFragment extends Fragment {
                 String sublocality = address.getSubLocality();
                 String fullAddress = address.getAddressLine(0);
 
-
-             /*   Currentadress.setText(fullAddress);
-                Streetname.setText(sublocality);*/
-
-               /* Global.editor = Global.sharedPreferences.edit();
-                Global.editor.putString("latitude", latitudeString);
-                Global.editor.putString("longitude", longitudeString);
-                Global.editor.putString("sublocality", sublocality);
-                Global.editor.putString("fullAddress", fullAddress);
-                Global.editor.commit();*/
             } else {
                 Log.e("DashboardFragment", "Unable to get address");
             }
@@ -621,22 +533,11 @@ public class BookServiceFragment extends Fragment {
     }
 
 
- /*   @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 100 && (grantResults.length >0 ) && (grantResults[0] + grantResults[1]  == PackageManager.PERMISSION_GRANTED)) {
-            getcurrentlocation();
-        }else {
-            Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
     private void getvehicledetails() {
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wusercode = Global.sharedPreferences.getString("wuser_code", "");
-        String Url = Global.getallMyVehicles+"wuser_code="+wusercode;
+        String Url = Global.getallMyVehicles + "wuser_code=" + wusercode;
 
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Url, null, new Response.Listener<JSONArray>() {
@@ -672,7 +573,7 @@ public class BookServiceFragment extends Fragment {
                 }
 
             }
-        },  error -> {
+        }, error -> {
 
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
@@ -720,7 +621,7 @@ public class BookServiceFragment extends Fragment {
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
 
         if (Global.vehiclearraylist == null || Global.vehiclearraylist.size() == 0) {
-             Toast.makeText(requireActivity(), "Vehicle list not found !!", Toast.LENGTH_LONG).show();
+            Toast.makeText(requireActivity(), "Vehicle list not found !!", Toast.LENGTH_LONG).show();
             return;
         }
         final VehicleAdapter laStates = new VehicleAdapter(Global.vehiclearraylist);
@@ -806,7 +707,7 @@ public class BookServiceFragment extends Fragment {
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
             RadioButton radioButton = v.findViewById(R.id.radio_button);
             modelclass = mDataArrayList.get(i);
-            tvstatenameitem.setText(modelclass.get_name()+"( "+modelclass.getReg_no()+" )");
+            tvstatenameitem.setText(modelclass.get_name() + "( " + modelclass.getReg_no() + " )");
 
             radioButton.setOnClickListener(view1 -> {
                 boolean isChecked = radioButton.isChecked();
@@ -845,12 +746,12 @@ public class BookServiceFragment extends Fragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
         refreshData();
     }
+
     private void refreshData() {
         streetname = Global.sharedPreferences.getString("currentStreetName", "");
         fulladdress = Global.sharedPreferences.getString("currentFullAddress", "");
@@ -865,7 +766,6 @@ public class BookServiceFragment extends Fragment {
         }
 
     }
-
 
 
 }

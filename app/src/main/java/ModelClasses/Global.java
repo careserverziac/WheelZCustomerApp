@@ -24,9 +24,9 @@ public class Global {
 
 
 
-    //public static String baseurl = "https://wheelzonline.co.in/";
+   // public static String baseurl = "https://wheelzonline.co.in/";
     public static String baseurl = "https://192.168.100.21:7777/";
-    //public static String baseurl_image = "https://wheelzonline.in/";
+   // public static String baseurl_image = "https://wheelzonline.in/";
     public static String baseurl_image = "http://192.168.100.21:7778/";
 
     public static String tokenurl = baseurl + "TOKEN";

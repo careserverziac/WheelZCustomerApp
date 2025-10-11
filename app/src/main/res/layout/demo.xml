@@ -15,12 +15,14 @@
         android:background="@android:color/transparent"
         app:elevation="0dp">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
-           >
+            app:navigationIcon="@drawable/arrow_left"
+            app:title=""
+            app:titleTextColor="@color/white">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
                     android:textSize="22sp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -109,7 +111,7 @@
                         android:fontFamily="@font/arsenal_bold"
                         android:text="Infinity E1+"
                         android:textColor="@color/white"
-                        android:textSize="18sp" />
+                        android:textSize="24sp" />
 
                     <!-- Vehicle Image Card -->
                     <com.google.android.material.card.MaterialCardView
@@ -187,7 +189,7 @@
                                 android:fontFamily="@font/arsenal"
                                 android:text="State"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="18dp"
@@ -223,7 +225,7 @@
                                 android:fontFamily="@font/arsenal"
                                 android:text="City"
                                 android:textColor="@color/white"
-                                android:textSize="12sp" />
+                                android:textSize="14sp" />
 
                             <ImageView
                                 android:layout_width="18dp"
@@ -250,6 +252,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/arsenal_bold"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:visibility="gone" />
@@ -286,10 +289,10 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         app:boxBackgroundColor="#252525"
                         app:boxStrokeColor="@color/white"
                         app:boxCornerRadiusTopStart="12dp"
-                        android:background="@android:color/transparent"
                         app:boxCornerRadiusTopEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
                         app:boxCornerRadiusBottomEnd="12dp"
@@ -301,7 +304,7 @@
                             android:id="@+id/tdname"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Name"
+                            android:hint="Full Name"
                             android:fontFamily="@font/arsenal"
                             android:textColor="@color/white"
                             android:textSize="14sp"
@@ -313,6 +316,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         app:boxBackgroundColor="#252525"
                         app:boxStrokeColor="@color/white"
                         app:boxCornerRadiusTopStart="12dp"
@@ -340,6 +344,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                         app:boxBackgroundColor="#252525"
                         app:boxStrokeColor="@color/white"
                         app:boxCornerRadiusTopStart="12dp"
@@ -475,7 +480,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Submit Button with Modern Gradient -->
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/sub_btn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"

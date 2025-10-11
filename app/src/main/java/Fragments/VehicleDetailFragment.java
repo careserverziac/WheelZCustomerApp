@@ -40,15 +40,6 @@ public class VehicleDetailFragment extends Fragment {
 
         Global.loadWithPicasso(requireActivity(), Veh_image, Global.modelsimageurl + Global.vehicledetails.getImage_path());
 
-      /*  Category.setText(Global.modellist.getCategory());
-        Fuelname.setText(Global.modellist.getFuelname());
-        Bodytype.setText(Global.modellist.getBodytype());
-        Bhp.setText(Global.modellist.getBhp());
-        Topspeed.setText(Global.modellist.getTopspeed());
-        Manufacturer.setText(Global.modellist.getManufacture());
-        Modelname.setText(Global.modellist.getModel_name());
-        Saleprice.setText(Global.modellist.getSaleprice());
-        Chargingtime.setText(Global.modellist.getChargingtime());*/
 
 
         Category.setText(Global.vehicledetails.getCategory());

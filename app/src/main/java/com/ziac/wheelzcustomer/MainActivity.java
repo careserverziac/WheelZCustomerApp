@@ -94,10 +94,7 @@ public class MainActivity extends AppCompatActivity  {
                 } else if (itemid == R.id.bottom_vehicles) {
                     openFragment(new MyVehcileFragment());
                     return true;
-                } /*else if (itemid == R.id.bottom_profile) {
-                    openFragment(new ProfileFragment());
-                    return true;
-                }*/
+                }
 
                 return false;
             }

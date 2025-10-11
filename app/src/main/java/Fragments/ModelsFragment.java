@@ -3,7 +3,10 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +56,10 @@ public class ModelsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_models, container, false);
         Context context = requireContext();
+
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+
+
         VehicleelistRV=view.findViewById(R.id.vehlisthorizontal);
         progressBar=view.findViewById(R.id.progressBarmodels);
         swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
@@ -92,7 +99,18 @@ public class ModelsFragment extends Fragment {
             }
         });
 
-        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
+
+
+    /*    Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });*/
+
         return view;
     }
 
@@ -209,7 +227,6 @@ public class ModelsFragment extends Fragment {
                     String vmodelCode = jsonObject.getString("vmodel_code");
                     String vehimage = jsonObject.getString("veh_image1");
                     String vcate_name = jsonObject.getString("vcate_name");
-                    String app_model_name = jsonObject.getString("app_model_name");
                     String mfg_name = jsonObject.getString("mfg_name");
                     String veh_cc = jsonObject.getString("veh_cc");
                     String veh_bhp = jsonObject.getString("veh_bhp");
@@ -218,6 +235,7 @@ public class ModelsFragment extends Fragment {
                     String fuel_name = jsonObject.getString("fuel_name");
                     String sale_price = jsonObject.getString("sale_price");
                     String charging_time = jsonObject.getString("charging_time");
+                    String modelname = jsonObject.getString("model_name");
 
                     commonClass = new CommonClass();
                     commonClass.setModel_code(vmodelCode);
@@ -229,9 +247,9 @@ public class ModelsFragment extends Fragment {
                     commonClass.setTopspeed(veh_top_speed);
                     commonClass.setBodytype(body_type);
                     commonClass.setFuelname(fuel_name);
-                    commonClass.setModel_name(app_model_name);
                     commonClass.setChargingtime(charging_time);
                     commonClass.setSaleprice(sale_price);
+                    commonClass.setModel_name(modelname);
 
                     Global.allleadslist.add(commonClass);
                     swipeRefreshLayout.setRefreshing(false);
@@ -291,5 +309,11 @@ public class ModelsFragment extends Fragment {
     private void hideLoading() {
         progressBar.setVisibility(View.GONE);
         VehicleelistRV.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GetAllModels();
     }
 }

@@ -1,6 +1,7 @@
 package com.ziac.wheelzcustomer;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -22,10 +24,12 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,6 +46,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,17 +74,21 @@ public class TestDriveActivity extends AppCompatActivity {
     private zList cityname;
     private Dialog zDialog;
     TextView Statetxt, Citytxt, Manufacture, Model, SelectedDate, Selectedtime, Displaydata;
-    LinearLayout Statedp, Citydp;
+    MaterialCardView Statedp, Citydp;
     String statecode, citycode, searchquery, sqldateformat, selectedTime24, vmodel_code, com_code;
     String dealerName, dealercity, dealerweb, dealeradrs;
     RecyclerView DealerlistRV;
     DealerAdapter dealerAdapter;
     ImageView Veh_image;
-    LinearLayout SelectDt, SelectTm;
+    MaterialCardView SelectDt, SelectTm;
     Button Submit;
     Context context;
     TextView Sub_txt;
     ImageView Backbtn;
+    TextInputEditText Tdmail, Tdmobile, Tdname;
+
+    String username, wuser_mobile1, wuser_email;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -94,6 +104,9 @@ public class TestDriveActivity extends AppCompatActivity {
         Manufacture = findViewById(R.id.manufacturer);
         Model = findViewById(R.id.modelname);
         Veh_image = findViewById(R.id.veh_image);
+        Tdmail = findViewById(R.id.tdmail);
+        Tdmobile = findViewById(R.id.tdmobile);
+        Tdname = findViewById(R.id.tdname);
 
         SelectDt = findViewById(R.id.selectdate);
         SelectTm = findViewById(R.id.selecttime);
@@ -101,7 +114,7 @@ public class TestDriveActivity extends AppCompatActivity {
         Selectedtime = findViewById(R.id.selectedtime);
         Displaydata = findViewById(R.id.displaydata);
         Submit = findViewById(R.id.sub_btn);
-        Backbtn = findViewById(R.id.backbtn);
+        //Backbtn = findViewById(R.id.backbtn);
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Manufacture.setText(Global.modellist.getManufacture());
@@ -196,11 +209,36 @@ public class TestDriveActivity extends AppCompatActivity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                username = Tdname.getText().toString().trim();
+                wuser_mobile1 = Tdmobile.getText().toString().trim();
+                wuser_email = Tdmail.getText().toString().trim();
+                // ✅ Optional: You can show warnings if needed
+                if (username.isEmpty()) {
+                    Tdname.requestFocus();
+                    Toast.makeText(getApplicationContext(), "Name is empty", Toast.LENGTH_SHORT).show();
+                    return; // STOP further execution
+                }
+
+                if (wuser_mobile1.isEmpty()) {
+                    Tdmobile.requestFocus();
+                    Toast.makeText(getApplicationContext(), "Mobile number is empty", Toast.LENGTH_SHORT).show();
+                    return; // STOP further execution
+                }
+
+
+                // ✅ Email not mandatory, but validate format if entered
+                if (!wuser_email.isEmpty() &&
+                        !android.util.Patterns.EMAIL_ADDRESS.matcher(wuser_email).matches()) {
+                    Tdmail.setError("Enter a valid email address");
+                    Tdmail.requestFocus();
+                    return;
+                }
+
+
+                // ✅ All good, proceed with your function
                 BookTestDrive();
             }
-        });
-        Backbtn.setOnClickListener(v -> {
-            finish();
         });
 
 
@@ -226,6 +264,7 @@ public class TestDriveActivity extends AppCompatActivity {
                             if (response.getBoolean("isSuccess")) {
                                 progressDialog.dismiss();
                                 Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
+                                finish();
 
                             } else {
                                 progressDialog.dismiss();
@@ -271,6 +310,9 @@ public class TestDriveActivity extends AppCompatActivity {
                 params.put("vmodel_code", vmodel_code);
                 params.put("testdriv_date", sqldateformat);
                 params.put("testdriv_time", selectedTime24);
+                params.put("username", username);
+                params.put("wuser_mobile1", wuser_mobile1);
+                params.put("wuser_email", wuser_email);
                 return params;
 
             }
@@ -283,6 +325,9 @@ public class TestDriveActivity extends AppCompatActivity {
 
         queue.add(stringRequest);
     }
+
+
+
 
     private void getDealerslist() {
 
@@ -743,7 +788,7 @@ public class TestDriveActivity extends AppCompatActivity {
     public class DealerAdapter extends RecyclerView.Adapter<DealerAdapter.ViewHolder> {
 
         private final List<CommonClass> dealerList;
-        private final Context context;
+        Context context;
         private final TextView displayDataTextView; // Reference to the Displaydata TextView
         private final RecyclerView dealerRecyclerView;
 
@@ -768,27 +813,32 @@ public class TestDriveActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-           // com_code = dealerList.get(position).getCom_code();
+            // com_code = dealerList.get(position).getCom_code();
             holder.ItemCount.setText(String.valueOf(position + 1));
-            holder.Comyname.setText(dealerList.get(position).getCom_name());
             holder.ComCity.setText(dealerList.get(position).getCity_name());
             holder.Comwebsite.setText(dealerList.get(position).getCom_website());
             holder.ComAddress.setText(dealerList.get(position).getCom_address());
+            holder.Comyname.setText(dealerList.get(position).getCom_name());
+
             holder.Dealerlist.setOnClickListener(v -> {
+                // Hide the RecyclerView
                 dealerRecyclerView.setVisibility(View.GONE);
 
-                dealerName = dealerList.get(position).getCom_name();
-                dealercity = dealerList.get(position).getCity_name();
-                dealerweb = dealerList.get(position).getCom_website();
-                dealeradrs = dealerList.get(position).getCom_address();
+                // Get clicked dealer details
+                String dealerName = dealerList.get(position).getCom_name();
+                String dealerCity = dealerList.get(position).getCity_name();
+                String dealerAdrs = dealerList.get(position).getCom_address();
 
-               /* String selectedDealerData = "Dealer Name: " + dealerList.get(position).getCom_name() +
-                        "\nCity: " + dealerList.get(position).getCity_name() +
-                        "\nWebsite: " + dealerList.get(position).getCom_website() +
-                        "\nAddress: " + dealerList.get(position).getCom_address();
-                displayDataTextView.setText(selectedDealerData);*/
+                // Show the selected dealer data in the TextView
+                TextView displayData = ((Activity) v.getContext()).findViewById(R.id.displaydata);
+                displayData.setVisibility(View.VISIBLE);
 
+                // Set formatted data
+                String formattedText = "Dealer: " + dealerName +
+                        "\nCity: " + dealerCity +
+                        "\nAddress: " + dealerAdrs+"." ;
 
+                displayData.setText(formattedText);
             });
 
         }

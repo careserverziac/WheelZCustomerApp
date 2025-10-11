@@ -113,15 +113,15 @@
             <!-- Horizontal Category ScrollView -->
 
             <!-- Category RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/categoryRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:clipToPadding="false"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:scrollbars="none" />
+            <!--  <androidx.recyclerview.widget.RecyclerView
+                  android:id="@+id/categoryRecyclerView"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="4dp"
+                  android:clipToPadding="false"
+                  android:paddingStart="8dp"
+                  android:paddingEnd="8dp"
+                  android:scrollbars="none" />-->
 
             <!-- Service Cards Container -->
             <LinearLayout
@@ -164,7 +164,7 @@
                                 android:fontFamily="@font/calistoga"
                                 android:text="Book Service"
                                 android:textColor="@color/white"
-                                android:textSize="18sp"
+                                android:textSize="16sp"
                                 android:textStyle="bold" />
 
                             <!-- Subtitle -->
@@ -247,7 +247,7 @@
                                     android:fontFamily="@font/calistoga"
                                     android:text="Service"
                                     android:textColor="#3D3D3D"
-                                    android:textSize="18sp"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -293,7 +293,7 @@
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:background="@drawable/gradient_blue"
                                 android:padding="15dp">
 
@@ -345,87 +345,194 @@
                                     android:paddingTop="6dp"
                                     android:paddingEnd="12dp"
                                     android:paddingBottom="6dp"
-                                    android:text="Lowest prices"
+                                    android:text="Quick verify"
                                     android:textColor="@color/white"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </RelativeLayout>
                         </androidx.cardview.widget.CardView>
                     </LinearLayout>
+
+
                 </LinearLayout>
 
-                <!-- Pre-Owned Vehicles Card -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/preOwnedCard"
+                <!-- Middle Row : Pre-Owned Vehicles + Test Drive -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="8dp"
-                    app:cardMaxElevation="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/gradient_green"
-                        android:padding="20dp">
+                    <!-- Pre-Owned Vehicles Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/preOwnedCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
 
-                        <TextView
-                            android:id="@+id/preOwnedTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/calistoga"
-                            android:text="Pre-Owned Vehicles"
-                            android:textColor="@color/white"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:background="@drawable/gradient_green"
+                            android:padding="20dp">
 
-                        <TextView
-                            android:id="@+id/preOwnedSubtitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/preOwnedTitle"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/arsenal"
-                            android:text="Lowest Prices Ever"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
+                            <!-- Title -->
+                            <TextView
+                                android:id="@+id/preOwnedTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Pre-Owned Vehicles"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_below="@id/preOwnedSubtitle"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/circle_white_bg"
-                            android:padding="10dp"
-                            android:src="@drawable/baseline_small_white_arrow"
-                            app:tint="#3D3D3D" />
+                            <!-- Subtitle -->
+                            <TextView
+                                android:id="@+id/preOwnedSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/preOwnedTitle"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Lowest Prices Ever"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
 
-                        <ImageView
-                            android:layout_width="180dp"
-                            android:layout_height="180dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/preowned" />
+                            <!-- Arrow -->
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/preOwnedSubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:background="@drawable/preowner_rounded"
-                            android:fontFamily="@font/arsenal"
-                            android:paddingStart="15dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="15dp"
-                            android:paddingBottom="8dp"
-                            android:text="Minimum order value applicable"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
-                </androidx.cardview.widget.CardView>
+                            <!-- Vehicle Image -->
+                            <ImageView
+                                android:id="@+id/iconPreOwned"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_above="@id/preOwnedLabel"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="11dp"
+                                android:layout_marginBottom="8dp"
+                                android:layout_toEndOf="@+id/imageView3"
+                                android:src="@drawable/preowned" />
+
+                            <!-- Bottom Label -->
+                            <TextView
+                                android:id="@+id/preOwnedLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/preowner_rounded"
+                                android:fontFamily="@font/arsenal"
+                                android:paddingStart="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="12dp"
+                                android:paddingBottom="6dp"
+                                android:text="Minimum order value applicable"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Test Drive Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/testDriveCard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:background="@drawable/gradient_orange"
+                            android:padding="20dp">
+
+                            <!-- Title -->
+                            <TextView
+                                android:id="@+id/testDriveTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Test Drive"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <!-- Subtitle -->
+                            <TextView
+                                android:id="@+id/testDriveSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/testDriveTitle"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Experience the Ride"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                            <!-- Arrow -->
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/testDriveSubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
+
+                            <!-- Car Image -->
+                            <ImageView
+                                android:id="@+id/iconTestDrive"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                android:layout_above="@id/testDriveLabel"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginBottom="8dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/testdrive" />
+
+                            <!-- Bottom Label -->
+                            <TextView
+                                android:id="@+id/testDriveLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentBottom="true"
+                                android:background="@drawable/test_drive_rounded"
+                                android:fontFamily="@font/arsenal"
+                                android:paddingStart="12dp"
+                                android:paddingTop="6dp"
+                                android:paddingEnd="12dp"
+                                android:paddingBottom="6dp"
+                                android:text="Book your slot now"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+
             </LinearLayout>
-
 
         </LinearLayout>
 

@@ -53,15 +53,13 @@ import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, ServiceList, Pre_own_veh;
+    CardView Bookservice, Servicehistory, Vehdocuments, Pre_own_veh;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    String lattitude, longitude, currentLocationString, fullAddress, sublocality;
+    String lattitude, longitude;
     FusedLocationProviderClient client;
     ImageView ProfileIcon;
     String vehtype = "";
-    private CollapsingToolbarLayout collapsingToolbarLayout;
-    private AppBarLayout appBarLayout;
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
     private List<CategoryModel> categoryList;
@@ -81,16 +79,16 @@ public class DashboardFragment extends Fragment {
         vehtype = Global.sharedPreferences.getString("vtypecode", "");
 
         // Initialize Category RecyclerView
-        categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
+       /* categoryRecyclerView = view.findViewById(R.id.categoryRecyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(requireActivity(),3, LinearLayoutManager.VERTICAL, false);
-        categoryRecyclerView.setLayoutManager(layoutManager);
+        categoryRecyclerView.setLayoutManager(layoutManager);*/
 
 
         // Prepare category data
-        prepareCategoryData();
+      //  prepareCategoryData();
 
-        categoryAdapter = new CategoryAdapter(requireActivity(), categoryList);
-        categoryRecyclerView.setAdapter(categoryAdapter);
+       /* categoryAdapter = new CategoryAdapter(requireActivity(), categoryList);
+        categoryRecyclerView.setAdapter(categoryAdapter);*/
 
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -199,13 +197,13 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
-    private void prepareCategoryData() {
+  /*  private void prepareCategoryData() {
         categoryList = new ArrayList<>();
         categoryList.add(new CategoryModel("Test Drive list", R.drawable.testdrive));
         categoryList.add(new CategoryModel("Book Test Drive", R.drawable.booktextdrive));
         categoryList.add(new CategoryModel("Watch Videos", R.drawable.youtube));
 
-    }
+    }*/
 
     @SuppressLint("MissingPermission")
     private void getcurrentlocation() {
@@ -255,32 +253,7 @@ public class DashboardFragment extends Fragment {
         }
     }
 
-    private void saveLocationData(double latitude, double longitude) {
-        String latitudeString = String.valueOf(latitude);
-        String longitudeString = String.valueOf(longitude);
 
-        Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addresses != null && !addresses.isEmpty()) {
-                Address address = addresses.get(0);
-                String sublocality = address.getSubLocality();
-                String fullAddress = address.getAddressLine(0);
-
-                Global.editor = Global.sharedPreferences.edit();
-                Global.editor.putString("latitude", latitudeString);
-                Global.editor.putString("longitude", longitudeString);
-                Global.editor.putString("sublocality", sublocality);
-                Global.editor.putString("fullAddress", fullAddress);
-                Global.editor.commit();
-            } else {
-                Log.e("DashboardFragment", "Unable to get address");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("DashboardFragment", "Geocoder service not available");
-        }
-    }
 
 
     @Override

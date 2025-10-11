@@ -13,7 +13,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -47,8 +49,8 @@ public class ProfileFragment extends Fragment {
 
     LinearLayout Data_privacy, Faq, Editprofile, Sharebutton, Contactus, PrivacyPolicy, Terms_Conditions, Deleteaccount, Changepassword;
     Intent intent;
-    TextView Username, Usermobile, Useremail, Account;
-    CircleImageView circularImageView;
+    TextView Username, collapsed_profile_name,Usermobile, Useremail, Account;
+    CircleImageView circularImageView,collapsed_profile_image;
     Button Logout;
     String userimage;
 
@@ -72,7 +74,7 @@ public class ProfileFragment extends Fragment {
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         userimage = Global.userimageurl + Global.sharedPreferences.getString("Image", "");
 
-        circularImageView = view.findViewById(R.id.pro_image);
+        circularImageView = view.findViewById(R.id.expanded_profile_image);
         Global.loadWithPicasso(requireContext(), circularImageView, userimage);
         Picasso.Builder builder = new Picasso.Builder(requireContext());
         Picasso picasso = builder.build();
@@ -87,9 +89,9 @@ public class ProfileFragment extends Fragment {
         Deleteaccount = view.findViewById(R.id.deleteaccount);
         Changepassword = view.findViewById(R.id.changepasword);
         Logout = view.findViewById(R.id.logoutbtn);
-        Username = view.findViewById(R.id.PRusername);
+        Username = view.findViewById(R.id.expanded_profile_name);
         Usermobile = view.findViewById(R.id.PRusermobile);
-        Useremail = view.findViewById(R.id.PRusermail);
+        Useremail = view.findViewById(R.id.expanded_profile_email);
         Faq = view.findViewById(R.id.faq);
 
         String dealername = Global.sharedPreferences.getString("key_person", "");
@@ -213,8 +215,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
-
 
 
     private void privacyMethod() {
