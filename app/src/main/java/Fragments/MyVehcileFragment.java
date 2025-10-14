@@ -3,6 +3,8 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -26,6 +29,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.ziac.wheelzcustomer.R;
 
 import org.json.JSONArray;
@@ -48,7 +52,9 @@ public class MyVehcileFragment extends Fragment {
     FragmentManager fragmentManager;
     VehiclesAdapter vehiclesAdapter;
     ProgressBar progressBar;
-
+    private CollapsingToolbarLayout collapsingToolbar;
+    private TextView tvBookingCount;
+    private Toolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 
@@ -62,7 +68,9 @@ public class MyVehcileFragment extends Fragment {
         VehiclelistRV=view.findViewById(R.id.myvehiclelist);
         Registervehicle =view.findViewById(R.id.registervehicle);
         progressBar =view.findViewById(R.id.progressBar);
-
+        toolbar = view.findViewById(R.id.toolbar);
+        collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
+        collapsingToolbar.setTitle("My vehicles");
         VehicleinDetail();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -82,7 +90,17 @@ public class MyVehcileFragment extends Fragment {
 
             }
         });
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout, new DashboardFragment()) // replace with your fragment class
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
 
         return  view;
     }

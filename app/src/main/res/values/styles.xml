@@ -12,9 +12,25 @@
 
         <!-- Set the color for the text -->
         <item name="itemTextColor">@color/white</item>
-
-
     </style>
+
+    <style name="WhiteHintText" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/white</item>
+    </style>
+        <!-- Expanded Title Style -->
+        <style name="ExpandedTitleTextStyle" parent="TextAppearance.AppCompat.Title">
+            <item name="android:textSize">24sp</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:textColor">#FFFFFF</item>
+        </style>
+
+        <!-- Collapsed Title Style -->
+        <style name="CollapsedTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+            <item name="android:textSize">18sp</item>
+            <item name="android:textStyle">bold</item>
+            <item name="android:textColor">#FFFFFF</item>
+        </style>
+
     <style name="ExpandedTitleTextAppearance" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">24sp</item>
@@ -50,4 +66,24 @@
            <item name="android:windowDisablePreview">true</item>
        </style>
    -->
+
+
+    <!-- SearchView Custom Style for Dark Theme -->
+    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <!-- Text color when typing -->
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">#808080</item>
+
+        <!-- Search icon and close icon colors -->
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+
+        <!-- Query background -->
+        <item name="queryBackground">@android:color/transparent</item>
+        <item name="submitBackground">@android:color/transparent</item>
+
+        <!-- Cursor color -->
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
 </resources>

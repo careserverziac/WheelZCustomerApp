@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +72,9 @@ public class DealersFragment extends Fragment {
     SearchView searchView;
     LinearLayout LinearSearch;
 
-
+    private CollapsingToolbarLayout collapsingToolbar;
+    private TextView tvBookingCount;
+    private Toolbar toolbar;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,6 +91,15 @@ public class DealersFragment extends Fragment {
         Citytxt=view.findViewById(R.id.citytext);
         swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
 
+        // Initialize views
+        toolbar = view.findViewById(R.id.toolbar);
+        /*setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
+
+        collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
+        collapsingToolbar.setTitle("Dealers");
+
         int newWidthInPixels = 100;
         int newHeightInPixels = 100;
         ViewGroup.LayoutParams params = progressBar.getLayoutParams();
@@ -100,6 +113,20 @@ public class DealersFragment extends Fragment {
 
         getstates();
         getDealerslist();
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout, new DashboardFragment()) // replace with your fragment class
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
 
         swipeRefreshLayout.setOnRefreshListener(this::getDealerslist);
         LinearSearch =view.findViewById(R.id.searchdealerslnr);

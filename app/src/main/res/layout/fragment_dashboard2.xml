@@ -110,19 +110,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Horizontal Category ScrollView -->
-
-            <!-- Category RecyclerView -->
-            <!--  <androidx.recyclerview.widget.RecyclerView
-                  android:id="@+id/categoryRecyclerView"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="4dp"
-                  android:clipToPadding="false"
-                  android:paddingStart="8dp"
-                  android:paddingEnd="8dp"
-                  android:scrollbars="none" />-->
-
             <!-- Service Cards Container -->
             <LinearLayout
                 android:layout_width="match_parent"

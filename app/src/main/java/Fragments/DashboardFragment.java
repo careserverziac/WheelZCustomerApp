@@ -5,26 +5,21 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import androidx.viewpager2.widget.ViewPager2;
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,19 +36,22 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
+import com.ziac.wheelzcustomer.TestDriveListActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 import AdapterClass.CategoryAdapter;
+import AdapterClass.SliderAdapter;
 import ModelClasses.CategoryModel;
 import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, Pre_own_veh;
+    CardView Bookservice, Servicehistory, Vehdocuments, Pre_own_veh,TestDriveCard;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String lattitude, longitude;
@@ -69,6 +67,7 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard2, container, false);
 
         Bookservice = view.findViewById(R.id.bookServiceCard);
+        TestDriveCard = view.findViewById(R.id.testDriveCard);
         Servicehistory = view.findViewById(R.id.serviceHistoryCard);
         Vehdocuments = view.findViewById(R.id.vehicleDocumentsCard);
        // ServiceList = view.findViewById(R.id.bookingCD);
@@ -194,6 +193,18 @@ public class DashboardFragment extends Fragment {
 
             }
         });
+
+
+
+        TestDriveCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireContext(), TestDriveListActivity.class));
+            }
+        });
+
+
+        
         return view;
     }
 

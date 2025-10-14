@@ -41,7 +41,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.models_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vehicle, parent, false);
 
         ModelsAdapter.ViewHolder viewHolder = new ModelsAdapter.ViewHolder(view);
         return viewHolder;

@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -102,6 +103,18 @@ public class BookServiceFragment extends Fragment {
 
     ImageView Backbtn;
 
+
+
+
+    private int blendColors(int color1, int color2, float ratio) {
+        final float inverseRatio = 1 - ratio;
+        float r = Color.red(color1) * ratio + Color.red(color2) * inverseRatio;
+        float g = Color.green(color1) * ratio + Color.green(color2) * inverseRatio;
+        float b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRatio;
+        return Color.rgb((int) r, (int) g, (int) b);
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,7 +127,15 @@ public class BookServiceFragment extends Fragment {
         context = getContext();
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        view.post(() -> {
+            if (isAdded() && getActivity() != null) {
+                int startColor = ContextCompat.getColor(requireActivity(), R.color.lightblack);
+                int endColor = ContextCompat.getColor(requireActivity(), R.color.lightblack);
+                int blendedColor = blendColors(startColor, endColor, 0.8f);  // Adjust ratio as needed
 
+                getActivity().getWindow().setStatusBarColor(blendedColor);
+            }
+        });
         Companyname = view.findViewById(R.id.bkcomname);
         Dealername = view.findViewById(R.id.bkdealername);
         DealerMob = view.findViewById(R.id.bkdealermob);
@@ -150,7 +171,7 @@ public class BookServiceFragment extends Fragment {
         VehdropTrue = view.findViewById(R.id.vehdroptrue);
         VehdropFalse = view.findViewById(R.id.vehdropfalse);
 
-        Backbtn = view.findViewById(R.id.backbtn);
+        //Backbtn = view.findViewById(R.id.backbtn);
 
         ServiceRB.check(R.id.paidservice);
         PickupRB.check(R.id.pickupfalse);
@@ -225,6 +246,9 @@ public class BookServiceFragment extends Fragment {
 
                     }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
+
+
+
         });
 
         SelectTm.setOnClickListener(v -> {
@@ -298,11 +322,13 @@ public class BookServiceFragment extends Fragment {
             }
         });
 
-        Backbtn.setOnClickListener(v -> {
+       /* Backbtn.setOnClickListener(v -> {
             requireActivity()
                     .getSupportFragmentManager()
                     .popBackStack();
-        });
+        });*/
+
+
 
         return view;
     }
@@ -366,7 +392,6 @@ public class BookServiceFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // Global.customtoast(context, getLayoutInflater(), error.getLocalizedMessage());
 
                 if (error instanceof TimeoutError) {
                     Global.customtoast(getActivity(), getLayoutInflater(), "Request Time-Out");

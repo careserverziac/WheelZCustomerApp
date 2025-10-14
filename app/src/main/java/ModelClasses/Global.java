@@ -52,6 +52,7 @@ public class Global {
     public static String urlgetvariant = baseurl + "api/List/GetVariant?";
     public static String urlgetmanufacture = baseurl + "api/List/GetManufacturer";
     public static String urlGetVehicletype = baseurl + "api/List/GetCategory?";
+    public static String urlTestDriveList = baseurl + "api/List/TestDriveList?";
 
     public static ArrayList<zList> vehicletypearraylist;
     public static ArrayList<zList> vehiclevariantlist;

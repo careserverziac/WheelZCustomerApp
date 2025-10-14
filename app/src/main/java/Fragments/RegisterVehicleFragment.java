@@ -66,7 +66,7 @@ public class RegisterVehicleFragment extends Fragment {
         Enginelinear=view.findViewById(R.id.englnr);
         Chassislinear=view.findViewById(R.id.chasislnr);
         progressBar=view.findViewById(R.id.progressBar);
-        Backbtn = view.findViewById(R.id.backbtn);
+      //  Backbtn = view.findViewById(R.id.backbtn);
         hideLoading();
         backgroundgrey = ContextCompat.getDrawable(getActivity(), R.drawable.border_colour2);
 
@@ -116,11 +116,11 @@ public class RegisterVehicleFragment extends Fragment {
 
 
         Addvehicle.setOnClickListener(v -> Updateprofiledetails());
-        Backbtn.setOnClickListener(v -> {
+       /* Backbtn.setOnClickListener(v -> {
             requireActivity()
                     .getSupportFragmentManager()
                     .popBackStack();
-        });
+        });*/
 
         return view;
     }

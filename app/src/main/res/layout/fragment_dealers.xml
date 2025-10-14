@@ -1,210 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refreshprofile"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fillViewport="true"
-    android:orientation="vertical">
+    android:background="@color/black">
 
+    <!-- Enhanced AppBar with Gradient -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@android:color/transparent"
+        android:elevation="0dp">
 
-    <ProgressBar
-        android:id="@+id/progressBardealers"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" />
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:contentScrim="@color/black"
+            app:expandedTitleMarginStart="20dp"
+            app:expandedTitleMarginBottom="28dp"
+            app:title="WheelZ"
+            app:titleEnabled="true"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:scrimAnimationDuration="300">
 
+            <!-- Header Background with gradient effect -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/gradient_header"
+                app:layout_collapseMode="parallax"/>
 
-    <LinearLayout
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content with Card-based Filter Design -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshprofile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="55dp"
-                android:src="@drawable/wheelz" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/calistoga"
-                android:text="WheelZ"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:padding="10dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/black">
 
-                <LinearLayout
+                <!-- Filter Card Container -->
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="8dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="#2A2A2A">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-
+                        <!-- State Dropdown -->
                         <LinearLayout
                             android:id="@+id/statedp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
                             android:background="@drawable/border_colour_blue"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="8dp">
 
                             <TextView
                                 android:id="@+id/statetext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:drawablePadding="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
                                 android:fontFamily="@font/arsenal"
-                                android:gravity="center"
-                                android:paddingLeft="5dp"
                                 android:text="State"
-                                android:textStyle="bold"
                                 android:textColor="@color/green_txt"
-                                android:textSize="16dp" />
-
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/baseline_arrow_down_icon" />
-
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/border_colour_blue"
-                    android:layout_marginStart="2dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:orientation="horizontal">
-
-
-
+                        <!-- City Chip Dropdown -->
+                        <!-- City Dropdown -->
                         <LinearLayout
                             android:id="@+id/citydp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="bottom"
-                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/border_colour_blue"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:layout_weight="1">
+                            android:paddingStart="8dp"
+                            android:layout_marginTop="8dp">
 
                             <TextView
                                 android:id="@+id/citytext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
                                 android:fontFamily="@font/arsenal"
                                 android:text="City"
-                                android:textStyle="bold"
                                 android:textColor="@color/green_txt"
-                                android:textSize="16dp" />
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
                             <ImageView
-
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/baseline_arrow_down_icon" />
                         </LinearLayout>
-
-
-
-
-
-
                     </LinearLayout>
 
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Search Card -->
+
+                <LinearLayout
+                    android:id="@+id/searchdealerslnr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#1A1A1A"
+                    app:cardCornerRadius="16dp"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchalldealers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/roundblackborder" />
                 </LinearLayout>
 
 
+                <!-- Results Header with Count -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/dealerCountText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="All Dealers"
+                        android:textColor="#808080"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/arsenal"/>
+
+                 <!--   <ImageView
+                        android:id="@+id/sortIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_sort"
+                        app:tint="@color/green_txt"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"/>-->
+
+                </LinearLayout>
+
+                <!-- ProgressBar -->
+                <ProgressBar
+                    android:id="@+id/progressBardealers"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/green_txt"
+                    android:visibility="gone"
+                    android:layout_marginTop="32dp"/>
+
+                <!-- Dealer RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dealerlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="16dp"
+                    android:scrollbars="none" />
+
             </LinearLayout>
 
+        </androidx.core.widget.NestedScrollView>
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/searchdealerslnr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"
-            android:orientation="vertical">
-
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchalldealers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/roundblackborder" />
-
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dealerlist"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-</RelativeLayout>
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

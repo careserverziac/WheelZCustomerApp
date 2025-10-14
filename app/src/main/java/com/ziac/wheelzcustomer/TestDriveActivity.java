@@ -225,7 +225,15 @@ public class TestDriveActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Mobile number is empty", Toast.LENGTH_SHORT).show();
                     return; // STOP further execution
                 }
-
+                if (wuser_mobile1.startsWith("0")) {
+                    Tdmobile.setError("The provided mobile number is incorrect!!");
+                    return;
+                }
+                if (wuser_mobile1.length() < 10) {
+                    Tdmobile.setError("Mobile number should be 10 digits !!");
+                    Tdmobile.requestFocus();
+                    return;
+                }
 
                 // ✅ Email not mandatory, but validate format if entered
                 if (!wuser_email.isEmpty() &&
@@ -819,6 +827,7 @@ public class TestDriveActivity extends AppCompatActivity {
             holder.Comwebsite.setText(dealerList.get(position).getCom_website());
             holder.ComAddress.setText(dealerList.get(position).getCom_address());
             holder.Comyname.setText(dealerList.get(position).getCom_name());
+            holder.Com_ph.setText(dealerList.get(position).getCom_contact_mobno());
 
             holder.Dealerlist.setOnClickListener(v -> {
                 // Hide the RecyclerView
@@ -828,15 +837,19 @@ public class TestDriveActivity extends AppCompatActivity {
                 String dealerName = dealerList.get(position).getCom_name();
                 String dealerCity = dealerList.get(position).getCity_name();
                 String dealerAdrs = dealerList.get(position).getCom_address();
+                String dealeremail = dealerList.get(position).getCom_email();
+                String dealerph = dealerList.get(position).getCom_contact_mobno();
 
                 // Show the selected dealer data in the TextView
                 TextView displayData = ((Activity) v.getContext()).findViewById(R.id.displaydata);
                 displayData.setVisibility(View.VISIBLE);
 
                 // Set formatted data
-                String formattedText = "Dealer: " + dealerName +
-                        "\nCity: " + dealerCity +
-                        "\nAddress: " + dealerAdrs+"." ;
+                String formattedText = dealerName
+                        + dealerCity
+                        + dealerAdrs
+                        + dealeremail + ", "
+                        + dealerph + "." ;
 
                 displayData.setText(formattedText);
             });
@@ -850,13 +863,14 @@ public class TestDriveActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView Comyname, ComCity, ComAddress, Comwebsite, ItemCount;
+            TextView Comyname, ComCity,Com_ph, ComAddress, Comwebsite, ItemCount;
             LinearLayout Dealerlist;
 
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
+                Com_ph = itemView.findViewById(R.id.com_ph);
                 Comyname = itemView.findViewById(R.id.com_name);
                 ComCity = itemView.findViewById(R.id.com_city);
                 ComAddress = itemView.findViewById(R.id.com_address);
