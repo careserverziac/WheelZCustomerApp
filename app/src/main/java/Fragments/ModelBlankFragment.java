@@ -2,6 +2,7 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -58,7 +59,6 @@ public class ModelBlankFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     CommonClass commonClass;
     private CollapsingToolbarLayout collapsingToolbar;
-    private TextView tvBookingCount;
     private Toolbar toolbar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +77,8 @@ public class ModelBlankFragment extends Fragment {
 
         collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle("Models");
+        collapsingToolbar.setExpandedTitleColor(Color.RED);
+
         toolbar = view.findViewById(R.id.toolbar);
 
         GetAllModels();

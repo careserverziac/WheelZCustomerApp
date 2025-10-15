@@ -3,6 +3,7 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -99,6 +100,7 @@ public class DealersFragment extends Fragment {
 
         collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle("Dealers");
+        collapsingToolbar.setExpandedTitleColor(Color.RED);
 
         int newWidthInPixels = 100;
         int newHeightInPixels = 100;

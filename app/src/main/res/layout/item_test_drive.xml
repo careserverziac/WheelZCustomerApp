@@ -35,7 +35,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"/>
 
-            <TextView
+         <!--   <TextView
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:background="@drawable/status_pending_bg"
-                android:textColor="#FF6F00"/>
+                android:textColor="#FF6F00"/>-->
 
         </LinearLayout>
 

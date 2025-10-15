@@ -47,6 +47,7 @@
     <style name="ExpandedAppBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
         <item name="fontFamily">@font/arsenal</item>
     </style>
 

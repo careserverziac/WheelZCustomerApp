@@ -52,7 +52,6 @@ public class SignupActivity extends AppCompatActivity {
     TextView TermsandConditions,Privacypolicy;
     Button Registration;
     Context context;
-    boolean passwordvisible;
     private boolean passwordVisible = false;
     private ProgressDialog progressDialog;
     String name,email,mobile,username,password,confirmpasword,referral_code;

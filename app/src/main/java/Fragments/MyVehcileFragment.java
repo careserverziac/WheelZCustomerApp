@@ -2,6 +2,7 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -71,6 +72,7 @@ public class MyVehcileFragment extends Fragment {
         toolbar = view.findViewById(R.id.toolbar);
         collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle("My vehicles");
+        collapsingToolbar.setExpandedTitleColor(Color.RED);
         VehicleinDetail();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);

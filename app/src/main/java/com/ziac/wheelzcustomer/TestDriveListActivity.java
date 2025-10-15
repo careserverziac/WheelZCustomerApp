@@ -202,14 +202,14 @@ public class TestDriveListActivity extends AppCompatActivity {
             holder.tvCompanyName.setText(model.getCompanyName());
             holder.tvCustomerName.setText(model.getCustomerName());
             holder.tvContactNumber.setText(model.getContactNumber());
-            holder.tvStatus.setText(model.getStatus());
+          //  holder.tvStatus.setText(model.getStatus());
 
             // Format date and time
             String formattedDateTime = formatDateTime(model.getTestDriveDate(), model.getTestDriveTime());
             holder.tvDateTime.setText(formattedDateTime);
 
             // Set status background based on status
-            setStatusBackground(holder.tvStatus, model.getStatus());
+           // setStatusBackground(holder.tvStatus, model.getStatus());
 
 
         }
@@ -269,7 +269,7 @@ public class TestDriveListActivity extends AppCompatActivity {
                 tvDateTime = itemView.findViewById(R.id.tvDateTime);
                 tvCustomerName = itemView.findViewById(R.id.tvCustomerName);
                 tvContactNumber = itemView.findViewById(R.id.tvContactNumber);
-                tvStatus = itemView.findViewById(R.id.tvStatus);
+               // tvStatus = itemView.findViewById(R.id.tvStatus);
             }
         }
     }
