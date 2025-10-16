@@ -107,15 +107,22 @@ public class MyVehcileFragment extends Fragment {
         return  view;
     }
     private void VehicleinDetail() {
-        // Show loader at start
+        // ✅ Check if fragment is attached before starting anything
+        if (!isAdded() || getContext() == null) return;
+
+        // ✅ Show loader at start
         showLoading();
 
-        RequestQueue queue = Volley.newRequestQueue(requireActivity());
+        Context context = getContext();
+        RequestQueue queue = Volley.newRequestQueue(context);
         String baseUrl = Global.getallMyVehicles;
         String userCode = Global.sharedPreferences.getString("wuser_code", "");
         String fullUrl = baseUrl + "wuser_code=" + userCode;
 
         StringRequest request = new StringRequest(Request.Method.GET, fullUrl, response -> {
+            // ✅ Stop if fragment was detached while waiting for response
+            if (!isAdded() || getContext() == null) return;
+
             try {
                 JSONObject jsonObjectResponse = new JSONObject(response);
                 boolean isSuccess = jsonObjectResponse.optBoolean("isSuccess", false);
@@ -126,11 +133,8 @@ public class MyVehcileFragment extends Fragment {
                     Global.myvehiclelist = new ArrayList<>();
 
                     if (jsonArray.length() == 0) {
-                        // Safe toast check
-                        if (isAdded() && getContext() != null) {
-                            LayoutInflater inflater = LayoutInflater.from(getContext());
-                            Global.customtoast(getContext(), inflater, "No vehicles found.");
-                        }
+                        LayoutInflater inflater = LayoutInflater.from(context);
+                        Global.customtoast(context, inflater, "No vehicles found.");
                     } else {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -165,55 +169,59 @@ public class MyVehcileFragment extends Fragment {
                             commonClass.setCveh_code(cveh_code);
                             commonClass.setVehhis_code(vehhis_code);
 
+                            // ✅ Use safe context
+                            Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                            Global.editor = Global.sharedPreferences.edit();
+                            Global.editor.putString("vehhis_code", vehhis_code);
+                            Global.editor.apply();
+
                             Global.myvehiclelist.add(commonClass);
                         }
 
+                        // ✅ Update UI only if fragment is still attached
                         if (isAdded() && getContext() != null) {
-                            vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist, getContext());
+                            vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist, context);
                             VehiclelistRV.setAdapter(vehiclesAdapter);
                             vehiclesAdapter.notifyDataSetChanged();
                         }
                     }
                 } else {
-                    // Failed response
-                    if (isAdded() && getContext() != null) {
-                        LayoutInflater inflater = LayoutInflater.from(getContext());
-                        Global.customtoast(getContext(), inflater, message);
-                    }
+                    LayoutInflater inflater = LayoutInflater.from(context);
+                    Global.customtoast(context, inflater, message);
                 }
+
             } catch (JSONException e) {
                 e.printStackTrace();
-                if (isAdded() && getContext() != null) {
-                    LayoutInflater inflater = LayoutInflater.from(getContext());
-                    Global.customtoast(getContext(), inflater, "Parsing error");
+                if (isAdded()) {
+                    LayoutInflater inflater = LayoutInflater.from(context);
+                    Global.customtoast(context, inflater, "Parsing error");
                 }
             } finally {
-                // Hide loader in all cases
-                hideLoading();
+                // ✅ Always hide loader safely
+                if (isAdded()) hideLoading();
             }
 
         }, error -> {
-            // Hide loader on network error
-            hideLoading();
+            // ✅ Hide loader safely on error
+            if (isAdded()) hideLoading();
+            if (!isAdded() || getContext() == null) return;
 
-            if (isAdded() && getContext() != null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                String errorMsg;
-                if (error instanceof TimeoutError) {
-                    errorMsg = "Request timed out. Please try again.";
-                } else if (error instanceof NoConnectionError) {
-                    errorMsg = "No internet connection.";
-                } else if (error instanceof ServerError) {
-                    errorMsg = "Server error occurred.";
-                } else if (error instanceof NetworkError) {
-                    errorMsg = "Network error.";
-                } else if (error instanceof ParseError) {
-                    errorMsg = "Response parsing failed.";
-                } else {
-                    errorMsg = "Something went wrong.";
-                }
-                Global.customtoast(getContext(), inflater, errorMsg);
+            LayoutInflater inflater = LayoutInflater.from(context);
+            String errorMsg;
+            if (error instanceof TimeoutError) {
+                errorMsg = "Request timed out. Please try again.";
+            } else if (error instanceof NoConnectionError) {
+                errorMsg = "No internet connection.";
+            } else if (error instanceof ServerError) {
+                errorMsg = "Server error occurred.";
+            } else if (error instanceof NetworkError) {
+                errorMsg = "Network error.";
+            } else if (error instanceof ParseError) {
+                errorMsg = "Response parsing failed.";
+            } else {
+                errorMsg = "Something went wrong.";
             }
+            Global.customtoast(context, inflater, errorMsg);
 
         }) {
             @Override

@@ -1,693 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="#121212">
 
+    <!-- Toolbar -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:paddingHorizontal="16dp">
 
         <ImageView
             android:id="@+id/backbtn"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
+            android:padding="8dp"
             android:src="@drawable/arrow_left" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="55dp"
-                android:src="@drawable/wheelz" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/calistoga"
-                android:text="WheelZ"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/arsenal"
+            android:text="Documents"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
-    <TextView
+    <!-- Main Content -->
+
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:padding="16dp"
-        android:text="Documents"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/warranty"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="10dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#353434"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#353434"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Warranty"
-                        android:textColor="@color/white"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow" />
-
-                </LinearLayout>
-
-                <ImageView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:src="@drawable/warranty" />
-
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/emission"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="10dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#353434"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#353434"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Emission"
-                        android:textColor="@color/white"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow" />
-
-                </LinearLayout>
-
-                <ImageView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:src="@drawable/emissions" />
-
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/insurance"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="10dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#353434"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#353434"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Insurance"
-                        android:textColor="@color/white"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow" />
-
-                </LinearLayout>
-
-                <ImageView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:src="@drawable/insurance" />
-
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1" />
-
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/permit"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="10dp">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#353434"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#353434"
-                    android:orientation="horizontal">
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/arsenal"
-                        android:text="Permit"
-                        android:textColor="@color/white"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <ImageView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:src="@drawable/baseline_small_white_arrow" />
-
-                </LinearLayout>
-
-                <ImageView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:src="@drawable/permit" />
-
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="420dp"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/rcbook"
-            android:layout_width="0dp"
-            android:layout_height="125dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardMaxElevation="10dp">
-
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:fillViewport="true"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Header Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#353434"
+                android:layout_marginBottom="24dp"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#353434"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    android:text="Vehicle Documents"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Manage all your vehicle documents in one place"
+                    android:textColor="#B0B0B0"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
 
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/arsenal"
-                        android:text="RC Book"
-                        android:textColor="@color/white"
-                        android:textSize="13dp"
-                        android:textStyle="bold" />
+            <!-- Document Grid -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical">
 
+                <!-- First Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:src="@drawable/baseline_small_white_arrow" />
+                    <!-- Warranty Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/warranty"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_blue2"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/warrantyTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Warranty"
+                                android:textColor="#3D3D3D"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/warrantySubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/warrantyTitle"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Valid until 2025"
+                                android:textColor="@color/pure_black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/warrantySubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/warranty" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Emission Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/emission"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_green2"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/emissionTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Emission"
+                                android:textColor="#3D3D3D"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/emissionSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/emissionTitle"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Certificate"
+                                android:textColor="@color/pure_black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/emissionSubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/emissions" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
-                <ImageView
-
+                <!-- Second Row -->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    android:src="@drawable/rcbook" />
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!-- Insurance Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/insurance"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_orange2"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/insuranceTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Insurance"
+                                android:textColor="#3D3D3D"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/insuranceSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/insuranceTitle"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Renew in 1 year"
+                                android:textColor="@color/pure_black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/insuranceSubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/insurance" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Permit Card -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/permit"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="8dp"
+                        app:cardMaxElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/gradient_pink"
+                            android:padding="15dp">
+
+                            <TextView
+                                android:id="@+id/permitTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/calistoga"
+                                android:text="Permit"
+                                android:textColor="#3D3D3D"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/permitSubtitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/permitTitle"
+                                android:fontFamily="@font/arsenal"
+                                android:text="Commercial"
+                                android:textColor="@color/pure_black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@id/permitSubtitle"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/circle_white_bg"
+                                android:padding="10dp"
+                                android:src="@drawable/baseline_small_white_arrow"
+                                app:tint="#3D3D3D" />
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:padding="5dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/permit" />
+
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <!-- RC Book Card (Full Width) -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/rcbook"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="8dp"
+                    app:cardMaxElevation="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradient_purple"
+                        android:padding="15dp">
+
+                        <TextView
+                            android:id="@+id/rcbookTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/calistoga"
+                            android:text="RC Book"
+                            android:textColor="#3D3D3D"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/rcbookSubtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/rcbookTitle"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Registration Certificate"
+                            android:textColor="@color/pure_black"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_below="@id/rcbookSubtitle"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/circle_white_bg"
+                            android:padding="10dp"
+                            android:src="@drawable/baseline_small_white_arrow"
+                            app:tint="#3D3D3D" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="80dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:padding="5dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/rcbook" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
+        </LinearLayout>
 
-    </LinearLayout>
-
-    <!-- <LinearLayout
-         android:id="@+id/documentCardContainer"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical"
-
-         android:padding="14dp">
-
-         &lt;!&ndash; RC Card &ndash;&gt;
-         <androidx.cardview.widget.CardView
-             android:id="@+id/rc_cd"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             app:cardCornerRadius="12dp"
-             app:cardElevation="6dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="16dp"
-                 android:text="RC Book"
-                 android:textColor="@color/black"
-                 android:textStyle="bold"
-                 android:textSize="16sp" />
-         </androidx.cardview.widget.CardView>
-
-         &lt;!&ndash; Permit Card &ndash;&gt;
-         <androidx.cardview.widget.CardView
-             android:id="@+id/permit_cd"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             app:cardCornerRadius="12dp"
-             app:cardElevation="6dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="16dp"
-                 android:text="Permit"
-                 android:textColor="@color/black"
-                 android:textStyle="bold"
-                 android:textSize="16sp" />
-         </androidx.cardview.widget.CardView>
-
-         &lt;!&ndash; Insurance Card &ndash;&gt;
-         <androidx.cardview.widget.CardView
-             android:id="@+id/insurance_cd"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             app:cardCornerRadius="12dp"
-             app:cardElevation="6dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="16dp"
-                 android:text="Insurance"
-                 android:textColor="@color/black"
-                 android:textStyle="bold"
-                 android:textSize="16sp" />
-         </androidx.cardview.widget.CardView>
-
-         &lt;!&ndash; Emission Card &ndash;&gt;
-         <androidx.cardview.widget.CardView
-             android:id="@+id/emmission_cd"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="8dp"
-             app:cardCornerRadius="12dp"
-             app:cardElevation="6dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="16dp"
-                 android:text="Emission Test"
-                 android:textColor="@color/black"
-                 android:textStyle="bold"
-                 android:textSize="16sp" />
-         </androidx.cardview.widget.CardView>
-
-         &lt;!&ndash; Warranty Card &ndash;&gt;
-         <androidx.cardview.widget.CardView
-             android:id="@+id/warranty_cd"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             app:cardCornerRadius="12dp"
-             app:cardElevation="6dp">
-
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:padding="16dp"
-                 android:text="Warranty"
-                 android:textColor="@color/black"
-                 android:textStyle="bold"
-                 android:textSize="16sp" />
-         </androidx.cardview.widget.CardView>
-     </LinearLayout>-->
-
-
+    </androidx.core.widget.NestedScrollView>
+    <!-- Progress Bar -->
     <ProgressBar
         android:id="@+id/progressbarfiles"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
-        android:visibility="invisible" />
+        android:indeterminateTint="#FFFFFF"
+        android:visibility="gone" />
 
-
-    <!--<LinearLayout
-        android:id="@+id/subButtonsContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="90dp"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:clipChildren="false"
-        android:clipToPadding="false">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/warrantyText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Warranty"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginEnd="8dp"
-                android:maxWidth="100dp"/>
-
-            <ImageButton
-                android:id="@+id/warranty"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/roundedbutton"
-                android:src="@drawable/baseline_add_24"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-
-        &lt;!&ndash; Emission Button Group &ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/emissionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Emission Test"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginEnd="8dp"
-                android:maxWidth="100dp"/>
-
-            <ImageButton
-                android:id="@+id/emission"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/roundedbutton"
-                android:src="@drawable/baseline_add_24"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-
-        &lt;!&ndash; Insurance Button Group &ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/insuranceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Insurance"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginEnd="8dp"
-                android:maxWidth="100dp"/>
-
-            <ImageButton
-                android:id="@+id/insurance"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/roundedbutton"
-                android:src="@drawable/baseline_add_24"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-
-        &lt;!&ndash; RC Button Group &ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginBottom="10dp">
-
-            <TextView
-                android:id="@+id/rcText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RC Book"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginEnd="8dp"
-                android:maxWidth="100dp"/>
-
-            <ImageButton
-                android:id="@+id/rc"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/roundedbutton"
-                android:src="@drawable/baseline_add_24"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-
-        &lt;!&ndash; Permit Button Group &ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end">
-
-            <TextView
-                android:id="@+id/permitText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Permit"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginEnd="8dp"
-                android:maxWidth="100dp"/>
-
-            <ImageButton
-                android:id="@+id/permit"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/roundedbutton"
-                android:src="@drawable/baseline_add_24"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"/>
-        </LinearLayout>
-    </LinearLayout>-->
-
-    <!-- Main FAB -->
-    <!-- <ImageButton
-         android:id="@+id/imagebuttonRP"
-         android:layout_width="56dp"
-         android:layout_height="56dp"
-         android:layout_gravity="bottom|end"
-         android:layout_marginEnd="20dp"
-         android:layout_marginBottom="20dp"
-         android:background="@drawable/roundedbutton"
-         android:src="@drawable/baseline_add_24"
-         android:elevation="8dp" />-->
 </FrameLayout>

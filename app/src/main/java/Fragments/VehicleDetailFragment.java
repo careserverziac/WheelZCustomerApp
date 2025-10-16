@@ -17,7 +17,7 @@ public class VehicleDetailFragment extends Fragment {
 
     ImageView Veh_image;
     ImageButton Btn_back;
-    TextView VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
+    TextView Myear,VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
 
 
 
@@ -30,6 +30,7 @@ public class VehicleDetailFragment extends Fragment {
          View view= inflater.inflate(R.layout.fragment_vehicle_detail, container, false);
 
         Btn_back=view.findViewById(R.id.btn_back);
+        Myear=view.findViewById(R.id.myear);
         Veh_image=view.findViewById(R.id.veh_imageindetail);
         Topspeed=view.findViewById(R.id.topspeed);
         Fuelname=view.findViewById(R.id.fuelname);
@@ -48,6 +49,7 @@ public class VehicleDetailFragment extends Fragment {
 
 
         Category.setText(Global.vehicledetails.getCategory());
+        Myear.setText(Global.vehicledetails.getMaf_date());
         Fuelname.setText(Global.vehicledetails.getFuelname());
         Bodytype.setText(Global.vehicledetails.getBodytype());
         Bhp.setText(Global.vehicledetails.getBhp());

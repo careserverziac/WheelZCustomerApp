@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxBackgroundColor">@android:color/white</item>
         <item name="boxStrokeColor">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
         <!-- Add any other attributes you want to customize for the TextInputLayout -->
     </style>
+
     <style name="BottomNavigationStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <!-- Set the color for the icons -->
         <item name="itemIconTint">#C8C4C4</item>
@@ -17,19 +19,19 @@
     <style name="WhiteHintText" parent="TextAppearance.MaterialComponents.Caption">
         <item name="android:textColor">@color/white</item>
     </style>
-        <!-- Expanded Title Style -->
-        <style name="ExpandedTitleTextStyle" parent="TextAppearance.AppCompat.Title">
-            <item name="android:textSize">24sp</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:textColor">#FFFFFF</item>
-        </style>
+    <!-- Expanded Title Style -->
+    <style name="ExpandedTitleTextStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
-        <!-- Collapsed Title Style -->
-        <style name="CollapsedTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-            <item name="android:textSize">18sp</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:textColor">#FFFFFF</item>
-        </style>
+    <!-- Collapsed Title Style -->
+    <style name="CollapsedTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 
     <style name="ExpandedTitleTextAppearance" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/white</item>
@@ -44,6 +46,7 @@
         <item name="android:fontFamily">@font/calistoga</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="ExpandedAppBar" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/white</item>
@@ -61,12 +64,6 @@
         <item name="android:thumb">@drawable/custom_thumb</item>
         <item name="android:progressDrawable">@drawable/custom_progress</item>
     </style>
-
-
-    <!--   <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-           <item name="android:windowDisablePreview">true</item>
-       </style>
-   -->
 
 
     <!-- SearchView Custom Style for Dark Theme -->

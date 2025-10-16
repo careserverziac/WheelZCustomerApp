@@ -39,6 +39,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.card.MaterialCardView;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +72,7 @@ public class DealersFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     FusedLocationProviderClient fusedLocationClient;
     SearchView searchView;
-    LinearLayout LinearSearch;
+    MaterialCardView LinearSearch;
 
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView tvBookingCount;

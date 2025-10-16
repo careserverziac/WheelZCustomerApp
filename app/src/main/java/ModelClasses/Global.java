@@ -23,8 +23,8 @@ public class Global {
     private static Picasso picassoInstance;
 
 
-
-   // public static String baseurl = "https://wheelzonline.co.in/";
+ public static String selectedDealerCode = "";
+ // public static String baseurl = "https://wheelzonline.co.in/";
     public static String baseurl = "https://192.168.100.21:7777/";
    // public static String baseurl_image = "https://wheelzonline.in/";
     public static String baseurl_image = "http://192.168.100.21:7778/";

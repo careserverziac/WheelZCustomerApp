@@ -227,82 +227,7 @@
                     android:visibility="gone" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section 3: Contact Details -->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:alpha="0.7"
-                android:fontFamily="@font/arsenal_bold"
-                android:letterSpacing="0.02"
-                android:text="3.Your Contact Details"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:cardBackgroundColor="#1A1A1A"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:strokeColor="#2A2A2A"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tdname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arsenal"
-                        android:hint="Name"
-                        android:inputType="textPersonName"
-                        android:maxLength="50"
-                        android:maxLines="2"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:textSize="14sp" />
-
-                    <!-- Mobile Input -->
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tdmobile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:hint="Mobile Number"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:textSize="14sp" />
-
-                    <!-- Email Input -->
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/tdmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="@font/arsenal"
-                        android:hint="Email Address"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
 
             <TextView
@@ -312,7 +237,7 @@
                 android:alpha="0.7"
                 android:fontFamily="@font/arsenal_bold"
                 android:letterSpacing="0.02"
-                android:text="4.Date / Time"
+                android:text="3.Date / Time"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 

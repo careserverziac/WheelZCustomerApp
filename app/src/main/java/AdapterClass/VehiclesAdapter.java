@@ -1,15 +1,13 @@
 package AdapterClass;
 
 import android.annotation.SuppressLint;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +16,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ziac.wheelzcustomer.ServiceHistoryActivity;
 import com.ziac.wheelzcustomer.UploadViewFiles;
 import com.ziac.wheelzcustomer.R;
-import com.ziac.wheelzcustomer.ServiceHistory;
 
 import java.util.List;
 
@@ -51,14 +49,44 @@ import ModelClasses.Global;
         Global.loadWithPicasso(context, holder.Veh_image, Global.modelsimageurl + vehicledetailsList.get(position).getImage_path());
         holder.Manufacturer.setText(vehicledetailsList.get(position).getMfg_name());
         holder.Model_name.setText(vehicledetailsList.get(position).getVehiclemodelname());
-        holder.Chassisno.setText(vehicledetailsList.get(position).getChassis_no());
+        //holder.Chassisno.setText(vehicledetailsList.get(position).getChassis_no());
         holder.Engineno.setText(vehicledetailsList.get(position).getEngine_no());
-        holder.Regisno.setText(vehicledetailsList.get(position).getRegis_no());
+       // holder.Regisno.setText(vehicledetailsList.get(position).getRegis_no());
+
+        String regNo = vehicledetailsList.get(position).getRegis_no();
+        if (regNo != null && regNo.length() > 6) {
+            // Replace the first 6 characters with asterisks
+            String masked = "******" + regNo.substring(6);
+            holder.Regisno.setText(masked);
+        } else {
+            // If less than 6 characters, just show it as it is
+            holder.Regisno.setText(regNo);
+        }
+        String Chassis = vehicledetailsList.get(position).getChassis_no();
+
+        if (Chassis != null && Chassis.length() > 6) {
+            int totalLength = Chassis.length();
+            int visibleDigits = 6;
+            // Create masked part with stars
+            String maskedPart = new String(new char[totalLength - visibleDigits]).replace("\0", "*");
+
+            // Get last 6 characters
+            String lastPart = Chassis.substring(totalLength - visibleDigits);
+            // Final masked chassis number
+            String maskedChassis = maskedPart + lastPart;
+            holder.Chassisno.setText(maskedChassis);
+        } else {
+            // If length is 6 or less, just show it as it is
+            holder.Chassisno.setText(Chassis);
+        }
+
+
         holder.Batteryno.setText(vehicledetailsList.get(position).getBatt_no());
         holder.Vehcolor.setText(vehicledetailsList.get(position).getVcol_name());
         holder.Prvservice.setText(vehicledetailsList.get(position).getPrv_serdt());
         holder.Nextservice.setText(vehicledetailsList.get(position).getNxt_serdt());
 
+/*
         holder.Rcn_copy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +102,7 @@ import ModelClasses.Global;
                 Toast.makeText(v.getContext(), "Copied: " + regisNo, Toast.LENGTH_SHORT).show();
             }
         });
+*/
 
 
 
@@ -97,13 +126,7 @@ import ModelClasses.Global;
             public void onClick(View v) {
 
                 Global.vehicledetails = vehicledetailsList.get(position);
-
-                ServiceHistory serviceHistory = new ServiceHistory();
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, serviceHistory);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                context.startActivity(new Intent(context, ServiceHistoryActivity.class));
             }
         });
 
@@ -126,7 +149,7 @@ import ModelClasses.Global;
             super(itemView);
 
             Veh_image=itemView.findViewById(R.id.veh_image);
-            Rcn_copy=itemView.findViewById(R.id.rcn_copy);
+           // Rcn_copy=itemView.findViewById(R.id.rcn_copy);
             Manufacturer =itemView.findViewById(R.id.manufacturerMV);
             Model_name=itemView.findViewById(R.id.modelnameMV);
             Chassisno=itemView.findViewById(R.id.chasis_no);

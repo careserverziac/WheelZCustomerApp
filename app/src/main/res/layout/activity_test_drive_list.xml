@@ -22,8 +22,8 @@
             app:contentScrim="@color/black"
             app:expandedTitleGravity="bottom|start"
             app:expandedTitleMarginStart="16dp"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
             app:expandedTitleMarginBottom="24dp"
-            app:expandedTitleTextAppearance="@style/ExpandedTitleTextStyle"
             app:collapsedTitleTextAppearance="@style/CollapsedTitleTextStyle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 

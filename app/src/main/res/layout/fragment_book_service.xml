@@ -15,47 +15,6 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-<!--
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/backbtn"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
-            android:src="@drawable/arrow_left"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
-            android:layout_centerVertical="true" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="55dp"
-                android:src="@drawable/wheelz" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/calistoga"
-                android:text="WheelZ"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-        </LinearLayout>
-
-        </RelativeLayout>
--->
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -313,14 +272,6 @@
 
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
-
 
             </LinearLayout>
 
@@ -382,15 +333,6 @@
                         android:textSize="14sp" />
 
                 </LinearLayout>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -465,14 +407,6 @@
                 </LinearLayout>
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
-
 
             </LinearLayout>
 
@@ -518,14 +452,6 @@
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -597,12 +523,7 @@
                     android:textSize="14sp" />
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:textColor="@color/white" />
+
 
 
             </LinearLayout>
@@ -676,13 +597,6 @@
                     android:textSize="14sp" />
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
 
 
             </LinearLayout>
@@ -789,15 +703,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/baseline_arrow_dp"
-                    android:text="Username"
-                    android:textColor="@color/white" />
-
-
 
             </LinearLayout>
 
@@ -809,28 +714,17 @@
 
 
 
-
-        <LinearLayout
+        <!-- Add Document FAB -->
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/confirmbooking"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/border_colour2"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/arsenal"
-                android:gravity="center"
-                android:text="Confirm Booking"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/gradient_button_bg"
+            android:text="Confirm Booking"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:elevation="8dp" />
 
 
     </LinearLayout>

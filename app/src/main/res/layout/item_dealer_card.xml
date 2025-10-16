@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Modern AppBar with Material Design 3 -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            app:contentScrim="@android:color/transparent"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginBottom="32dp"
+            app:title="Find Your WheelZ"
+            app:titleEnabled="true"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:scrimAnimationDuration="400">
+
+            <!-- Hero Image with Gradient Overlay -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7">
+
+                <ImageView
+                    android:id="@+id/headerImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bike3"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Header vehicle image"/>
+
+                <!-- Dark gradient overlay for better text visibility -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/gradient_overlay"/>
+
+            </FrameLayout>
+
+            <!-- Toolbar with modern design -->
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back"
+                app:navigationIconTint="@android:color/white"
+                android:elevation="0dp"/>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshprofile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="8dp">
+
+                <!-- Search Section - Top Priority -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="28dp"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchalldealers"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@android:color/transparent"
+                        app:iconifiedByDefault="false"
+                        app:queryHint="Search dealers, brands, models..."
+                        app:searchIcon="@drawable/ic_search"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"/>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Filter Chips Section - Modern Horizontal Scrollable -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    android:clipToPadding="false">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/filterChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleSelection="false"
+                        app:chipSpacingHorizontal="8dp">
+
+                        <!-- State Filter Chip -->
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/stateChip"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="All States"
+                            android:textColor="@color/green_txt"
+                            app:chipIcon="@drawable/ic_location"
+                            app:chipIconTint="@color/green_txt"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipStrokeColor="@color/green_txt"
+                            app:chipStrokeWidth="1dp"
+                            app:chipCornerRadius="20dp"/>
+
+                        <!-- City Filter Chip -->
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/cityChip"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="All Cities"
+                            android:textColor="@color/green_txt"
+                            app:chipIcon="@drawable/ic_city"
+                            app:chipIconTint="@color/green_txt"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipStrokeColor="@color/green_txt"
+                            app:chipStrokeWidth="1dp"
+                            app:chipCornerRadius="20dp"/>
+
+                        <!-- Sort Filter Chip -->
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sortChip"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sort By"
+                            android:textColor="#666666"
+                            app:chipIcon="@drawable/ic_sort"
+                            app:chipIconTint="#666666"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipStrokeColor="#E0E0E0"
+                            app:chipStrokeWidth="1dp"
+                            app:chipCornerRadius="20dp"/>
+
+                        <!-- Price Range Chip -->
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/priceChip"
+                            style="@style/Widget.Material3.Chip.Filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Price Range"
+                            android:textColor="#666666"
+                            app:chipIcon="@drawable/ic_price"
+                            app:chipIconTint="#666666"
+                            app:chipBackgroundColor="@android:color/white"
+                            app:chipStrokeColor="#E0E0E0"
+                            app:chipStrokeWidth="1dp"
+                            app:chipCornerRadius="20dp"/>
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+                <!-- Results Header with Modern Typography -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="12dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/dealerCountText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="152 Dealers Available"
+                            android:textColor="#1A1A1A"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/arsenal"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Verified and trusted sellers"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/arsenal"
+                            android:layout_marginTop="2dp"/>
+
+                    </LinearLayout>
+
+                    <!-- View Toggle Icon -->
+                    <ImageView
+                        android:id="@+id/viewToggleIcon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_grid_view"
+                        android:padding="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:tint="#666666"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:contentDescription="Toggle view"/>
+
+                </LinearLayout>
+
+                <!-- ProgressBar -->
+                <ProgressBar
+                    android:id="@+id/progressBardealers"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/green_txt"
+                    android:visibility="gone"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="48dp"/>
+
+                <!-- Dealer RecyclerView with Modern Spacing -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/dealerlist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="24dp"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_dealer_card"/>
+
+                <!-- Empty State View -->
+                <LinearLayout
+                    android:id="@+id/emptyStateLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="48dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:src="@drawable/ic_empty_state"
+                        android:alpha="0.3"
+                        android:contentDescription="No dealers found"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No dealers found"
+                        android:textSize="18sp"
+                        android:textColor="#666666"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/arsenal"
+                        android:layout_marginTop="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Try adjusting your filters"
+                        android:textSize="14sp"
+                        android:textColor="#999999"
+                        android:fontFamily="@font/arsenal"
+                        android:layout_marginTop="4dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <!-- Floating Action Button (Optional) -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="Filters"
+        android:textColor="@android:color/white"
+        app:icon="@drawable/ic_filter"
+        app:iconTint="@android:color/white"
+        app:backgroundTint="@color/green_txt"
+        app:elevation="6dp"
+        android:visibility="gone"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

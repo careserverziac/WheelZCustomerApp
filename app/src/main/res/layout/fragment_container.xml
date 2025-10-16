@@ -1,88 +1,83 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:orientation="vertical">
 
-
+    <!-- Header Section -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="0dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/black"
+        android:paddingHorizontal="16dp">
 
-        <!-- Back button aligned to start -->
         <ImageView
             android:id="@+id/backbtn"
-            android:layout_width="45dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="5dp"
+            android:padding="8dp"
             android:src="@drawable/arrow_left" />
 
-        <!-- Centered logo and title -->
-        <LinearLayout
-            android:id="@+id/logo_section"
+        <TextView
+            android:id="@+id/doc_pref"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="55dp"
-                android:src="@drawable/wheelz" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/calistoga"
-                android:text="WheelZ"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
+            android:fontFamily="@font/arsenal"
+            android:text="Document List"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
+    <!-- Top Lottie Bike Animation -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/bikeAnimation"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_rawRes="@raw/bike_riding"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true" />
 
-    <TextView
-        android:id="@+id/doc_pref"
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressbarfiles"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:padding="16dp"
-        android:text="Document List"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_height="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:indeterminateTint="@color/white"
+        android:progress="0"
+        android:max="100"
+        android:progressTint="#2196F3"
+        android:visibility="gone" />
 
-
+    <!-- Document Grid RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/doc_listRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="140dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="16dp"
+        android:clipToPadding="false" />
 
-
-    <ProgressBar
-        android:id="@+id/progressbarfiles"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:visibility="invisible" />
-
-
-    <ImageButton
+    <!-- Add Document FAB -->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/imagebuttonRP"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/roundedbutton"
-        android:elevation="8dp"
-        android:src="@drawable/baseline_add_24" />
-
-</FrameLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/gradient_button_bg"
+        android:text="Upload Document"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:backgroundTint="#D50000"
+        app:elevation="8dp" />
+</LinearLayout>

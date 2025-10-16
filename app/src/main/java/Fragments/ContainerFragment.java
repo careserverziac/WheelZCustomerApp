@@ -9,9 +9,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -21,8 +24,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieDrawable;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -63,9 +70,11 @@ public class ContainerFragment extends Fragment {
     CommonClass commonClass;
     TextView Doc_pref;
     ImageView Backbtn;
-    ImageButton Uploadfile;
+    AppCompatButton Uploadfile;
     View view;
-
+    LottieAnimationView bikeAnimation;
+    private int progressStatus = 0;
+    private Handler handler = new Handler();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +97,33 @@ public class ContainerFragment extends Fragment {
         Doc_pref = view.findViewById(R.id.doc_pref);
         Uploadfile = view.findViewById(R.id.imagebuttonRP);
         Backbtn = view.findViewById(R.id.backbtn);
+
+        bikeAnimation = view.findViewById(R.id.bikeAnimation);
+
+        // Start bike animation
+
+        bikeAnimation.setVisibility(View.VISIBLE);
+        bikeAnimation.setRepeatCount(LottieDrawable.INFINITE);
+        bikeAnimation.playAnimation();
+
+        new Thread(() -> {
+            while (progressStatus < 100) {
+                progressStatus++;
+                handler.post(() -> progressBar.setProgress(progressStatus));
+                try {
+                    Thread.sleep(80);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // stop animation after load completes
+            handler.post(() -> {
+                bikeAnimation.cancelAnimation();
+                bikeAnimation.setVisibility(View.GONE);
+            });
+        }).start();
+
 
         wuser_code=Global.vehicledetails.getWuser_code();
         cveh_code=Global.vehicledetails.getCveh_code();
@@ -160,73 +196,66 @@ public class ContainerFragment extends Fragment {
         }
 }
 
+
     private void getDocumentlist(String doc_type) {
-        showLoading();
+        // 👇 Show animation & progress bar
+        bikeAnimation.setVisibility(View.VISIBLE);
+        bikeAnimation.playAnimation();
+        progressBar.setVisibility(View.VISIBLE);
+
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
+        String Url = Global.GetDocumentList + "wuser_code=" + wuser_code + "&cveh_code=" + cveh_code + "&doc_type=" + doc_type;
 
-        String Url = Global.GetDocumentList+"wuser_code="+wuser_code+"&cveh_code="+cveh_code+"&doc_type="+doc_type;
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST, Url, null,
+                response -> {
+                    Global.dealersarraylist = new ArrayList<>();
 
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            CommonClass commonClass = new CommonClass();
+                            commonClass.setImgdoc_code(jsonObject.getString("imgdoc_code"));
+                            commonClass.setCveh_code(jsonObject.getString("cveh_code"));
+                            commonClass.setWuser_code(jsonObject.getString("wuser_code"));
+                            commonClass.setImgdoc_path(jsonObject.getString("imgdoc_path"));
+                            commonClass.setCreatedby(jsonObject.getString("createdby"));
+                            commonClass.setCreatedon(jsonObject.getString("createdon"));
+                            commonClass.setFile_type(jsonObject.getString("file_type"));
+                            commonClass.setDoc_type(jsonObject.getString("doc_type"));
 
-                Global.dealersarraylist = new ArrayList<CommonClass>();
-                commonClass = new CommonClass();
-                for (int i = 0; i < response.length(); i++) {
-                    final JSONObject jsonObject;
-                    try {
-
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
+                            Global.dealersarraylist.add(commonClass);
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
                     }
-                    commonClass = new CommonClass();
-                    try {
 
-                        commonClass.setImgdoc_code(jsonObject.getString("imgdoc_code"));
-                        commonClass.setCveh_code(jsonObject.getString("cveh_code"));
-                        commonClass.setWuser_code(jsonObject.getString("wuser_code"));
-                        commonClass.setImgdoc_path(jsonObject.getString("imgdoc_path"));
-                        commonClass.setCreatedby(jsonObject.getString("createdby"));
-                        commonClass.setCreatedon(jsonObject.getString("createdon"));
-                        commonClass.setFile_type(jsonObject.getString("file_type"));
-                        commonClass.setDoc_type(jsonObject.getString("doc_type"));
+                    docAdapter = new Documentlistadapter(getContext(), Global.dealersarraylist);
+                    Doc_listRV.setAdapter(docAdapter);
+                    docAdapter.notifyDataSetChanged();
 
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
+                    // ✅ Hide animation and progress bar after success
+                    bikeAnimation.cancelAnimation();
+                    bikeAnimation.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+                },
+                error -> {
+                    // ❌ Hide animation and progress bar on error too
+                    bikeAnimation.cancelAnimation();
+                    bikeAnimation.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
+
+                    if (error instanceof TimeoutError) {
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
+                    } else if (error instanceof NoConnectionError) {
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
+                    } else if (error instanceof ServerError) {
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
+                    } else if (error instanceof NetworkError) {
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
+                    } else if (error instanceof ParseError) {
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                     }
-                    Global.dealersarraylist.add(commonClass);
-                    //swipeRefreshLayout.setRefreshing(false);
-                }
-
-                docAdapter = new Documentlistadapter(getContext(), Global.dealersarraylist);
-                Doc_listRV.setAdapter(docAdapter);
-                docAdapter.notifyDataSetChanged();
-                //swipeRefreshLayout.setRefreshing(false);
-                hideLoading();
-
-            }
-        },  error -> {
-
-            if (error instanceof NoConnectionError) {
-                hideLoading();
-                if (error instanceof TimeoutError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
-                } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
-                } else if (error instanceof ServerError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
-                } else if (error instanceof NetworkError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
-                } else if (error instanceof ParseError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
-                }
-               // swipeRefreshLayout.setRefreshing(false);
-            }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
-        }) {
-
+                }) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -234,19 +263,17 @@ public class ContainerFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
         jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+                0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
         queue.add(jsonArrayrequest);
-
     }
+
 
     public class Documentlistadapter extends RecyclerView.Adapter<Documentlistadapter.ViewHolder> {
 
@@ -375,7 +402,7 @@ public class ContainerFragment extends Fragment {
 
             TextView Filename;
             ImageView DeleteFiles;
-            ImageView fileview1, fileview2;
+            RelativeLayout fileview1, fileview2;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

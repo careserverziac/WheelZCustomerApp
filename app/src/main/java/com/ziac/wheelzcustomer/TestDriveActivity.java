@@ -104,9 +104,9 @@ public class TestDriveActivity extends AppCompatActivity {
         Manufacture = findViewById(R.id.manufacturer);
         Model = findViewById(R.id.modelname);
         Veh_image = findViewById(R.id.veh_image);
-        Tdmail = findViewById(R.id.tdmail);
-        Tdmobile = findViewById(R.id.tdmobile);
-        Tdname = findViewById(R.id.tdname);
+        // Tdmail = findViewById(R.id.tdmail);
+        //  Tdmobile = findViewById(R.id.tdmobile);
+        //  Tdname = findViewById(R.id.tdname);
 
         SelectDt = findViewById(R.id.selectdate);
         SelectTm = findViewById(R.id.selecttime);
@@ -210,7 +210,7 @@ public class TestDriveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                username = Tdname.getText().toString().trim();
+          /*      username = Tdname.getText().toString().trim();
                 wuser_mobile1 = Tdmobile.getText().toString().trim();
                 wuser_email = Tdmail.getText().toString().trim();
                 // ✅ Optional: You can show warnings if needed
@@ -241,8 +241,11 @@ public class TestDriveActivity extends AppCompatActivity {
                     Tdmail.setError("Enter a valid email address");
                     Tdmail.requestFocus();
                     return;
+                }*/
+                if (Global.selectedDealerCode == null || Global.selectedDealerCode.isEmpty()) {
+                    Toast.makeText(context, "Please select a dealer", Toast.LENGTH_SHORT).show();
+                    return; // stop further execution
                 }
-
 
                 // ✅ All good, proceed with your function
                 BookTestDrive();
@@ -252,96 +255,13 @@ public class TestDriveActivity extends AppCompatActivity {
 
     }
 
-    private void BookTestDrive() {
-        ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-        RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookTestDrive,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String sresponse) {
-                        JSONObject response = null;
-                        try {
-                            response = new JSONObject(sresponse);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        try {
-                            if (response.getBoolean("isSuccess")) {
-                                progressDialog.dismiss();
-                                Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
-                                finish();
-
-                            } else {
-                                progressDialog.dismiss();
-                                Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
-
-                            }
-                        } catch (JSONException e) {
-                            progressDialog.dismiss();
-                            throw new RuntimeException(e);
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                if (error instanceof TimeoutError) {
-                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Request Time-Out");
-                } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Internet connection unavailable");
-                } else if (error instanceof ServerError) {
-                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Server Error");
-                } else if (error instanceof NetworkError) {
-                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Network Error");
-                } else if (error instanceof ParseError) {
-                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Parse Error");
-                }
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null);
-                headers.put("Authorization", "Bearer " + accesstoken);
-                return headers;
-            }
-
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code", ""));
-                params.put("com_code", com_code);
-                params.put("vmodel_code", vmodel_code);
-                params.put("testdriv_date", sqldateformat);
-                params.put("testdriv_time", selectedTime24);
-                params.put("username", username);
-                params.put("wuser_mobile1", wuser_mobile1);
-                params.put("wuser_email", wuser_email);
-                return params;
-
-            }
-        };
-
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                (int) TimeUnit.SECONDS.toMillis(0),
-                0,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-        queue.add(stringRequest);
-    }
-
-
-
 
     private void getDealerslist() {
 
         RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
 
-        Url = Global.searchalldealers + "searchtext=" + searchquery + "&state_code=" + statecode + "&city_code=" + citycode;
+        Url = Global.searchalldealers + "searchtext=" + searchquery + "&state_code=" +
+                statecode + "&city_code=" + citycode;
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST, Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -359,7 +279,10 @@ public class TestDriveActivity extends AppCompatActivity {
                     commonClass = new CommonClass();
                     try {
                         commonClass.setImage_path(jsonObject.getString("logo_image"));
-                        commonClass.setCom_code(jsonObject.getString("com_code"));
+                        //commonClass.setCom_code(jsonObject.getString("com_code"));
+                        String dcom_code = jsonObject.getString("com_code");
+
+
                         commonClass.setState_name(jsonObject.getString("state_name"));
                         commonClass.setState_code(jsonObject.getString("state_code"));
                         commonClass.setCity_name(jsonObject.getString("city_name"));
@@ -375,6 +298,9 @@ public class TestDriveActivity extends AppCompatActivity {
                         commonClass.setCom_lng(jsonObject.getString("com_lng"));
                         commonClass.setCom_lat(jsonObject.getString("com_lat"));
                         commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
+
+
+                        commonClass.setDcom_code(dcom_code);
 
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
@@ -832,6 +758,7 @@ public class TestDriveActivity extends AppCompatActivity {
             holder.Dealerlist.setOnClickListener(v -> {
                 // Hide the RecyclerView
                 dealerRecyclerView.setVisibility(View.GONE);
+                String dealerCode = Global.dealersarraylist.get(position).getDcom_code();
 
                 // Get clicked dealer details
                 String dealerName = dealerList.get(position).getCom_name();
@@ -839,6 +766,9 @@ public class TestDriveActivity extends AppCompatActivity {
                 String dealerAdrs = dealerList.get(position).getCom_address();
                 String dealeremail = dealerList.get(position).getCom_email();
                 String dealerph = dealerList.get(position).getCom_contact_mobno();
+
+                Global.selectedDealerCode = dealerCode;
+
 
                 // Show the selected dealer data in the TextView
                 TextView displayData = ((Activity) v.getContext()).findViewById(R.id.displaydata);
@@ -849,7 +779,7 @@ public class TestDriveActivity extends AppCompatActivity {
                         + dealerCity
                         + dealerAdrs
                         + dealeremail + ", "
-                        + dealerph + "." ;
+                        + dealerph + ".";
 
                 displayData.setText(formattedText);
             });
@@ -863,7 +793,7 @@ public class TestDriveActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView Comyname, ComCity,Com_ph, ComAddress, Comwebsite, ItemCount;
+            TextView Comyname, ComCity, Com_ph, ComAddress, Comwebsite, ItemCount;
             LinearLayout Dealerlist;
 
 
@@ -882,6 +812,90 @@ public class TestDriveActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+
+    private void BookTestDrive() {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        RequestQueue queue = Volley.newRequestQueue(TestDriveActivity.this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookTestDrive,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String sresponse) {
+                        JSONObject response = null;
+                        try {
+                            response = new JSONObject(sresponse);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        try {
+                            if (response.getBoolean("isSuccess")) {
+                                progressDialog.dismiss();
+                                Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
+                                finish();
+
+                            } else {
+                                progressDialog.dismiss();
+                                Global.customtoast(TestDriveActivity.this, getLayoutInflater(), response.getString("error"));
+
+                            }
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                if (error instanceof TimeoutError) {
+                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Request Time-Out");
+                } else if (error instanceof NoConnectionError) {
+                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Internet connection unavailable");
+                } else if (error instanceof ServerError) {
+                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Server Error");
+                } else if (error instanceof NetworkError) {
+                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Network Error");
+                } else if (error instanceof ParseError) {
+                    Global.customtoast(TestDriveActivity.this, getLayoutInflater(), "Parse Error");
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                headers.put("Authorization", "Bearer " + accesstoken);
+                return headers;
+            }
+
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("wuser_code", Global.sharedPreferences.getString("wuser_code", ""));
+// ✅ Dealer is selected — proceed
+                params.put("com_code", Global.selectedDealerCode);
+                params.put("vmodel_code", vmodel_code);
+                params.put("testdriv_date", sqldateformat);
+                params.put("testdriv_time", selectedTime24);
+                // params.put("username", username);
+                // params.put("wuser_mobile1", wuser_mobile1);
+                // params.put("wuser_email", wuser_email);
+                return params;
+
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(0),
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        queue.add(stringRequest);
     }
 
 

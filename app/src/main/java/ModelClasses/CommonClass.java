@@ -2,7 +2,7 @@ package ModelClasses;
 
 public class CommonClass {
 
-    private String createdby,createdon,doc_type;
+    private String maf_date,dcom_code,createdby,createdon,doc_type;
     private String Image_path,image_code;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
@@ -17,6 +17,21 @@ public class CommonClass {
     public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
     public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname,mfg_name;
 
+    public String getMaf_date() {
+        return maf_date;
+    }
+
+    public void setMaf_date(String maf_date) {
+        this.maf_date = maf_date;
+    }
+
+    public String getDcom_code() {
+        return dcom_code;
+    }
+
+    public void setDcom_code(String dcom_code) {
+        this.dcom_code = dcom_code;
+    }
 
     public CommonClass(){}
 

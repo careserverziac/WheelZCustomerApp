@@ -40,4 +40,5 @@
     <color name="card_dark">#1E1E1E</color>
     <color name="primary_light">#BB86FC</color>
     <color name="primary_color">#6200EE</color>
+    <color name="pure_black">#0A0A0A</color>
 </resources>

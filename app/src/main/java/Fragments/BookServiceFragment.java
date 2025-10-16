@@ -17,6 +17,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -89,11 +90,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class BookServiceFragment extends Fragment {
 
     TextView Dealername, DealerMob, Companyname, SerApptDate, SelectedTm, Currentadress, Streetname, Dealeraddress, Selectedveh;
-    LinearLayout SelectDt, SelectTm, Maplocation, Servicedp, Pickupdp, Vehicledropdp, CnfrmbkgbBTN, Complaintdp, SelectedvehDp;
+    LinearLayout SelectDt, SelectTm, Maplocation, Servicedp, Pickupdp, Vehicledropdp, Complaintdp, SelectedvehDp;
     String wuser_code, com_code, vehhis_code, lattitude, longitude;
     EditText Odometer, Complaints;
     CircleImageView DealerImage;
     private zList modelclass;
+    AppCompatButton CnfrmbkgbBTN;
     Context context;
     private Dialog zDialog;
     String locationUri, sqldateformat, selctdveh, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
@@ -340,12 +342,12 @@ public class BookServiceFragment extends Fragment {
         complaint = Complaints.getText().toString();
 
         if (selctdveh.isEmpty()) {
-            Toast.makeText(context, "Select vehicle field must not be null !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Kindly Select The vehicle !!", Toast.LENGTH_SHORT).show();
             Selectedveh.requestFocus();
             return;
         }
         if (odoreading.isEmpty()) {
-            Toast.makeText(context, "Odometer field must not be null !!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Enter Odometer Details !!", Toast.LENGTH_SHORT).show();
             Odometer.requestFocus();
             return;
         }

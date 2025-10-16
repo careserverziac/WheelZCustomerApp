@@ -15,8 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-import android.os.Handler;
+
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -32,26 +31,20 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
+import com.ziac.wheelzcustomer.ServiceHistoryActivity;
 import com.ziac.wheelzcustomer.TestDriveListActivity;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import AdapterClass.CategoryAdapter;
-import AdapterClass.SliderAdapter;
 import ModelClasses.CategoryModel;
 import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
 
-    CardView Bookservice, Servicehistory, Vehdocuments, Pre_own_veh,TestDriveCard;
+    CardView ServiceList,Bookservice, Servicehistory, Vehdocuments, Pre_own_veh,TestDriveCard;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     String lattitude, longitude;
@@ -70,7 +63,7 @@ public class DashboardFragment extends Fragment {
         TestDriveCard = view.findViewById(R.id.testDriveCard);
         Servicehistory = view.findViewById(R.id.serviceHistoryCard);
         Vehdocuments = view.findViewById(R.id.vehicleDocumentsCard);
-       // ServiceList = view.findViewById(R.id.bookingCD);
+        ServiceList = view.findViewById(R.id.serviceHistoryCard);
         Pre_own_veh = view.findViewById(R.id.preOwnedCard);
         ProfileIcon = view.findViewById(R.id.profile_icon);
 
@@ -119,13 +112,16 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
+              /*  MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
                 fragmentTransaction.commit();
 
-                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);*/
+
+                startActivity(new Intent(requireContext(), ServiceHistoryActivity.class));
+
 
             }
         });

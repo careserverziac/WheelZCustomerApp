@@ -164,6 +164,7 @@ public class ModelBlankFragment extends Fragment {
                     String fuel_name = jsonObject.getString("fuel_name");
                     String sale_price = jsonObject.getString("sale_price");
                     String charging_time = jsonObject.getString("charging_time");
+                    String mfg_date = jsonObject.getString("mfg_date");
 
                     CommonClass commonClass = new CommonClass();
                     commonClass.setCategory(vmodelCode);
@@ -178,6 +179,7 @@ public class ModelBlankFragment extends Fragment {
                     commonClass.setModel_name(app_model_name);
                     commonClass.setChargingtime(charging_time);
                     commonClass.setSaleprice(sale_price);
+                    commonClass.setSaleprice(mfg_date);
 
                     Global.allleadslist.add(commonClass);
                     swipeRefreshLayout.setRefreshing(false);

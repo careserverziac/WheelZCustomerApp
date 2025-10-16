@@ -17,6 +17,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -47,11 +48,12 @@ public class TestDriveListActivity extends AppCompatActivity {
     private TestDriveAdapter adapter;
     private List<TestDriveModel> testDriveList;
     Context context;
-    String  access_token,wuser_code ;
+    String access_token, wuser_code;
     private ProgressDialog progressDialog;
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView tvBookingCount;
     private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,14 +99,30 @@ public class TestDriveListActivity extends AppCompatActivity {
 
         // Fetch data from API
         fetchTestDriveData();
+        int startColor = ContextCompat.getColor(this, R.color.black);
+        int endColor = ContextCompat.getColor(this, R.color.black);
+        float ratio = 0.8f; // Adjust as needed
 
+        runOnUiThread(() -> {
+            int blendedColor = ColorUtils.blendColors(startColor, endColor, ratio);
+            this.getWindow().setStatusBarColor(blendedColor);
+        });
     }
 
+    public static class ColorUtils {
+        public static int blendColors(int color1, int color2, float ratio) {
+            final float inverseRatio = 1 - ratio;
+            float r = Color.red(color1) * ratio + Color.red(color2) * inverseRatio;
+            float g = Color.green(color1) * ratio + Color.green(color2) * inverseRatio;
+            float b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRatio;
+            return Color.rgb((int) r, (int) g, (int) b);
+        }
+    }
 
 
     private void fetchTestDriveData() {
         VolleyRequestHelper volleyHelper = new VolleyRequestHelper(TestDriveListActivity.this);
-        String url = Global.urlTestDriveList + "wuser_code=" + wuser_code ;
+        String url = Global.urlTestDriveList + "wuser_code=" + wuser_code;
         Map<String, String> params = new HashMap<>();
 
         volleyHelper.makePostRequest(url, params, access_token, new VolleyRequestHelper.VolleyCallback() {
@@ -202,14 +220,14 @@ public class TestDriveListActivity extends AppCompatActivity {
             holder.tvCompanyName.setText(model.getCompanyName());
             holder.tvCustomerName.setText(model.getCustomerName());
             holder.tvContactNumber.setText(model.getContactNumber());
-          //  holder.tvStatus.setText(model.getStatus());
+            //  holder.tvStatus.setText(model.getStatus());
 
             // Format date and time
             String formattedDateTime = formatDateTime(model.getTestDriveDate(), model.getTestDriveTime());
             holder.tvDateTime.setText(formattedDateTime);
 
             // Set status background based on status
-           // setStatusBackground(holder.tvStatus, model.getStatus());
+            // setStatusBackground(holder.tvStatus, model.getStatus());
 
 
         }
@@ -269,7 +287,7 @@ public class TestDriveListActivity extends AppCompatActivity {
                 tvDateTime = itemView.findViewById(R.id.tvDateTime);
                 tvCustomerName = itemView.findViewById(R.id.tvCustomerName);
                 tvContactNumber = itemView.findViewById(R.id.tvContactNumber);
-               // tvStatus = itemView.findViewById(R.id.tvStatus);
+                // tvStatus = itemView.findViewById(R.id.tvStatus);
             }
         }
     }
