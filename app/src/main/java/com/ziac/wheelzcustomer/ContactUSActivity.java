@@ -2,22 +2,22 @@ package com.ziac.wheelzcustomer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.google.android.material.card.MaterialCardView;
+
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
@@ -25,11 +25,10 @@ public class ContactUSActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private static final int YOUR_CALL_PERMISSION_REQUEST_CODE =2 ;
-    RelativeLayout Contact_whatsapp;
-    LinearLayout Facebook,Linkedin,Twitter,Instagram,Location,Call,Mail;
-    RelativeLayout relativeLayout;
+    LinearLayout Contact_whatsapp,Location,Call,Mail;
+    MaterialCardView Facebook,Linkedin,Twitter,Instagram;
     boolean message = false;
-    ImageView Backbtn;
+    Toolbar Backbtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,6 +41,7 @@ public class ContactUSActivity extends AppCompatActivity {
             Global.customtoast(ContactUSActivity.this,getLayoutInflater(),"Connected WIFI or Mobile data has no internet access!!");
         }
         Contact_whatsapp=findViewById(R.id.contact_whatsapp);
+        Backbtn=findViewById(R.id.toolbar);
         Facebook=findViewById(R.id.facebookimg);
         Linkedin=findViewById(R.id.linkedinimg);
         Twitter=findViewById(R.id.twitterimg);
@@ -49,13 +49,12 @@ public class ContactUSActivity extends AppCompatActivity {
         Location=findViewById(R.id.location);
         Call=findViewById(R.id.call);
         Mail=findViewById(R.id.maillink);
-        relativeLayout=findViewById(R.id.locaterelative);
-        Backbtn = findViewById(R.id.backbtn);
+
 
 
         Instagram.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.instagram.com/ziacsoftwares/"))));
         Facebook.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/ziacsoft/"))));
-        Twitter.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.twitter.com/ziacsoft"))));
+        Twitter.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://x.com/ziacsoft"))));
         Linkedin.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.linkedin.com/company/ziacsoft"))));
 
         Call.setOnClickListener(v -> {Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -75,8 +74,15 @@ public class ContactUSActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(intent, "ziacsupport@ziacsoft.com"));
         });
 
-        Backbtn.setOnClickListener(v -> {
-           finish();
+        Backbtn.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to MainActivity
+                Intent intent = new Intent(ContactUSActivity.this, ProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+            }
         });
 
         Contact_whatsapp.setOnClickListener(new View.OnClickListener() {

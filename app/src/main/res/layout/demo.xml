@@ -155,7 +155,7 @@
                     android:paddingEnd="8dp"
                     android:paddingBottom="4dp"
                     android:text="Support"
-                    android:textColor="@color/white"
+                    android:textColor="#00D9FF"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -309,7 +309,7 @@
                     android:paddingEnd="8dp"
                     android:paddingBottom="4dp"
                     android:text="LEGAL"
-                    android:textColor="@color/white"
+                    android:textColor="#FF9500"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -462,9 +462,10 @@
                     android:paddingTop="8dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="4dp"
-                    android:text="Settings"
-                    android:textColor="@color/white"
+                    android:text="Account"
                     android:textSize="18sp"
+                    android:textColor="#00FF87"
+
                     android:textStyle="bold" />
 
                 <androidx.cardview.widget.CardView

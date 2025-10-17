@@ -36,6 +36,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 import com.ziac.wheelzcustomer.MainActivity;
+import com.ziac.wheelzcustomer.ProfileActivity;
 import com.ziac.wheelzcustomer.R;
 import com.ziac.wheelzcustomer.ServiceHistoryActivity;
 import com.ziac.wheelzcustomer.TestDriveListActivity;
@@ -142,14 +143,6 @@ public class DashboardFragment extends Fragment {
                 ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_dealers);
             }
         });
-
-        Servicehistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(requireContext(), ServiceHistoryActivity.class));
-            }
-        });
-
         Vehdocuments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,17 +155,23 @@ public class DashboardFragment extends Fragment {
                 ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
             }
         });
+        Servicehistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), ServiceHistoryActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+
+
 
         ProfileIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileFragment profileFragment = new ProfileFragment();
-                fragmentManager = requireActivity().getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, profileFragment);
-                fragmentTransaction.commit();
-
-               // ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
+                Intent intent = new Intent(requireContext(), ProfileActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
 

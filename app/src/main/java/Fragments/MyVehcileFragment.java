@@ -83,6 +83,7 @@ public class MyVehcileFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         VehiclelistRV.setLayoutManager(linearLayoutManager);
         VehiclelistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        swipeRefreshLayout.setOnRefreshListener(this::VehicleinDetail);
 
         Registervehicle.setOnClickListener(new View.OnClickListener() {
             @Override
