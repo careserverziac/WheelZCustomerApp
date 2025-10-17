@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,7 @@ public class MyVehcileFragment extends Fragment {
     private Toolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -73,6 +76,8 @@ public class MyVehcileFragment extends Fragment {
         collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
         collapsingToolbar.setTitle("My vehicles");
         collapsingToolbar.setExpandedTitleColor(Color.RED);
+        swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
+
         VehicleinDetail();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
@@ -183,6 +188,7 @@ public class MyVehcileFragment extends Fragment {
                             vehiclesAdapter = new VehiclesAdapter(Global.myvehiclelist, context);
                             VehiclelistRV.setAdapter(vehiclesAdapter);
                             vehiclesAdapter.notifyDataSetChanged();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     }
                 } else {
@@ -199,12 +205,16 @@ public class MyVehcileFragment extends Fragment {
             } finally {
                 // ✅ Always hide loader safely
                 if (isAdded()) hideLoading();
+                swipeRefreshLayout.setRefreshing(false);
+
             }
 
         }, error -> {
             // ✅ Hide loader safely on error
             if (isAdded()) hideLoading();
             if (!isAdded() || getContext() == null) return;
+            swipeRefreshLayout.setRefreshing(false);
+
 
             LayoutInflater inflater = LayoutInflater.from(context);
             String errorMsg;

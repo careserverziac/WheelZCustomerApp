@@ -15,7 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -31,11 +34,13 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
 import com.ziac.wheelzcustomer.ServiceHistoryActivity;
 import com.ziac.wheelzcustomer.TestDriveListActivity;
 
+import java.util.Arrays;
 import java.util.List;
 
 import AdapterClass.CategoryAdapter;
@@ -43,7 +48,7 @@ import ModelClasses.CategoryModel;
 import ModelClasses.Global;
 
 public class DashboardFragment extends Fragment {
-
+    ImageSliderAdapter imageSliderAdapteradapter;
     CardView ServiceList,Bookservice, Servicehistory, Vehdocuments, Pre_own_veh,TestDriveCard;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -54,10 +59,12 @@ public class DashboardFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
     private List<CategoryModel> categoryList;
+    ViewPager2 viewPager2;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard2, container, false);
+        viewPager2 = view.findViewById(R.id.viewPagerImageSlider);
 
         Bookservice = view.findViewById(R.id.bookServiceCard);
         TestDriveCard = view.findViewById(R.id.testDriveCard);
@@ -81,6 +88,34 @@ public class DashboardFragment extends Fragment {
 
        /* categoryAdapter = new CategoryAdapter(requireActivity(), categoryList);
         categoryRecyclerView.setAdapter(categoryAdapter);*/
+
+        List<String> imageUrls = Arrays.asList(
+                "https://images.overdrive.in/wp-content/odgallery/2022/08/63809_2022_Royal_Enfield_Hunter_350.jpg",
+                "https://images.overdrive.in/wp-content/odgallery/2022/08/63815_2022_Honda_CB300F_DLX_PRO_2.jpg",
+                "https://plus.unsplash.com/premium_photo-1661963005592-182d602c6a3f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bW90b3JiaWtlfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000"
+        );
+
+        imageSliderAdapteradapter = new ImageSliderAdapter(requireActivity(), imageUrls);
+        viewPager2.setAdapter(imageSliderAdapteradapter);
+
+        Handler sliderHandler = new Handler();
+        Runnable sliderRunnable = new Runnable() {
+            @Override
+            public void run() {
+                int currentItem = viewPager2.getCurrentItem();
+                int totalItems = viewPager2.getAdapter().getItemCount();
+                viewPager2.setCurrentItem((currentItem + 1) % totalItems, true);
+            }
+        };
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, 3000); // 3 seconds
+            }
+        });
+
 
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -111,18 +146,7 @@ public class DashboardFragment extends Fragment {
         Servicehistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-              /*  MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
-                fragmentManager = requireActivity().getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
-                fragmentTransaction.commit();
-
-                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);*/
-
                 startActivity(new Intent(requireContext(), ServiceHistoryActivity.class));
-
-
             }
         });
 
@@ -151,19 +175,7 @@ public class DashboardFragment extends Fragment {
                // ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);
             }
         });
-        /*ServiceList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                ServiceListFragment serviceListFragment = new ServiceListFragment();
-                fragmentManager = requireActivity().getSupportFragmentManager();
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, serviceListFragment);
-                fragmentTransaction.commit();
-
-                ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.dashboard);
-            }
-        });*/
 
         Pre_own_veh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,6 +282,51 @@ public class DashboardFragment extends Fragment {
         if (requestCode == 100 && (grantResults.length > 0) && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
             getcurrentlocation();
         } else {
+        }
+    }
+
+    public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.SliderViewHolder> {
+
+        private List<String> imageUrls;
+        private Context context;
+
+        public ImageSliderAdapter(Context context, List<String> imageUrls) {
+            this.context = context;
+            this.imageUrls = imageUrls;
+        }
+
+        @NonNull
+        @Override
+        public SliderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_slider, parent, false);
+            return new SliderViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
+          /*  Glide.with(context)
+                    .load(imageUrls.get(position))
+                    .centerCrop()
+                    .into(holder.imageView);*/
+            Picasso.get()
+                    .load(imageUrls.get(position))
+                    .fit()                      // fits the ImageView
+                    .centerCrop()               // crops the image nicely
+                    .into(holder.imageView);
+        }
+
+        @Override
+        public int getItemCount() {
+            return imageUrls.size();
+        }
+
+        static class SliderViewHolder extends RecyclerView.ViewHolder {
+            ImageView imageView;
+
+            public SliderViewHolder(@NonNull View itemView) {
+                super(itemView);
+                imageView = itemView.findViewById(R.id.imageSlide);
+            }
         }
     }
 }

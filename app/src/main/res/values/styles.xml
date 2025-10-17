@@ -28,7 +28,7 @@
 
     <!-- Collapsed Title Style -->
     <style name="CollapsedTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>

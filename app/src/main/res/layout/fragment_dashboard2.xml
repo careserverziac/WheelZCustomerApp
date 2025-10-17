@@ -26,22 +26,27 @@
             app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-            <ImageView
-                android:id="@+id/header_image"
+            <!-- 🔸 Image Slider with ViewPager2 -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerImageSlider"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/electricscooter"
+                android:clipToPadding="false"
+                android:clipChildren="false"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
                 app:layout_collapseMode="parallax"
                 app:layout_collapseParallaxMultiplier="0.7" />
 
+            <!-- 🔸 Optional gradient overlay for better toolbar visibility -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/scrim_gradient"
                 app:layout_collapseMode="parallax" />
 
+            <!-- 🔸 Toolbar -->
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -55,7 +60,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp">
 
-                    <!-- App Logo and Title (Left) -->
+                    <!-- App Logo and Title -->
                     <LinearLayout
                         android:id="@+id/logo_container"
                         android:layout_width="wrap_content"
@@ -80,7 +85,7 @@
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Profile Icon (Right) -->
+                    <!-- Profile Icon -->
                     <ImageView
                         android:id="@+id/profile_icon"
                         android:layout_width="36dp"
@@ -95,7 +100,6 @@
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -162,7 +166,7 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/arsenal"
                                 android:text="Quick &amp; Easy Booking"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="16sp" />
 
                             <!-- Arrow Button -->
@@ -233,7 +237,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/calistoga"
                                     android:text="Service"
-                                    android:textColor="#3D3D3D"
+                                    android:textColor="@color/white"
                                     android:textSize="16sp"
                                     android:textStyle="bold" />
 
@@ -244,7 +248,7 @@
                                     android:layout_below="@id/serviceHistoryTitle"
                                     android:fontFamily="@font/arsenal"
                                     android:text="History"
-                                    android:textColor="#5D5D5D"
+                                    android:textColor="@color/black"
                                     android:textSize="14sp" />
 
                                 <ImageView
@@ -290,7 +294,7 @@
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/calistoga"
                                     android:text="Vehicle"
-                                    android:textColor="#2D5F7A"
+                                    android:textColor="@color/white"
                                     android:textSize="18sp"
                                     android:textStyle="bold" />
 
@@ -301,7 +305,7 @@
                                     android:layout_below="@id/vehicleDocsTitle"
                                     android:fontFamily="@font/arsenal"
                                     android:text="Documents"
-                                    android:textColor="#4D7F9A"
+                                    android:textColor="@color/black"
                                     android:textSize="14sp" />
 
                                 <ImageView
@@ -388,7 +392,7 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/arsenal"
                                 android:text="Lowest Prices Ever"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="16sp" />
 
                             <!-- Arrow -->
@@ -471,7 +475,7 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/arsenal"
                                 android:text="Experience the Ride"
-                                android:textColor="@color/white"
+                                android:textColor="@color/black"
                                 android:textSize="16sp" />
 
                             <!-- Arrow -->

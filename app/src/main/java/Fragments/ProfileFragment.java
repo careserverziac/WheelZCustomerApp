@@ -30,6 +30,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.ziac.wheelzcustomer.ChangePasswordActivity;
@@ -47,12 +49,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
 
-    LinearLayout Data_privacy, Faq, Editprofile, Sharebutton, Contactus, PrivacyPolicy, Terms_Conditions, Deleteaccount, Changepassword;
+    LinearLayout Data_privacy, Faq, Sharebutton, Contactus, PrivacyPolicy, Terms_Conditions, Deleteaccount, Changepassword;
     Intent intent;
     TextView Username, collapsed_profile_name,Usermobile, Useremail, Account;
-    CircleImageView circularImageView,collapsed_profile_image;
+    ImageView circularImageView,collapsed_profile_image;
     Button Logout;
     String userimage;
+    ExtendedFloatingActionButton Editprofile;
+    CollapsingToolbarLayout collapsingToolbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,9 +83,8 @@ public class ProfileFragment extends Fragment {
         Global.loadWithPicasso(requireContext(), circularImageView, userimage);
         Picasso.Builder builder = new Picasso.Builder(requireContext());
         Picasso picasso = builder.build();
-
+        collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
         Data_privacy = view.findViewById(R.id.data_privacy);
-        Account = view.findViewById(R.id.account);
         Editprofile = view.findViewById(R.id.editprofile);
         Sharebutton = view.findViewById(R.id.sharebutton);
         Contactus = view.findViewById(R.id.contactus);
@@ -99,10 +103,9 @@ public class ProfileFragment extends Fragment {
         String user_mobile = Global.sharedPreferences.getString("Mobile1", "");
         String user_name = Global.sharedPreferences.getString("userName", "");
 
-        Username.setText(dealername);
+        Username.setText(dealername + "(" + user_name + ")");
         Usermobile.setText(user_mobile);
         Useremail.setText(user_mail);
-        Account.setText("Account " + "(" + user_name + ")");
 
 
         Editprofile.setOnClickListener(v -> startActivity(new Intent(new Intent(requireActivity(), EditProfileActivity.class))));
