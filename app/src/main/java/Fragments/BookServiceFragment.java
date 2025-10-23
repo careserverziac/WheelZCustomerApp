@@ -56,6 +56,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -561,48 +562,65 @@ public class BookServiceFragment extends Fragment {
 
 
     private void getvehicledetails() {
-
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
         String wusercode = Global.sharedPreferences.getString("wuser_code", "");
         String Url = Global.getallMyVehicles + "wuser_code=" + wusercode;
 
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, Url, null, new Response.Listener<JSONArray>() {
+
+        // Use JsonObjectRequest instead of JsonArrayRequest since the response is a JSON object
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
+                try {
+                    // Check if the request was successful
+                    boolean isSuccess = response.getBoolean("isSuccess");
+                    String message = response.getString("message");
 
-                Global.vehiclearraylist = new ArrayList<zList>();
-                modelclass = new zList();
-                for (int i = 0; i < response.length(); i++) {
-                    final JSONObject jsonObject;
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
+                    if (isSuccess) {
+                        // Get the "data" array from the response
+                        JSONArray dataArray = response.getJSONArray("data");
+
+                        // Clear the existing list
+                        Global.vehiclearraylist = new ArrayList<zList>();
+
+                        for (int i = 0; i < dataArray.length(); i++) {
+                            JSONObject jsonObject = dataArray.getJSONObject(i);
+                            zList modelclass = new zList();
+
+                            // Set the vehicle data - make sure these field names match your zList class
+                            modelclass.set_name(jsonObject.getString("model_name"));
+                            modelclass.setReg_no(jsonObject.getString("reg_no"));
+                            modelclass.set_code(String.valueOf(jsonObject.getDouble("cveh_code")));
+                            modelclass.setWuser_code(String.valueOf(jsonObject.getDouble("wuser_code")));
+                            modelclass.setCom_code(String.valueOf(jsonObject.getDouble("com_code")));
+                            modelclass.setVehhis_code(String.valueOf(jsonObject.getDouble("vehhis_code")));
+
+                            // Store the first vehicle's codes (if needed)
+                            if (i == 0) {
+                                vehcode = modelclass.get_code();
+                                vehhis_code = modelclass.getVehhis_code();
+                                wuser_code = modelclass.getWuser_code();
+                            }
+
+                            Global.vehiclearraylist.add(modelclass);
+                        }
+
+                    } else {
+                        Log.e("VehicleData", "API returned false: " + message);
+                        Global.customtoast(requireActivity(), getLayoutInflater(), "Failed to load vehicles: " + message);
                     }
-                    modelclass = new zList();
-                    try {
-                        modelclass.set_name(jsonObject.getString("model_name"));
-                        modelclass.setReg_no(jsonObject.getString("reg_no"));
-                        modelclass.set_code(jsonObject.getString("cveh_code"));
-                        modelclass.setWuser_code(jsonObject.getString("wuser_code"));
-                        modelclass.setCom_code(jsonObject.getString("com_code"));
-                        modelclass.setVehhis_code(jsonObject.getString("vehhis_code"));
-                        vehcode = modelclass.get_code();
-                        vehhis_code = modelclass.getVehhis_code();
-                        wuser_code = modelclass.getWuser_code();
 
-
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Global.vehiclearraylist.add(modelclass);
+                } catch (JSONException ex) {
+                    Log.e("VehicleData", "JSON parsing error: " + ex.getMessage());
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Error parsing vehicle data");
                 }
-
             }
-        }, error -> {
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VehicleData", "Network error: " + error.toString());
 
-            if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
                 } else if (error instanceof NoConnectionError) {
@@ -613,12 +631,11 @@ public class BookServiceFragment extends Fragment {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
                 } else if (error instanceof ParseError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
+                } else {
+                    Global.customtoast(requireActivity(), getLayoutInflater(), "Technical error: " + error.getMessage());
                 }
             }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
         }) {
-
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
@@ -626,32 +643,34 @@ public class BookServiceFragment extends Fragment {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
-
         };
 
-        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // 15 seconds timeout
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
-        queue.add(jsonArrayrequest);
-
+        queue.add(jsonObjectRequest);
     }
 
+
     public void vehiclepopup() {
+        // Check if data is available
+        if (Global.vehiclearraylist == null || Global.vehiclearraylist.size() == 0) {
+            Toast.makeText(requireActivity(), "No vehicles found. Please try again.", Toast.LENGTH_LONG).show();
+            // Optionally, you can reload the data here
+            getvehicledetails();
+            return;
+        }
 
         zDialog = new Dialog(requireActivity(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         zDialog.setContentView(R.layout.popup_list);
 
         ListView lvStates = zDialog.findViewById(R.id.lvstates);
 
-        if (Global.vehiclearraylist == null || Global.vehiclearraylist.size() == 0) {
-            Toast.makeText(requireActivity(), "Vehicle list not found !!", Toast.LENGTH_LONG).show();
-            return;
-        }
-        final VehicleAdapter laStates = new VehicleAdapter(Global.vehiclearraylist);
+        // Create adapter with current data
+        final VehicleAdapter laStates = new VehicleAdapter(new ArrayList<>(Global.vehiclearraylist));
         lvStates.setAdapter(laStates);
 
         zDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -661,13 +680,11 @@ public class BookServiceFragment extends Fragment {
         svstate.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //  Toast.makeText(getBaseContext(), query, Toast.LENGTH_LONG).show();
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // Toast.makeText(getBaseContext(), newText, Toast.LENGTH_LONG).show();
                 laStates.getFilter().filter(newText);
                 return false;
             }
@@ -676,37 +693,41 @@ public class BookServiceFragment extends Fragment {
 
     private class VehicleAdapter extends BaseAdapter implements Filterable {
         private ArrayList<zList> mDataArrayList;
+        private ArrayList<zList> mFilteredList;
 
         public VehicleAdapter(ArrayList<zList> arrayList) {
-            this.mDataArrayList = arrayList;
+            this.mDataArrayList = new ArrayList<>(arrayList);
+            this.mFilteredList = new ArrayList<>(arrayList);
         }
-
 
         @Override
         public Filter getFilter() {
             return new Filter() {
                 @Override
                 protected FilterResults performFiltering(CharSequence charSequence) {
-                    List<zList> mFilteredList = new ArrayList<>();
-                    String charString = charSequence.toString();
+                    List<zList> filteredList = new ArrayList<>();
+                    String charString = charSequence.toString().toLowerCase().trim();
+
                     if (charString.isEmpty()) {
-                        mFilteredList = Global.vehiclearraylist;
+                        filteredList = new ArrayList<>(mDataArrayList);
                     } else {
-                        for (zList dataList : Global.vehiclearraylist) {
-                            if (dataList.get_name().toLowerCase().contains(charString)) {
-                                mFilteredList.add(dataList);
+                        for (zList dataList : mDataArrayList) {
+                            // Search in both model name and registration number
+                            if (dataList.get_name().toLowerCase().contains(charString) ||
+                                    dataList.getReg_no().toLowerCase().contains(charString)) {
+                                filteredList.add(dataList);
                             }
                         }
                     }
                     FilterResults filterResults = new FilterResults();
-                    filterResults.values = mFilteredList;
-                    filterResults.count = mFilteredList.size();
+                    filterResults.values = filteredList;
+                    filterResults.count = filteredList.size();
                     return filterResults;
                 }
 
                 @Override
                 protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                    mDataArrayList = (ArrayList<zList>) filterResults.values;
+                    mFilteredList = (ArrayList<zList>) filterResults.values;
                     notifyDataSetChanged();
                 }
             };
@@ -714,12 +735,12 @@ public class BookServiceFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return mDataArrayList.size();
+            return mFilteredList.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return mDataArrayList.get(i);
+            return mFilteredList.get(i);
         }
 
         @Override
@@ -730,38 +751,40 @@ public class BookServiceFragment extends Fragment {
         @SuppressLint("SetTextI18n")
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            @SuppressLint("ViewHolder") View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
-            final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
-            RadioButton radioButton = v.findViewById(R.id.radio_button);
-            modelclass = mDataArrayList.get(i);
-            tvstatenameitem.setText(modelclass.get_name() + "( " + modelclass.getReg_no() + " )");
+            if (view == null) {
+                view = getLayoutInflater().inflate(R.layout.popup_listitems, viewGroup, false);
+            }
 
-            radioButton.setOnClickListener(view1 -> {
-                boolean isChecked = radioButton.isChecked();
-                radioButton.setChecked(!isChecked);
-                modelclass = mDataArrayList.get(i);
-                vehcode = modelclass.get_code();
-                vehhis_code = modelclass.getVehhis_code();
-                wuser_code = modelclass.getWuser_code();
-                zDialog.dismiss();
-                Selectedveh.setText(modelclass.get_name());
-            });
+            TextView tvstatenameitem = view.findViewById(R.id.tvsingleitem);
+            RadioButton radioButton = view.findViewById(R.id.radio_button);
 
-            tvstatenameitem.setOnClickListener(view1 -> {
-                modelclass = mDataArrayList.get(i);
-                vehcode = modelclass.get_code();
-                vehhis_code = modelclass.getVehhis_code();
-                wuser_code = modelclass.getWuser_code();
-                zDialog.dismiss();
-                Selectedveh.setText(modelclass.get_name());
-            });
+            final zList currentModel = mFilteredList.get(i);
+            tvstatenameitem.setText(currentModel.get_name() + " (" + currentModel.getReg_no() + ")");
 
-            return v;
+            // Set click listeners
+            View.OnClickListener itemClickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    vehcode = currentModel.get_code();
+                    vehhis_code = currentModel.getVehhis_code();
+                    wuser_code = currentModel.getWuser_code();
+
+                    if (Selectedveh != null) {
+                        Selectedveh.setText(currentModel.get_name());
+                    }
+
+                    if (zDialog != null && zDialog.isShowing()) {
+                        zDialog.dismiss();
+                    }
+                }
+            };
+
+            tvstatenameitem.setOnClickListener(itemClickListener);
+            radioButton.setOnClickListener(itemClickListener);
+
+            return view;
         }
-
-
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

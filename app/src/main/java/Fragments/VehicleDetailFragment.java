@@ -17,7 +17,7 @@ public class VehicleDetailFragment extends Fragment {
 
     ImageView Veh_image;
     ImageButton Btn_back;
-    TextView Myear,VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
+    TextView HSN_code,VariantName,RPM,VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
 
 
 
@@ -30,7 +30,9 @@ public class VehicleDetailFragment extends Fragment {
          View view= inflater.inflate(R.layout.fragment_vehicle_detail, container, false);
 
         Btn_back=view.findViewById(R.id.btn_back);
-        Myear=view.findViewById(R.id.myear);
+        HSN_code=view.findViewById(R.id.hsncode);
+        VariantName=view.findViewById(R.id.variantname);
+        RPM=view.findViewById(R.id.rpm);
         Veh_image=view.findViewById(R.id.veh_imageindetail);
         Topspeed=view.findViewById(R.id.topspeed);
         Fuelname=view.findViewById(R.id.fuelname);
@@ -38,7 +40,6 @@ public class VehicleDetailFragment extends Fragment {
         Bhp=view.findViewById(R.id.bhp);
         Category=view.findViewById(R.id.category);
         Manufacturer=view.findViewById(R.id.manufacturer);
-        Modelname=view.findViewById(R.id.modelname);
         VModelname=view.findViewById(R.id.vehicle_name);
         Saleprice=view.findViewById(R.id.saleprice);
         Chargingtime=view.findViewById(R.id.chargingtime);
@@ -49,13 +50,14 @@ public class VehicleDetailFragment extends Fragment {
 
 
         Category.setText(Global.vehicledetails.getCategory());
-        Myear.setText(Global.vehicledetails.getMaf_date());
+        HSN_code.setText(Global.vehicledetails.getHsn_code());
+        RPM.setText(Global.vehicledetails.getRpm());
+        VariantName.setText(Global.vehicledetails.getVariant_name());
         Fuelname.setText(Global.vehicledetails.getFuelname());
         Bodytype.setText(Global.vehicledetails.getBodytype());
         Bhp.setText(Global.vehicledetails.getBhp());
         Topspeed.setText(Global.vehicledetails.getTopspeed());
         Manufacturer.setText(Global.vehicledetails.getManufacture());
-        Modelname.setText(Global.vehicledetails.getModel_name());
         Saleprice.setText(Global.vehicledetails.getSaleprice());
         Chargingtime.setText(Global.vehicledetails.getChargingtime());
         Modelcc.setText(Global.vehicledetails.getCc());

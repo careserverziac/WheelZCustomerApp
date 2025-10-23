@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".Less_driven_Viewall_Activity">
 
     <androidx.core.widget.NestedScrollView
@@ -27,28 +28,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingTop="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingVertical="8dp">
-
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="55dp"
-                        android:src="@drawable/wheelz" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/calistoga"
-                        android:text="WheelZ"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardviewsearch"

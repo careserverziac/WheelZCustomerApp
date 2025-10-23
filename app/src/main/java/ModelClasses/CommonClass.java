@@ -2,7 +2,7 @@ package ModelClasses;
 
 public class CommonClass {
 
-    private String maf_date,dcom_code,createdby,createdon,doc_type;
+    private String rpm,hsn_code,variant_name,maf_date,dcom_code,createdby,createdon,doc_type;
     private String Image_path,image_code;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
@@ -16,6 +16,30 @@ public class CommonClass {
 
     public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
     public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname,mfg_name;
+
+    public String getHsn_code() {
+        return hsn_code;
+    }
+
+    public String getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(String rpm) {
+        this.rpm = rpm;
+    }
+
+    public void setHsn_code(String hsn_code) {
+        this.hsn_code = hsn_code;
+    }
+
+    public String getVariant_name() {
+        return variant_name;
+    }
+
+    public void setVariant_name(String variant_name) {
+        this.variant_name = variant_name;
+    }
 
     public String getMaf_date() {
         return maf_date;
@@ -84,13 +108,7 @@ public class CommonClass {
 
     }
 
- /*   public String getImg_path() {
-        return img_path;
-    }
 
-    public void setImg_path(String img_path) {
-        this.img_path = img_path;
-    }*/
 
     public String getImage() {
         return image;
@@ -627,18 +645,6 @@ public class CommonClass {
     public void setDoc_type(String doc_type) {
         this.doc_type = doc_type;
     }
-
-    /*  public void setMobile_no(String mobile_no) {
-        try {
-
-            double mobileNoDouble = Double.parseDouble(mobile_no);
-            long mobileNoLong = (long) mobileNoDouble;
-            String formattedMobileNo = String.format("%010d", mobileNoLong);
-            this.mobile_no = formattedMobileNo;
-        } catch (NumberFormatException e) {
-            System.err.println("Invalid mobile number format: " + mobile_no);
-        }
-    }*/
 
 
 
