@@ -1,70 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context=".LatestVeh_ViewAllActivity">
+    android:background="#0A0A0A">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
+    <!-- Modern AppBar with Enhanced Collapsing Effect -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Latest Driven Veh"
+            app:titleTextColor="@color/red" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content with Modern Card Design -->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshprofile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        tools:ignore="MissingConstraints">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        >
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0A0A0A"
                 android:orientation="vertical"
                 android:paddingTop="8dp">
 
+
+                <!-- Modern Search Card -->
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardviewsearch"
+                    android:id="@+id/searchdealerslnr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    app:cardCornerRadius="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="#141414"
+                    app:cardCornerRadius="20dp"
                     app:cardElevation="8dp"
-                    app:strokeColor="@color/white"
+                    app:strokeColor="#252525"
                     app:strokeWidth="1dp">
 
                     <androidx.appcompat.widget.SearchView
-                        android:id="@+id/homesearchview"
+                        android:id="@+id/searchlat"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@android:color/transparent"
-                        android:iconifiedByDefault="false"
-                        android:queryHint="Search vehicles..." />
+                        android:layout_height="56dp"
+                        android:background="@drawable/roundblackborder"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        app:iconifiedByDefault="false"
+                        app:queryHint="Search ..."
+                        app:searchIcon="@drawable/ic_search" />
+
                 </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
+                <!-- Modern ProgressBar -->
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="40dp"
+                    android:indeterminateTint="@color/green_txt"
+                    android:visibility="gone" />
+
+                <!-- Dealer RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/latestDrvRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="8dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/latestDrvRV"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false" />
-                </LinearLayout>
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="20dp"
+                    android:scrollbars="none" />
 
             </LinearLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

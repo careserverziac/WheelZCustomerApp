@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -60,7 +61,7 @@ public class AddVehFragment extends Fragment {
 
     TextView ManufactureTV, ModelsTV, VariantTV, ColorTV, FuelTV,NumberPlateTV,TransmissionTV,InsurTV,LstngTV,OwnershipTV;
     EditText VehregistrationET, KmsdrivenET, ManufacturedyearET, SellingpriceET;
-    LinearLayout Submit;
+    Button Submit;
     private static zList Commonclass;
     private static Dialog zDialog;
      String numberplateValue,displayText, transmissionValue, ownershipValue, insuranceValue, listingvalue, fuelcode, variantcode, colorcode, vmodelcode;

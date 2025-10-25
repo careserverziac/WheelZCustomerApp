@@ -3,6 +3,7 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
@@ -40,6 +41,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.card.MaterialCardView;
+import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -119,14 +121,11 @@ public class DealersFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.framelayout, new DashboardFragment()) // replace with your fragment class
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(requireActivity(), MainActivity.class); // replace with your activity class
+                startActivity(intent);
             }
         });
+
 
 
         swipeRefreshLayout.setOnRefreshListener(this::getDealerslist);
@@ -223,11 +222,7 @@ public class DealersFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
-               /* dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
-                DealerlistRV.setAdapter(dealersAdapter);
-                dealersAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-                hideLoading();*/
+
                 // ✅ Update UI only if fragment is still attached
                 if (isAdded() && getContext() != null) {
                     dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());

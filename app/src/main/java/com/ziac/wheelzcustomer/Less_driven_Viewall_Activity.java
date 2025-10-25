@@ -5,6 +5,7 @@ import static ModelClasses.Global.lessdrivenlist;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +15,18 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -54,7 +58,9 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
     SearchView searchView;
     LessDrivenAdapter2 lessDrivenAdapter2;
     NestedScrollView nestedScrollView;
-    private int lessDrivenClickedPosition = RecyclerView.NO_POSITION;
+    ProgressBar progressBardealers;
+    SwipeRefreshLayout refreshprofile;
+    Toolbar toolbar;
     MaterialCardView cardviewsearch;
 
     @Override
@@ -63,16 +69,15 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_less_driven_viewall);
         context = this;
 
-        searchView = findViewById(R.id.homesearchview);
-        cardviewsearch = findViewById(R.id.cardviewsearch);
-
+        searchView = findViewById(R.id.searchless);
+        progressBardealers = findViewById(R.id.progress);
+        refreshprofile = findViewById(R.id.refreshprofile);
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setHintTextColor(ContextCompat.getColor(this, R.color.black));
         searchEditText.setTextColor(ContextCompat.getColor(this, R.color.black));
 
         nestedScrollView = findViewById(R.id.scrollView);
 
-        searchView.setQueryHint("Search for Model, Variant & Category");
 
         LessDrvRV = findViewById(R.id.lessDrvRV);
         LessDrvRV.setHasFixedSize(true);
@@ -93,6 +98,8 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
                 return true;  // Return true to indicate we've handled the event
             }
         });
+
+
 
     }
 
@@ -160,8 +167,11 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
                 lessDrivenAdapter2 = new LessDrivenAdapter2(lessdrivenlist, this);
                 lessDrivenAdapter2.updateList(Global.lessdrivenlist);
                 LessDrvRV.setAdapter(lessDrivenAdapter2);
+                refreshprofile.setRefreshing(false);
 
             } catch (JSONException e) {
+                refreshprofile.setRefreshing(false);
+
                 e.printStackTrace();
                 // Optional: handle JSON parsing error
             }

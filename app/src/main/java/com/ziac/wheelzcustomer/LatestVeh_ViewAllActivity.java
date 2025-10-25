@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -70,12 +72,10 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
 
     RecyclerView LatestDrvRV;
     Context context;
-    private boolean allowBack = true;
     SearchView searchView;
     LatestDrivenAdapter2 latestDrivenAdapter2;
-    NestedScrollView nestedScrollView;
-    private int lessDrivenClickedPosition = RecyclerView.NO_POSITION;
-    MaterialCardView cardviewsearch;
+    ProgressBar progressBardealers;
+    SwipeRefreshLayout refreshprofile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,17 +84,16 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
 
         context = this;
 
-        searchView = findViewById(R.id.homesearchview);
-        cardviewsearch = findViewById(R.id.cardviewsearch);
+        searchView = findViewById(R.id.searchlat);
 
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setHintTextColor(ContextCompat.getColor(this, R.color.black));
         searchEditText.setTextColor(ContextCompat.getColor(this, R.color.black));
 
-        nestedScrollView = findViewById(R.id.scrollView);
 
-        searchView.setQueryHint("Search for Model, Variant & Category");
 
+        progressBardealers = findViewById(R.id.progress);
+        refreshprofile = findViewById(R.id.refreshprofile);
         LatestDrvRV = findViewById(R.id.latestDrvRV);
         LatestDrvRV.setHasFixedSize(true);
         LatestDrvRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -177,15 +176,19 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
 
                     latestDrivenAdapter2 = new LatestDrivenAdapter2(Global.latestVehicleslist, this);
                     latestDrivenAdapter2.updateList(Global.latestVehicleslist);
+                    refreshprofile.setRefreshing(false);
 
                     LatestDrvRV.setAdapter(latestDrivenAdapter2);
 
                 } else {
+                    refreshprofile.setRefreshing(false);
                     String errorMsg = response.optString("message", "Failed to load vehicles.");
                     Global.customtoast(this, getLayoutInflater(), errorMsg);
                 }
 
             } catch (JSONException e) {
+                refreshprofile.setRefreshing(false);
+
                 e.printStackTrace();
                 Global.customtoast(this, getLayoutInflater(), "Data parsing error.");
             }

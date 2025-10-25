@@ -1,6 +1,7 @@
 package com.ziac.wheelzcustomer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,6 +57,8 @@ public class ServiceHistoryActivity extends AppCompatActivity {
     RecyclerView servicerv;
     ProgressBar progressBar;
     TextView emptyText;
+
+    Toolbar toolbar;
     List<CommonClass> serviceList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,6 @@ public class ServiceHistoryActivity extends AppCompatActivity {
 
         context = this;
 
-        Backbtn = findViewById(R.id.btn_back);
         servicerv = findViewById(R.id.servicerv);
 
 
@@ -76,15 +79,20 @@ public class ServiceHistoryActivity extends AppCompatActivity {
         Servicehistory();
         progressBar = findViewById(R.id.progressBardealers);
        // emptyText = findViewById(R.id.emptyText);
+        toolbar = findViewById(R.id.toolbar);
 
         servicerv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ServiceHistoryAdapter(this, serviceList);
         servicerv.setAdapter(adapter);
 
 
-        Backbtn.setOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to MainActivity
+                Intent intent = new Intent(ServiceHistoryActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 finish();
             }
         });

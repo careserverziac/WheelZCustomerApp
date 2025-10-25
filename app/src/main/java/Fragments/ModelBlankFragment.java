@@ -195,7 +195,6 @@ public class ModelBlankFragment extends Fragment {
                 }
 
             } catch (JSONException e) {
-                hideLoading();
                 e.printStackTrace();
             }
 

@@ -2,6 +2,7 @@ package com.ziac.wheelzcustomer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -49,14 +51,12 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
 
     RecyclerView recyclermodels;
     Context context;
-    private boolean allowBack = true;
     SearchView searchView;
     LatestVeh_ViewAllActivity.LatestDrivenAdapter2 latestDrivenAdapter2;
     NestedScrollView nestedScrollView;
-    private int lessDrivenClickedPosition = RecyclerView.NO_POSITION;
-    MaterialCardView cardviewsearch;
     ModelAdapter modelAdapter;
     ModelsClass singleModel;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +66,8 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
 
         context = this;
 
-        searchView = findViewById(R.id.homesearchview);
-        cardviewsearch = findViewById(R.id.cardviewsearch);
+        searchView = findViewById(R.id.searchless);
+        toolbar = findViewById(R.id.toolbar);
 
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setHintTextColor(ContextCompat.getColor(this, R.color.black));
@@ -96,6 +96,15 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
                 return true;  // Return true to indicate we've handled the event
             }
         });
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity.class); // replace with your activity class
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void getallmodels() {

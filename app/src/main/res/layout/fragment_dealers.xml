@@ -210,56 +210,6 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Results Header with Modern Styling -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="12dp">
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@color/green_txt" />
-
-                    <TextView
-                        android:id="@+id/dealerCountText"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/arsenal"
-                        android:letterSpacing="0.02"
-                        android:text="Available Dealers"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <!-- &lt;!&ndash; Sort Button &ndash;&gt;
-                     <com.google.android.material.card.MaterialCardView
-                         android:layout_width="40dp"
-                         android:layout_height="40dp"
-                         android:clickable="true"
-                         android:focusable="true"
-                         app:cardBackgroundColor="#1E1E1E"
-                         app:cardCornerRadius="12dp"
-                         app:cardElevation="4dp">
-
-                         <ImageView
-                             android:id="@+id/sortIcon"
-                             android:layout_width="24dp"
-                             android:layout_height="24dp"
-                             android:layout_gravity="center"
-                             android:src="@drawable/ic_sort"
-                             app:tint="@color/green_txt" />
-
-                     </com.google.android.material.card.MaterialCardView>-->
-
-                </LinearLayout>
-
                 <!-- Modern ProgressBar -->
                 <ProgressBar
                     android:id="@+id/progressBardealers"

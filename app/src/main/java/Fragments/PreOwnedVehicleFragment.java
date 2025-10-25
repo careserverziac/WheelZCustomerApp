@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.core.widget.NestedScrollView;
@@ -57,6 +58,7 @@ import com.squareup.picasso.Picasso;
 import com.ziac.wheelzcustomer.GetAllVehViewAllActivity;
 import com.ziac.wheelzcustomer.LatestVeh_ViewAllActivity;
 import com.ziac.wheelzcustomer.Less_driven_Viewall_Activity;
+import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
 
 import org.json.JSONArray;
@@ -98,6 +100,7 @@ public class PreOwnedVehicleFragment extends Fragment {
     NestedScrollView nestedScrollView;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    Toolbar toolbar;
     String vehtype;
     private int lessDrivenClickedPosition = RecyclerView.NO_POSITION;
 
@@ -119,8 +122,8 @@ public class PreOwnedVehicleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pre_owned_vehicle, viewGroup, false);
 
 
-        searchView = view.findViewById(R.id.homesearchview);
-        searchView = view.findViewById(R.id.homesearchview);
+        searchView = view.findViewById(R.id.search);
+        toolbar = view.findViewById(R.id.toolbar);
         StateTV = view.findViewById(R.id.statetv);
         CityTV = view.findViewById(R.id.citytv);
         Veh_typeTV = view.findViewById(R.id.veh_type);
@@ -135,7 +138,13 @@ public class PreOwnedVehicleFragment extends Fragment {
         fab.show();
 
 
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), MainActivity.class); // replace with your activity class
+                startActivity(intent);
+            }
+        });
         userVehicleTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,12 +235,6 @@ public class PreOwnedVehicleFragment extends Fragment {
         Lessvehicles.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         getlessdrivenvevicles();
 
-
-        cardView = view.findViewById(R.id.cardviewsearch);
-        cardView.setOnClickListener(v -> {
-            // searchView.setIconified(false);
-            // searchView.requestFocus();
-        });
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -802,15 +805,6 @@ public class PreOwnedVehicleFragment extends Fragment {
                     Global.editor = Global.sharedPreferences.edit();
                     Global.editor.putString("vmodel_code", Global.modelsList.get(position).getVmodelcode());
                     Global.editor.commit();
-
-
-                  /*  BrandlWiseVehicleModels_Fragment modelWiseVehiclesFragment = new BrandlWiseVehicleModels_Fragment();
-                    FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_layout, modelWiseVehiclesFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();*/
-
 
                 }
             });

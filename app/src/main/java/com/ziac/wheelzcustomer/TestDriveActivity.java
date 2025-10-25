@@ -104,9 +104,7 @@ public class TestDriveActivity extends AppCompatActivity {
         Manufacture = findViewById(R.id.manufacturer);
         Model = findViewById(R.id.modelname);
         Veh_image = findViewById(R.id.veh_image);
-        // Tdmail = findViewById(R.id.tdmail);
-        //  Tdmobile = findViewById(R.id.tdmobile);
-        //  Tdname = findViewById(R.id.tdname);
+
 
         SelectDt = findViewById(R.id.selectdate);
         SelectTm = findViewById(R.id.selecttime);
@@ -114,7 +112,6 @@ public class TestDriveActivity extends AppCompatActivity {
         Selectedtime = findViewById(R.id.selectedtime);
         Displaydata = findViewById(R.id.displaydata);
         Submit = findViewById(R.id.sub_btn);
-        //Backbtn = findViewById(R.id.backbtn);
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Manufacture.setText(Global.modellist.getManufacture());
@@ -210,38 +207,6 @@ public class TestDriveActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-          /*      username = Tdname.getText().toString().trim();
-                wuser_mobile1 = Tdmobile.getText().toString().trim();
-                wuser_email = Tdmail.getText().toString().trim();
-                // ✅ Optional: You can show warnings if needed
-                if (username.isEmpty()) {
-                    Tdname.requestFocus();
-                    Toast.makeText(getApplicationContext(), "Name is empty", Toast.LENGTH_SHORT).show();
-                    return; // STOP further execution
-                }
-
-                if (wuser_mobile1.isEmpty()) {
-                    Tdmobile.requestFocus();
-                    Toast.makeText(getApplicationContext(), "Mobile number is empty", Toast.LENGTH_SHORT).show();
-                    return; // STOP further execution
-                }
-                if (wuser_mobile1.startsWith("0")) {
-                    Tdmobile.setError("The provided mobile number is incorrect!!");
-                    return;
-                }
-                if (wuser_mobile1.length() < 10) {
-                    Tdmobile.setError("Mobile number should be 10 digits !!");
-                    Tdmobile.requestFocus();
-                    return;
-                }
-
-                // ✅ Email not mandatory, but validate format if entered
-                if (!wuser_email.isEmpty() &&
-                        !android.util.Patterns.EMAIL_ADDRESS.matcher(wuser_email).matches()) {
-                    Tdmail.setError("Enter a valid email address");
-                    Tdmail.requestFocus();
-                    return;
-                }*/
                 if (Global.selectedDealerCode == null || Global.selectedDealerCode.isEmpty()) {
                     Toast.makeText(context, "Please select a dealer", Toast.LENGTH_SHORT).show();
                     return; // stop further execution

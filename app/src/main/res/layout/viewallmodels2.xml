@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/border_colour"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="3dp">
 
         <ImageView
@@ -31,9 +31,9 @@
             android:autoSizeMinTextSize="10sp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:textSize="10sp"
             android:text="VOLKSWAGEN TAIGUN"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="10sp" />
 
 
     </LinearLayout>

@@ -31,6 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/black"
             android:orientation="vertical"
             android:padding="12dp">
 
@@ -42,7 +43,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="1"
                 android:text="Bajaj Avenger Cruise 220"
-                android:textColor="#212121"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -55,20 +56,20 @@
                 android:fontFamily="sans-serif"
                 android:maxLines="1"
                 android:text="Bajaj Auto"
-                android:textColor="#757575"
+                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <!-- Book Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_book_test_drive"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="Book Test Drive"
                 android:textAllCaps="false"
                 android:textSize="13sp"
-                app:backgroundTint="#FF5722"
+                android:background="@drawable/gradient_button_bg"
                 app:cornerRadius="10dp"
                 app:icon="@drawable/ic_arrow_forward"
                 app:iconGravity="end"

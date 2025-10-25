@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerlayout"
@@ -8,28 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="55dp"
-            android:src="@drawable/wheelz" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/calistoga"
-            android:text="WheelZ"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
 
 
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -94,8 +73,8 @@
                                 android:id="@+id/tv_vehman"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -157,8 +136,8 @@
                                 android:id="@+id/tv_vehmdl"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -219,8 +198,8 @@
                                 android:id="@+id/tv_vehvrnt"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -281,8 +260,8 @@
                                 android:id="@+id/tv_vehclr"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -351,25 +330,20 @@
                                     android:id="@+id/et_vehregistration"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_marginStart="2dp"
+                                    android:background="@android:color/transparent"
+                                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789"
                                     android:fontFamily="@font/arsenal"
                                     android:hint="Enter registration"
                                     android:inputType="textCapCharacters"
-                                    android:digits="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789"
                                     android:maxLength="10"
-                                    android:layout_marginStart="2dp"
-                                    android:background="@android:color/transparent"
-                                    android:textColorHint="@color/darkgrey"
                                     android:textColor="@color/white"
+                                    android:textColorHint="@color/darkgrey"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:textColor="@color/white" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -426,24 +400,19 @@
                                     android:id="@+id/et_vehkmdriven"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_marginStart="2dp"
+                                    android:background="@android:color/transparent"
                                     android:fontFamily="@font/arsenal"
                                     android:hint="000"
                                     android:inputType="number"
                                     android:maxLength="7"
-                                    android:layout_marginStart="2dp"
-                                    android:background="@android:color/transparent"
-                                    android:textColorHint="@color/darkgrey"
                                     android:textColor="@color/white"
+                                    android:textColorHint="@color/darkgrey"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:textColor="@color/white" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -500,24 +469,19 @@
                                     android:id="@+id/et_vehmfgyear"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_marginStart="2dp"
+                                    android:background="@android:color/transparent"
                                     android:fontFamily="@font/arsenal"
                                     android:hint="YYYY"
                                     android:inputType="number"
                                     android:maxLength="4"
-                                    android:layout_marginStart="2dp"
-                                    android:background="@android:color/transparent"
-                                    android:textColorHint="@color/darkgrey"
                                     android:textColor="@color/white"
+                                    android:textColorHint="@color/darkgrey"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:textColor="@color/white" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -566,8 +530,8 @@
                                 android:id="@+id/tv_numberplate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -628,8 +592,8 @@
                                 android:id="@+id/tv_transmission"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -690,8 +654,8 @@
                                 android:id="@+id/tv_ownership"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -752,8 +716,8 @@
                                 android:id="@+id/tv_vehfuel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -822,24 +786,19 @@
                                     android:id="@+id/et_vehsellingprice"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_marginStart="2dp"
+                                    android:background="@android:color/transparent"
                                     android:fontFamily="@font/arsenal"
                                     android:hint="Enter price"
                                     android:inputType="number"
                                     android:maxLength="8"
-                                    android:layout_marginStart="2dp"
-                                    android:background="@android:color/transparent"
-                                    android:textColorHint="@color/darkgrey"
                                     android:textColor="@color/white"
+                                    android:textColorHint="@color/darkgrey"
                                     android:textSize="14sp" />
                             </LinearLayout>
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:src="@drawable/baseline_arrow_dp"
-                            android:textColor="@color/white" />
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -888,8 +847,8 @@
                                 android:id="@+id/tv_insur"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -950,8 +909,8 @@
                                 android:id="@+id/tv_lstg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/arsenal"
                                 android:layout_marginTop="5dp"
+                                android:fontFamily="@font/arsenal"
                                 android:text=""
                                 android:textColor="@color/white"
                                 android:textSize="14sp" />
@@ -967,36 +926,19 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
+                <Button
+                    android:id="@+id/add_Vehbutton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_margin="5dp"
-                    android:layout_marginTop="20dp"
-
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    app:cardMaxElevation="12dp"
-                    tools:ignore="MissingConstraints">
-
-                    <LinearLayout
-                        android:id="@+id/add_Vehbutton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/border_colour2"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="15dp">
-
-                        <TextView
-                            android:id="@+id/change"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/arsenal"
-                            android:text="Submit"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
+                    android:background="@drawable/gradient_button_bg"
+                    android:drawableRight="@drawable/ic_arrow_forward"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/arsenal_bold"
+                    android:text="Submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
                 <ProgressBar
                     android:id="@+id/progresbar"
