@@ -73,9 +73,6 @@ public class MyVehcileFragment extends Fragment {
         Registervehicle =view.findViewById(R.id.registervehicle);
         progressBar =view.findViewById(R.id.progressBar);
         toolbar = view.findViewById(R.id.toolbar);
-        collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
-        collapsingToolbar.setTitle("My vehicles");
-        collapsingToolbar.setExpandedTitleColor(Color.RED);
         swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
 
         VehicleinDetail();
@@ -252,9 +249,6 @@ public class MyVehcileFragment extends Fragment {
 
         queue.add(request);
     }
-
-
-
 
 
     private void showLoading() {

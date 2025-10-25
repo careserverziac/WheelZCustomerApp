@@ -2,7 +2,7 @@ package ModelClasses;
 
 public class CommonClass {
 
-    private String rpm,hsn_code,variant_name,maf_date,dcom_code,createdby,createdon,doc_type;
+    private String app_model_name,rpm,hsn_code,variant_name,maf_date,dcom_code,createdby,createdon,doc_type;
     private String Image_path,image_code;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
@@ -27,6 +27,14 @@ public class CommonClass {
 
     public void setRpm(String rpm) {
         this.rpm = rpm;
+    }
+
+    public String getApp_model_name() {
+        return app_model_name;
+    }
+
+    public void setApp_model_name(String app_model_name) {
+        this.app_model_name = app_model_name;
     }
 
     public void setHsn_code(String hsn_code) {

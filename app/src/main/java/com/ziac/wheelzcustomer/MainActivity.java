@@ -27,9 +27,7 @@ import Fragments.BookServiceFragment;
 import Fragments.DealersFragment;
 import Fragments.DashboardFragment;
 import Fragments.ModelBlankFragment;
-import Fragments.ModelsFragment;
 import Fragments.MyVehcileFragment;
-import Fragments.ProfileFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 

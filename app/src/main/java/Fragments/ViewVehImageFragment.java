@@ -1,31 +1,22 @@
 package Fragments;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.Uri;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.util.Base64;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
 import android.widget.Toast;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -35,16 +26,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import ModelClasses.Global;
@@ -61,16 +48,11 @@ public class ViewVehImageFragment extends Fragment {
     private static final String INTERIOR = "I";
 
     // UI elements
-   // private LinearLayout frontUploadBtn, backUploadBtn, leftUploadBtn, rightUploadBtn, interiorUploadBtn;
     private ImageView frontImage, backImage, leftImage, rightImage, interiorImage;
     private LinearLayout frontview, backview, leftview, rightview, interiorview;
-    private TextView frontStatus, progressText;
-    private ProgressBar uploadProgress;
-    private CardView continueBtnCard;
 
     // State tracking
-    private String currentUploadType;
-    private int uploadedCount = 0;
+     String currentUploadType;
     private Map<String, Boolean> uploadStatus = new HashMap<>();
 
     @Override
@@ -93,16 +75,10 @@ public class ViewVehImageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Now it's safe to update UI as views are created
-       // updateUI();
+
     }
 
     private void initializeViews(View view) {
-       /* frontUploadBtn = view.findViewById(R.id.front_upload_btn);
-        backUploadBtn = view.findViewById(R.id.back_upload_btn);
-        leftUploadBtn = view.findViewById(R.id.left_upload_btn);
-        rightUploadBtn = view.findViewById(R.id.right_upload_btn);
-        interiorUploadBtn = view.findViewById(R.id.interior_upload_btn);*/
 
 
         frontview = view.findViewById(R.id.front_view);
@@ -117,49 +93,10 @@ public class ViewVehImageFragment extends Fragment {
         rightImage = view.findViewById(R.id.right_image);
         interiorImage = view.findViewById(R.id.interior_image);
 
-       /* //frontStatus = view.findViewById(R.id.front_status);
-        progressText = view.findViewById(R.id.progress_text);
-        uploadProgress = view.findViewById(R.id.upload_progress);
-        continueBtnCard = view.findViewById(R.id.continue_btn_card);*/
 
-        // Set continue button click listener
-       /* continueBtnCard.setOnClickListener(v -> {
-            if (uploadedCount == 5) {
-                // All images uploaded, proceed to next step
-                Toast.makeText(requireContext(), "All images uploaded successfully!", Toast.LENGTH_SHORT).show();
-                // Add navigation logic here
-            } else {
-                Toast.makeText(requireContext(), "Please upload all required images first", Toast.LENGTH_SHORT).show();
-            }
-        });*/
     }
 
     private void setUploadButtonListeners() {
-       /* frontUploadBtn.setOnClickListener(v -> {
-            currentUploadType = FRONT;
-            openImagePicker();
-        });
-
-        backUploadBtn.setOnClickListener(v -> {
-            currentUploadType = BACK;
-            openImagePicker();
-        });
-
-        leftUploadBtn.setOnClickListener(v -> {
-            currentUploadType = LEFT;
-            openImagePicker();
-        });
-
-        rightUploadBtn.setOnClickListener(v -> {
-            currentUploadType = RIGHT;
-            openImagePicker();
-        });
-
-        interiorUploadBtn.setOnClickListener(v -> {
-            currentUploadType = INTERIOR;
-            openImagePicker();
-        });*/
-
 
         frontview.setOnClickListener(v -> {
             currentUploadType = BACK;
@@ -214,45 +151,6 @@ public class ViewVehImageFragment extends Fragment {
         uploadStatus.put(RIGHT, false);
         uploadStatus.put(INTERIOR, false);
     }
-
-
-
-   /* private void updateUI() {
-        // Update progress text and bar
-        int progressPercentage = (int) ((uploadedCount / 5.0) * 100);
-        progressText.setText(uploadedCount + "/5 (" + progressPercentage + "%)");
-        uploadProgress.setProgress(uploadedCount);
-
-        // Update front status
-        *//*if (uploadStatus.get(FRONT)) {
-            frontStatus.setText("UPLOADED");
-            frontStatus.setTextColor(Color.GREEN);
-            frontStatus.setBackgroundColor(Color.parseColor("#3333FF33"));
-        }*//*
-
-        // Update indicator dots for other images
-       // updateIndicator(R.id.back_indicator, uploadStatus.get(BACK));
-       // updateIndicator(R.id.left_indicator, uploadStatus.get(LEFT));
-       // updateIndicator(R.id.right_indicator, uploadStatus.get(RIGHT));
-        //updateIndicator(R.id.interior_indicator, uploadStatus.get(INTERIOR));
-
-        // Enable/disable continue button
-        continueBtnCard.setEnabled(uploadedCount == 5);
-        continueBtnCard.setCardBackgroundColor(uploadedCount == 5 ?
-                Color.parseColor("#FFD700") : Color.parseColor("#808080"));
-    }*/
-
-    private void updateIndicator(int viewId, boolean isUploaded) {
-        View indicator = requireView().findViewById(viewId);
-        if (isUploaded) {
-            indicator.setBackgroundColor(Color.GREEN);
-        } else {
-            indicator.setBackgroundColor(Color.RED);
-        }
-    }
-
-
-
 
     private void getvehimages() {
 

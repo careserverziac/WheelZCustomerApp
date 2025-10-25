@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +18,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.ziac.wheelzcustomer.R;
 import com.ziac.wheelzcustomer.TestDriveActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Fragments.VehicleDetailFragment;
@@ -28,20 +32,59 @@ import ModelClasses.CommonClass;
 
 public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder> {
 
-     List<CommonClass> commonClassList;
-    private final Context context;
+    Context context;
+    FragmentManager fragmentManager;
+    private List<CommonClass> originalList;  // Original unfiltered list
+    private List<CommonClass> filteredList;  // List that's actually displayed
 
-
-    public ModelsAdapter(List<CommonClass> commonClassList, Context context) {
+    public ModelsAdapter(Context context, FragmentManager fragmentManager, List<CommonClass> commonClassList) {
         this.context = context;
-        this.commonClassList = commonClassList;
-
+        this.fragmentManager = fragmentManager;
+        this.originalList = new ArrayList<>(commonClassList);
+        this.filteredList = new ArrayList<>(commonClassList);
     }
+
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+                List<CommonClass> filteredItems = new ArrayList<>();
+
+                if (constraint == null || constraint.length() == 0) {
+                    // If no constraint, return the original list
+                    filteredItems.addAll(originalList);
+                } else {
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+
+                    for (CommonClass item : originalList) {
+                        // Check both name and registration number
+                        if (item.getApp_model_name() != null && item.getApp_model_name().toLowerCase().contains(filterPattern) ||
+                                item.getModel_name() != null && item.getModel_name().toLowerCase().contains(filterPattern)) {
+                            filteredItems.add(item);
+                        }
+                    }
+                }
+
+                results.values = filteredItems;
+                results.count = filteredItems.size();
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList.clear();
+                filteredList.addAll((List<CommonClass>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_vehicle, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bike, parent, false);
 
         ModelsAdapter.ViewHolder viewHolder = new ModelsAdapter.ViewHolder(view);
         return viewHolder;
@@ -51,23 +94,25 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        CommonClass model = filteredList.get(position);  // Use filtered list here
 
-        Global.loadWithPicasso(context, holder.Veh_image, Global.brandsimageurl + commonClassList.get(position).getImage_path());
+        Global.loadWithPicasso(context, holder.Veh_image, Global.brandsimageurl +
+                model.getImage_path());
 
         //String image=commonClassList.get(position).getImage();
-        holder.Manufacturer.setText(commonClassList.get(position).getManufacture());
+        holder.Manufacturer.setText(model.getManufacture());
 
-        String ccString = commonClassList.get(position).getCc();
+        String ccString = model.getCc();
         float cc = Float.parseFloat(ccString);
         int ccInteger = (int) cc;
 
-        holder.Model_name.setText(commonClassList.get(position).getModel_name() + " - " + ccInteger);
+        holder.Model_name.setText(model.getApp_model_name());
 
         holder.Modelscardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Global.vehicledetails = commonClassList.get(position);
+                Global.vehicledetails = model;
                 VehicleDetailFragment vehicleDetailFragment = new VehicleDetailFragment();
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -81,7 +126,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             @Override
             public void onClick(View v) {
 
-                Global.modellist = commonClassList.get(position);
+                Global.modellist = model;
                 Intent intent = new Intent(context, TestDriveActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -93,15 +138,21 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return commonClassList.size();
+        return filteredList.size();
+    }
+
+    public void updateList(List<CommonClass> newList) {
+        this.originalList = new ArrayList<>(newList);
+        this.filteredList = new ArrayList<>(newList);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView Veh_image;
         TextView Manufacturer,Model_name,CC,BHP;
-        CardView Modelscardview;
-        Button Testdrive;
+        MaterialCardView Modelscardview;
+        MaterialButton Testdrive;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -110,7 +161,7 @@ public class ModelsAdapter extends RecyclerView.Adapter<ModelsAdapter.ViewHolder
             Manufacturer=itemView.findViewById(R.id.manufacture_name);
             Model_name=itemView.findViewById(R.id.model_name);
             Modelscardview=itemView.findViewById(R.id.modelscardview);
-            Testdrive=itemView.findViewById(R.id.testdrive);
+            Testdrive=itemView.findViewById(R.id.btn_book_test_drive);
 
         }
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,36 +20,34 @@
             android:visibility="invisible" />
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
+            <!--  <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:gravity="center"
+                  android:orientation="horizontal">
 
-          <!--  <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
+                  <ImageView
+                      android:layout_width="60dp"
+                      android:layout_height="55dp"
+                      android:src="@drawable/wheelz" />
 
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="55dp"
-                    android:src="@drawable/wheelz" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/calistoga"
-                    android:text="WheelZ"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:fontFamily="@font/calistoga"
+                      android:text="WheelZ"
+                      android:textColor="@color/white"
+                      android:textSize="20sp"
+                      android:textStyle="bold" />
 
 
-            </LinearLayout>-->
+              </LinearLayout>-->
 
 
             <LinearLayout
@@ -69,16 +67,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:background="@color/white">
+                        android:background="@color/white"
+                        android:orientation="horizontal">
 
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/categoriesRV"
                             android:layout_width="0dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@color/black"
-                            android:layout_height="match_parent"
                             android:scrollbars="none" />
 
 
@@ -97,8 +95,8 @@
                     android:id="@+id/right_side"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@android:color/white">
+                    android:background="@android:color/white"
+                    android:orientation="vertical">
 
 
                     <androidx.recyclerview.widget.RecyclerView

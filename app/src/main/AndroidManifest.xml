@@ -97,6 +97,7 @@
         <activity
             android:name=".SignupActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ForgotPasswordActivity"
@@ -105,6 +106,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"

@@ -23,11 +23,11 @@ public class Global {
     private static Picasso picassoInstance;
 
 
- public static String selectedDealerCode = "";
-    //public static String baseurl = "https://wheelzonline.co.in/";
-    public static String baseurl = "https://192.168.100.21:7777/";
-    //public static String baseurl_image = "https://wheelzonline.in/";
-    public static String baseurl_image = "http://192.168.100.21:7778/";
+    public static String selectedDealerCode = "";
+    public static String baseurl = "https://wheelzonline.co.in/";
+    //public static String baseurl = "https://192.168.100.21:7777/";
+    public static String baseurl_image = "https://wheelzonline.in/";
+   // public static String baseurl_image = "http://192.168.100.21:7778/";
 
     public static String tokenurl = baseurl + "TOKEN";
     public static String urlregistration = baseurl + "api/Account/RegisterCustomer";
@@ -166,8 +166,7 @@ public class Global {
         Picasso picasso = getPicassoInstance(context);
 
         picasso.load(imageUrl)
-                .placeholder(R.drawable.no_image_available_icon)  // 👈 Shown during loading
-                .error(R.drawable.no_image_available_icon)        // 👈 Shown if URL fails
+                .error(R.drawable.no_image)        // 👈 Shown if URL fails
                 .into(imageView);
     }
 

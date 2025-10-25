@@ -100,8 +100,6 @@ public class DealersFragment extends Fragment {
         getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         collapsingToolbar = view.findViewById(R.id.collapsingToolbar);
-        collapsingToolbar.setTitle("Dealers");
-        collapsingToolbar.setExpandedTitleColor(Color.RED);
 
         int newWidthInPixels = 100;
         int newHeightInPixels = 100;
@@ -143,7 +141,8 @@ public class DealersFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 swipeRefreshLayout.setEnabled(false);
-                performSearch(query);
+                searchquery=query;
+                getDealerslist();
 
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (inputMethodManager != null) {
@@ -154,7 +153,8 @@ public class DealersFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                performSearch(newText);
+                searchquery=newText;
+                getDealerslist();
                 return false;
             }
         });
@@ -170,105 +170,6 @@ public class DealersFragment extends Fragment {
         return view;
     }
 
-    private void performSearch(String query) {
-        searchquery=query;
-        showLoading();
-        RequestQueue queue= Volley.newRequestQueue(requireActivity());
-
-        String Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
-
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-
-
-                Global.dealersarraylist = new ArrayList<CommonClass>();
-                commonClass = new CommonClass();
-                for (int i = 0; i < response.length(); i++) {
-                    final JSONObject jsonObject;
-                    try {
-
-                        jsonObject = response.getJSONObject(i);
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    commonClass = new CommonClass();
-                    try {
-
-                        commonClass.setCom_name(jsonObject.getString("com_name"));
-                        commonClass.setImage_path(jsonObject.getString("logo_image"));
-                        commonClass.setCom_code(jsonObject.getString("com_code"));
-                        commonClass.setState_name(jsonObject.getString("state_name"));
-                        commonClass.setState_code(jsonObject.getString("state_code"));
-                        commonClass.setCity_name(jsonObject.getString("city_name"));
-                        commonClass.setCity_code(jsonObject.getString("city_code"));
-                        commonClass.setCom_address(jsonObject.getString("com_address"));
-                        commonClass.setCom_pin(jsonObject.getString("com_pin"));
-                        commonClass.setCom_email(jsonObject.getString("com_email"));
-                        commonClass.setCom_website(jsonObject.getString("com_website"));
-                        commonClass.setCom_contact(jsonObject.getString("com_contact"));
-                        commonClass.setCom_contact_mobno(jsonObject.getString("com_contact_mobno"));
-                        commonClass.setCom_phone(jsonObject.getString("com_phone"));
-                        commonClass.setCom_lng(jsonObject.getString("com_lng"));
-                        commonClass.setCom_lat(jsonObject.getString("com_lat"));
-                        commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
-
-
-                    } catch (JSONException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                    Global.dealersarraylist.add(commonClass);
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-
-                dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
-                DealerlistRV.setAdapter(dealersAdapter);
-                dealersAdapter.notifyDataSetChanged();
-                swipeRefreshLayout.setRefreshing(false);
-                hideLoading();
-
-            }
-        },  error -> {
-
-            if (error instanceof NoConnectionError) {
-                hideLoading();
-                if (error instanceof TimeoutError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Request Time-Out");
-                } else if (error instanceof NoConnectionError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Internet connection unavailable");
-                } else if (error instanceof ServerError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Server Error");
-                } else if (error instanceof NetworkError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Network Error");
-                } else if (error instanceof ParseError) {
-                    Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
-                }
-                swipeRefreshLayout.setRefreshing(false);
-            }
-            // Global.customtoast(getApplicationContext(),getLayoutInflater(),"Technical error : Unable to get dashboard data !!" + error);
-
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null);
-                headers.put("Authorization", "Bearer " + accesstoken);
-                return headers;
-            }
-
-
-        };
-
-        jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
-        ));
-
-        queue.add(jsonArrayrequest);
-
-    }
 
 
     private void getDealerslist() {
@@ -279,7 +180,9 @@ public class DealersFragment extends Fragment {
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                // ✅ Stop if fragment was detached while waiting for response
+                if (!isAdded() || getContext() == null) return;
+                swipeRefreshLayout.setRefreshing(false);
 
                 Global.dealersarraylist = new ArrayList<CommonClass>();
                 commonClass = new CommonClass();
@@ -312,9 +215,7 @@ public class DealersFragment extends Fragment {
                         commonClass.setCom_lat(jsonObject.getString("com_lat"));
                         commonClass.setCom_contact_email(jsonObject.getString("com_contact_email"));
 
-                       /* String statename=jsonObject.getString("state_name");
-                        Toast.makeText(requireActivity(), statename, Toast.LENGTH_SHORT).show();
-*/
+
                     } catch (JSONException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -322,11 +223,19 @@ public class DealersFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                 }
 
-                dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
+               /* dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
                 DealerlistRV.setAdapter(dealersAdapter);
                 dealersAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
-                hideLoading();
+                hideLoading();*/
+                // ✅ Update UI only if fragment is still attached
+                if (isAdded() && getContext() != null) {
+                    dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
+                    DealerlistRV.setAdapter(dealersAdapter);
+                    dealersAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
+                    hideLoading();
+                }
 
             }
         },  error -> {

@@ -42,7 +42,6 @@ public class SavedGooglemapActivity extends AppCompatActivity implements OnMapRe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_google_map);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);

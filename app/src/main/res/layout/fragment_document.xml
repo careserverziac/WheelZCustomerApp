@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="#121212"
+    android:orientation="vertical">
 
     <!-- Toolbar -->
     <RelativeLayout
@@ -32,13 +33,10 @@
 
     </RelativeLayout>
 
-    <!-- Main Content -->
-
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
         android:fillViewport="true"
         android:padding="16dp">
 
@@ -413,4 +411,4 @@
         android:indeterminateTint="#FFFFFF"
         android:visibility="gone" />
 
-</FrameLayout>
+</LinearLayout>

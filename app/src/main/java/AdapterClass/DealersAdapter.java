@@ -58,15 +58,13 @@ import ModelClasses.Global;
 
 public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHolder> {
 
-    private final List<CommonClass> dealerList;
-    private final Context context;
-    private FusedLocationProviderClient fusedLocationClient;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
+    Context context;
+    FragmentManager fragmentManager;
+    private List<CommonClass> originalList;  // Original unfiltered list
 
     public DealersAdapter(List<CommonClass> dealerList, Context context) {
         this.context = context;
-        this.dealerList = dealerList;
+        this.originalList = dealerList;
 
     }
 
@@ -84,33 +82,37 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        Global.loadWithPicasso(context, holder.Dealer_image, Global.companyimageurl + dealerList.get(position).getImage_path());
+        CommonClass dealerList = originalList.get(position);  // Use filtered list here
 
-        holder.Comyname.setText(dealerList.get(position).getCom_name());
-        holder.State.setText(dealerList.get(position).getState_name());
-        holder.ComCity.setText(dealerList.get(position).getCity_name());
-        holder.Comwebsite.setText(dealerList.get(position).getCom_website());
-        holder.ComAddress.setText(dealerList.get(position).getCom_address());
-        holder.DealerName.setText(dealerList.get(position).getCom_contact());
-        holder.Dealermobno.setText(dealerList.get(position).getCom_contact_mobno());
-        holder.Dealeremail.setText(dealerList.get(position).getCom_contact_email());
+
+        Global.loadWithPicasso(context, holder.Dealer_image, Global.companyimageurl +
+                dealerList.getImage_path());
+
+        holder.Comyname.setText(dealerList.getCom_name());
+        holder.State.setText(dealerList.getState_name());
+        holder.ComCity.setText(dealerList.getCity_name());
+        holder.Comwebsite.setText(dealerList.getCom_website());
+        holder.ComAddress.setText(dealerList.getCom_address());
+        holder.DealerName.setText(dealerList.getCom_contact());
+        holder.Dealermobno.setText(dealerList.getCom_contact_mobno());
+        holder.Dealeremail.setText(dealerList.getCom_contact_email());
 
 
         holder.Dealermobno.setOnClickListener(v -> {
-            String phoneNumber = dealerList.get(position).getCom_phone();
+            String phoneNumber = dealerList.getCom_phone();
             initiatePhoneCall(phoneNumber);
         });
         holder.DealerPhone.setOnClickListener(v -> {
-            String phoneNumber = dealerList.get(position).getCom_contact_mobno();
+            String phoneNumber = dealerList.getCom_contact_mobno();
             initiatePhoneCall(phoneNumber);
         });
         holder.Dealeremail.setOnClickListener(v -> {
-            String mailid = dealerList.get(position).getCom_email();
+            String mailid = dealerList.getCom_email();
             sendEmail(mailid);
 
         });
         holder.Comwebsite.setOnClickListener(v -> {
-            String website = dealerList.get(position).getCom_website();
+            String website = dealerList.getCom_website();
             openWebsite(website);
         });
 
@@ -118,7 +120,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
             @Override
             public void onClick(View v) {
 
-                Global.dealersdetails = dealerList.get(position);
+                Global.dealersdetails = dealerList;
 
                 BookServiceFragment bookServiceFragment = new BookServiceFragment();
                 FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
@@ -139,7 +141,7 @@ public class DealersAdapter extends RecyclerView.Adapter<DealersAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        return dealerList.size();
+        return originalList.size();
     }
 
 

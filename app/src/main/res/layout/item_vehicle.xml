@@ -24,9 +24,8 @@
                 android:id="@+id/veh_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
                 android:src="@drawable/vehicleinspection"
-                android:contentDescription="Vehicle Image"
                 android:padding="16dp" />
 
             <!-- Badge for Premium/Featured -->
@@ -64,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tesla Model S"
                 android:textColor="@color/white"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:maxLines="1"
                 android:ellipsize="end" />

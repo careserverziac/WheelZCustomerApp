@@ -57,7 +57,6 @@ public class TestDriveListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_test_drive_list);
 
         context = this;

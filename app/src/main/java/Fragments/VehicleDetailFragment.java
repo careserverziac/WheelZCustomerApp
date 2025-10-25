@@ -19,8 +19,6 @@ public class VehicleDetailFragment extends Fragment {
     ImageButton Btn_back;
     TextView HSN_code,VariantName,RPM,VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
 

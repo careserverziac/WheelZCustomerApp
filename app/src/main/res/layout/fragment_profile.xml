@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0A0A"
-    android:fitsSystemWindows="true">
+   >
 
     <!-- Modern AppBar with Enhanced Collapsing Effect -->
     <com.google.android.material.appbar.AppBarLayout

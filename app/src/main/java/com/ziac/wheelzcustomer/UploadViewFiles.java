@@ -2,6 +2,8 @@ package com.ziac.wheelzcustomer;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.activity.EdgeToEdge;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +27,7 @@ public class UploadViewFiles extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_document, container, false);
+        EdgeToEdge.enable(requireActivity());
 
         progressBar = view.findViewById(R.id.progressbarfiles);
         Warranty_cd = view.findViewById(R.id.warranty);
@@ -97,14 +100,6 @@ public class UploadViewFiles extends Fragment {
     }
 
 
-
-    private void showLoading() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideLoading() {
-        progressBar.setVisibility(View.GONE);
-    }
 
 }
 

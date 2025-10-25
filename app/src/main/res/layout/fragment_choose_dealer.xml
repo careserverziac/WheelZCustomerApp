@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/refreshprofile"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
 
     <RelativeLayout
@@ -18,139 +19,135 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="10dp"
-                 android:fontFamily="@font/arsenal_bold"
-                 android:text="Choose dealer"
-                 android:layout_marginTop="20dp"
-                 android:textColor="@color/white"
-                 android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/arsenal_bold"
+                android:text="Choose dealer"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
 
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_marginTop="5dp"
-                 android:padding="10dp"
-                 android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
-                 <LinearLayout
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                         <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="40dp"
-                             android:orientation="horizontal">
-
-
-                             <LinearLayout
-                                 android:id="@+id/statedp"
-                                 android:layout_width="0dp"
-                                 android:layout_height="match_parent"
-                                 android:layout_weight="1"
-                                 android:background="@drawable/border_colour"
-                                 android:gravity="center"
-                                 android:orientation="horizontal">
-
-                                 <TextView
-                                     android:id="@+id/statetext"
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="match_parent"
-                                     android:drawablePadding="5dp"
-                                     android:fontFamily="@font/arsenal"
-                                     android:gravity="center"
-                                     android:paddingLeft="5dp"
-                                     android:text="State"
-                                     android:textStyle="bold"
-                                     android:textColor="@color/white"
-                                     android:textSize="16dp" />
-                                 <ImageView
-
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="wrap_content"
-                                     android:src="@drawable/baseline_arrow_down_icon"
-                                     />
-
-                             </LinearLayout>
-
-                         </LinearLayout>
-
-                     </LinearLayout>
-
-                 </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal">
 
 
+                            <LinearLayout
+                                android:id="@+id/statedp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/border_colour"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/statetext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:drawablePadding="5dp"
+                                    android:fontFamily="@font/arsenal"
+                                    android:gravity="center"
+                                    android:paddingLeft="5dp"
+                                    android:text="State"
+                                    android:textColor="@color/white"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/baseline_arrow_down_icon" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
 
-                 <LinearLayout
-                     android:layout_width="0dp"
-                     android:layout_height="wrap_content"
-                     android:layout_weight="1"
-                     android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
+                        android:background="@drawable/border_colour"
+                        android:orientation="vertical">
 
-                     <LinearLayout
-                         android:layout_width="match_parent"
-                         android:layout_height="match_parent"
-                         android:background="@drawable/border_colour"
-                         android:layout_marginStart="2dp"
-                         android:orientation="vertical">
-
-                         <LinearLayout
-                             android:layout_width="match_parent"
-                             android:layout_height="40dp"
-                             android:orientation="horizontal">
-
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:orientation="horizontal">
 
 
-                             <LinearLayout
-                                 android:id="@+id/citydp"
-                                 android:layout_width="0dp"
-                                 android:layout_height="match_parent"
-                                 android:layout_gravity="bottom"
-                                 android:gravity="center"
-                                 android:orientation="horizontal"
-                                 android:layout_weight="1">
+                            <LinearLayout
+                                android:id="@+id/citydp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="bottom"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                 <TextView
-                                     android:id="@+id/citytext"
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="match_parent"
-                                     android:gravity="center"
-                                     android:fontFamily="@font/arsenal"
-                                     android:text="City"
-                                     android:textStyle="bold"
-                                     android:textColor="@color/white"
-                                     android:textSize="16dp" />
+                                <TextView
+                                    android:id="@+id/citytext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/arsenal"
+                                    android:gravity="center"
+                                    android:text="City"
+                                    android:textColor="@color/white"
+                                    android:textSize="16dp"
+                                    android:textStyle="bold" />
 
-                                 <ImageView
+                                <ImageView
 
-                                     android:layout_width="wrap_content"
-                                     android:layout_height="wrap_content"
-                                     android:src="@drawable/baseline_arrow_down_icon" />
-                             </LinearLayout>
-
-
-                         </LinearLayout>
-
-                     </LinearLayout>
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/baseline_arrow_down_icon" />
+                            </LinearLayout>
 
 
-                 </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
 
 
-             </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
             <androidx.recyclerview.widget.RecyclerView
