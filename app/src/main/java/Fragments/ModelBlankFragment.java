@@ -126,7 +126,6 @@ public class ModelBlankFragment extends Fragment {
 
 
     private void GetAllModels() {
-
         // ✅ Check if fragment is attached before starting anything
         if (!isAdded() || getContext() == null) return;
 
@@ -138,20 +137,27 @@ public class ModelBlankFragment extends Fragment {
 
         @SuppressLint("NotifyDataSetChanged")
         StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
-
             // ✅ Stop if fragment was detached while waiting for response
-            if (!isAdded() || getContext() == null) return;
-            swipeRefreshLayout.setRefreshing(false);
+            if (!isAdded() || getContext() == null) {
+                hideLoading();
+                return;
+            }
+
+            // ✅ Safe access to swipeRefreshLayout
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
             try {
                 JSONArray jsonArray = new JSONArray(response);
                 if (jsonArray.length() == 0) {
-
+                    hideLoading();
                     return;
                 }
+
                 Global.allleadslist = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-
 
                     String vmodelCode = jsonObject.getString("vmodel_code");
                     String vehimage = jsonObject.getString("veh_image1");
@@ -189,29 +195,32 @@ public class ModelBlankFragment extends Fragment {
                     commonClass.setApp_model_name(app_model_name);
 
                     Global.allleadslist.add(commonClass);
-                    swipeRefreshLayout.setRefreshing(false);
-
-
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                hideLoading();
             }
 
-
-            // ✅ Update UI only if fragment is still attached
-            if (isAdded() && getContext() != null) {
+            // ✅ Update UI only if fragment is still attached and views are initialized
+            if (isAdded() && getContext() != null && swipeRefreshLayout != null && VehicleelistRV != null) {
                 modelsAdapter = new ModelsAdapter(getContext(), getChildFragmentManager(), Global.allleadslist);
                 modelsAdapter.updateList(Global.allleadslist);
                 VehicleelistRV.setAdapter(modelsAdapter);
                 modelsAdapter.notifyDataSetChanged();
                 swipeRefreshLayout.setRefreshing(false);
                 hideLoading();
-
             }
 
         }, error -> {
+            // ✅ Safe error handling with fragment state check
+            if (!isAdded() || getContext() == null) return;
+
             hideLoading();
+
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
 
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
@@ -225,15 +234,15 @@ public class ModelBlankFragment extends Fragment {
                 } else if (error instanceof ParseError) {
                     Global.customtoast(requireActivity(), getLayoutInflater(), "Parse Error");
                 }
-                swipeRefreshLayout.setRefreshing(false);
             }
         }) {
-
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null);
-                headers.put("Authorization", "Bearer " + accesstoken);
+                if (isAdded() && Global.sharedPreferences != null) {
+                    String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                    headers.put("Authorization", "Bearer " + accesstoken);
+                }
                 return headers;
             }
         };
@@ -246,7 +255,6 @@ public class ModelBlankFragment extends Fragment {
 
         queue.add(request);
     }
-
 
     private void showLoading() {
         progressBar.setVisibility(View.VISIBLE);

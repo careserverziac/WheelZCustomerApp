@@ -15,13 +15,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +44,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,19 +72,12 @@ public class TestDriveActivity extends AppCompatActivity {
     TextView Statetxt, Citytxt, Manufacture, Model, SelectedDate, Selectedtime, Displaydata;
     MaterialCardView Statedp, Citydp;
     String statecode, citycode, searchquery, sqldateformat, selectedTime24, vmodel_code, com_code;
-    String dealerName, dealercity, dealerweb, dealeradrs;
     RecyclerView DealerlistRV;
     DealerAdapter dealerAdapter;
     ImageView Veh_image;
     MaterialCardView SelectDt, SelectTm;
     Button Submit;
     Context context;
-    TextView Sub_txt;
-    ImageView Backbtn;
-    TextInputEditText Tdmail, Tdmobile, Tdname;
-
-    String username, wuser_mobile1, wuser_email;
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -129,7 +118,7 @@ public class TestDriveActivity extends AppCompatActivity {
         citycode = "0";
 
         getstates();
-        getDealerslist();
+        // getDealerslist();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(TestDriveActivity.this);
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(TestDriveActivity.this, LinearLayoutManager.VERTICAL, false));
@@ -137,16 +126,30 @@ public class TestDriveActivity extends AppCompatActivity {
         Statedp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                statespopup();
+                statespopup(new StateAdapter.StateSelectListener() {
+                    @Override
+                    public void onStateSelected(String selectedState) {
+                        Statetxt.setText(selectedState);
+                        checkAndLoadDealers();
+                    }
+                });
             }
         });
 
         Citydp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                citiespopup();
+                citiespopup(new CityAdapter.CitySelectListener() {
+                    @Override
+                    public void onCitySelected(String selectedCity) {
+                        Citytxt.setText(selectedCity);
+                        checkAndLoadDealers();
+                    }
+                });
             }
         });
+
+
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM yyyy", Locale.getDefault());
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
@@ -203,23 +206,42 @@ public class TestDriveActivity extends AppCompatActivity {
             timePickerDialog.show();
         });
 
-        Submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Submit.setOnClickListener(v -> {
 
-                if (Global.selectedDealerCode == null || Global.selectedDealerCode.isEmpty()) {
-                    Toast.makeText(context, "Please select a dealer", Toast.LENGTH_SHORT).show();
-                    return; // stop further execution
-                }
+            String state = Statetxt.getText().toString().trim();
+            String city = Citytxt.getText().toString().trim();
 
-                // ✅ All good, proceed with your function
-                BookTestDrive();
+
+            if (Global.selectedDealerCode == null || Global.selectedDealerCode.isEmpty()) {
+                Toast.makeText(TestDriveActivity.this, "Please select a dealer", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            if (state.isEmpty()) {
+                Toast.makeText(TestDriveActivity.this, "Please select a state", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (city.isEmpty()) {
+                Toast.makeText(TestDriveActivity.this, "Please select a city", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // ✅ All checks passed
+            BookTestDrive();
         });
 
 
     }
 
+    private void checkAndLoadDealers() {
+        String state = Statetxt.getText().toString().trim();
+        String city = Citytxt.getText().toString().trim();
+
+        if (!state.isEmpty() && !city.isEmpty()) {
+            getDealerslist();
+        }
+    }
 
     private void getDealerslist() {
 
@@ -373,7 +395,7 @@ public class TestDriveActivity extends AppCompatActivity {
         queue.add(jsonArrayrequest);
     }
 
-    public void statespopup() {
+    public void statespopup(StateAdapter.StateSelectListener stateSelectListener) {
 
         zDialog = new Dialog(TestDriveActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         zDialog.setContentView(R.layout.popup_list);
@@ -406,6 +428,10 @@ public class TestDriveActivity extends AppCompatActivity {
 
     private class StateAdapter extends BaseAdapter implements Filterable {
         private ArrayList<zList> mDataArrayList;
+
+        public interface StateSelectListener {
+            void onStateSelected(String selectedState);
+        }
 
         public StateAdapter(ArrayList<zList> arrayList) {
             this.mDataArrayList = arrayList;
@@ -561,7 +587,7 @@ public class TestDriveActivity extends AppCompatActivity {
         queue.add(jsonArrayrequest);
     }
 
-    public void citiespopup() {
+    public void citiespopup(CityAdapter.CitySelectListener citySelectListener) {
 
         zDialog = new Dialog(TestDriveActivity.this, android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         zDialog.setContentView(R.layout.popup_list);
@@ -586,7 +612,6 @@ public class TestDriveActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 laStates.getFilter().filter(newText);
                 return false;
             }
@@ -595,6 +620,11 @@ public class TestDriveActivity extends AppCompatActivity {
 
     private class CityAdapter extends BaseAdapter implements Filterable {
         private ArrayList<zList> mDataArrayList;
+
+        // Listener for city selection
+        public interface CitySelectListener {
+            void onCitySelected(String selectedCity);
+        }
 
         public CityAdapter(ArrayList<zList> arrayList) {
             this.mDataArrayList = arrayList;
@@ -660,7 +690,7 @@ public class TestDriveActivity extends AppCompatActivity {
                     cityname = mDataArrayList.get(i);
                     citycode = cityname.get_code();
                     Citytxt.setText(cityname.get_name());
-                    getDealerslist();
+                   // getDealerslist();
                     zDialog.dismiss();
 
 
@@ -674,7 +704,7 @@ public class TestDriveActivity extends AppCompatActivity {
                     // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
                     Citytxt.setText(cityname.get_name());
-                    getDealerslist();
+                   // getDealerslist();
                     zDialog.dismiss();
 
 

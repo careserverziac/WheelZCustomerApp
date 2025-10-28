@@ -137,13 +137,13 @@ public class TestDriveListActivity extends AppCompatActivity {
                         for (int i = 0; i < dataArray.length(); i++) {
                             JSONObject item = dataArray.getJSONObject(i);
 
-                            String modelName = item.optString("model_name", "N/A");
-                            String companyName = item.optString("com_name", "N/A");
-                            String testDriveDate = item.optString("testdriv_date", "");
-                            String testDriveTime = item.optString("testdriv_time", "");
-                            String status = item.optString("testdriv_status", "Pending");
-                            String customerName = item.optString("username", "N/A");
-                            String contactNumber = item.optString("wuser_mobile1", "N/A");
+                            String modelName      = item.optString("model_name", "N/A");
+                            String companyName    = item.optString("com_name", "N/A");
+                            String testDriveDate  = item.optString("testdriv_date", "");
+                            String testDriveTime  = item.optString("testdriv_time", "");
+                            String status         = item.optString("testdriv_status", "Pending");
+                            String customerName   = item.optString("username", "N/A");
+                            String contactNumber  = item.optString("wuser_mobile1", "N/A");
 
                             TestDriveModel model = new TestDriveModel(
                                     modelName, companyName, testDriveDate,
@@ -192,7 +192,6 @@ public class TestDriveListActivity extends AppCompatActivity {
             }
         });
     }
-
 
     public class TestDriveAdapter extends RecyclerView.Adapter<TestDriveAdapter.ViewHolder> {
 

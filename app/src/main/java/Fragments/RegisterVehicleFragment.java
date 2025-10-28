@@ -3,7 +3,7 @@ package Fragments;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.appcompat.widget.AppCompatButton;
+
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -148,10 +148,10 @@ public class RegisterVehicleFragment extends Fragment {
                         if (response.getBoolean("isSuccess")) {
                             hideLoading();
                             Toast.makeText(requireContext(), response.getString("error"), Toast.LENGTH_SHORT).show();
-                            MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
+                            MyVehicleFragment myVehicleFragment = new MyVehicleFragment();
                             fragmentManager = requireActivity().getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
+                            fragmentTransaction.replace(R.id.framelayout, myVehicleFragment);
                             fragmentTransaction.addToBackStack(null);
                             fragmentTransaction.commit();
 

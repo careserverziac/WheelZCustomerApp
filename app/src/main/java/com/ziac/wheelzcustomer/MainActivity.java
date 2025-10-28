@@ -27,7 +27,7 @@ import Fragments.BookServiceFragment;
 import Fragments.DealersFragment;
 import Fragments.DashboardFragment;
 import Fragments.ModelBlankFragment;
-import Fragments.MyVehcileFragment;
+import Fragments.MyVehicleFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity  {
                     openFragment(new DealersFragment());
                     return true;
                 } else if (itemid == R.id.bottom_vehicles) {
-                    openFragment(new MyVehcileFragment());
+                    openFragment(new MyVehicleFragment());
                     return true;
                 }
 

@@ -1,507 +1,547 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:fillViewport="true"
-    tools:context="Fragments.VehicleDetailFragment">
-    <!--
-        android:background="#1A1A2E"
-    -->
-    <LinearLayout
+    android:background="@color/black">
+
+    <!-- Enhanced AppBar with Gradient -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_back_button"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_back_arrow" />
 
-        <!-- Vehicle Image -->
-        <androidx.cardview.widget.CardView
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_marginBottom="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
-
-            <ImageView
-                android:id="@+id/veh_imageindetail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:src="@drawable/surya" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- Vehicle Name -->
-        <TextView
-            android:id="@+id/vehicle_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/arsenal"
-            android:text="Activa 6G"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:navigationIcon="@drawable/ic_back"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Vehicles details"
+            app:titleTextColor="@color/red" />
 
 
-        <!-- Info Tiles Row (Brand, Year, KMS) -->
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+            android:background="@color/black"
+            android:orientation="vertical">
 
-            <!-- Brand Tile -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                app:cardBackgroundColor="#252544"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp">
+            <!-- ProgressBar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:indeterminateTint="@color/green_txt"
+                android:visibility="gone" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Vehicle Image -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="4dp">
+
+                    <ImageView
+                        android:id="@+id/veh_imageindetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/surya" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- Vehicle Name -->
+                <TextView
+                    android:id="@+id/vehicle_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Activa 6G"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+
+                <!-- Info Tiles Row (Brand, Year, KMS) -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="8dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/manufacturer"
+                    <!-- Brand Tile -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#252544"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="8dp">
+
+                            <TextView
+                                android:id="@+id/manufacturer"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/arsenal"
+                                android:gravity="center"
+                                android:text="Honda"
+                                android:textColor="#4ECCA3"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+
+                </LinearLayout>
+
+                <!-- Vehicle Features Header -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/arsenal"
+                    android:text="Vehicle Features"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Features List -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#252544"
+                    android:orientation="vertical"
+                    android:padding="4dp"
+                    app:cardCornerRadius="12dp">
+
+                    <!-- variant Time -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/arsenal"
-                        android:gravity="center"
-                        android:text="Honda"
-                        android:textColor="#4ECCA3"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Variant"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/variantname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="N/A"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- CC -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="CC"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/modelcc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="110cc"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Category -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Category"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Scooter"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- BHP -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="BHP"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/bhp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="7.8 bhp"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+                    <!-- RPM -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="RPM"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/rpm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="7.8 bhp"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Body Type -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Body Type"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/bodytype"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Two Wheeler"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Fuel -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Fuel"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/fuelname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Petrol"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Top Speed -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Top Speed"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/topspeed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="85 km/h"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Charging Time -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Charging Time"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/chargingtime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="N/A"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- HSN  -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="HSN"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/hsncode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="N/A"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Sale Price -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="Sale Price"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/saleprice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/arsenal"
+                            android:text="₹85,000"
+                            android:textColor="#FFD700"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="#3A3A5C" />
+
+                    <!-- Sale Price -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/arsenal"
+                            android:text="*Prices subject to change,T&amp;C apply"
+                            android:textColor="#B0B0B0"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
 
-        <!-- Vehicle Features Header -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:fontFamily="@font/arsenal"
-            android:text="Vehicle Features"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- Features List -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#252544"
-            android:orientation="vertical"
-            android:padding="4dp"
-            app:cardCornerRadius="12dp">
-
-            <!-- variant Time -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Variant"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/variantname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="N/A"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- CC -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="CC"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/modelcc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="110cc"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Category -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Category"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Scooter"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- BHP -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="BHP"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/bhp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="7.8 bhp"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-            <!-- RPM -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="RPM"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/rpm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="7.8 bhp"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Body Type -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Body Type"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/bodytype"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Two Wheeler"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Fuel -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Fuel"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/fuelname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Petrol"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Top Speed -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Top Speed"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/topspeed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="85 km/h"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Charging Time -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Charging Time"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/chargingtime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="N/A"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- HSN  -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="HSN"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/hsncode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="N/A"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Sale Price -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="Sale Price"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/saleprice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/arsenal"
-                    android:text="₹85,000"
-                    android:textColor="#FFD700"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginEnd="12dp"
-                android:background="#3A3A5C" />
-
-            <!-- Sale Price -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/arsenal"
-                    android:text="*Prices subject to change,T&amp;C apply"
-                    android:textColor="#B0B0B0"
-                    android:textSize="15sp" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
-            </LinearLayout>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>

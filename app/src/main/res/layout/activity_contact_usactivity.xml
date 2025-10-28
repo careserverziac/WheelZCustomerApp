@@ -7,7 +7,7 @@
     android:background="@color/black"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".ContactUSActivity">
+    >
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -267,7 +267,6 @@
 
                 <!-- Mail Us Button -->
                 <com.google.android.material.card.MaterialCardView
-
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -285,12 +284,21 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="12dp">
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/gmail_icon" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardBackgroundColor="@color/map_icon_bg"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/gmial1" />
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -326,12 +334,22 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="12dp">
 
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/phone_image" />
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            app:cardBackgroundColor="@color/map_icon_bg"
+                            app:cardCornerRadius="14dp"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/phone_icon" />
+
+                        </com.google.android.material.card.MaterialCardView>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -378,8 +396,8 @@
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:src="@drawable/googlemap" />
 
@@ -430,8 +448,8 @@
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:src="@drawable/whatsapp" />
 
@@ -529,7 +547,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/twitter_removebg" />
+                        android:src="@drawable/twitter" />
 
                 </com.google.android.material.card.MaterialCardView>
 

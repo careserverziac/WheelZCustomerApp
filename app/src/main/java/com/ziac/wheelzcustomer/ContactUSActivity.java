@@ -90,15 +90,15 @@ public class ContactUSActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Check if WhatsApp is installed
                 if (isAppInstalled("com.whatsapp")) {
-                    openWhatsAppChat("919972595464"); // Open regular WhatsApp
+                    openWhatsAppChat("+919972595464"); // Open regular WhatsApp
                 } else if (isAppInstalled("com.whatsapp.w4b")) {
-                    openWhatsAppChat("919972595464"); // Open WhatsApp Business
+                    openWhatsAppChat("+919972595464"); // Open WhatsApp Business
                 } else {
                     // Show toast if neither app is installed
                     if (isAppInstalled("com.whatsapp")) {
-                        openWhatsAppChat("919972595464"); // Open regular WhatsApp
+                        openWhatsAppChat("+919972595464"); // Open regular WhatsApp
                     } else {
-                        openWhatsAppChat("919972595464"); // Open WhatsApp Business
+                        openWhatsAppChat("+919972595464"); // Open WhatsApp Business
 
                     }
                 }

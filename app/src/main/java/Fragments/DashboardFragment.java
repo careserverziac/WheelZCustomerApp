@@ -26,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -146,10 +145,10 @@ public class DashboardFragment extends Fragment {
         Vehdocuments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyVehcileFragment myVehcileFragment = new MyVehcileFragment();
+                MyVehicleFragment myVehicleFragment = new MyVehicleFragment();
                 fragmentManager = requireActivity().getSupportFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framelayout, myVehcileFragment);
+                fragmentTransaction.replace(R.id.framelayout, myVehicleFragment);
                 fragmentTransaction.commit();
 
                 ((MainActivity) requireActivity()).setBottomNavigationViewSelectedItem(R.id.bottom_vehicles);

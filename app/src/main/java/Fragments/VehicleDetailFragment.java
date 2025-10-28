@@ -2,13 +2,15 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.ziac.wheelzcustomer.R;
 import ModelClasses.Global;
 
@@ -16,7 +18,7 @@ public class VehicleDetailFragment extends Fragment {
 
 
     ImageView Veh_image;
-    ImageButton Btn_back;
+    Toolbar toolbar;
     TextView HSN_code,VariantName,RPM,VModelname,Modelcc,Topspeed,Fuelname,Bodytype,Bhp,Category,Manufacturer,Modelname,Saleprice,Chargingtime;
 
     @Override
@@ -27,7 +29,9 @@ public class VehicleDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view= inflater.inflate(R.layout.fragment_vehicle_detail, container, false);
 
-        Btn_back=view.findViewById(R.id.btn_back);
+
+        toolbar = view.findViewById(R.id.toolbar);
+
         HSN_code=view.findViewById(R.id.hsncode);
         VariantName=view.findViewById(R.id.variantname);
         RPM=view.findViewById(R.id.rpm);
@@ -62,7 +66,7 @@ public class VehicleDetailFragment extends Fragment {
         VModelname.setText(Global.vehicledetails.getModel_name());
 
 
-        Btn_back.setOnClickListener(new View.OnClickListener() {
+        toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity()

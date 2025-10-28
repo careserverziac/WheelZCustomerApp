@@ -2,7 +2,6 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -17,7 +16,6 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -48,15 +46,13 @@ import ModelClasses.CommonClass;
 import ModelClasses.Global;
 
 
-public class MyVehcileFragment extends Fragment {
+public class MyVehicleFragment extends Fragment {
 
     RecyclerView VehiclelistRV;
     LinearLayout Registervehicle;
     FragmentManager fragmentManager;
     VehiclesAdapter vehiclesAdapter;
     ProgressBar progressBar;
-    private CollapsingToolbarLayout collapsingToolbar;
-    private TextView tvBookingCount;
     private Toolbar toolbar;
     @Override
     public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
@@ -136,8 +132,8 @@ public class MyVehcileFragment extends Fragment {
                     Global.myvehiclelist = new ArrayList<>();
 
                     if (jsonArray.length() == 0) {
-                        LayoutInflater inflater = LayoutInflater.from(context);
-                        Global.customtoast(context, inflater, "No vehicles found.");
+                       // LayoutInflater inflater = LayoutInflater.from(context);
+                        //Global.customtoast(context, inflater, "No vehicles found.");
                     } else {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
