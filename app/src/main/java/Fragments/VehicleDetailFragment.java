@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ziac.wheelzcustomer.R;
+
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import ModelClasses.Global;
 
 public class VehicleDetailFragment extends Fragment {
@@ -60,10 +64,16 @@ public class VehicleDetailFragment extends Fragment {
         Bhp.setText(Global.vehicledetails.getBhp());
         Topspeed.setText(Global.vehicledetails.getTopspeed());
         Manufacturer.setText(Global.vehicledetails.getManufacture());
-        Saleprice.setText(Global.vehicledetails.getSaleprice());
+      //  Saleprice.setText( "₹" + Global.vehicledetails.getSaleprice());
+
+        double price = Double.parseDouble(Global.vehicledetails.getSaleprice());
+        NumberFormat formatter = NumberFormat.getNumberInstance(new Locale("en", "IN"));
+        String formattedPrice = formatter.format(price);
+        Saleprice.setText("₹" + formattedPrice);
+
         Chargingtime.setText(Global.vehicledetails.getChargingtime());
         Modelcc.setText(Global.vehicledetails.getCc());
-        VModelname.setText(Global.vehicledetails.getModel_name());
+        VModelname.setText(Global.vehicledetails.getApp_model_name());
 
 
         toolbar.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +82,7 @@ public class VehicleDetailFragment extends Fragment {
                 requireActivity()
                         .getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.framelayout, new ModelBlankFragment()) // replace with your fragment class
+                        .replace(R.id.framelayout, new ModelFragment()) // replace with your fragment class
                         .addToBackStack(null)
                         .commit();
             }

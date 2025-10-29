@@ -1,5 +1,6 @@
 package com.ziac.wheelzcustomer;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +34,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -46,8 +50,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Fragments.Upload_View_ImagesFragment;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
+import ModelClasses.ModelsClass;
 
 public class ServiceHistoryActivity extends AppCompatActivity {
     ServiceHistoryAdapter adapter;
@@ -68,9 +74,6 @@ public class ServiceHistoryActivity extends AppCompatActivity {
         context = this;
 
         servicerv = findViewById(R.id.servicerv);
-
-
-        // vehhis_code= Global.vehicledetails.getVehhis_code();
 
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -99,99 +102,117 @@ public class ServiceHistoryActivity extends AppCompatActivity {
 
     }
 
+
     private void Servicehistory() {
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Loading service history...");
+        progressDialog.setCancelable(false);
 
-        //progressBar.setVisibility(View.VISIBLE);
-        servicerv.setVisibility(View.GONE);
-       // emptyText.setVisibility(View.GONE);
+        try {
+            progressDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String userCode = Global.sharedPreferences.getString("wuser_code", "");
+        String url = Global.urlBookServiceList + "wuser_code=" + userCode;
 
-        // ✅ Make sure your API URL is correct
-        String url = Global.getservicehistory + "regno=" + vehhis_code;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null,
+                response -> {
+                    dismissProgressDialog(progressDialog);
+                    progressBar.setVisibility(View.GONE);
 
-        StringRequest request = new StringRequest(Request.Method.POST, url, response -> {
-            progressBar.setVisibility(View.GONE);
-            Global.allleadslist = new ArrayList<>();
+                    try {
+                        boolean isSuccess = response.getBoolean("isSuccess");
+                        String message = response.getString("message");
 
-            try {
-                JSONArray jsonArray = new JSONArray(response);
+                        if (isSuccess) {
+                            JSONArray dataArray = response.getJSONArray("data");
 
-                if (jsonArray.length() == 0) {
-                    // ✅ No service history
-                  //  emptyText.setVisibility(View.VISIBLE);
-                    servicerv.setVisibility(View.GONE);
-                    Toast.makeText(this, "No Service History Found", Toast.LENGTH_SHORT).show();
-                    return;
+                            Global.allleadslist = new ArrayList<>();
+                            for (int i = 0; i < dataArray.length(); i++) {
+                                JSONObject jsonObject = dataArray.getJSONObject(i);
+
+                                String com_name = jsonObject.optString("com_name");
+                                String Veh_modelname = jsonObject.optString("model_name");
+                                String total_amt = jsonObject.optString("total_amt", "0");
+                                String kms_done = jsonObject.optString("kms_done", "0");
+                                String service_type = jsonObject.optString("service_type");
+                                String service_date = jsonObject.optString("servicedate");
+                                String service_time = jsonObject.optString("service_time");
+                                String com_address = jsonObject.optString("com_address");
+                                String reg_no = jsonObject.optString("reg_no");
+
+                                CommonClass commonClass = new CommonClass();
+                                commonClass.setCom_name(com_name);
+                                commonClass.setVeh_modelname(Veh_modelname);
+                                commonClass.setTotal_amt(total_amt);
+                                commonClass.setKms_done(kms_done);
+                                commonClass.setService_type(service_type);
+                                commonClass.setService_date(service_date);
+                                commonClass.setService_time(service_time);
+                                commonClass.setCom_address(com_address);
+                                commonClass.setRegis_no(reg_no);
+
+                                Global.allleadslist.add(commonClass);
+                            }
+
+                            adapter = new ServiceHistoryAdapter(this, Global.allleadslist);
+                            servicerv.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(context, "Failed: " + message, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        dismissProgressDialog(progressDialog);
+                        progressBar.setVisibility(View.GONE);
+                        e.printStackTrace();
+                        Toast.makeText(context, "Parsing error!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    dismissProgressDialog(progressDialog);
+                    progressBar.setVisibility(View.GONE);
+                    error.printStackTrace();
+
+                    String errorMessage = "Network error!";
+                    if (error.networkResponse != null) {
+                        errorMessage += " Code: " + error.networkResponse.statusCode;
+                    }
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show();
                 }
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                    String com_name = jsonObject.getString("com_name");
-                    String jobtype_name = jsonObject.getString("jobtype_name");
-                    String Veh_modelname = jsonObject.getString("model_name");
-                    String total_amt = jsonObject.getString("total_amt");
-                    String jc_date = jsonObject.getString("jc_date");
-                    String kms_done = jsonObject.getString("kms_done");
-
-                    CommonClass commonClass = new CommonClass();
-                    commonClass.setJobtype_name(jobtype_name);
-                    commonClass.setCom_name(com_name);
-                    commonClass.setVeh_modelname(Veh_modelname);
-                    commonClass.setTotal_amt(total_amt);
-                    commonClass.setJc_datec(jc_date);
-                    commonClass.setKms_done(kms_done);
-
-                    Global.allleadslist.add(commonClass);
-                }
-
-                adapter = new ServiceHistoryAdapter(this, Global.allleadslist);
-                servicerv.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-                servicerv.setVisibility(View.VISIBLE);
-
-            } catch (JSONException e) {
-                progressBar.setVisibility(View.GONE);
-               // emptyText.setVisibility(View.VISIBLE);
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-
-        }, error -> {
-           progressBar.setVisibility(View.GONE);
-           // emptyText.setVisibility(View.VISIBLE);
-
-            if (error instanceof TimeoutError) {
-                Global.customtoast(this, getLayoutInflater(), "Request Time-Out");
-            } else if (error instanceof NoConnectionError) {
-                Global.customtoast(this, getLayoutInflater(), "Internet connection unavailable");
-            } else if (error instanceof ServerError) {
-                Global.customtoast(this, getLayoutInflater(), "Server Error");
-            } else if (error instanceof NetworkError) {
-                Global.customtoast(this, getLayoutInflater(), "Network Error");
-            } else if (error instanceof ParseError) {
-                Global.customtoast(this, getLayoutInflater(), "Parse Error");
-            }
-
-        }) {
+        ) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
-                String accesstoken = Global.sharedPreferences.getString("access_token", null);
+                String accesstoken = Global.sharedPreferences.getString("access_token", "");
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
         };
 
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                0,
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                0, // 15 seconds timeout
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
-        queue.add(request);
+        queue.add(jsonObjectRequest);
     }
+
+    // Helper method to safely dismiss progress dialog
+    private void dismissProgressDialog(ProgressDialog progressDialog) {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     public class ServiceHistoryAdapter extends RecyclerView.Adapter<ServiceHistoryAdapter.ViewHolder> {
 
@@ -214,29 +235,43 @@ public class ServiceHistoryActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ServiceHistoryAdapter.ViewHolder holder, int position) {
             CommonClass service = serviceHistoryList.get(position);
 
-            holder.Modelname.setText(service.getCom_name());
-            holder.Servicetype.setText(service.getJobtype_name());
-            String totalAmount = "₹ " + service.getTotal_amt();
-            SpannableStringBuilder spannableString = new SpannableStringBuilder(totalAmount);
+            holder.Modelname.setText(service.getVeh_modelname());
+            holder.tvServiceType.setText(service.getService_type());
+            holder.tvServiceDate.setText(service.getService_date());
+            holder.tvVehicleModel.setText(service.getVeh_modelname());
+            holder.tvRegNo.setText(service.getRegis_no());
+            holder.tvRegNo1.setText(service.getRegis_no());
+
+
+
+           // String totalAmount = "₹ " + service.getTotal_amt();
+           /* SpannableStringBuilder spannableString = new SpannableStringBuilder(totalAmount);
             spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.Totalamount.setText(spannableString);
+            holder.Totalamount.setText(spannableString);*/
+
             double kmsDoneValue = Double.parseDouble(service.getKms_done());
             String kmsDone = (kmsDoneValue % 1 == 0) ? String.valueOf((int) kmsDoneValue) : String.valueOf(kmsDoneValue);
             holder.Kmdone.setText(kmsDone + " Km");
 
-            String originalDateStr = service.getJc_datec();
-            SimpleDateFormat originalFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MMM-yy");
+            String dateTimeStr = service.getService_time();
 
-            Date date = null;
-            try {
-                date = originalFormat.parse(originalDateStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            holder.tvServiceTime.setText(dateTimeStr);
 
-            String formattedDateTimeStr = targetFormat.format(date);
-            holder.Dateandtime.setText(formattedDateTimeStr);
+            holder.BtnView.setOnClickListener(new View.OnClickListener() {
+                boolean isVisible = false; // keeps track of current visibility state
+
+                @Override
+                public void onClick(View v) {
+                    if (isVisible) {
+                        holder.veh_details.setVisibility(View.GONE);
+                        isVisible = false;
+                    } else {
+                        holder.veh_details.setVisibility(View.VISIBLE);
+                        isVisible = true;
+                    }
+                }
+            });
+
 
 
         }
@@ -248,17 +283,26 @@ public class ServiceHistoryActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView Modelname, Servicetype, Totalamount, Kmdone, Dateandtime;
+            TextView Modelname, tvVehicleModel,tvRegNo,tvRegNo1, Totalamount, Kmdone,tvServiceType,tvServiceTime,tvServiceDate;
+
+            LinearLayout veh_details;
+            AppCompatButton BtnView;
 
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
-                Modelname = itemView.findViewById(R.id.modelname);
-                Servicetype = itemView.findViewById(R.id.servicetype);
+                Modelname = itemView.findViewById(R.id.tvVehicleModel);
+                BtnView = itemView.findViewById(R.id.tvView);
+                tvVehicleModel = itemView.findViewById(R.id.tvVehicleModel1);
+                tvRegNo = itemView.findViewById(R.id.tvRegNo);
+                tvRegNo1 = itemView.findViewById(R.id.tvRegNo1);
+                tvServiceType = itemView.findViewById(R.id.tvServiceType);
+                tvServiceDate = itemView.findViewById(R.id.tvServiceDate);
+                tvServiceTime = itemView.findViewById(R.id.tvServiceTime);
                 Totalamount = itemView.findViewById(R.id.totalamount);
-                Kmdone = itemView.findViewById(R.id.kmdone);
-                Dateandtime = itemView.findViewById(R.id.dateandtime);
+                Kmdone = itemView.findViewById(R.id.tvKmsDone);
+                veh_details = itemView.findViewById(R.id.veh_details);
             }
         }
     }

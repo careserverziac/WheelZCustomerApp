@@ -2,7 +2,6 @@ package Fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,17 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.preference.PreferenceManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -45,15 +38,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import AdapterClass.ModelsAdapter;
-import AdapterClass.VehiclesAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
 
-public class ModelBlankFragment extends Fragment {
+public class ModelFragment extends Fragment {
     RecyclerView VehicleelistRV;
     ModelsAdapter modelsAdapter;
     ProgressBar progressBar;
@@ -215,7 +206,6 @@ public class ModelBlankFragment extends Fragment {
         }, error -> {
             // ✅ Safe error handling with fragment state check
             if (!isAdded() || getContext() == null) return;
-
             hideLoading();
 
             if (swipeRefreshLayout != null) {

@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
@@ -43,14 +46,17 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.card.MaterialCardView;
 import com.ziac.wheelzcustomer.MainActivity;
 import com.ziac.wheelzcustomer.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import AdapterClass.DealersAdapter;
 import ModelClasses.CommonClass;
 import ModelClasses.Global;
@@ -65,9 +71,9 @@ public class DealersFragment extends Fragment {
     private CommonClass commonClass;
     private zList cityname;
     private Dialog zDialog;
-    TextView Statetxt,Citytxt;
-    LinearLayout Statedp,Citydp;
-    String statecode,citycode,searchquery;
+    TextView Statetxt, Citytxt;
+    LinearLayout Statedp, Citydp;
+    String statecode, citycode, searchquery;
     RecyclerView DealerlistRV;
     DealersAdapter dealersAdapter;
     ProgressBar progressBar;
@@ -79,21 +85,22 @@ public class DealersFragment extends Fragment {
     private CollapsingToolbarLayout collapsingToolbar;
     private TextView tvBookingCount;
     private Toolbar toolbar;
+
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       View view=inflater.inflate(R.layout.fragment_dealers, container, false);
+        View view = inflater.inflate(R.layout.fragment_dealers, container, false);
         Context context = requireActivity();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
-        Statedp =view.findViewById(R.id.statedp);
-        Citydp =view.findViewById(R.id.citydp);
-        DealerlistRV=view.findViewById(R.id.dealerlist);
-        progressBar=view.findViewById(R.id.progressBardealers);
-        Statetxt=view.findViewById(R.id.statetext);
-        Citytxt=view.findViewById(R.id.citytext);
-        swipeRefreshLayout=view.findViewById(R.id.refreshprofile);
+        Statedp = view.findViewById(R.id.statedp);
+        Citydp = view.findViewById(R.id.citydp);
+        DealerlistRV = view.findViewById(R.id.dealerlist);
+        progressBar = view.findViewById(R.id.progressBardealers);
+        Statetxt = view.findViewById(R.id.statetext);
+        Citytxt = view.findViewById(R.id.citytext);
+        swipeRefreshLayout = view.findViewById(R.id.refreshprofile);
 
         // Initialize views
         toolbar = view.findViewById(R.id.toolbar);
@@ -110,9 +117,9 @@ public class DealersFragment extends Fragment {
         params.height = newHeightInPixels;
         progressBar.setLayoutParams(params);
 
-        searchquery="";
-        statecode="0";
-        citycode="0";
+        searchquery = "";
+        statecode = "0";
+        citycode = "0";
 
         getstates();
         getDealerslist();
@@ -127,10 +134,9 @@ public class DealersFragment extends Fragment {
         });
 
 
-
         swipeRefreshLayout.setOnRefreshListener(this::getDealerslist);
-        LinearSearch =view.findViewById(R.id.searchdealerslnr);
-        searchView =view.findViewById(R.id.searchalldealers);
+        LinearSearch = view.findViewById(R.id.searchdealerslnr);
+        searchView = view.findViewById(R.id.searchalldealers);
         LinearSearch.setOnClickListener(v -> {
             swipeRefreshLayout.setEnabled(false);
             searchView.setIconified(false);
@@ -140,7 +146,7 @@ public class DealersFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 swipeRefreshLayout.setEnabled(false);
-                searchquery=query;
+                searchquery = query;
                 getDealerslist();
 
                 InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -152,7 +158,7 @@ public class DealersFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                searchquery=newText;
+                searchquery = newText;
                 getDealerslist();
                 return false;
             }
@@ -170,13 +176,12 @@ public class DealersFragment extends Fragment {
     }
 
 
-
     private void getDealerslist() {
         showLoading();
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
 
-        Url = Global.searchalldealers+"searchtext="+searchquery+"&state_code="+statecode+"&city_code="+citycode;
-        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST,Url, null, new Response.Listener<JSONArray>() {
+        Url = Global.searchalldealers + "searchtext=" + searchquery + "&state_code=" + statecode + "&city_code=" + citycode;
+        JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.POST, Url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 // ✅ Stop if fragment was detached while waiting for response
@@ -225,7 +230,7 @@ public class DealersFragment extends Fragment {
 
                 // ✅ Update UI only if fragment is still attached
                 if (isAdded() && getContext() != null) {
-                    dealersAdapter = new DealersAdapter(Global.dealersarraylist,getContext());
+                    dealersAdapter = new DealersAdapter(Global.dealersarraylist, getContext());
                     DealerlistRV.setAdapter(dealersAdapter);
                     dealersAdapter.notifyDataSetChanged();
                     swipeRefreshLayout.setRefreshing(false);
@@ -233,7 +238,7 @@ public class DealersFragment extends Fragment {
                 }
 
             }
-        },  error -> {
+        }, error -> {
 
             if (error instanceof NoConnectionError) {
                 hideLoading();
@@ -307,7 +312,7 @@ public class DealersFragment extends Fragment {
                 }
 
             }
-        },  error -> {
+        }, error -> {
 
             if (error instanceof NoConnectionError) {
                 if (error instanceof TimeoutError) {
@@ -473,9 +478,9 @@ public class DealersFragment extends Fragment {
     private void getcity() {
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
 
-        String url=Global.GetCity;
-        url= url+"state_code="+statecode;
-        StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET,url,
+        String url = Global.GetCity;
+        url = url + "state_code=" + statecode;
+        StringRequest jsonArrayrequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
 
                     @Override
@@ -489,7 +494,7 @@ public class DealersFragment extends Fragment {
                         }
                         Global.cityarraylist = new ArrayList<zList>();
                         cityname = new zList();
-                       // tvCity.setText("");
+                        // tvCity.setText("");
                         for (int i = 0; i < response.length(); i++) {
                             final JSONObject e;
                             try {
@@ -505,7 +510,7 @@ public class DealersFragment extends Fragment {
                                 cityname.set_code(e.getString("city_code"));
                                 citycode = cityname.get_code();
 
-                              Citytxt.setText("City");
+                                Citytxt.setText("City");
 
                             } catch (JSONException ex) {
                                 throw new RuntimeException(ex);
@@ -648,7 +653,7 @@ public class DealersFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
-            RadioButton radioButton=v.findViewById(R.id.radio_button);
+            RadioButton radioButton = v.findViewById(R.id.radio_button);
             cityname = mDataArrayList.get(i);
             tvstatenameitem.setText(cityname.get_name());
 
@@ -657,7 +662,7 @@ public class DealersFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     cityname = mDataArrayList.get(i);
-                   // Citytxt.setText(cityname.get_name());
+                    // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
                     Citytxt.setText(cityname.get_name());
                     getDealerslist();
@@ -698,63 +703,3 @@ public class DealersFragment extends Fragment {
 
 }
 
-/*  @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            // Get current location
-                            double latitude = location.getLatitude();
-                            double longitude = location.getLongitude();
-                            currentLocationString = latitude + ", " + longitude;
-
-                            // Use Geocoder to get address details
-                            Geocoder geocoder = new Geocoder(requireContext(), Locale.getDefault());
-                            try {
-                                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                                if (addresses != null && !addresses.isEmpty()) {
-                                    Address address = addresses.get(0);
-                                    sublocality = address.getSubLocality();  // Area name
-                                    fullAddress = address.getAddressLine(0); // Full address
-
-                                    Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
-                                    Global.editor = Global.sharedPreferences.edit();
-                                    Global.editor.putString("currentLocationString", currentLocationString);
-                                    Global.editor.putString("currentStreetName", sublocality);
-                                    Global.editor.putString("currentFullAddress", fullAddress);
-                                    Global.editor.apply();
-
-                                } else {
-                                    Log.e("DealersFragment", "Unable to get address");
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                                Log.e("DealersFragment", "Geocoder service not available");
-                            }
-                        } else {
-                            Toast.makeText(requireContext(), "Location not available", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-
-
-    // Handle permission request result
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, get current location
-                getCurrentLocation();
-            } else {
-                // Permission denied, handle accordingly (e.g., show message or disable location features)
-                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-*/

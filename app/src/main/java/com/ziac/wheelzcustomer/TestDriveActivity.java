@@ -104,7 +104,7 @@ public class TestDriveActivity extends AppCompatActivity {
         Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Manufacture.setText(Global.modellist.getManufacture());
-        Model.setText(Global.modellist.getModel_name());
+        Model.setText(Global.modellist.getApp_model_name());
         vmodel_code = Global.modellist.getModel_code();
         com_code = Global.sharedPreferences.getString("com_code", "");
 

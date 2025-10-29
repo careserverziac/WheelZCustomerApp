@@ -43,10 +43,11 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:padding="5dp"
+                android:gravity="center"
                 android:text="Track all your vehicle services"
                 android:textColor="#B0B0B0"
                 android:textSize="14sp" />
@@ -83,6 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
+                android:layout_marginTop="5dp"
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="16dp"
                 android:scrollbarThumbVertical="@drawable/scrollbar_thumb"

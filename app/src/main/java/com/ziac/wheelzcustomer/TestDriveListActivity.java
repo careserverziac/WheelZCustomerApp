@@ -144,9 +144,10 @@ public class TestDriveListActivity extends AppCompatActivity {
                             String status         = item.optString("testdriv_status", "Pending");
                             String customerName   = item.optString("username", "N/A");
                             String contactNumber  = item.optString("wuser_mobile1", "N/A");
+                            String app_model_name  = item.optString("app_model_name", "N/A");
 
                             TestDriveModel model = new TestDriveModel(
-                                    modelName, companyName, testDriveDate,
+                                    app_model_name, companyName, testDriveDate,
                                     testDriveTime, status, customerName, contactNumber
                             );
 

@@ -24,9 +24,10 @@ public class Global {
 
 
     public static String selectedDealerCode = "";
-   // public static String baseurl = "https://wheelzonline.co.in/";
+    //public static String baseurl = "https://wheelzonline.co.in/";
+    //public static String baseurl_image = "https://wheelzonline.in/";
+
     public static String baseurl = "https://192.168.100.21:7777/";
-   // public static String baseurl_image = "https://wheelzonline.in/";
     public static String baseurl_image = "http://192.168.100.21:7778/";
 
     public static String tokenurl = baseurl + "TOKEN";
@@ -53,6 +54,7 @@ public class Global {
     public static String urlgetmanufacture = baseurl + "api/List/GetManufacturer";
     public static String urlGetVehicletype = baseurl + "api/List/GetCategory?";
     public static String urlTestDriveList = baseurl + "api/List/TestDriveList?";
+    public static String urlBookServiceList = baseurl + "api/List/BookServiceList?";
 
     public static ArrayList<zList> vehicletypearraylist;
     public static ArrayList<zList> vehiclevariantlist;

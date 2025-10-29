@@ -92,22 +92,17 @@ public class BookServiceFragment extends Fragment {
 
     TextView Dealername, DealerMob, Companyname, SerApptDate, SelectedTm, Currentadress, Streetname, Dealeraddress, Selectedveh;
     LinearLayout SelectDt, SelectTm, Maplocation, Servicedp, Pickupdp, Vehicledropdp, Complaintdp, SelectedvehDp;
-    String wuser_code, com_code, vehhis_code, lattitude, longitude;
+    String wuser_code, com_code, vehhis_code;
     EditText Odometer, Complaints;
     CircleImageView DealerImage;
-    private zList modelclass;
     AppCompatButton CnfrmbkgbBTN;
     Context context;
     private Dialog zDialog;
+    ImageView Locationchange;
     String locationUri, sqldateformat, selctdveh, odoreading, complaint, selectedTime24, serviceValue, pickupvalue, vehdropvalue, vehcode, streetname, fulladdress;
     FusedLocationProviderClient client;
     RadioGroup ServiceRB, PickupRB, VehdropRB;
     RadioButton Freeservice, Paidservice, PickupTrue, PickupFalse, VehdropTrue, VehdropFalse;
-
-    ImageView Backbtn;
-
-
-
 
     private int blendColors(int color1, int color2, float ratio) {
         final float inverseRatio = 1 - ratio;
@@ -140,6 +135,7 @@ public class BookServiceFragment extends Fragment {
             }
         });
         Companyname = view.findViewById(R.id.bkcomname);
+        Locationchange = view.findViewById(R.id.locationchange);
         Dealername = view.findViewById(R.id.bkdealername);
         DealerMob = view.findViewById(R.id.bkdealermob);
         SerApptDate = view.findViewById(R.id.ser_app_date);
@@ -251,7 +247,6 @@ public class BookServiceFragment extends Fragment {
             datePickerDialog.show();
 
 
-
         });
 
         SelectTm.setOnClickListener(v -> {
@@ -325,14 +320,6 @@ public class BookServiceFragment extends Fragment {
             }
         });
 
-       /* Backbtn.setOnClickListener(v -> {
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .popBackStack();
-        });*/
-
-
-
         return view;
     }
 
@@ -352,16 +339,11 @@ public class BookServiceFragment extends Fragment {
             Odometer.requestFocus();
             return;
         }
-        if (complaint.isEmpty()) {
-            Complaints.setError("Complaints field must not be null !!");
-            Complaints.requestFocus();
-            return;
-        }
+
         bookingservice();
     }
 
     private void bookingservice() {
-
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Global.urlBookServices,
                 new Response.Listener<String>() {
@@ -785,6 +767,7 @@ public class BookServiceFragment extends Fragment {
             return view;
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

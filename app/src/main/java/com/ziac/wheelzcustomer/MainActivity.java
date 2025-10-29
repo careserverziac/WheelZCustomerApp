@@ -26,7 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import Fragments.BookServiceFragment;
 import Fragments.DealersFragment;
 import Fragments.DashboardFragment;
-import Fragments.ModelBlankFragment;
+import Fragments.ModelFragment;
 import Fragments.MyVehicleFragment;
 import ModelClasses.AppStatus;
 import ModelClasses.Global;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity  {
                     openFragment(new DashboardFragment());
                     return true;
                 } else if (itemid == R.id.bottom_models) {
-                    openFragment(new ModelBlankFragment());
+                    openFragment(new ModelFragment());
                     return true;
                 } else if (itemid == R.id.bottom_dealers) {
                     openFragment(new DealersFragment());
