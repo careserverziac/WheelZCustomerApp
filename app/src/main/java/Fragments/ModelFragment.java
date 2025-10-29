@@ -51,7 +51,6 @@ public class ModelFragment extends Fragment {
     SearchView searchView;
     SwipeRefreshLayout swipeRefreshLayout;
     CommonClass commonClass;
-    CollapsingToolbarLayout collapsingToolbar;
     private Toolbar toolbar;
 
     @Override

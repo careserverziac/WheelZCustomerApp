@@ -2,7 +2,7 @@ package ModelClasses;
 
 public class CommonClass {
 
-    private String app_model_name,rpm,hsn_code,variant_name,maf_date,dcom_code,createdby,createdon,doc_type;
+    private String kms_diff,app_model_name,rpm,hsn_code,variant_name,maf_date,dcom_code,createdby,createdon,doc_type;
     private String Image_path,image_code;
     public String category,manufacture,cc,bhp,topspeed,bodytype,fuelname,model_name,model_code,saleprice,chargingtime;
     public String com_code,state_code,city_code,com_name,com_address,city_name,state_name,com_pin,com_email,ctype_name,
@@ -13,6 +13,13 @@ public class CommonClass {
     public String service_code,service_date,service_time,service_type,pick_flag,drop_flag,additional_info
             ,location_map,service_address,img_path;
 
+    public String getKms_diff() {
+        return kms_diff;
+    }
+
+    public void setKms_diff(String kms_diff) {
+        this.kms_diff = kms_diff;
+    }
 
     public String vehhis_code,jobtype_name,Veh_modelname,total_amt,kms_done,jc_datec,cveh_code,imgdoc_path,imgdoc_code,file_type;
     public  String wuser_code,com_code1,engine_no,regis_no,registrationno,vehiclemodelname,mfg_name;

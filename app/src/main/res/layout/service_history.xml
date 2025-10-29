@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical"
         android:padding="16dp">
 
@@ -76,10 +75,10 @@
 
             <LinearLayout
                 android:id="@+id/veh_details"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:visibility="gone"
                 android:padding="12dp">
 
                 <!-- Header Card with Success Icon -->
@@ -169,9 +168,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Service Type"
-                                android:textColor="@color/white"
-
-                                android:textSize="11sp" />
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/tvServiceType"
@@ -210,9 +208,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Schedule"
-                                android:textColor="@color/white"
-
-                                android:textSize="11sp" />
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -293,16 +290,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="Vehicle Model"
                                 android:textColor="#757575"
-                                android:textSize="11sp" />
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/tvVehicleModel1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Honda City VX"
+                                android:text=""
                                 android:textColor="@color/white"
-
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -333,9 +329,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Registration No."
-                                android:textColor="@color/white"
-
-                                android:textSize="11sp" />
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/tvRegNo1"
@@ -343,7 +338,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="monospace"
-                                android:text="DL 01 AB 1234"
+                                android:text=""
                                 android:textColor="@color/white"
 
                                 android:textSize="13sp"
@@ -374,22 +369,45 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Kilometers Done"
-                                android:textColor="@color/white"
-
-                                android:textSize="11sp" />
+                                android:text="Kms Done"
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
 
                             <TextView
                                 android:id="@+id/tvKmsDone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="45,280 km"
+                                android:text="0 km"
                                 android:textColor="@color/white"
-
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kms Since Previous "
+                                android:textColor="#757575"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvKmsDiff"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="0 km"
+                                android:textColor="@color/white"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>

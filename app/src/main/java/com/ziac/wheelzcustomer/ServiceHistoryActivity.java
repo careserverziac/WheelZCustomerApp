@@ -143,6 +143,7 @@ public class ServiceHistoryActivity extends AppCompatActivity {
                                 String service_time = jsonObject.optString("service_time");
                                 String com_address = jsonObject.optString("com_address");
                                 String reg_no = jsonObject.optString("reg_no");
+                                String prev_kms_done = jsonObject.optString("prev_kms_done");
 
                                 CommonClass commonClass = new CommonClass();
                                 commonClass.setCom_name(com_name);
@@ -154,6 +155,7 @@ public class ServiceHistoryActivity extends AppCompatActivity {
                                 commonClass.setService_time(service_time);
                                 commonClass.setCom_address(com_address);
                                 commonClass.setRegis_no(reg_no);
+                                commonClass.setKms_diff(prev_kms_done);
 
                                 Global.allleadslist.add(commonClass);
                             }
@@ -235,6 +237,7 @@ public class ServiceHistoryActivity extends AppCompatActivity {
         public void onBindViewHolder(@NonNull ServiceHistoryAdapter.ViewHolder holder, int position) {
             CommonClass service = serviceHistoryList.get(position);
 
+            holder.tvKmsDiff.setText(service.getKms_diff());
             holder.Modelname.setText(service.getVeh_modelname());
             holder.tvServiceType.setText(service.getService_type());
             holder.tvServiceDate.setText(service.getService_date());
@@ -243,15 +246,26 @@ public class ServiceHistoryActivity extends AppCompatActivity {
             holder.tvRegNo1.setText(service.getRegis_no());
 
 
-
-           // String totalAmount = "₹ " + service.getTotal_amt();
-           /* SpannableStringBuilder spannableString = new SpannableStringBuilder(totalAmount);
-            spannableString.setSpan(new ForegroundColorSpan(Color.RED), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            holder.Totalamount.setText(spannableString);*/
-
             double kmsDoneValue = Double.parseDouble(service.getKms_done());
             String kmsDone = (kmsDoneValue % 1 == 0) ? String.valueOf((int) kmsDoneValue) : String.valueOf(kmsDoneValue);
             holder.Kmdone.setText(kmsDone + " Km");
+
+            String kmsDiffStr = service.getKms_diff();
+
+            if (kmsDiffStr != null && !kmsDiffStr.equals("-") && !kmsDiffStr.isEmpty()) {
+                try {
+                    double kmsDoneV = Double.parseDouble(kmsDiffStr);
+                    String kms = (kmsDoneV % 1 == 0)
+                            ? String.valueOf((int) kmsDoneV)
+                            : String.valueOf(kmsDoneV);
+                    holder.tvKmsDiff.setText(kms + " Km");
+                } catch (NumberFormatException e) {
+                    holder.tvKmsDiff.setText("-");
+                }
+            } else {
+                holder.tvKmsDiff.setText("-");
+            }
+
 
             String dateTimeStr = service.getService_time();
 
@@ -283,7 +297,7 @@ public class ServiceHistoryActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            TextView Modelname, tvVehicleModel,tvRegNo,tvRegNo1, Totalamount, Kmdone,tvServiceType,tvServiceTime,tvServiceDate;
+            TextView Modelname,tvKmsDiff, tvVehicleModel,tvRegNo,tvRegNo1, Totalamount, Kmdone,tvServiceType,tvServiceTime,tvServiceDate;
 
             LinearLayout veh_details;
             AppCompatButton BtnView;
@@ -292,6 +306,7 @@ public class ServiceHistoryActivity extends AppCompatActivity {
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
+                tvKmsDiff = itemView.findViewById(R.id.tvKmsDiff);
                 Modelname = itemView.findViewById(R.id.tvVehicleModel);
                 BtnView = itemView.findViewById(R.id.tvView);
                 tvVehicleModel = itemView.findViewById(R.id.tvVehicleModel1);

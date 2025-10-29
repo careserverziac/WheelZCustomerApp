@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/black"
     app:cardElevation="4dp"
     app:strokeWidth="1dp"
     app:strokeColor="#E0E0E0">
@@ -31,7 +32,7 @@
                 android:text="BAJAJ PLATINA 110"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#212121"
+                android:textColor="@color/white"
                 android:maxLines="1"
                 android:ellipsize="end"/>
 
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="ZIAC AUTOMOBILES"
             android:textSize="13sp"
-            android:textColor="#757575"
+            android:textColor="@color/white"
             android:layout_marginTop="4dp"/>
 
         <!-- Divider -->
@@ -79,7 +80,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/baseline_calendar"
-                app:tint="#1976D2"
+                app:tint="@color/white"
                 android:layout_marginEnd="8dp"/>
 
             <TextView
@@ -89,7 +90,8 @@
                 android:layout_weight="1"
                 android:text="11 Oct 2025 | 02:21 PM"
                 android:textSize="14sp"
-                android:textColor="#424242"/>
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 
@@ -104,7 +106,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/person_icon"
-                app:tint="#1976D2"
+                app:tint="@color/white"
                 android:layout_marginEnd="8dp"/>
 
             <TextView
@@ -114,7 +116,8 @@
                 android:layout_weight="1"
                 android:text="Ankitnolen"
                 android:textSize="14sp"
-                android:textColor="#424242"/>
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 
@@ -129,7 +132,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/baseline_call_icon"
-                app:tint="#1976D2"
+                app:tint="@color/white"
                 android:layout_marginEnd="8dp"/>
 
             <TextView
@@ -139,7 +142,8 @@
                 android:layout_weight="1"
                 android:text="9008098102"
                 android:textSize="14sp"
-                android:textColor="#424242"/>
+                android:textColor="@color/white"
+                />
 
         </LinearLayout>
 
