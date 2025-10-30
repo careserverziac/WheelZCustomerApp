@@ -729,6 +729,7 @@ public class PreferenceFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             @SuppressLint({"ViewHolder", "InflateParams"}) View v = getLayoutInflater().inflate(R.layout.popup_listitems, null);
             final TextView tvstatenameitem = v.findViewById(R.id.tvsingleitem);
+            final RadioButton radio_button = v.findViewById(R.id.radio_button);
             vehicletype = mDataArrayList.get(i);
             tvstatenameitem.setText(vehicletype.get_name());
 
@@ -743,7 +744,7 @@ public class PreferenceFragment extends Fragment {
                 Global.editor.apply(); // Use apply() instead of commit() for async saving
                 zDialog.dismiss();
             });
-            /*tvstatenameitem.setOnClickListener(view1 -> {
+            radio_button.setOnClickListener(view1 -> {
                 vehicletype = mDataArrayList.get(i);
                 VtypePref.setText(vehicletype.get_name());
                 Pref_Veh_type.setBackgroundResource(R.drawable.bg_edittext_normal);
@@ -753,7 +754,7 @@ public class PreferenceFragment extends Fragment {
                 Global.editor.commit();
                 zDialog.dismiss();
 
-            });*/
+            });
             return v;
         }
     }

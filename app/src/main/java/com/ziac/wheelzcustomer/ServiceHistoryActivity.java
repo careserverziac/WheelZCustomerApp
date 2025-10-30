@@ -58,11 +58,9 @@ import ModelClasses.ModelsClass;
 public class ServiceHistoryActivity extends AppCompatActivity {
     ServiceHistoryAdapter adapter;
     String vehhis_code;
-    ImageView Backbtn;
     Context context;
     RecyclerView servicerv;
     ProgressBar progressBar;
-    TextView emptyText;
 
     Toolbar toolbar;
     List<CommonClass> serviceList = new ArrayList<>();
@@ -81,7 +79,6 @@ public class ServiceHistoryActivity extends AppCompatActivity {
 
         Servicehistory();
         progressBar = findViewById(R.id.progressBardealers);
-       // emptyText = findViewById(R.id.emptyText);
         toolbar = findViewById(R.id.toolbar);
 
         servicerv.setLayoutManager(new LinearLayoutManager(this));

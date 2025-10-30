@@ -23,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -58,6 +59,9 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
     ModelsClass singleModel;
     Toolbar toolbar;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,7 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
         searchEditText.setTextColor(ContextCompat.getColor(this, R.color.black));
 
         nestedScrollView = findViewById(R.id.scrollView);
+        swipeRefreshLayout = findViewById(R.id.refreshprofile);
 
         searchView.setQueryHint("Search for Model, Variant & Category");
 
@@ -81,7 +86,12 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
         recyclermodels.setHasFixedSize(true);
         recyclermodels.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         getallmodels();
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getallmodels();
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -100,44 +110,59 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class); // replace with your activity class
-                startActivity(intent);
+                onBackPressed(); // or finish() if you want to close the activity completely
             }
         });
+
+
 
     }
 
     private void getallmodels() {
+        // If using SwipeRefreshLayout, set refreshing to true at start
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
+
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Global.Getmodels;
-        // progressDialog.show();
+
         JsonArrayRequest jsonArrayrequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(JSONArray response) {
+                // Dismiss refresh indicator when response is received
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
 
                 Global.modelsList = new ArrayList<ModelsClass>();
                 singleModel = new ModelsClass();
                 for (int i = 0; i < response.length(); i++) {
                     final JSONObject e;
                     try {
-                        // converting to json object
                         e = response.getJSONObject(i);
                     } catch (JSONException ex) {
+                        // Dismiss refresh on error too
+                        if (swipeRefreshLayout != null) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
                         throw new RuntimeException(ex);
                     }
                     singleModel = new ModelsClass();
                     try {
-                        // getting the values from the object
                         singleModel.setVmodelcode(e.getString("vmodel_code"));
                         singleModel.setVmodelname(e.getString("shortname").toUpperCase());
                         singleModel.setVmodelimage(e.getString("veh_image1"));
-
                     } catch (JSONException ex) {
+                        if (swipeRefreshLayout != null) {
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
                         throw new RuntimeException(ex);
                     }
                     Global.modelsList.add(singleModel);
                 }
+
                 Collections.sort(Global.modelsList, new Comparator<ModelsClass>() {
                     @Override
                     public int compare(ModelsClass model1, ModelsClass model2) {
@@ -148,17 +173,17 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
                 modelAdapter = new ModelAdapter(Global.modelsList, context);
                 recyclermodels.setAdapter(modelAdapter);
                 modelAdapter.notifyDataSetChanged();
-                // progressDialog.show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                // Dismiss refresh on error
+                if (swipeRefreshLayout != null) {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+                // You might want to show an error message here
             }
-
-
         }) {
-
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<String, String>();
@@ -166,19 +191,16 @@ public class GetAllVehViewAllActivity extends AppCompatActivity {
                 headers.put("Authorization", "Bearer " + accesstoken);
                 return headers;
             }
-
         };
 
         jsonArrayrequest.setRetryPolicy(new DefaultRetryPolicy(
-                0, // timeout in milliseconds
+                15000, // Increased timeout to 15 seconds
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
         queue.add(jsonArrayrequest);
-
     }
-
     public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.VallCarsViewHOlder> {
 
 

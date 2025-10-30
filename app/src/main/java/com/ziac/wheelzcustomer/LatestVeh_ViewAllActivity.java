@@ -23,12 +23,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -75,7 +77,8 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
     SearchView searchView;
     LatestDrivenAdapter2 latestDrivenAdapter2;
     ProgressBar progressBardealers;
-    SwipeRefreshLayout refreshprofile;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,15 +93,22 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
         searchEditText.setHintTextColor(ContextCompat.getColor(this, R.color.black));
         searchEditText.setTextColor(ContextCompat.getColor(this, R.color.black));
 
+        toolbar = findViewById(R.id.toolbar);
 
 
         progressBardealers = findViewById(R.id.progress);
-        refreshprofile = findViewById(R.id.refreshprofile);
+        progressBardealers = findViewById(R.id.progress);
+        swipeRefreshLayout = findViewById(R.id.refreshprofile);
         LatestDrvRV = findViewById(R.id.latestDrvRV);
         LatestDrvRV.setHasFixedSize(true);
         LatestDrvRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        getlatestdrivenvevicles();
-
+        getlatestdrivenvehicles();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getlatestdrivenvehicles();
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -113,9 +123,26 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
                 return true;  // Return true to indicate we've handled the event
             }
         });
+
+
+       /* toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Replace current fragment with DashboardFragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.framelayout, new PreOwnedVehicleFragment()) // replace with your container id
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });*/
     }
 
-    private void getlatestdrivenvevicles() {
+    private void getlatestdrivenvehicles() {
+        // Show refresh indicator when starting the request
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
 
         RequestQueue queue = Volley.newRequestQueue(context);
         String citycode = Global.sharedPreferences.getString("citycode", "0");
@@ -124,6 +151,11 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
         String url = Global.GetRecentVehicles + "city_code=" + citycode + "&vcate_code=" + vehtypecode;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, response -> {
+            // Always dismiss refresh indicator when response is received
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
             try {
                 boolean isSuccess = response.getBoolean("isSuccess");
 
@@ -174,26 +206,36 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
                     Collections.sort(Global.latestVehicleslist, (v1, v2) ->
                             v1.getLatestvname().compareToIgnoreCase(v2.getLatestvname()));
 
-                    latestDrivenAdapter2 = new LatestDrivenAdapter2(Global.latestVehicleslist, this);
-                    latestDrivenAdapter2.updateList(Global.latestVehicleslist);
-                    refreshprofile.setRefreshing(false);
+                    // Initialize adapter if null, otherwise update
+                    if (latestDrivenAdapter2 == null) {
+                        latestDrivenAdapter2 = new LatestDrivenAdapter2(Global.latestVehicleslist, this);
+                        LatestDrvRV.setAdapter(latestDrivenAdapter2);
+                    } else {
+                        latestDrivenAdapter2.updateList(Global.latestVehicleslist);
+                    }
 
-                    LatestDrvRV.setAdapter(latestDrivenAdapter2);
+                    // Show success message if needed
+                    if (Global.latestVehicleslist.isEmpty()) {
+                        Global.customtoast(this, getLayoutInflater(), "No vehicles found.");
+                    }
 
                 } else {
-                    refreshprofile.setRefreshing(false);
                     String errorMsg = response.optString("message", "Failed to load vehicles.");
                     Global.customtoast(this, getLayoutInflater(), errorMsg);
                 }
 
             } catch (JSONException e) {
-                refreshprofile.setRefreshing(false);
-
                 e.printStackTrace();
                 Global.customtoast(this, getLayoutInflater(), "Data parsing error.");
             }
 
         }, error -> {
+            // Always dismiss refresh indicator on error
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            // Handle different types of errors
             if (error instanceof TimeoutError) {
                 Global.customtoast(this, getLayoutInflater(), "Request Time-Out");
             } else if (error instanceof NoConnectionError) {
@@ -207,6 +249,8 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
             } else {
                 Global.customtoast(this, getLayoutInflater(), "Unknown error occurred");
             }
+
+            // Log the error for debugging
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -217,15 +261,15 @@ public class LatestVeh_ViewAllActivity extends AppCompatActivity {
             }
         };
 
+        // Set better retry policy
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
+                15000, // 15 seconds timeout
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
         queue.add(jsonObjectRequest);
     }
-
     public class LatestDrivenAdapter2 extends RecyclerView.Adapter<LatestDrivenAdapter2.RecentcarsViewHolder> {
         private List<LatestVehiclesClass> originalList;  // Original unfiltered list
         private List<LatestVehiclesClass> filteredList;  // List that's actually displayed

@@ -2,9 +2,13 @@ package Fragments;
 
 import static android.app.Activity.RESULT_OK;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -17,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.util.Base64;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +50,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.ziac.wheelzcustomer.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -373,23 +382,110 @@ public class ContainerFragment extends Fragment {
 
                 }
             });
-
-            holder.Filename.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String imgdoc_path = documentList.get(position).getImgdoc_path();
-                    openDocument(imgdoc_path, position);
-
-                }
-            });
-
-
         }
 
-        private void openDocument(String imgdoc_path, int position) {
+    /*    private void openDocument(String imgdoc_path, int position) {
             fileUrl = filepath+imgdoc_path;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
             startActivity(intent);
+        }*/
+    private void openDocument(String imgdoc_path, int position) {
+        fileUrl = filepath + imgdoc_path;
+
+        // Check if the file is an image
+        if (isImageFile(imgdoc_path)) {
+            // Show image in dialog
+            showImage(fileUrl);
+        } else {
+            // For non-image files, open with default app
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileUrl));
+            startActivity(intent);
+        }
+    }
+
+        private boolean isImageFile(String filePath) {
+            String extension = getFileExtension(filePath).toLowerCase();
+            return extension.equals("jpg") ||
+                    extension.equals("jpeg") ||
+                    extension.equals("png") ||
+                    extension.equals("gif") ||
+                    extension.equals("bmp") ||
+                    extension.equals("webp");
+        }
+
+        private String getFileExtension(String filePath) {
+            if (filePath == null || !filePath.contains(".")) {
+                return "";
+            }
+            return filePath.substring(filePath.lastIndexOf(".") + 1);
+        }
+
+        public void showImage(String imageUrl) {
+            Dialog builder = new Dialog(requireActivity());
+            builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            builder.getWindow().setBackgroundDrawable(
+                    new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            builder.setOnDismissListener(dialogInterface -> {
+                // Nothing
+            });
+
+            // Calculate display dimensions
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int screenWidth = displayMetrics.widthPixels;
+            int screenHeight = displayMetrics.heightPixels;
+
+            // Load the image using Picasso
+            Picasso.get().load(imageUrl).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    ImageView imageView = new ImageView(requireActivity());
+
+                    // Calculate dimensions to fit the image within the screen
+                    int imageWidth = bitmap.getWidth();
+                    int imageHeight = bitmap.getHeight();
+                    float aspectRatio = (float) imageWidth / imageHeight;
+
+                    int newWidth = screenWidth;
+                    int newHeight = (int) (screenWidth / aspectRatio);
+                    if (newHeight > screenHeight) {
+                        newHeight = screenHeight;
+                        newWidth = (int) (screenHeight * aspectRatio);
+                    }
+
+                    // Add padding values
+                    int paddingInDp = 16;
+                    int paddingInPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paddingInDp, getResources().getDisplayMetrics());
+
+                    // Adjust the newWidth and newHeight with padding
+                    newWidth -= 2 * paddingInPx;
+                    newHeight -= 2 * paddingInPx;
+
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(newWidth, newHeight);
+                    layoutParams.setMargins(paddingInPx, paddingInPx, paddingInPx, paddingInPx);
+                    imageView.setLayoutParams(layoutParams);
+
+                    imageView.setImageBitmap(bitmap);
+
+                    // Add click listener to close dialog when image is clicked
+                    imageView.setOnClickListener(v -> builder.dismiss());
+
+                    builder.addContentView(imageView, layoutParams);
+                    builder.show();
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                    // Handle bitmap loading failure - fallback to default behavior
+                    Toast.makeText(requireActivity(), "Failed to load image", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(imageUrl));
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    // Prepare bitmap loading
+                }
+            });
         }
 
         @Override
@@ -402,7 +498,7 @@ public class ContainerFragment extends Fragment {
 
             TextView Filename;
             ImageView DeleteFiles;
-            RelativeLayout fileview1, fileview2;
+            LinearLayout fileview1;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -412,8 +508,6 @@ public class ContainerFragment extends Fragment {
             }
         }
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

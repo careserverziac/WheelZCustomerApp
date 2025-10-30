@@ -24,13 +24,19 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.card.MaterialCardView;
@@ -46,6 +52,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Fragments.PreOwnedVehicleFragment;
 import ModelClasses.Global;
 import ModelClasses.LessDrivenClass;
 import ModelClasses.VehicleClass;
@@ -72,6 +79,8 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
         searchView = findViewById(R.id.searchless);
         progressBardealers = findViewById(R.id.progress);
         refreshprofile = findViewById(R.id.refreshprofile);
+        toolbar = findViewById(R.id.toolbar);
+
         EditText searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
         searchEditText.setHintTextColor(ContextCompat.getColor(this, R.color.black));
         searchEditText.setTextColor(ContextCompat.getColor(this, R.color.black));
@@ -83,7 +92,13 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
         LessDrvRV.setHasFixedSize(true);
         LessDrvRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         getlessdrivenvevicles();
-
+        refreshprofile.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh all data
+                getlessdrivenvevicles();
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -101,9 +116,14 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
 
 
 
+
     }
 
     private void getlessdrivenvevicles() {
+        // Show refresh indicator when starting the request
+        if (refreshprofile != null) {
+            refreshprofile.setRefreshing(true);
+        }
 
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = Global.GetLessDrivenVehicles;
@@ -114,70 +134,125 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
         url = url + "city_code=" + citycode + "&vcate_code=" + vehtypecode;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, null, response -> {
-
-            lessdrivenlist = new ArrayList<>();
+            // Always dismiss refresh indicator when response is received
+            if (refreshprofile != null) {
+                refreshprofile.setRefreshing(false);
+            }
 
             try {
-                JSONArray dataArray = response.getJSONArray("data");
+                boolean isSuccess = response.optBoolean("isSuccess", true); // Default to true if not present
+                JSONArray dataArray = response.optJSONArray("data");
 
-                for (int i = 0; i < dataArray.length(); i++) {
-                    JSONObject e = dataArray.getJSONObject(i);
+                if (dataArray != null && dataArray.length() > 0) {
+                    lessdrivenlist = new ArrayList<>();
 
-                    LessDrivenClass vehicle = new LessDrivenClass();
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        JSONObject e = dataArray.getJSONObject(i);
 
-                    vehicle.setVehmas_code(e.optString("vehmas_code", ""));
-                    vehicle.setLd_mfgname(e.optString("mfg_name"));
-                    vehicle.setLd_vimg(e.optString("veh_image1"));  // changed from Image_name
-                    vehicle.setLd_vname(e.optString("model_name").toUpperCase());
-                    vehicle.setMan_year(String.valueOf(e.optInt("year_of_mfg")));
-                    vehicle.setLd_vcategory(e.optString("vcate_name").toUpperCase());
-                    vehicle.setVart_name(e.optString("vart_name").toUpperCase());
-                    vehicle.setLd_vcolor(e.optString("vcol_name").toUpperCase());
-                    vehicle.setTrans_name(e.optString("transmission_type_name").toUpperCase());
-                    vehicle.setOwn_type(e.optString("ownership_type_name").toUpperCase());
-                    vehicle.setLd_vcc(String.valueOf(e.optDouble("veh_cc")));
-                    vehicle.setKm_drvn(String.valueOf(e.optDouble("kms_driven")));
-                    vehicle.setFuel_name(e.optString("fuel_name").toUpperCase());
-                    vehicle.setSell_price(String.valueOf(e.optDouble("veh_sale_price")));
-                    vehicle.setLd_vmodelcode(String.valueOf(e.optDouble("vehmas_code")));
-                    vehicle.setLd_dname(e.optString("com_name"));
-                    vehicle.setLd_dmob(e.optString("com_phno"));
-                    vehicle.setLd_altermob(String.valueOf(e.optDouble("user_mobile1")));
-                    vehicle.setLd_dmail(e.optString("com_email"));
-                    vehicle.setLd_dcity(e.optString("city_name"));
-                    vehicle.setCreatedby(e.optString("createdby"));
-                    vehicle.setNum_plate(e.optString("no_plate_type", ""));
-                    vehicle.setFuel_code(e.optString("fuel_code", ""));
-                    vehicle.setVmodel_code(e.optString("vmodel_code", ""));
-                    vehicle.setReg_no(e.optString("reg_no", ""));
-                    vehicle.setInsc_type(e.optString("insurance_type_name", ""));
-                    vehicle.setLis_type(e.optString("listing_type", ""));
-                    vehicle.setCity_code(e.optString("city_code", ""));
-                    vehicle.setState_code(e.optString("state_code", ""));
+                        LessDrivenClass vehicle = new LessDrivenClass();
 
-                    lessdrivenlist.add(vehicle);
+                        vehicle.setVehmas_code(e.optString("vehmas_code", ""));
+                        vehicle.setLd_mfgname(e.optString("mfg_name", ""));
+                        vehicle.setLd_vimg(e.optString("veh_image1", ""));  // changed from Image_name
+                        vehicle.setLd_vname(e.optString("model_name", "").toUpperCase());
+                        vehicle.setMan_year(String.valueOf(e.optInt("year_of_mfg", 0)));
+                        vehicle.setLd_vcategory(e.optString("vcate_name", "").toUpperCase());
+                        vehicle.setVart_name(e.optString("vart_name", "").toUpperCase());
+                        vehicle.setLd_vcolor(e.optString("vcol_name", "").toUpperCase());
+                        vehicle.setTrans_name(e.optString("transmission_type_name", "").toUpperCase());
+                        vehicle.setOwn_type(e.optString("ownership_type_name", "").toUpperCase());
+                        vehicle.setLd_vcc(String.valueOf(e.optDouble("veh_cc", 0.0)));
+                        vehicle.setKm_drvn(String.valueOf(e.optDouble("kms_driven", 0.0)));
+                        vehicle.setFuel_name(e.optString("fuel_name", "").toUpperCase());
+                        vehicle.setSell_price(String.valueOf(e.optDouble("veh_sale_price", 0.0)));
+                        vehicle.setLd_vmodelcode(String.valueOf(e.optDouble("vehmas_code", 0.0)));
+                        vehicle.setLd_dname(e.optString("com_name", ""));
+                        vehicle.setLd_dmob(e.optString("com_phno", ""));
+                        vehicle.setLd_altermob(String.valueOf(e.optDouble("user_mobile1", 0.0)));
+                        vehicle.setLd_dmail(e.optString("com_email", ""));
+                        vehicle.setLd_dcity(e.optString("city_name", ""));
+                        vehicle.setCreatedby(e.optString("createdby", ""));
+                        vehicle.setNum_plate(e.optString("no_plate_type", ""));
+                        vehicle.setFuel_code(e.optString("fuel_code", ""));
+                        vehicle.setVmodel_code(e.optString("vmodel_code", ""));
+                        vehicle.setReg_no(e.optString("reg_no", ""));
+                        vehicle.setInsc_type(e.optString("insurance_type_name", ""));
+                        vehicle.setLis_type(e.optString("listing_type", ""));
+                        vehicle.setCity_code(e.optString("city_code", ""));
+                        vehicle.setState_code(e.optString("state_code", ""));
+
+                        lessdrivenlist.add(vehicle);
+                    }
+
+                    // Sort by model name
+                    Collections.sort(lessdrivenlist, new Comparator<LessDrivenClass>() {
+                        @Override
+                        public int compare(LessDrivenClass v1, LessDrivenClass v2) {
+                            return v1.getLd_vname().compareToIgnoreCase(v2.getLd_vname());
+                        }
+                    });
+
+                    // Update Global list
+                    Global.lessdrivenlist = lessdrivenlist;
+
+                    // Initialize adapter if null, otherwise update
+                    if (lessDrivenAdapter2 == null) {
+                        lessDrivenAdapter2 = new LessDrivenAdapter2(lessdrivenlist, this);
+                        LessDrvRV.setAdapter(lessDrivenAdapter2);
+                    } else {
+                        lessDrivenAdapter2.updateList(lessdrivenlist);
+                    }
+
+                    // Show success message if list is empty
+                    if (lessdrivenlist.isEmpty()) {
+                        Global.customtoast(this, getLayoutInflater(), "No less driven vehicles found.");
+                    }
+
+                } else {
+                    // Handle empty data array
+                    lessdrivenlist = new ArrayList<>();
+                    if (lessDrivenAdapter2 != null) {
+                        lessDrivenAdapter2.updateList(lessdrivenlist);
+                    }
+                    Global.customtoast(this, getLayoutInflater(), "No vehicles available.");
                 }
-
-                // Sort by model name
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    Collections.sort(lessdrivenlist, Comparator.comparing(LessDrivenClass::getLd_vname));
-                }
-
-                // Set adapter and scroll
-                lessDrivenAdapter2 = new LessDrivenAdapter2(lessdrivenlist, this);
-                lessDrivenAdapter2.updateList(Global.lessdrivenlist);
-                LessDrvRV.setAdapter(lessDrivenAdapter2);
-                refreshprofile.setRefreshing(false);
 
             } catch (JSONException e) {
-                refreshprofile.setRefreshing(false);
-
                 e.printStackTrace();
-                // Optional: handle JSON parsing error
+                Global.customtoast(this, getLayoutInflater(), "Data parsing error.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                Global.customtoast(this, getLayoutInflater(), "Unexpected error occurred.");
             }
 
         }, error -> {
-            // Handle errors here if needed
+            // Always dismiss refresh indicator on error
+            if (refreshprofile != null) {
+                refreshprofile.setRefreshing(false);
+            }
+
+            // Handle different types of errors
+            if (error instanceof TimeoutError) {
+                Global.customtoast(this, getLayoutInflater(), "Request Time-Out");
+            } else if (error instanceof NoConnectionError) {
+                Global.customtoast(this, getLayoutInflater(), "No Internet Connection");
+            } else if (error instanceof ServerError) {
+                Global.customtoast(this, getLayoutInflater(), "Server Error");
+            } else if (error instanceof NetworkError) {
+                Global.customtoast(this, getLayoutInflater(), "Network Error");
+            } else if (error instanceof ParseError) {
+                Global.customtoast(this, getLayoutInflater(), "Response Parsing Failed");
+            } else {
+                Global.customtoast(this, getLayoutInflater(), "Failed to load vehicles");
+            }
+
+            // Log the error for debugging
+
+            // Clear the list and update adapter on error
+            lessdrivenlist = new ArrayList<>();
+            if (lessDrivenAdapter2 != null) {
+                lessDrivenAdapter2.updateList(lessdrivenlist);
+            }
         }) {
             @Override
             public Map<String, String> getHeaders() {
@@ -196,14 +271,16 @@ public class Less_driven_Viewall_Activity extends AppCompatActivity {
             }
         };
 
+        // Set better retry policy
         jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(
-                0,
+                15000, // 15 seconds timeout
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         ));
 
         queue.add(jsonObjectRequest);
     }
+
 
 
     public static class LessDrivenAdapter2 extends RecyclerView.Adapter<LessDrivenAdapter2.LessDrivenViewholder> {

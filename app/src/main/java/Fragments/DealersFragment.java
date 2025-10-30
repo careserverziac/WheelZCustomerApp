@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -169,9 +168,35 @@ public class DealersFragment extends Fragment {
         DealerlistRV.setLayoutManager(linearLayoutManager);
         DealerlistRV.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        Statedp.setOnClickListener(v -> statespopup());
+      /*  Statedp.setOnClickListener(v -> statespopup());
 
-        Citydp.setOnClickListener(v -> citiespopup());
+        Citydp.setOnClickListener(v -> citiespopup());*/
+
+        Statedp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statespopup(new StateAdapter.StateSelectListener() {
+                    @Override
+                    public void onStateSelected(String selectedState) {
+                        Statetxt.setText(selectedState);
+                        checkAndLoadDealers();
+                    }
+                });
+            }
+        });
+
+        Citydp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                citiespopup(new CityAdapter.CitySelectListener() {
+                    @Override
+                    public void onCitySelected(String selectedCity) {
+                        Citytxt.setText(selectedCity);
+                        checkAndLoadDealers();
+                    }
+                });
+            }
+        });
         return view;
     }
 
@@ -281,6 +306,15 @@ public class DealersFragment extends Fragment {
     }
 
 
+    private void checkAndLoadDealers() {
+        String state = Statetxt.getText().toString().trim();
+        String city = Citytxt.getText().toString().trim();
+
+        if (!state.isEmpty() && !city.isEmpty()) {
+            getDealerslist();
+        }
+    }
+
     private void getstates() {
 
         RequestQueue queue = Volley.newRequestQueue(requireActivity());
@@ -352,7 +386,7 @@ public class DealersFragment extends Fragment {
 
     }
 
-    public void statespopup() {
+    public void statespopup(StateAdapter.StateSelectListener stateSelectListener) {
 
         zDialog = new Dialog(requireActivity(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         zDialog.setContentView(R.layout.popup_list);
@@ -388,6 +422,11 @@ public class DealersFragment extends Fragment {
 
     private class StateAdapter extends BaseAdapter implements Filterable {
         private ArrayList<zList> mDataArrayList;
+
+
+        public interface StateSelectListener {
+            void onStateSelected(String selectedState);
+        }
 
         public StateAdapter(ArrayList<zList> arrayList) {
             this.mDataArrayList = arrayList;
@@ -561,7 +600,7 @@ public class DealersFragment extends Fragment {
 
     }
 
-    public void citiespopup() {
+    public void citiespopup(CityAdapter.CitySelectListener citySelectListener) {
 
         zDialog = new Dialog(requireActivity(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
         //zDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -599,7 +638,9 @@ public class DealersFragment extends Fragment {
 
     private class CityAdapter extends BaseAdapter implements Filterable {
         private ArrayList<zList> mDataArrayList;
-
+        public interface CitySelectListener {
+            void onCitySelected(String selectedCity);
+        }
         public CityAdapter(ArrayList<zList> arrayList) {
             this.mDataArrayList = arrayList;
         }
@@ -665,7 +706,7 @@ public class DealersFragment extends Fragment {
                     // Citytxt.setText(cityname.get_name());
                     citycode = cityname.get_code();
                     Citytxt.setText(cityname.get_name());
-                    getDealerslist();
+                   // getDealerslist();
                     zDialog.dismiss();
 
 

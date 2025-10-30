@@ -83,7 +83,6 @@ import ModelClasses.VehicleClass;
 
 public class PreOwnedVehicleFragment extends Fragment {
 
-    private boolean allowBack = true;
     SearchView searchView;
     RecyclerView recyclermodels, Latestvehicles, Lessvehicles;
     TextView latestcarsviewallTV, lessdrivenviewallTV, Veh_typeTV, StateTV, CityTV, Viewallicon;
@@ -92,7 +91,6 @@ public class PreOwnedVehicleFragment extends Fragment {
     ModelsClass singleModel;
     LatestVehiclesClass latestVehiclesClass;
     LessDrivenClass lessDrivenClass;
-    CardView cardView;
     ModelAdapter modelAdapter;
     LatestVehiclesAdapter latestvehadapter;
     LessDrivenAdapter lessDrivenAdapter;
@@ -121,6 +119,7 @@ public class PreOwnedVehicleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pre_owned_vehicle, viewGroup, false);
 
+        Global.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity());
 
         searchView = view.findViewById(R.id.search);
         toolbar = view.findViewById(R.id.toolbar);
@@ -791,7 +790,8 @@ public class PreOwnedVehicleFragment extends Fragment {
 //        Picasso picasso=builder.build();
 //        picasso.load(Uri.parse(Global.websitedataurl + viewallmodelsList.get(position).getVmodelimage().substring(2))).into(holder.modelimageiv);
 
-            Global.loadWithPicasso(context, holder.modelimageiv, Global.websitedataurl + viewallmodelsList.get(position).getVmodelimage().substring(2));
+            Global.loadWithPicasso(context, holder.modelimageiv, Global.websitedataurl +
+                    viewallmodelsList.get(position).getVmodelimage().substring(2));
 
 
             holder.modelnametv.setText(viewallmodelsList.get(position).getVmodelname());

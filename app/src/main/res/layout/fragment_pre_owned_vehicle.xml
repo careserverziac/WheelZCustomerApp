@@ -22,7 +22,7 @@
             app:layout_collapseMode="pin"
             app:navigationIcon="@drawable/ic_back"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Pre-Owned Veh"
+            app:title="Pre Owned Vehicles"
             app:titleTextColor="@color/red" />
 
 

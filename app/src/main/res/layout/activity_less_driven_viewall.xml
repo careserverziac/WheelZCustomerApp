@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Less Driven Veh"
+            app:title="Less Driven Vehicles"
             app:titleTextColor="@color/red" />
 
 
@@ -37,6 +37,7 @@
         >
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"

@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="Latest Driven Veh"
+            app:title="Latest Driven Vehicles"
             app:titleTextColor="@color/red" />
 
 

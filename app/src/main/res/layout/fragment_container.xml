@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@drawable/gradient_button_bg"
-        android:text="Upload Document"
+        android:text="Upload"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:backgroundTint="#D50000"
